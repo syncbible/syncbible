@@ -83,6 +83,7 @@ bible.Data.bookNamesByLanguage = {
 	'ckb':['پەیدابوون','دەرچوون','لێڤییەکان','سه‌رژمێری','دواوتار','یەشوع','ڕابەران','ڕائووس','یەکەم ساموئێل','دووەم ساموێل','یەکەم پاشایان','دووەم پاشایان','یەکەم پوختەی مێژوو','دووەم پوختەی مێژوو','عەزرا','نەحەمیا','ئەستەر','ئەیوب','زەبوورەکان','پەندەکانی سلێمان','ژیرمه‌ندی','گۆرانی گۆرانییه‌كان','ئیشایا','یه‌رمیا','شینه‌كانی یه‌رمیا','حزقیێل','دانیال','هۆشه‌ع','یۆئێل','ئامۆس','عۆبه‌دیا','یونس','میخا','ناحوم','حه‌به‌قوق','سه‌فه‌نیا','حه‌گه‌ی','زه‌كه‌ریا','مه‌لاخی','مەتا','مەرقۆس','لۆقا','یۆحەنا','کردار','ڕۆما','١ کۆرنسۆس','٢ کۆرنسۆس','گەلاتیا','ئەفەسۆس','فیلیپی','کۆلۆسی','١ سالۆنیكی','٢ سالۆنیكی','١ تیمۆساوس','٢ تیمۆساوس','تیتۆس','فلیمۆن','عیبرانییەکان','یاقوب','١ پەترۆس','٢ پەترۆس','١ یۆحەنا','٢ یۆحەنا','٣ یۆحەنا','یەهوزا','ئاشکراکردن'],
 	'sw': ['Mwanzo • Kitabu cha Kwanza cha Musa','Kutoka','Mambo ya Walawi','Hesabu','Kumbukumbu la Torati (la Sheria)','Yoshua','Waamuzi','Ruthu','1 Samweli','2 Samweli','1 Wafalme','2 Wafalme','1 Mambo ya Nyakati','2 Mambo ya Nyakati','Ezra','Nehemia','Esta','Kitabu cha Ayubu • Yobu','Zaburi','Mithali • Methali','Mhubiri','Wimbo Ulio Bora • Hekima ya Solomoni','Isaya','Yeremia','Maombolezo ya Yeremia','Ezekieli','Danieli','Hosea','Yoeli','Amosi','Obadia','Yona','Mika','Nahumu','Habakuki','Sefania','Hagai','Zekaria','Malaki','Mathayo • Injili ya Matthayo','Marko','Luka','Yohana','Matendo ya Mitume','Warumi • Waraka kwa Waroma','1 Wakorintho','2 Wakorintho','Wagalatia','Waefeso','Wafilipi','Wakolosai','1 Wathesalonike','2 Wathesalonike','1 Timotheo','2 Timotheo','Waraka kwa Tito','Filemoni','Waebrania','Yakobo','1 Petro','2 Petro','1 Yohana','2 Yohana','3 Yohana','Yuda','Ufunuo wa Yohane'],
 	'hi': ['उत्पत्ति','निर्गमन','लैव्यवस्था','गिनती','व्यवस्थाविवरण','यहोशू','न्यायियों','रूत','1 शमूएल','2 शमूएल','1 राजा','2 राजा','1 इतिहास','2 इतिहास','एज्रा','नहेमायाह','एस्तेर','अय्यूब','भजन संहिता','नीतिवचन','सभोपदेशक','श्रेष्ठगीत','यशायाह','यिर्मयाह','विलापगीत','यहेजकेल','दानिय्येल','होशे','योएल','आमोस','ओबद्दाह','योना','मीका','नहूम','हबक्कूक','सपन्याह','हाग्गै','जकर्याह','मलाकी','मत्ती','मरकुस','लूका','यूहन्ना','प्रेरितों के काम','रोमियो','1 कुरिन्थियों','2 कुरिन्थियों','गलातियों','इफिसियों','फिलिप्पियों','कुलुस्सियों','1 थिस्सलुनीकियों','2 थिस्सलुनीकियों','1 तीमुथियुस','2 तीमुथियुस','तीतुस','फिलेमोन','इब्रानियों','याकूब','1 पतरस','2 पतरस','1 यूहन्ना','2 यूहन्ना','3 यूहन्ना','यहूदा','प्रकाशित वाक्य'],
+	'luo': ['Chakruok','Wuok','Tim jo-Lawi','Kwan','Rapar mar Chik','Joshua','Jong’ad Bura','Ruth','1 Samuel','2 Samuel','1 Ruodhi','2 Ruodhi','1 Weche mag Ndalo','2 Weche mag Ndalo','Ezra','Nehemia','Tobit','Judith','Esta, kod weche moko momedie','1 Jo-Makabayo','2 Jo-Makabayo','Ayub','Zaburi','Ngeche','Eklesiastes','Wer Mamit Moloyo Wende Moko Duto','Rieko','Eklesiastikus','Isaya','Jeremia','Ywagruok','Baruk','Ezekiel','Daniel','Hosea','Joel','Amos','Obadia','Jona','Mika','Nahum','Habakuk','Zefania','Hagai','Zekaria','Malaki','Mathayo','Mariko','Luka','Johana','Tich Joote','Jo-Rumi','1 Jo-Korintho','2 Jo-Korintho','Jo-Galatia','Jo-Efeso','Jo-Filipi','Jo-Kolosai','1 Jo-Thesalonika','2 Jo-Thesalonika','1 Timotheo','2 Timotheo','Tito','Filemon','Jo-Hibrania','Jakobo','1 Petro','2 Petro','1 Johana','2 Johana','3 Johana','Juda','Fweny'],
 };
 bible.Data.rtlLanguages = [ 'he', 'fa', 'ar', 'ckb' ];
 bible.Data.supportedVersions = {
@@ -112,6 +113,7 @@ bible.Data.supportedVersions = {
 	'ckbOKS': { name: "وەشانی بێبەرامبەری کوردیی سۆرانیی ستاندەر", language: 'ckb' },
 	'swONEN': { name: "Toleo Wazi Neno: Bibilia Takatifu™", language: 'sw' },
 	'hinIRV': { name: "हिंदी भारतीय संशोधित संस्करण बाइबिल भारत", language: 'hi' },
+	'luoONL': { name: "Ochiw Thuolo Motingʼo Loko Manyien", language: 'luo' },
 };
 bible.Data.interfaceLanguages = {
 	'original': 'Hebrew/Greek',
@@ -124,6 +126,7 @@ bible.Data.interfaceLanguages = {
 	'ckb': 'Kurdi Sorani',
 	'sw': 'Swahili',
 	'hi': 'Hindi',
+	'luo': 'Luo',
 };
 
 bible.Data.verses = [
