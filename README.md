@@ -1,14 +1,14 @@
-# Javascripture
+# sync.bible
 A tool for studying scripture, written in Javascript (React and Redux)
 
 ## Principles
 
-Javascripture is agnostic; it's purpose is to make it easier to access bible data. Doctrine is not a consideration in the interface or the data. If there are mistakes in a translation, these are preserved. This is important because:
+sync.bible is agnostic; it's purpose is to make it easier to access bible data. Doctrine is not a consideration in the interface or the data. If there are mistakes in a translation, these are preserved. This is important because:
 
 - it means the tool can be useful to all bible students, not just those of a particular denomination
 - it helps to remove our own bias from our bible study
 
-However Javascripture is heavily geared towards a "bible only" approach to study. This means that, as much as is practical, extra-biblical data is removed to reveal the inspired word as close to how it was revealed. This means that:
+However sync.bible is heavily geared towards a "bible only" approach to study. This means that, as much as is practical, extra-biblical data is removed to reveal the inspired word as close to how it was revealed. This means that:
 
 - accents and pointing are removed from the original text (as these are later additions)
 - human "definitions" (like Strong's) are removed, as these are merely interpretations

@@ -1,11 +1,6 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<script type="text/javascript">
-			var host = "javascripture.org";
-			if ((host == window.location.host) && (window.location.protocol != "https:"))
-				window.location.protocol = "https";
-		</script>
 		<!-- Favicon code -->
 		<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
 		<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -28,10 +23,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="google" content="notranslate" />
-		<link rel="canonical" href="https://javascripture.org" />
+		<link rel="canonical" href="https://sync.bible" />
 		<link rel="manifest" href="/manifest.json">
-		<title>Javascripture</title>
+		<title>sync.bible</title>
 		<link rel="stylesheet" href="css/layout.css" />
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-KEWMC9BVQE"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-KEWMC9BVQE');
+		</script>
 	</head>
 	<body>
 		<div class="errors">
@@ -42,7 +45,7 @@
 			<br />
 			<p>There are also old versions available in case this one is broken:<br />
 				<br />
-				<a href="https://javascripture.net">javascripture.net</a> | <a href="https://javascripture.xyz">javascripture.xyz</a><br />
+				<a href="https://javascripture.org">javascripture.org</a><br />
 			</p>
 		</div>
 		<div id="content">
@@ -51,8 +54,8 @@
 					<div class="logo">
 						<img src="/javascripture.svg" width="179" height="186">
 						<div class="intro">
-							<h1>Javascripture</h1>
-							<p>JavaScripture is a tool to help you understand the bible better.</p>
+							<h1>sync.bible</h1>
+							<p>sync.bible is a tool to help you understand the bible better.</p>
 							<script>
 								if ( localStorage ) {
 									document.write( '<p class="installation-info"><br />Once the scripts have loaded, they will be cached, so the app will work offline.</p>' );
@@ -69,8 +72,7 @@
 						<p>Having problems? <a href="http://scruffian.wordpress.com/contact/">Email me</a>, <a href="javascript:clear()">Clear settings and start over</a></p>
 						<p>There are also old versions available in case this one is broken:<br />
 							<br />
-							<a href="https://javascripture.net">javascripture.net</a><br />
-							<a href="https://javascripture.xyz">javascripture.xyz</a><br />
+							<a href="https://javascripture.org">javascripture.org</a>
 						</p>
 					</div>
 				</div>
@@ -133,14 +135,6 @@
 	javascripture.data.LC = literalConsistent;
 </script>
 <script>loadingStatus( 'interface', 95 );</script>
-<script type="text/javascript">
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-51039438-1', 'javascripture.org');
-  ga('send', 'pageview');
-</script>
 <script src="build/bundle.js"></script>
 <script>
 	// Attach web workers

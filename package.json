@@ -1,7 +1,7 @@
 {
-  "name": "Javascripture",
+  "name": "sync.bible",
   "version": "5.0.0",
-  "description": "Webpack mongrel",
+  "description": "A bible discovery tool",
   "main": "index.js",
   "scripts": {
     "production": "./update-version-number.sh && NODE_ENV=production node_modules/.bin/webpack --mode=\"production\"",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scruffian/Javascripture.git"
+    "url": "git+https://github.com/syncbible/syncbible.git"
   },
   "author": "@scruffian",
   "license": "GPL-2.0",
   "bugs": {
-    "url": "https://github.com/Automattic/scruffian/Javascripture/issues"
+    "url": "https://github.com/syncbible/syncbible/issues"
   },
-  "homepage": "https://github.com/Automattic/scruffian/Javascripture#readme",
+  "homepage": "https://github.com/syncbible/syncbible#readme",
   "devDependencies": {
     "@babel/core": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
