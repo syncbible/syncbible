@@ -79,7 +79,7 @@ const reference = ( state = getInitialState(), action ) => {
 
 			const locationState = [ ...state ];
 			locationState[ 0 ] = reference;
-			document.title = getReferenceText( reference ) + ' | Javascripture ';
+			document.title = getReferenceText( reference ) + ' | sync.bible';
 			return locationState;
 
 		case 'CHANGE_VERSION':
