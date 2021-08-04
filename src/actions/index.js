@@ -1,9 +1,14 @@
 var cache = 'javascripture.22.0.1626215212';
 import xhr from 'xhr';
-import { createReferenceLink, getAllLemmasFromReference } from '../lib/reference.js';
+import { createReferenceLink, getAllLemmasFromReference, goToReferenceHelper } from '../lib/reference.js';
+import { push } from 'connected-react-router';
 
-export const goToReference = ( reference ) => {
-	window.location.hash = createReferenceLink( reference );
+export const goToReferenceAction = ( reference, index = 0 ) => {
+	return function( dispatch, getState ) {
+		const state = getState();
+		const newHash = goToReferenceHelper( state.reference, reference, index, state.settings.inSync );
+		dispatch( push( '/#' + newHash ) );
+	}
 }
 
 export const setTrayVisibilityFilter = ( filter ) => {

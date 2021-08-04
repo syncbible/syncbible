@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal
-import { createReferenceLink } from '../../lib/reference.js';
+import { goToReferenceAction } from '../../actions/index.js';
 import { closeReferenceSelectorMobile, toggleReferenceSelectorMobile, referenceSelectorMobileSetBook, setReference, setScrollChapter } from '../../actions'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from './style.scss';
@@ -15,6 +15,7 @@ const ReferenceSelectorMobile = React.memo( ( { index, version } ) => {
 	const open = useSelector( state => state.referenceSelectorMobile[ index ].open );
 	const bookIndex = useSelector( state => state.referenceSelectorMobile[ index ].bookIndex );
 	const bookName = useSelector( state => state.referenceSelectorMobile[ index ].bookName );
+	const stateReference = useSelector( state => state.reference );
 
 	const toggleList = () => {
 		dispatch( toggleReferenceSelectorMobile( index ) );
@@ -28,14 +29,9 @@ const ReferenceSelectorMobile = React.memo( ( { index, version } ) => {
 		dispatch( closeReferenceSelectorMobile( index ) );
 	};
 
-	const goToReference = ( reference ) => {
+	const goToReference = ( newReference ) => {
 		close();
-		if ( index === 0 || inSync ) {
-			window.location.hash = createReferenceLink( reference );
-		} else {
-			dispatch( setReference( reference, index ) );
-			dispatch( setScrollChapter( reference.book, reference.chapter, index ) );
-		}
+		dispatch( goToReferenceAction( newReference, index ) );
 	};
 
 	const backToBooks = ( event ) => {

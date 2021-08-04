@@ -1,19 +1,7 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
+import { getReferenceText, getReferenceFromHash, getRandomReference } from '../lib/reference.js';
 
 const initialState = [{},{}];
-
-const getReferenceFromHash = function( hash ) {
-	const reference = hash.split( '/' );
-	if ( ! reference[ 1 ] ) {
-		return false;
-	}
-
-	const book = reference[ 1 ].replace( /\%20/gi, ' ' ),
-		chapter = parseInt( reference[ 2 ] ),
-		verse = 1;
-
-	return { book, chapter, verse };
-}
 
 const scrollChapter = ( state = initialState, action ) => {
 	switch ( action.type ) {

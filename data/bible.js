@@ -454,6 +454,10 @@ bible.getTranslatedBookName = function( bookName, version ) {
 };
 
 bible.isRtlVersion = function( version, book ) {
+	if ( ! version ) {
+		return false;
+	}
+
 	var versionLanguage = bible.Data.supportedVersions[ version ].language;
 	if ( bible.Data.rtlLanguages.indexOf( versionLanguage ) > -1 ) {
 		return true;

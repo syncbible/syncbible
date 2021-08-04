@@ -8,7 +8,7 @@ import { fetchData } from '../../actions';
 import Title from './title';
 import VerseWrapper from './verse-wrapper';
 import styles from './styles.scss';
-import { mapVersionToData } from '../../lib/reference';
+import { mapVersionToData, areReferencesInSync } from '../../lib/reference';
 
 function usePrevious(value) {
 	const ref = useRef();
@@ -110,7 +110,7 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 
 	return (
 		<div className={ styles.chapter }>
-			{ inSync ? getSyncVerses() : getDifferentVerses() }
+			{ areReferencesInSync( reference ) ? getSyncVerses() : getDifferentVerses() }
 		</div>
 	);
 } );

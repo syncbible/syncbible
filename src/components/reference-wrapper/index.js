@@ -7,10 +7,11 @@ import classnames from 'classnames';
 import Reference from '../reference';
 import Comparison from '../comparison';
 import styles from './style.scss';
+import { areReferencesInSync } from '../../lib/reference';
 
 const ReferenceWrapper = React.memo( () => {
 	const reference = useSelector( state => state.reference );
-	const inSync = useSelector( state => state.settings.inSync );
+	const inSync = areReferencesInSync( reference );
 	const compareMode = useSelector( state => state.settings.compareMode );
 	const searchSelect = useSelector( state => state.searchSelect );
 	const sidebarOpen = useSelector( state => state.sidebar );

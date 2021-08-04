@@ -1,9 +1,27 @@
-import _ from 'lodash';
+import _, { stubFalse } from 'lodash';
 import { uniq, sortBy, forEach, toPairs, fromPairs, orderBy } from 'lodash';
+import reference from '../reducers/reference';
 
-export const createReferenceLink = ( reference ) => {
-	return '/' + reference.book + '/' + reference.chapter + '/' + reference.verse;
+export const createReferenceLink = ( reference, version = "KJV" ) => {
+	return '/' + version + '/' + reference.book + '/' + reference.chapter + '/' + reference.verse + '/';
 };
+
+export const createHashFromReference = ( stateReference, newReference ) => {
+	return stateReference.map( referenceToIgnore => {
+		return createReferenceLink( newReference, referenceToIgnore.version );
+	} ).join( '&' );
+}
+
+export const getHashFromStateReference = ( stateReference ) => {
+	return stateReference.map( reference => {
+		return createReferenceLink( reference );
+	} ).join( '&' );
+};
+
+export const getHashAndUpdateWithIndex = ( stateReference, newReference, index ) => {
+	stateReference[ index ] = newReference;
+	return getHashFromStateReference( stateReference );
+}
 
 export const getVerseData = ( reference, version, data ) => {
 	return data[ version ][ reference.book ][ reference.chapter - 1 ][ reference.verse - 1 ];
@@ -121,3 +139,63 @@ export const calculateConnectionQuality = ( state ) => {
 	const numberOfConnections = comparison ? comparison.length : 0;
 	return numberOfConnections / numberOfWordsInReference;
 };
+
+export const getReferenceFromHashFragment = function( hash ) {
+	const reference = hash.split( '/' );
+
+	if ( ! reference[ 1 ] || reference[ 1 ] === '' ) {
+		const randomReference = getRandomReference( version );
+		return false;
+	}
+
+	const version = reference[ 1 ],
+		book = reference[ 2 ].replace( /\%20/gi, ' ' ),
+		chapter = parseInt( reference[ 3 ] ),
+		verse = reference[ 4 ] ? parseInt( reference[ 4 ] ) : 1;
+
+	return { book, chapter, verse, version };
+};
+
+export const getReferenceFromHash = function( hash ) {
+	const referenceArray = hash.replace( '#', '' ).split( '&' );
+	return referenceArray.map( hashFragment => getReferenceFromHashFragment( hashFragment ) );
+};
+
+export const getRandomReference = function( version ) {
+	var bookNumber = Math.floor(Math.random() * bible.Data.books.length),
+		chapterNumber = Math.floor(Math.random() * bible.Data.verses[bookNumber].length),
+		numberOfVerses = bible.Data.verses[bookNumber][chapterNumber],
+		verseNumber = Math.floor(Math.random() * numberOfVerses),
+		referenceObject = {};
+	referenceObject.book = bible.Data.books[bookNumber][0];
+	referenceObject.chapter = chapterNumber + 1;
+	referenceObject.verse = verseNumber + 1;
+	referenceObject.version = version;
+	return referenceObject;
+};
+
+export const areReferencesInSync = ( stateReference ) => {
+	let inSync = true;
+	let previousReference = stateReference[ 0 ];
+	stateReference.forEach( reference => {
+		if ( previousReference.book !== reference.book ) {
+			inSync = false;
+		};
+		if ( previousReference.chapter !== reference.chapter ) {
+			inSync = false;
+		};
+		if ( previousReference.verse !== reference.verse ) {
+			inSync = false;
+		};
+		previousReference = reference;
+	} );
+	return inSync;
+}
+
+export const goToReferenceHelper = ( stateReference, newReference, index, inSync = false ) => {
+	if ( inSync ) {
+		return createHashFromReference( stateReference, newReference );
+	} else {
+		return getHashAndUpdateWithIndex( stateReference, newReference, index, inSync );
+	}
+}

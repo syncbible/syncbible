@@ -4,8 +4,8 @@ import mousetrap from 'mousetrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal
-import { goToReference, setTrayVisibilityFilter, setCurrentListResult } from '../actions'
-import { createReferenceLink, getReferenceFromSearchResult } from '../lib/reference.js';
+import { setTrayVisibilityFilter, setCurrentListResult, goToReferenceAction } from '../actions'
+import { getReferenceFromSearchResult } from '../lib/reference.js';
 
 // Component variables
 let lastTimeStamp = 0,
@@ -33,7 +33,7 @@ const KeyboardShortcuts = React.memo( () => {
 
 			clearTimeout( waiter );
 			waiter = setTimeout( () => {
-				window.location.hash = createReferenceLink( newReference );
+				dispatch( goToReferenceAction( newReference ) );
 			}, 500 );
 		}
 
@@ -49,13 +49,13 @@ const KeyboardShortcuts = React.memo( () => {
 	useEffect( () => {
 		mousetrap.bind( [ '=' ], () => {
 			if ( currentListItem && currentListItem.current < currentListItem.results.length - 1 ) {
-				goToReference( getReferenceFromSearchResult( currentListItem.results[ currentListItem.current + 1 ] ) );
+				dispatch( goToReferenceAction( getReferenceFromSearchResult( currentListItem.results[ currentListItem.current + 1 ] ) ) );
 				dispatch( setCurrentListResult( currentListItem.id, currentListItem.current + 1 ) );
 			}
 		} );
 		mousetrap.bind( [ '-' ], () => {
 			if ( currentListItem  && currentListItem.current > 0) {
-				goToReference( getReferenceFromSearchResult( currentListItem.results[ currentListItem.current - 1 ] ) );
+				dispatch( goToReferenceAction( getReferenceFromSearchResult( currentListItem.results[ currentListItem.current - 1 ] ) ) );
 				dispatch( setCurrentListResult( currentListItem.id, currentListItem.current - 1 ) );
 			}
 		} );

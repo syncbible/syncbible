@@ -2,10 +2,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import mousetrap from 'mousetrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { push } from 'connected-react-router';
 
 // Internal dependencies
-import { closeReferenceSelectorMobile, openReferenceSelectorMobile	, referenceSelectorMobileSetBook, setReference, setScrollChapter } from '../../actions';
-import { createReferenceLink } from '../../lib/reference.js';
+import { goToReferenceAction, openReferenceSelectorMobile } from '../../actions';
 
 // Internal dependencies
 import styles from './styles.scss';
@@ -46,18 +46,17 @@ const ReferenceInput = React.memo( ( { index, last } ) => {
 		referenceInputField.current.focus();
 		referenceInputField.current.selectionStart = referenceInputField.current.selectionEnd = 0;
 		setLocalReference( event.key );
-	}
+	};
+
+	const getLocalReferenceObject = () => {
+		const newLocalReference = bible.parseReference( localReference );
+		newLocalReference.book = bible.Data.books[newLocalReference.bookID - 1][0];
+		return newLocalReference;
+	};
 
 	const goToReference = ( event ) => {
 		event.preventDefault();
-		const reference = bible.parseReference( localReference );
-		reference.book = bible.Data.books[reference.bookID - 1][0];
-		if ( index === 0 || inSync ) {
-			window.location.hash = createReferenceLink( reference );
-		} else {
-			dispatch( setReference( reference, index ) );
-			dispatch( setScrollChapter( reference.book, reference.chapter, index ) );
-		}
+		dispatch( goToReferenceAction( getLocalReferenceObject(), index ) );
 		referenceInputField.current.blur();
 	};
 

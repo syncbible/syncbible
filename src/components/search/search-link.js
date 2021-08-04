@@ -2,13 +2,14 @@
 import React from 'react';
 import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
+import { push } from 'connected-react-router';
 
 // Internal dependencies
 import { setCurrentListResult } from '../../actions';
 import Verse from '../reference/verse';
 import styles from './styles.scss';
-import { createReferenceLink, getVerseData } from '../../lib/reference.js';
 import ReferenceText from '../reference-text';
+import { goToReferenceHelper } from '../../lib/reference.js';
 
 const SearchLink = React.memo( ( { reference, index, count, word } ) => {
 	// State constants
@@ -16,6 +17,8 @@ const SearchLink = React.memo( ( { reference, index, count, word } ) => {
 	const highlightSearchResults = useSelector( state => state.settings.highlightSearchResults );
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const isActive = word && typeof word.current !== 'undefined' && word.current === index;
+	const inSync = useSelector( state => state.settings.inSync );
+	const stateReference = useSelector( state => state.reference );
 	const dispatch = useDispatch();
 
 	// Component constants
@@ -48,14 +51,18 @@ const SearchLink = React.memo( ( { reference, index, count, word } ) => {
 		);
 	};
 
+	const newHash = '/#' + goToReferenceHelper( stateReference, reference, 0, inSync );
 	return (
 		<li className={ className }>
-			<a href={ '/#' + createReferenceLink( reference ) }
+			<a href={ newHash }
 				className={ styles.searchLink }
-				onClick={ () => {
+				onClick={ ( event ) => {
 					if ( word ) {
 						dispatch( setCurrentListResult( word.id, index ) );
 					}
+					event.stopPropagation();
+					event.preventDefault();
+					dispatch( push( newHash ) );
 				} }
 				onMouseOver={ highlightWords }
 				onMouseOut={ unHighlighWords }

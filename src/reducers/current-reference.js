@@ -1,6 +1,3 @@
-import findIndex from 'lodash/findIndex';
-import isEqual from 'lodash/isEqual';
-
 const currentReference = ( state = {}, action ) => {
 	switch ( action.type ) {
 		case 'SET_CURRENT_VERSE':

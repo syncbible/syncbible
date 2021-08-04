@@ -1,39 +1,7 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { REHYDRATE } from 'redux-persist/lib/constants'
-import { isMatch } from 'lodash';
-import xhr from 'xhr';
 
-import { mapVersionToData } from '../lib/reference';
-
-import { getReferenceText } from '../lib/reference.js';
-
-const getRandomReference = function( version ) {
-	var bookNumber = Math.floor(Math.random() * bible.Data.books.length),
-		chapterNumber = Math.floor(Math.random() * bible.Data.verses[bookNumber].length),
-		numberOfVerses = bible.Data.verses[bookNumber][chapterNumber],
-		verseNumber = Math.floor(Math.random() * numberOfVerses),
-		referenceObject = {};
-	referenceObject.book = bible.Data.books[bookNumber][0];
-	referenceObject.chapter = chapterNumber + 1;
-	referenceObject.verse = verseNumber + 1;
-	referenceObject.version = version;
-	return referenceObject;
-};
-
-const getReferenceFromHash = function( hash, version ) {
-	const reference = hash.split( '/' );
-
-	if ( ! reference[ 1 ] || reference[ 1 ] === '' ) {
-		const randomReference = getRandomReference( version );
-		return false;
-	}
-
-	const book = reference[ 1 ].replace( /\%20/gi, ' ' ),
-		chapter = parseInt( reference[ 2 ] ),
-		verse = reference[ 3 ] ? parseInt( reference[ 3 ] ) : 1;
-
-	return { book, chapter, verse, version };
-};
+import { getReferenceText, getReferenceFromHash, getRandomReference } from '../lib/reference.js';
 
 const getReferenceFromAction = ( reference, version ) => {
 	const book = reference.book.replace( /\%20/gi, ' ' ),
@@ -44,8 +12,7 @@ const getReferenceFromAction = ( reference, version ) => {
 }
 
 const getInitialState = () => {
-	const hashArray = window.location.hash.split( '/' );
-	if ( ! hashArray[ 1 ] || hashArray[ 1 ] === '' ) {
+	if ( ! window.location.hash || '#/' === window.location.hash ) {
 		if ( document && document.body && document.body.clientWidth && document.body.clientWidth < 600 ) {
 			return [ getRandomReference( 'KJV' ) ];
 		}
@@ -53,11 +20,7 @@ const getInitialState = () => {
 		return [ getRandomReference( 'original' ), getRandomReference( 'KJV' ) ];
 	}
 
-	if ( document && document.body && document.body.clientWidth && document.body.clientWidth < 600 ) {
-		return [ getReferenceFromHash( window.location.hash, 'KJV' ) ];
-	}
-
-	return [ getReferenceFromHash( window.location.hash, 'original' ), getReferenceFromHash( window.location.hash, 'KJV' ) ];
+	return getReferenceFromHash( window.location.hash );
 }
 
 const reference = ( state = getInitialState(), action ) => {
@@ -71,16 +34,14 @@ const reference = ( state = getInitialState(), action ) => {
 			}
 
 			timer = new Date();
-			const reference = getReferenceFromHash( hash, state[ 0 ].version );
+			const reference = getReferenceFromHash( hash );
 
-			if ( ! reference ) {
+			if ( ! reference || ! window.location.hash || '#/' === window.location.hash ) {
 				return state;
 			}
 
-			const locationState = [ ...state ];
-			locationState[ 0 ] = reference;
-			document.title = getReferenceText( reference ) + ' | sync.bible';
-			return locationState;
+			document.title = getReferenceText( reference[ 0 ] ) + ' | sync.bible';
+			return reference;
 
 		case 'CHANGE_VERSION':
 			const newState = [ ...state ];
