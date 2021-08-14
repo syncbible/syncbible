@@ -13,6 +13,7 @@ const getReferenceFromAction = ( reference, version ) => {
 
 const getInitialState = () => {
 	if ( ! window.location.hash || '#/' === window.location.hash ) {
+		return [];
 		if ( document && document.body && document.body.clientWidth && document.body.clientWidth < 600 ) {
 			return [ getRandomReference( 'KJV' ) ];
 		}
@@ -34,6 +35,7 @@ const reference = ( state = getInitialState(), action ) => {
 			}
 
 			timer = new Date();
+
 			const reference = getReferenceFromHash( hash );
 
 			if ( ! reference || ! window.location.hash || '#/' === window.location.hash ) {
@@ -42,17 +44,6 @@ const reference = ( state = getInitialState(), action ) => {
 
 			document.title = getReferenceText( reference[ 0 ] ) + ' | sync.bible';
 			return reference;
-
-		case 'CHANGE_VERSION':
-			const newState = [ ...state ];
-			if ( typeof newState[ action.index ] === 'undefined' ) {
-				return newState;
-			}
-
-			const newReference = newState[ action.index ];
-			newReference.version = action.version;
-			newState[ action.index ] = newReference;
-			return newState;
 
 		case 'SET_REFERENCE':
 			const setReferenceState = [ ...state ];

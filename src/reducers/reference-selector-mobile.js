@@ -1,4 +1,5 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
+import { getReferenceFromHash } from '../lib/reference.js';
 
 const initialState = [ {
 	open: false,
@@ -18,8 +19,16 @@ const openState = {
 
 const referenceSelectorMobile = ( state = initialState, action ) => {
 	switch ( action.type ) {
-		case 'SET_REFERENCE':
 		case LOCATION_CHANGE:
+			const hash = action.payload.location.hash;
+			const reference = getReferenceFromHash( hash );
+			return reference.map( () => ( {
+				open: false,
+				bookIndex: null,
+				bookName: null,
+			} ) ) ;
+
+		case 'SET_REFERENCE':
 		case 'CLOSE_REFERENCE_SELECTOR_MOBILE':
 			return state.map( () => {
 				return {

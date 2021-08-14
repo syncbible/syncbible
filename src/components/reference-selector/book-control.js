@@ -1,6 +1,6 @@
 // External
 import React, { useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Internal
 import { goToReferenceAction } from '../../actions'
@@ -9,13 +9,14 @@ import styles from './styles.scss';
 
 const BookControl = React.memo( ( { chapters, name } ) => {
 	const dispatch = useDispatch();
-
+	const stateReference = useSelector( state => state.reference );
 	const [ chapter, setChapter ] = useState( 1 );
 	const [ touched, setTouched ] = useState( false );
 	const [ touchChapter, setTouchChapter ] = useState( false );
 	const referenceSelector = useRef( null );
 	const handleGoToReference = () => {
-		dispatch( goToReferenceAction( { book: name, chapter, verse: 1 }, 0 ) );
+		const version = stateReference[ 0 ].version;
+		dispatch( goToReferenceAction( { book: name, chapter, verse: 1, version }, 0 ) );
 	};
 
 	const handleMouseMove = ( event ) => {

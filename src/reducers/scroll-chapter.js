@@ -10,11 +10,8 @@ const scrollChapter = ( state = initialState, action ) => {
 				return state;
 			}
 			const hash = action.payload.location.hash;
-			const locationState = [ ...state ],
-				reference = getReferenceFromHash( hash );
-			locationState[ 0 ] = reference;
 
-			return locationState;
+			return getReferenceFromHash( hash );
 
 		case 'SET_SCROLL_CHAPTER':
 			const newState = [ ...state],

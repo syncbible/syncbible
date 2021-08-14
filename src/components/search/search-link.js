@@ -35,7 +35,7 @@ const SearchLink = React.memo( ( { reference, index, count, word } ) => {
 
 		window.updateAppComponent( 'highlightedWord', strongsNumbers.join( ' ' ) );
 	};
-	const unHighlighWords = () => {
+	const unHighlightWords = () => {
 		if( ! highlightSearchResults ) {
 			return;
 		}
@@ -65,7 +65,7 @@ const SearchLink = React.memo( ( { reference, index, count, word } ) => {
 					dispatch( push( newHash ) );
 				} }
 				onMouseOver={ highlightWords }
-				onMouseOut={ unHighlighWords }
+				onMouseOut={ unHighlightWords }
 			>
 				{ index + 1 }. <ReferenceText reference={ reference } />
 				{ count && ' (' + count + ')' }

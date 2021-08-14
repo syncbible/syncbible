@@ -109,11 +109,6 @@ const SettingsTray = React.memo( () => {
 								</li>
 								<li className={ styles.settingsLi }>
 									<label>
-										<input type="checkbox" name="inSync" checked={ settings.inSync } onChange={ changeCheckboxSetting } /> Keep references in sync
-									</label>
-								</li>
-								<li className={ styles.settingsLi }>
-									<label>
 										<input type="checkbox" name="expandedSearchResults" checked={ settings.expandedSearchResults } onChange={ changeCheckboxSetting } /> Show expanded search results
 									</label>
 								</li>

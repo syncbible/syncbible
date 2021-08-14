@@ -19,7 +19,7 @@ const Navigation = React.memo( ( { index, last } ) => {
 		dispatch( changeVersion( event.target.name, event.target.value ) );
 		event.target.blur();
 	};
-	const version = references[ index ].version ? references[ index ].version : '';
+	const version = references[ index ].version ? references[ index ].version : 'KJV';
 	const isRTL = bible.isRtlVersion( version );
 
 	return (

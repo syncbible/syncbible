@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Internal
-import { addColumn, removeColumn, settingsChange } from '../../actions';
+import { addColumnAction, deleteColumnAction, settingsChange, syncReferences, unSyncReferences } from '../../actions';
 import styles from './style.scss';
 
 const Controls = React.memo( ( { } ) => {
@@ -12,19 +12,19 @@ const Controls = React.memo( ( { } ) => {
 	const reference = useSelector( state => state.reference );
 	const change = ( event ) => {
 		if ( event.target.value === 'add' ) {
-			dispatch( addColumn() );
+			dispatch( addColumnAction() );
 		}
 
 		if( event.target.value === 'delete' ) {
-			dispatch( removeColumn( reference.length - 1 ) );
+			dispatch( deleteColumnAction() );
 		}
 
 		if ( event.target.value === "sync" ) {
-			dispatch( settingsChange( 'inSync', true ) )
+			dispatch( syncReferences() );
 		}
 
 		if ( event.target.value === "unsync" ) {
-			dispatch( settingsChange( 'inSync', false ) )
+			dispatch( unSyncReferences() );
 		}
 
 		setValue( '' );

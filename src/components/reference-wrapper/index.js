@@ -16,12 +16,14 @@ const ReferenceWrapper = React.memo( () => {
 	const searchSelect = useSelector( state => state.searchSelect );
 	const sidebarOpen = useSelector( state => state.sidebar );
 
-	let references = reference.map( ( singleReference, index ) => {
-		return ( <Reference reference={ singleReference } key={ index } index={ index } /> );
-	} );
+	let references;
 
-	if ( inSync ) {
+	if ( reference.length && inSync ) {
 		references = <Reference reference={ reference[ 0 ] } index={ 0 } />
+	} else {
+		references = reference.length && reference.map( ( singleReference, index ) => {
+			return ( <Reference reference={ singleReference } key={ index } index={ index } /> );
+		} );
 	}
 
 	if ( compareMode ) {

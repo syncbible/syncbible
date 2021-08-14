@@ -1,12 +1,54 @@
 var cache = 'javascripture.22.0.1626215212';
 import xhr from 'xhr';
-import { createReferenceLink, getAllLemmasFromReference, goToReferenceHelper } from '../lib/reference.js';
+import {
+	addColumnHelper,
+	deleteColumnHelper,
+	getAllLemmasFromReference,
+	goToReferenceHelper,
+	getSyncReference,
+	getUnSyncReference,
+	getNewVersionHash,
+} from '../lib/reference.js';
 import { push } from 'connected-react-router';
 
 export const goToReferenceAction = ( reference, index = 0 ) => {
 	return function( dispatch, getState ) {
 		const state = getState();
 		const newHash = goToReferenceHelper( state.reference, reference, index, state.settings.inSync );
+		dispatch( push( '/#' + newHash ) );
+	}
+}
+
+export const syncReferences = () => {
+	return function( dispatch, getState ) {
+		const state = getState();
+		const newHash = getSyncReference( state.reference );
+		dispatch( push( '/#' + newHash ) );
+		dispatch( settingsChange( 'inSync', true ) )
+	}
+}
+
+export const unSyncReferences = () => {
+	return function( dispatch, getState ) {
+		const state = getState();
+		const newHash = getUnSyncReference( state.reference );
+		dispatch( push( '/#' + newHash ) );
+		dispatch( settingsChange( 'inSync', false ) )
+	}
+}
+
+export const addColumnAction = () => {
+	return function( dispatch, getState ) {
+		const state = getState();
+		const newHash = addColumnHelper( state.reference );
+		dispatch( push( '/#' + newHash ) );
+	}
+}
+
+export const deleteColumnAction = () => {
+	return function( dispatch, getState ) {
+		const state = getState();
+		const newHash = deleteColumnHelper( state.reference );
 		dispatch( push( '/#' + newHash ) );
 	}
 }
@@ -173,10 +215,10 @@ export const goToPreviousCurrentVerse = () => {
 }
 
 export const changeVersion = ( index, version ) => {
-	return {
-		type: 'CHANGE_VERSION',
-		index: parseInt( index ),
-		version: version
+	return function( dispatch, getState ) {
+		const state = getState();
+		const newHash = getNewVersionHash( state.reference, parseInt( index ), version );
+		dispatch( push( '/#' + newHash ) );
 	}
 }
 

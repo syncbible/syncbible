@@ -2,13 +2,14 @@ import _, { stubFalse } from 'lodash';
 import { uniq, sortBy, forEach, toPairs, fromPairs, orderBy } from 'lodash';
 import reference from '../reducers/reference';
 
-export const createReferenceLink = ( reference, version = "KJV" ) => {
-	return '/' + version + '/' + reference.book + '/' + reference.chapter + '/' + reference.verse + '/';
+export const createReferenceLink = ( reference ) => {
+	return '/' + reference.version + '/' + reference.book + '/' + reference.chapter + '/' + reference.verse + '/';
 };
 
-export const createHashFromReference = ( stateReference, newReference ) => {
+export const createSyncedHashFromReference = ( stateReference, newReference ) => {
 	return stateReference.map( referenceToIgnore => {
-		return createReferenceLink( newReference, referenceToIgnore.version );
+		newReference.version = referenceToIgnore.version;
+		return createReferenceLink( newReference );
 	} ).join( '&' );
 }
 
@@ -161,7 +162,7 @@ export const getReferenceFromHash = function( hash ) {
 	return referenceArray.map( hashFragment => getReferenceFromHashFragment( hashFragment ) );
 };
 
-export const getRandomReference = function( version ) {
+export const getRandomReference = function( version = 'KJV') {
 	var bookNumber = Math.floor(Math.random() * bible.Data.books.length),
 		chapterNumber = Math.floor(Math.random() * bible.Data.verses[bookNumber].length),
 		numberOfVerses = bible.Data.verses[bookNumber][chapterNumber],
@@ -194,8 +195,53 @@ export const areReferencesInSync = ( stateReference ) => {
 
 export const goToReferenceHelper = ( stateReference, newReference, index, inSync = false ) => {
 	if ( inSync ) {
-		return createHashFromReference( stateReference, newReference );
+		return createSyncedHashFromReference( stateReference, newReference );
 	} else {
 		return getHashAndUpdateWithIndex( stateReference, newReference, index, inSync );
 	}
+}
+
+export const addColumnHelper = ( stateReference ) => {
+	const newReference = [ ...stateReference, stateReference[ stateReference.length - 1 ] ];
+	return getHashFromStateReference( newReference );
+}
+
+export const deleteColumnHelper = ( stateReference ) => {
+	stateReference.splice( stateReference.length - 1, 1 );
+	return getHashFromStateReference( stateReference );
+}
+
+export const getSyncReference = ( stateReference ) => {
+	const syncedReference = stateReference.map( reference => {
+		return {
+			book: stateReference[ 0 ].book,
+			chapter: stateReference[ 0 ].chapter,
+			verse: stateReference[ 0 ].verse,
+			version: reference.version
+		};
+	});
+	return getHashFromStateReference( syncedReference );
+}
+
+export const getUnSyncReference = ( stateReference ) => {
+	const unSyncedReference = stateReference.map( ( reference, index ) => {
+		if ( index > 0 ) {
+			return getRandomReference( reference.version );
+		}
+
+		return reference;
+	} );
+	return getHashFromStateReference( unSyncedReference );
+}
+
+export const getNewVersionHash = ( stateReference, index, version ) => {
+	const newReference = stateReference.map( ( reference, referenceIndex ) => {
+		if ( referenceIndex === index ) {
+			reference.version = version;
+		}
+
+		return reference;
+	} );
+
+	return getHashFromStateReference( newReference );
 }
