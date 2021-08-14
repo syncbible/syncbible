@@ -1,11 +1,7 @@
 const initialState = {
-	greek: javascripture.data.greek,
-	hebrew: javascripture.data.hebrew,
 	KJV: javascripture.data.kjv,
 	LC: javascripture.data.literalConsistent,
 };
-
-initialState.original = Object.assign( {}, javascripture.data.hebrew, javascripture.data.greek );
 
 const data = ( state = initialState, action ) => {
 	switch ( action.type ) {

@@ -15,8 +15,6 @@ import searchTerms from './search-terms';
 import settings from './settings';
 import trays from './trays';
 import wordDetails from './word-details';
-import version from './version';
-import versions from './versions';
 import sidebar from './sidebar';
 import similarReferences from './similar-references';
 import referenceInfo from './reference-info';
@@ -39,8 +37,6 @@ export default (history) => { return {
 	settings,
 	sidebar,
 	trays,
-	version,
-	versions,
 	wordDetails,
 	similarReferences,
 } };

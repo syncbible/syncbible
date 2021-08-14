@@ -29,8 +29,8 @@ export const getVerseData = ( reference, version, data ) => {
 };
 
 export const mapVersionToData = ( book, version ) => {
-	if ( version === 'original' || version === 'LC' ) {
-		return bible.Data.otBooks.indexOf( book ) > -1 ? 'hebrew' : 'greek';
+	if (  version === 'LC' ) {
+		return 'original';
 	}
 
 	return version;

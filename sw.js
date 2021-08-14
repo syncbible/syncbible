@@ -22,8 +22,6 @@ self.addEventListener('install', function( e ) {
 			'data/strongs-greek-dictionary.js',
 			'data/KJV.js',
 			'data/strongsObjectWithFamilies2.js',
-			'data/morphhb.js',
-			'data/tischendorf.js',
 			'data/crossReferences.js',
 			'data/cdrplan.min.js',
 			'data/LC.js',
