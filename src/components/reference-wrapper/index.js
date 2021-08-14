@@ -18,10 +18,14 @@ const ReferenceWrapper = React.memo( () => {
 
 	let references;
 
-	if ( reference.length && inSync ) {
+	if ( reference.length === 0 ) {
+		return null;
+	}
+
+	if ( inSync ) {
 		references = <Reference reference={ reference[ 0 ] } index={ 0 } />
 	} else {
-		references = reference.length && reference.map( ( singleReference, index ) => {
+		references = reference.map( ( singleReference, index ) => {
 			return ( <Reference reference={ singleReference } key={ index } index={ index } /> );
 		} );
 	}

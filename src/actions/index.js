@@ -37,10 +37,10 @@ export const unSyncReferences = () => {
 	}
 }
 
-export const addColumnAction = () => {
+export const addColumnAction = ( version = '' ) => {
 	return function( dispatch, getState ) {
 		const state = getState();
-		const newHash = addColumnHelper( state.reference );
+		const newHash = addColumnHelper( state.reference, version );
 		dispatch( push( '/#' + newHash ) );
 	}
 }

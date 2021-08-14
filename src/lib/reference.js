@@ -201,11 +201,16 @@ export const goToReferenceHelper = ( stateReference, newReference, index, inSync
 	}
 }
 
-export const addColumnHelper = ( stateReference ) => {
+export const addColumnHelper = ( stateReference, version = '' ) => {
 	if ( stateReference.length < 1 ) {
-		return createReferenceLink( getRandomReference() );
+		return createReferenceLink( getRandomReference( version ) );
 	}
-	const newReference = [ ...stateReference, stateReference[ stateReference.length - 1 ] ];
+
+	const referenceToAdd =  stateReference[ stateReference.length - 1 ];
+	if ( version ) {
+		referenceToAdd.version = version;
+	}
+	const newReference = [ ...stateReference, referenceToAdd ];
 	return getHashFromStateReference( newReference );
 }
 
