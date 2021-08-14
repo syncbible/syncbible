@@ -202,6 +202,9 @@ export const goToReferenceHelper = ( stateReference, newReference, index, inSync
 }
 
 export const addColumnHelper = ( stateReference ) => {
+	if ( stateReference.length < 1 ) {
+		return createReferenceLink( getRandomReference() );
+	}
 	const newReference = [ ...stateReference, stateReference[ stateReference.length - 1 ] ];
 	return getHashFromStateReference( newReference );
 }

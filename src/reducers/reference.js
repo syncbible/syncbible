@@ -11,20 +11,7 @@ const getReferenceFromAction = ( reference, version ) => {
 	return { book, chapter, verse, version };
 }
 
-const getInitialState = () => {
-	if ( ! window.location.hash || '#/' === window.location.hash ) {
-		return [];
-		if ( document && document.body && document.body.clientWidth && document.body.clientWidth < 600 ) {
-			return [ getRandomReference( 'KJV' ) ];
-		}
-
-		return [ getRandomReference( 'original' ), getRandomReference( 'KJV' ) ];
-	}
-
-	return getReferenceFromHash( window.location.hash );
-}
-
-const reference = ( state = getInitialState(), action ) => {
+const reference = ( state = [], action ) => {
 	switch ( action.type ) {
 		case LOCATION_CHANGE:
 			let hash;
@@ -37,7 +24,6 @@ const reference = ( state = getInitialState(), action ) => {
 			timer = new Date();
 
 			const reference = getReferenceFromHash( hash );
-
 			if ( ! reference || ! window.location.hash || '#/' === window.location.hash ) {
 				return state;
 			}

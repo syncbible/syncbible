@@ -22,6 +22,10 @@ const referenceSelectorMobile = ( state = initialState, action ) => {
 		case LOCATION_CHANGE:
 			const hash = action.payload.location.hash;
 			const reference = getReferenceFromHash( hash );
+			if ( ! reference || ! window.location.hash || '#/' === window.location.hash ) {
+				return state;
+			}
+
 			return reference.map( () => ( {
 				open: false,
 				bookIndex: null,

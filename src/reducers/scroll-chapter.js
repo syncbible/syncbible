@@ -1,7 +1,7 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { getReferenceText, getReferenceFromHash, getRandomReference } from '../lib/reference.js';
 
-const initialState = [{},{}];
+const initialState = [];
 
 const scrollChapter = ( state = initialState, action ) => {
 	switch ( action.type ) {
