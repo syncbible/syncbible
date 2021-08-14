@@ -80,7 +80,7 @@ const ReferenceInput = React.memo( ( { index, last } ) => {
 	return (
 		<div className={ styles.versionSelectorFlexible }>
 			<form onSubmit={ goToReference } className={ styles.versionSelectorInput} >
-				<input type="text" id="goToReference" name="reference" placeholder="Go to reference" className={ styles.input } value={ localReference } onChange={ change } ref={ referenceInputField } onFocus={ focus } />
+				<input type="text" id="goToReference" name="reference" placeholder="Type a reference" className={ styles.input } value={ localReference } onChange={ change } ref={ referenceInputField } onFocus={ focus } />
 			</form>
 		</div>
 	);
