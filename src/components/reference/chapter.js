@@ -26,7 +26,14 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 	const data = useSelector( state => state.data );
 	const reference = useSelector( state => state.reference );
 	const currentReference = reference[ index ];
-	const kjvData = data[ 'KJV' ][ book ][ chapter - 1 ];
+
+	const bookId = bible.getBookId( book + ' ' + chapter );
+	const numberOfVerses = bible.Data.verses[ bookId - 1 ][ chapter - 1 ];
+	const verseMap = [];
+	for( let number = 0 ; number < numberOfVerses ; number++ ) {
+		verseMap.push( number );
+	}
+
 	const dispatch = useDispatch();
 
 	// used to scroll to the current chapter
@@ -65,7 +72,7 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 		return (
 			<div>
 				{ title }
-				{ kjvData.map( ( verse, verseNumber ) => {
+				{ verseMap.map( ( verse, verseNumber ) => {
 					return (
 						<div className={ styles.singleReference } key={ verseNumber } ref={ isCurrentRef( verseNumber ) }>
 							{ reference.map( ( { version }, index ) => {
@@ -92,7 +99,7 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 		return (
 			<div>
 				<Title book={ book } chapter={ chapter } version={ version } />
-				{ kjvData.map( ( verse, verseNumber ) => {
+				{ verseMap.map( ( verse, verseNumber ) => {
 					return (
 						<div className={ styles.singleReference } key={ verseNumber } ref={ isCurrentRef( verseNumber ) }>
 							<VerseWrapper

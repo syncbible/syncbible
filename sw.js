@@ -20,7 +20,6 @@ self.addEventListener('install', function( e ) {
 			'data/extra-dictionary.js',
 			'data/strongs-dictionary.js',
 			'data/strongs-greek-dictionary.js',
-			'data/KJV.js',
 			'data/strongsObjectWithFamilies2.js',
 			'data/crossReferences.js',
 			'data/cdrplan.min.js',
