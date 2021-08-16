@@ -17,11 +17,9 @@ self.addEventListener('install', function( e ) {
 
 			//data
 			'data/bible.js',
-			'data/extra-dictionary.js',
-			'data/strongs-dictionary.js',
-			'data/strongs-greek-dictionary.js',
 			'data/strongsObjectWithFamilies2.js',
-			'data/crossReferences.js',
+			'data/strongs-dictionary.json',
+			'data/crossReferences.json',
 			'data/cdrplan.min.js',
 			'data/LC.js',
 

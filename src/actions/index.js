@@ -349,6 +349,45 @@ export const fetchData = ( key ) => {
 	}
 }
 
+export const fetchCrossReferences = () => {
+	return function( dispatch, getState ) {
+		const { data } = getState();
+		if ( data.crossReferences ) {
+			return;
+		}
+
+		return xhr( {
+			method: "get",
+			uri: "/data/crossReferences.json",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		}, function ( error, response, body ) {
+			dispatch( receiveData( 'crossReferences', JSON.parse( body ) ) );
+		} );
+	}
+}
+
+export const fetchStrongsDictonary = () => {
+	return function( dispatch, getState ) {
+		const { data } = getState();
+			if ( data.strongsDictonary ) {
+			return;
+		}
+
+		// This is a combination of both the Hebrew and Greek dictonaries
+		return xhr( {
+			method: "get",
+			uri: "/data/strongs-dictionary.json",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		}, function ( error, response, body ) {
+			dispatch( receiveData( 'strongsDictionary', JSON.parse( body ) ) );
+		} );
+	}
+}
+
 export const setReferenceInfo = ( reference ) => {
 	return {
 		type: 'SET_REFERENCE_INFO',

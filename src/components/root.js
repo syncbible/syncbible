@@ -11,10 +11,22 @@ import KeyboardShortcuts from './keyboard-shortcuts';
 import Trays from './trays';
 import WordHighlight from './word-highlight';
 import styles from './root.scss';
-import { closeReferenceSelectorMobile, toggleSidebar } from '../actions'
+import {
+	closeReferenceSelectorMobile,
+	toggleSidebar,
+	fetchCrossReferences,
+	fetchStrongsDictonary
+} from '../actions'
 
 const Root = React.memo( ( { highlightedWord } ) => {
 	const dispatch = useDispatch();
+
+	// Fetch the other data we need
+	// Don't store it in the global state as that is cached in local storage
+	// and we don't want to fill up local storage with immutable data.
+	dispatch( fetchCrossReferences() );
+	dispatch( fetchStrongsDictonary() );
+
 	const sidebarOpen = useSelector( state => state.sidebar );
 	const darkMode = useSelector( state => state.settings.darkMode );
 	const compareMode = useSelector( state => state.settings.compareMode );

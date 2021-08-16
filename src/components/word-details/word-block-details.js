@@ -14,13 +14,12 @@ import WordBlockLink from './word-block-link';
 import SearchLink from '../search/search-link';
 import { getReferenceFromSearchResult } from '../../lib/reference.js'
 
-const strongs = javascripture.data.strongsDictionary;
-const strongsWithFamilies = javascripture.data.strongsObjectWithFamilies;
-
 const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version, word } ) => {
 	const dispatch = useDispatch();
+	const strongsWithFamilies = javascripture.data.strongsObjectWithFamilies;
 	const expandedSearchResults = useSelector( state => state.settings.expandedSearchResults );
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
+	const strongsDictionary = useSelector( state => state.data.strongsDictionary );
 	const getBranchesData = () => {
 		return map( javascripture.data.strongsObjectWithFamilies, ( strongsObjectData, strongsObjectNumber ) => {
 			if ( strongsObjectData.roots && strongsObjectData.roots.indexOf( strongsNumber ) > -1 ) {
@@ -63,9 +62,8 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 		} );
 	};
 
+	const wordDetail = strongsDictionary && strongsDictionary[ strongsNumber ];
 	const getKJVDefinitions = () => {
-		const wordDetail = strongs[ strongsNumber ];
-
 		return wordDetail.kjv_def && wordDetail.kjv_def.split( ',' ).map( ( word, index ) => {
 			const wordString = word.trim().replace( /\./g, '' );
 
@@ -86,7 +84,6 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 		dispatch( settingsChange( 'expandedSearchResults', false ) );
 	};
 
-	const wordDetail = strongs[ strongsNumber ];
 	const results = word.results && word.results.map( ( result, index ) => {
 		const resultArray = result.split( '.' );
 		const reference = {
@@ -97,6 +94,10 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 
 		return <SearchLink key={ index } index={ index } reference={ getReferenceFromSearchResult( result ) } word={ word } />;
 	} );
+
+	if ( ! wordDetail ) {
+		return null;
+	}
 
 	return (
 		<div>

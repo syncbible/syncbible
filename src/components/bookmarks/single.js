@@ -10,15 +10,6 @@ import { goToReferenceHelper } from '../../lib/reference.js';
 import Collapsible from '../collapsible';
 import ReferenceLink from '../reference-link';
 
-const getCrossReferences = ( reference ) => {
-	if ( ! reference ) {
-		return [];
-	}
-	const bookId = bible.getBookId( reference.book );
-	const referenceString = bible.Data.books[ bookId - 1 ][ 1 ] + '.' + reference.chapter + '.' + reference.verse;
-	return crossReferences[ referenceString ] ? crossReferences[ referenceString ] : [];
-};
-
 const getReferenceFromCrossReference = ( referenceString ) => {
 	const referenceArray = referenceString.split('.'),
 	bookId = bible.getBookId( referenceArray[0] ),
@@ -33,10 +24,24 @@ const getReferenceFromCrossReference = ( referenceString ) => {
 const Single = ( { bookmark, index } ) => {
 	const dispatch = useDispatch();
 	const inSync = useSelector( state => state.settings.inSync );
+	const data = useSelector( state => state.data );
 	const stateReference = useSelector( state => state.reference );
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const bookmarkRef = useRef();
 	const { data: { reference } } = bookmark;
+
+	const getCrossReferences = ( reference ) => {
+		if ( ! reference ) {
+			return [];
+		}
+		const bookId = bible.getBookId( reference.book );
+		const referenceString = bible.Data.books[ bookId - 1 ][ 1 ] + '.' + reference.chapter + '.' + reference.verse;
+		if ( ! data.crossReferences || data.crossReferences[ referenceString ] ) {
+			return [];
+		}
+
+		return data.crossReferences[ referenceString ];
+	};
 
 	const handleToggle = () => {
 		dispatch( toggleListItemVisible( bookmark ) );
