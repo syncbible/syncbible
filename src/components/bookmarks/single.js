@@ -34,9 +34,11 @@ const Single = ( { bookmark, index } ) => {
 		if ( ! reference ) {
 			return [];
 		}
+
 		const bookId = bible.getBookId( reference.book );
 		const referenceString = bible.Data.books[ bookId - 1 ][ 1 ] + '.' + reference.chapter + '.' + reference.verse;
-		if ( ! data.crossReferences || data.crossReferences[ referenceString ] ) {
+
+		if ( ! data.crossReferences || ! data.crossReferences[ referenceString ] ) {
 			return [];
 		}
 
@@ -53,16 +55,12 @@ const Single = ( { bookmark, index } ) => {
 		<ReferenceLink reference={ reference } />
 	);
 
-	return (
-		<Collapsible
-			key={ index }
-			header={ header }
-			open={ bookmark.visible }
-			onToggle={ () => handleToggle() }
-			textToCopy={ bookmarkRef }
-			onRemove={ () => dispatch( removeFromList( bookmark ) ) }
-		>
-			<div ref={ bookmarkRef }>
+	const renderCrossReferences = () => {
+		if ( ! data.crossReferences ) {
+			return 'Loading cross references';
+		}
+		return (
+			<div>
 				{ crossReferences.length > 0 ? 'Cross references:' : 'No cross references' }
 				<div dir={ bible.isRtlVersion( interfaceLanguage ) ? 'rtl' : 'ltr' }>
 					{ crossReferences.map( ( crossReference, index2 ) => {
@@ -84,6 +82,21 @@ const Single = ( { bookmark, index } ) => {
 						);
 					} ) }
 				</div>
+			</div>
+		);
+	}
+
+	return (
+		<Collapsible
+			key={ index }
+			header={ header }
+			open={ bookmark.visible }
+			onToggle={ () => handleToggle() }
+			textToCopy={ bookmarkRef }
+			onRemove={ () => dispatch( removeFromList( bookmark ) ) }
+		>
+			<div ref={ bookmarkRef }>
+				{ renderCrossReferences() }
 			</div>
 		</Collapsible>
 	);

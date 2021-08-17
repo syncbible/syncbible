@@ -64,7 +64,7 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 
 	const wordDetail = strongsDictionary && strongsDictionary[ strongsNumber ];
 	const getKJVDefinitions = () => {
-		return wordDetail.kjv_def && wordDetail.kjv_def.split( ',' ).map( ( word, index ) => {
+		return wordDetail && wordDetail.kjv_def && wordDetail.kjv_def.split( ',' ).map( ( word, index ) => {
 			const wordString = word.trim().replace( /\./g, '' );
 
 			return (
@@ -95,16 +95,12 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 		return <SearchLink key={ index } index={ index } reference={ getReferenceFromSearchResult( result ) } word={ word } />;
 	} );
 
-	if ( ! wordDetail ) {
-		return null;
-	}
-
 	return (
 		<div>
-			{ strongsNumber } | { stripPointing( wordDetail.lemma ) }
-			{ wordDetail.xlit ? ' | ' + wordDetail.xlit : null }
-			{ wordDetail.translit ? ' | ' + wordDetail.translit : null }
-			{ wordDetail.pronounciation ? ' | ' + wordDetail.pronounciation : null }
+			{ strongsNumber } | { wordDetail && stripPointing( wordDetail.lemma ) }
+			{ wordDetail && wordDetail.xlit ? ' | ' + wordDetail.xlit : null }
+			{ wordDetail && wordDetail.translit ? ' | ' + wordDetail.translit : null }
+			{ wordDetail && wordDetail.pronounciation ? ' | ' + wordDetail.pronounciation : null }
 			<br />
 			<div>
 				<strong>Roots: </strong>{ getRoots() }
@@ -124,7 +120,7 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 				<br />
 				<strong>KJV translations</strong><br />{ getKJVDefinitions( strongsNumber ) }<br />
 				<br />
-				<strong>Strongs' Derivation</strong><br />{ wordDetail.derivation }<br />
+				<strong>Strongs' Derivation</strong><br />{ wordDetail && wordDetail.derivation }<br />
 			</div>
 			<br />
 			<strong>Found in</strong> { expandedSearchResults ? ( <a className={ styles.foundInExtra } onClick={ collapseSearchResults }>collapse</a> ) : ( <a className={ styles.foundInExtra } onClick={ expandSearchResults }>expand</a> ) }

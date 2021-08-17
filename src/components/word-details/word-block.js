@@ -44,35 +44,31 @@ const WordBlock = React.memo( ( props ) => {
 
 	const dispatch = useDispatch();
 
-	if ( wordDetail ) {
-		const header = (
-			<span>
-				<span className={ styles.strongsNumberTitle }>{ lemma }</span>
-				{ stripPointing( wordDetail.lemma ) }
-			</span>
-		);
+	const header = (
+		<span>
+			<span className={ styles.strongsNumberTitle }>{ lemma }</span>
+			{ wordDetail && stripPointing( wordDetail.lemma ) }
+		</span>
+	);
 
-		return (
-			<Collapsible
-				title={ termTitle( getSearchParameters() ) }
-				header={ header }
-				open={ visible }
-				onToggle={ () => dispatch( toggleListItemVisible( props ) ) }
-				className={ getClassName( lemma ) }
-				textToCopy={ wordBlockRef }
-				onRemove={ () => dispatch( removeFromList( props ) ) }
-			>
-				<style>{ getHighlight( lemma, subdue, null ) }</style>
-				<div ref={ wordBlockRef }>
-					<div className={ classnames( styles.wordBlock, visible ? styles.visible : styles.hidden ) }>
-						<WordBlockDetails morphologyProp={ morphology } strongsNumber={ lemma } version={ version } word={ props } />
-					</div>
+	return (
+		<Collapsible
+			title={ termTitle( getSearchParameters() ) }
+			header={ header }
+			open={ visible }
+			onToggle={ () => dispatch( toggleListItemVisible( props ) ) }
+			className={ getClassName( lemma ) }
+			textToCopy={ wordBlockRef }
+			onRemove={ () => dispatch( removeFromList( props ) ) }
+		>
+			<style>{ getHighlight( lemma, subdue, null ) }</style>
+			<div ref={ wordBlockRef }>
+				<div className={ classnames( styles.wordBlock, visible ? styles.visible : styles.hidden ) }>
+					<WordBlockDetails morphologyProp={ morphology } strongsNumber={ lemma } version={ version } word={ props } />
 				</div>
-			</Collapsible>
-		);
-	}
-
-	return null;
+			</div>
+		</Collapsible>
+	);
 } );
 
 export default WordBlock;
