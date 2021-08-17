@@ -16,10 +16,10 @@ import { getReferenceFromSearchResult } from '../../lib/reference.js'
 
 const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version, word } ) => {
 	const dispatch = useDispatch();
-	const strongsWithFamilies = javascripture.data.strongsObjectWithFamilies;
 	const expandedSearchResults = useSelector( state => state.settings.expandedSearchResults );
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const strongsDictionary = useSelector( state => state.data.strongsDictionary );
+	const strongsWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
 	const getBranchesData = () => {
 		return map( javascripture.data.strongsObjectWithFamilies, ( strongsObjectData, strongsObjectNumber ) => {
 			if ( strongsObjectData.roots && strongsObjectData.roots.indexOf( strongsNumber ) > -1 ) {
@@ -40,11 +40,11 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 	}
 
 	const getRoots = () => {
-		if ( ! javascripture.data.strongsObjectWithFamilies[ strongsNumber ] ) {
+		if ( ! strongsWithFamilies || ! strongsWithFamilies[ strongsNumber ] ) {
 			return;
 		}
 
-		const rootsData = javascripture.data.strongsObjectWithFamilies[ strongsNumber ].roots;
+		const rootsData = strongsWithFamilies[ strongsNumber ].roots;
 		if( rootsData ) {
 			return rootsData.map( ( rootNumber, index ) => {
 				return (
@@ -109,10 +109,10 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 				<strong>Branches: </strong>{ getBranches() }
 			</div>
 			<div>
-				<strong>Family: </strong>{ getFamily( strongsNumber ) }
+				<strong>Family: </strong>{ getFamily( strongsNumber, strongsWithFamilies ) }
 			</div>
 			<div>
-				{ strongsWithFamilies[ strongsNumber ].count } uses
+				{ strongsWithFamilies && strongsWithFamilies[ strongsNumber ].count } uses
 			</div>
 			<br />
 			<div>

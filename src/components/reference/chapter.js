@@ -43,6 +43,9 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 	useEffect( () => {
 		reference.forEach( ( { book, version } ) => {
 			dispatch( fetchData( mapVersionToData( book, version ) ) );
+			if ( version === 'LC' ) { // This is needed as LC is mapped to original. It needs both data sources to work.
+					dispatch( fetchData( 'LC' ) );
+			}
 		} );
 	}, [ reference ] );
 

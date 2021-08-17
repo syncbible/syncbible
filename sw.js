@@ -21,7 +21,6 @@ self.addEventListener('install', function( e ) {
 			'data/strongs-dictionary.json',
 			'data/crossReferences.json',
 			'data/cdrplan.min.js',
-			'data/LC.js',
 
 			//api - so that search works offline?
 			'api/searchApi.js',

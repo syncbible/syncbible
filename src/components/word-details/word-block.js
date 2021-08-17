@@ -17,6 +17,7 @@ const WordBlock = React.memo( ( props ) => {
 	const { clickedWord, morphology, lemma, version } = data;
 	const subdue = useSelector( state => state.settings.subdue );
 	const strongsDictionary = useSelector( state => state.data.strongsDictionary );
+	const strongsDictionaryWithFamilies = useSelector( state => state.data.strongsDictionaryWithFamilies );
 	const wordBlockRef = useRef( null );
 	const getSearchParameters = () => {
 		return {
@@ -61,7 +62,7 @@ const WordBlock = React.memo( ( props ) => {
 			textToCopy={ wordBlockRef }
 			onRemove={ () => dispatch( removeFromList( props ) ) }
 		>
-			<style>{ getHighlight( lemma, subdue, null ) }</style>
+			<style>{ getHighlight( lemma, subdue, null, strongsDictionaryWithFamilies ) }</style>
 			<div ref={ wordBlockRef }>
 				<div className={ classnames( styles.wordBlock, visible ? styles.visible : styles.hidden ) }>
 					<WordBlockDetails morphologyProp={ morphology } strongsNumber={ lemma } version={ version } word={ props } />

@@ -1,6 +1,10 @@
-export const getFamily = ( strongsNumber ) => {
-	if ( javascripture.data.strongsObjectWithFamilies[ strongsNumber ] && javascripture.data.strongsObjectWithFamilies[ strongsNumber ].family ) {
-		return javascripture.data.strongsObjectWithFamilies[ strongsNumber ].family;
+export const getFamily = ( strongsNumber, strongsObjectWithFamilies ) => {
+	if ( ! strongsObjectWithFamilies ) {
+		return null;
+	}
+
+	if ( strongsObjectWithFamilies[ strongsNumber ] && strongsObjectWithFamilies[ strongsNumber ].family ) {
+		return strongsObjectWithFamilies[ strongsNumber ].family;
 	} else {
 		return strongsNumber;
 	}

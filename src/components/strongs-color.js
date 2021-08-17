@@ -11,12 +11,12 @@ var getStrongsColor = function( lemma, lightness ) {
 		return 'hsl( ' + hue + ',' + staturation + ', ' + lightness + ' )';
 };
 
-var getStrongsColorWithSettings = function( strongsNumber, lightness, highlightWordsWith ) {
+var getStrongsColorWithSettings = function( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies ) {
 	var hightlightFamilies = highlightWordsWith === 'family',
 		classInt;
 
 	if ( hightlightFamilies ) {
-		classInt = parseFloat( getFamily( strongsNumber ).substring( 1, strongsNumber.length ), 10 );
+		classInt = parseFloat( getFamily( strongsNumber, strongsObjectWithFamilies ).substring( 1, strongsNumber.length ), 10 );
 	} else {
 		classInt = parseInt( strongsNumber.substring( 1, strongsNumber.length ), 10 );
 	}
@@ -24,9 +24,9 @@ var getStrongsColorWithSettings = function( strongsNumber, lightness, highlightW
 	return getStrongsColor( classInt, lightness );
 };
 
-var getClassNameWithSettings = function( strongsNumber, lightness, highlightWordsWith ) {
+var getClassNameWithSettings = function( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies ) {
 	if ( highlightWordsWith === 'family' ) {
-		return getFamily( strongsNumber ) + '-family';
+		return getFamily( strongsNumber, strongsObjectWithFamilies ) + '-family';
 	} else {
 		return strongsNumber;
 	}
@@ -37,15 +37,17 @@ var getHue = function( strongsInt ) {
 	return strongsInt * theSizeOfAColorSegment;
 };
 
-var getHighlight = function ( strongsNumber, lightness, highlightWordsWith ) {
-	var newColor = getStrongsColorWithSettings( strongsNumber, lightness, highlightWordsWith );
-	var className = getClassNameWithSettings( strongsNumber, lightness, highlightWordsWith );
+var getHighlight = function ( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies ) {
+	var newColor = getStrongsColorWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies );
+	console.log( newColor );
+	var className = getClassNameWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies  );
+	console.log( className );
 	return '.' + className + ' {color:#fff !important;background:' + newColor + ' !important;}';
 };
 
-var getHighlightBorder = function ( strongsNumber, lightness, highlightWordsWith ) {
-	var newColor = getStrongsColorWithSettings( strongsNumber, lightness, highlightWordsWith );
-	var className = getClassNameWithSettings( strongsNumber, lightness, highlightWordsWith );
+var getHighlightBorder = function ( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies ) {
+	var newColor = getStrongsColorWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies );
+	var className = getClassNameWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies );
 	return '.' + className + ' {outline: 3px solid ' + newColor + ' !important;}';
 };
 

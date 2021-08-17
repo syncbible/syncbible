@@ -15,7 +15,8 @@ import {
 	closeReferenceSelectorMobile,
 	toggleSidebar,
 	fetchCrossReferences,
-	fetchStrongsDictonary
+	fetchStrongsDictonary,
+	fetchStrongsDictonaryWithFamilies
 } from '../actions'
 
 const Root = React.memo( ( { highlightedWord } ) => {
@@ -26,6 +27,7 @@ const Root = React.memo( ( { highlightedWord } ) => {
 	// and we don't want to fill up local storage with immutable data.
 	dispatch( fetchCrossReferences() );
 	dispatch( fetchStrongsDictonary() );
+	dispatch( fetchStrongsDictonaryWithFamilies() );
 
 	const sidebarOpen = useSelector( state => state.sidebar );
 	const darkMode = useSelector( state => state.settings.darkMode );

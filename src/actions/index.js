@@ -339,7 +339,12 @@ export const fetchData = ( key ) => {
 				"Content-Type": "application/json"
 			}
 		}, function ( error, response, body ) {
-			dispatch( receiveData( key, JSON.parse( body ).books ) );
+			const parsedData = JSON.parse( body );
+			if ( parsedData.books ) {
+				dispatch( receiveData( key, parsedData.books ) );
+			} else {
+				dispatch( receiveData( key, parsedData ) );
+			}
 			caches.open( cache ).then( function( cache ) {
 				return cache.addAll([
 					'/bibles/' + key +'.json'
@@ -384,6 +389,26 @@ export const fetchStrongsDictonary = () => {
 			}
 		}, function ( error, response, body ) {
 			dispatch( receiveData( 'strongsDictionary', JSON.parse( body ) ) );
+		} );
+	}
+}
+
+export const fetchStrongsDictonaryWithFamilies = () => {
+	return function( dispatch, getState ) {
+		const { data } = getState();
+			if ( data.strongsObjectWithFamilies ) {
+			return;
+		}
+
+		// This is a combination of both the Hebrew and Greek dictonaries
+		return xhr( {
+			method: "get",
+			uri: "/data/strongsObjectWithFamilies.json",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		}, function ( error, response, body ) {
+			dispatch( receiveData( 'strongsObjectWithFamilies', JSON.parse( body ) ) );
 		} );
 	}
 }

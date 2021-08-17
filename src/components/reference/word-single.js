@@ -1,7 +1,7 @@
 // External
 import React from 'react';
 import classnames from 'classnames';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Internal
 import {
@@ -10,29 +10,31 @@ import {
 import { getFamily } from '../../lib/word';
 import morphology from '../../lib/morphology';
 
-const getLiteralConsistent = function( word, lemma, morph ) {
-	if ( ! javascripture.data.LC ) {
-		return null;
-	}
-
-	if ( ! javascripture.data.LC[ word ] ) {
-		return null;
-	}
-
-	if ( ! lemma ) {
-		lemma = '';
-	}
-
-	if ( typeof javascripture.data.LC[ word ][ lemma ][ morph ] === 'string' ) {
-		return javascripture.data.LC[ word ][ lemma ][ morph ];
-	}
-
-	return null;
-}
-
 export default React.memo( ( props ) => {
 	const { lemma, morph, version, word } = props;
 	const dispatch = useDispatch();
+	const LC = useSelector( state => state.data.LC );
+	const strongsObjectWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
+
+	const getLiteralConsistent = function( word, lemma, morph ) {
+		if ( ! LC ) {
+			return null;
+		}
+
+		if ( ! LC[ word ] ) {
+			return null;
+		}
+
+		if ( ! lemma ) {
+			lemma = '';
+		}
+
+		if ( typeof LC[ word ][ lemma ][ morph ] === 'string' ) {
+			return LC[ word ][ lemma ][ morph ];
+		}
+
+		return null;
+	}
 
 	const getWord = () => {
 		if ( version === 'LC' ) {
@@ -61,7 +63,7 @@ export default React.memo( ( props ) => {
 	};
 
 	const getClassName = () => {
-		const family = lemma ? lemma.split( ' ' ).map( oneLemma => getFamily( oneLemma ) + '-family' ) : null;
+		const family = lemma ? lemma.split( ' ' ).map( oneLemma => getFamily( oneLemma, strongsObjectWithFamilies ) + '-family' ) : null;
 
 		if ( lemma === 'added' ) {
 			return classnames( 'single', lemma );

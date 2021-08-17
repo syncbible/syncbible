@@ -33,11 +33,11 @@ const Verse = React.memo( ( { reference, version } ) => {
 		return placeholder( verse );
 	}
 
-	if ( ! data[ language ][ book ] ) {
+	if ( ! data[ language ][ book ]  && language !== 'LC' ) {
 		return notAvailable( verse );
 	}
 
-	if ( ! language || typeof data[ language ] === 'undefined' || typeof data[ language ][ book ] === 'undefined' || typeof data[ language ][ book ][ chapter ] === 'undefined' ) {
+	if ( ( ! language || typeof data[ language ] === 'undefined' || typeof data[ language ][ book ] === 'undefined' || typeof data[ language ][ book ][ chapter ] === 'undefined' ) && language !== 'LC' ) {
 		return null;
 	}
 
