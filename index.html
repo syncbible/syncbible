@@ -38,31 +38,8 @@
 		</div>
 		<div id="content">
 			<div class="full-page">
-				<div id="holder" class="content">
-					<div class="logo">
-						<object type="image/svg+xml" data="syncbible.svg"></object>
-						<div class="intro">
-							<h1>sync.bible</h1>
-							<p>sync.bible is a tool to help you understand the bible better.</p>
-							<script>
-								if ( localStorage ) {
-									document.write( '<p class="installation-info"><br />Once the scripts have loaded, they will be cached, so the app will work offline.</p>' );
-								}
-							</script>
-						</div>
-					</div>
-					<div class="loading">
-						<div class="loading-bar" id="loadingJavascripture">
-							Loading…
-						</div>
-					</div>
-					<div class="features">
-						<p>Having problems? <a href="http://scruffian.wordpress.com/contact/">Email me</a>, <a href="javascript:clear()">Clear settings and start over</a></p>
-						<p>There are also old versions available in case this one is broken:<br />
-							<br />
-							<a href="https://javascripture.org">javascripture.org</a>
-						</p>
-					</div>
+				<div class="logo">
+					<object type="image/svg+xml" data="syncbible.svg" width="150" height="150"></object>
 				</div>
 			</div>
 		</div>
@@ -77,12 +54,6 @@
 	// so we can import npm modules directly
 	var module = {};
 	var worker = new Worker('workers/worker.js');
-
-	var loadingDiv = document.getElementById( 'loadingJavascripture' );
-	var loadingStatus = function( resource, percentage ) {
-		loadingDiv.innerHTML = 'Loading ' + resource;
-		loadingDiv.style.width = percentage + '%';
-	};
 	var timer = new Date();
 
 	function clear() {
@@ -95,10 +66,8 @@
 <script src="lib/MorphCodes.js"></script>
 <script src="lib/MorphParse.js"></script>
 <script src="lib/morphgnt-parse.js"></script>
-<script>loadingStatus( 'data', 20 );</script>
 <script src="data/bible.js"></script>
 <script src="data/cdrplan.min.js"></script>
-<script>loadingStatus( 'interface', 95 );</script>
 <script src="build/bundle.js"></script>
 <script>
 	// Attach web workers

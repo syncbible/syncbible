@@ -2,6 +2,7 @@
 
 :root, .dark-mode-off {
   --background: #ffffff;
+  --background-smoke: rgba( 255, 255, 255, .95);
   --background-ui: rgb(240,240,240);
   --color: #000000;
   --color-dimmed: #333333;
@@ -17,6 +18,7 @@
 @media ( prefers-color-scheme: dark ) {
 	:root {
     --background: #333333;
+    --background-smoke: rgba(45, 45, 45, 0.95);
     --background-ui: rgb(0,0,0);
     --color: #ffffff;
     --color-dimmed: #aaaaaa;
@@ -31,6 +33,7 @@
 
 .dark-mode-on {
   --background: #333333;
+  --background-smoke: rgba(45, 45, 45, 0.95);
   --background-ui: rgb(0,0,0);
   --color: #ffffff;
   --color-dimmed: #aaaaaa;
@@ -48,11 +51,18 @@ html {
 
 .root,
 body {
-	background: var(--background);
+  background-color: var(--background);
+  background-image: url(/syncbible.svg);
+  background-repeat: no-repeat;
+  background-size: 150px;
+  background-position: center center;
+  height: 100vh;
 	color: var(--color);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-weight: 300;
 }
+
+#content { position: relative; }
 
 .root a,
 a {
@@ -76,7 +86,11 @@ a {
   position: fixed;
   padding: 1em;
   text-align: center;
-  z-index: 10; }
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
   .full-page .content {
 	font-weight: 300;
 	margin: 0 auto;

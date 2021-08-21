@@ -22,8 +22,6 @@ function usePrevious(value) {
 const dockHeight = 60;
 
 const Chapter = React.memo( ( { book, chapter, index } ) => {
-	const inSync = useSelector( state => state.settings.inSync );
-	const data = useSelector( state => state.data );
 	const reference = useSelector( state => state.reference );
 	const currentReference = reference[ index ];
 

@@ -10,6 +10,7 @@ import ReferenceWrapper from '../components/reference-wrapper';
 import KeyboardShortcuts from './keyboard-shortcuts';
 import Trays from './trays';
 import WordHighlight from './word-highlight';
+import InitialView from './inital-view';
 import styles from './root.scss';
 import {
 	closeReferenceSelectorMobile,
@@ -58,7 +59,7 @@ const Root = React.memo( ( { highlightedWord } ) => {
 				styles={{
 					sidebar: { background: "var(--background)", borderTop: "1px solid var(--mid)", boxShadow: "var(--shadow) 2px 2px 4px", overflowY: "none", width: "320px", zIndex: "10" },
 					overlay: { disply: "none", bottom: "auto", right: "auto" },
-					content: { background: "var(--background)" },
+					content: { backgroundColor: "var(--background-smoke)" },
 				}}
 			>
 				<div className={ styles.root }>
@@ -69,7 +70,7 @@ const Root = React.memo( ( { highlightedWord } ) => {
 					<div onClick={ clearReferenceSelector }>
 						<ReferenceWrapper />
 					</div>
-
+					<InitialView />
 				</div>
 			</Sidebar>
 		</div>

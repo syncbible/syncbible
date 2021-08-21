@@ -3,6 +3,7 @@
 
 .sidebar-select {
 	height: $dock-height;
+	max-width: 100%;
 
 	@media ( min-width: 599px ) {
 		font-size: 1.2em;
