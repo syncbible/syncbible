@@ -5,11 +5,11 @@ import classnames from 'classnames';
 // Internal
 import styles from './styles.scss';
 
-const VersionSelect = React.memo( ( { name, value, onChange, large } ) => {
+const VersionSelect = React.memo( ( { name, value="default", onChange, large } ) => {
 	const classes = classnames( styles.sidebarSelect, large ? styles.large : styles.small );
 	return (
 		<select className={ classes } name={ name } value={ value } onChange={ onChange }>
-			<option selected disabled hidden>Select a version to get started</option>
+			<option disabled hidden value="default">Select a version to get started</option>
 			{ Object.keys( bible.Data.interfaceLanguages ).map( ( key ) => {
 				const versionsForLanguage = Object.keys( bible.Data.supportedVersions ).filter( versionForLanguage => bible.Data.supportedVersions[ versionForLanguage ].language === key );
 				const versionOption = versionsForLanguage.map( version => {

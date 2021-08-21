@@ -62,7 +62,6 @@
 </script>
 
 <!-- libs -->
-<script>loadingStatus( 'Libraries', 10 );</script>
 <script src="lib/MorphCodes.js"></script>
 <script src="lib/MorphParse.js"></script>
 <script src="lib/morphgnt-parse.js"></script>
@@ -81,9 +80,9 @@
 			} );
 		}
 
-		if( e.data.task === 'loading' ) {
+		/*if( e.data.task === 'loading' ) {
 			document.getElementById( 'loading' ).innerHTML = e.data.html;
-		}
+		}*/
 	}, false );
 
 	// Handler for messages coming from the service worker
@@ -93,12 +92,6 @@
 	});
 
 	let newWorker;
-	// The click event on the notification
-	document.getElementById('reload').addEventListener('click', function(){
-		localStorage.clear();
-		newWorker.postMessage({ action: 'skipWaiting' });
-	});
-
 	if( 'serviceWorker' in navigator) {
 		navigator.serviceWorker
 			.register('/sw.js', { updateViaCache: 'imports' } )

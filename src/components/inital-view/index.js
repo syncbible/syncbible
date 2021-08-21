@@ -20,7 +20,7 @@ const InitialView = React.memo( () => {
 			<div className={ styles.content }>
 				<h1>sync.bible</h1>
 				<p>sync.bible is a tool to help you understand the bible better.</p>
-				{ localStorage && <p class="installation-info"><br />Once the scripts have loaded, they will be cached, so the app will work offline.</p> }
+				{ localStorage && <p className="installation-info"><br />Once the scripts have loaded, they will be cached, so the app will work offline.</p> }
 				<p>Having problems? <a href="http://scruffian.wordpress.com/contact/">Email me</a>, <a href="javascript:clear()">Clear settings and start over</a></p>
 				<p>There is also an old version available in case this one is broken: <a href="https://javascripture.org">javascripture.org</a></p>
 			</div>
