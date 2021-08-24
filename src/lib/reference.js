@@ -21,7 +21,7 @@ export const getHashFromStateReference = ( stateReference ) => {
 
 export const getHashAndUpdateWithIndex = ( stateReference, newReference, index ) => {
 	const unmutatedReference = stateReference.map( ( reference, key ) => {
-		if ( key === index ) {
+		if ( key === parseInt( index ) ) {
 			newReference.version = reference.version;
 			return newReference;
 		}
