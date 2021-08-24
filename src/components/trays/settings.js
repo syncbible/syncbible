@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
 import { settingsChange } from '../../actions';
+import SingleReference from '../reference/single-reference';
 import VersionSelect from '../version-select';
 import styles from './styles.scss';
 
@@ -14,6 +15,7 @@ javascripture.state = {};
 const SettingsTray = React.memo( () => {
 	const dispatch = useDispatch();
 	const settings = useSelector( state => state.settings );
+	const reference = useSelector( state => state.reference );
 
  	// remove this line
 	javascripture.state.settings = settings;
@@ -108,6 +110,15 @@ const SettingsTray = React.memo( () => {
 									</select>
 								</li>
 								<li className={ styles.settingsLi }>
+									<label>Target column:</label>
+									<select value={ settings.targetColumn } id="targetColumn" name="targetColumn" onChange={ changeSetting } >
+										{ reference.map( ( singleReference, key ) => {
+											return <option value={ key } key={ key }>{ key + 1 }</option>
+										} ) }
+									</select>
+								</li>
+
+								<li className={ styles.settingsLi }>
 									<label>
 										<input type="checkbox" name="expandedSearchResults" checked={ settings.expandedSearchResults } onChange={ changeCheckboxSetting } /> Show expanded search results
 									</label>
@@ -136,8 +147,7 @@ const SettingsTray = React.memo( () => {
 					</div>
 				</div>
 				<p>Legacy versions:<br />
-				<a href="https://javascripture.net">javascripture.net</a><br />
-				<a href="https://javascripture.xyz">javascripture.xyz</a><br />
+				<a href="https://javascripture.org">javascripture.org</a><br />
 				</p>
 				<br />
 				<br />

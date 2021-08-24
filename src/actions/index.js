@@ -11,10 +11,14 @@ import {
 } from '../lib/reference.js';
 import { push } from 'connected-react-router';
 
-export const goToReferenceAction = ( reference, index = 0 ) => {
+export const goToReferenceAction = ( reference, targetColumn ) => {
 	return function( dispatch, getState ) {
 		const state = getState();
-		const newHash = goToReferenceHelper( state.reference, reference, index, state.settings.inSync );
+		if ( typeof targetColumn === "undefined" ) {
+			targetColumn = state.settings.targetColumn;
+		}
+
+		const newHash = goToReferenceHelper( state.reference, reference, targetColumn, state.settings.inSync );
 		dispatch( push( '/#' + newHash ) );
 	}
 }

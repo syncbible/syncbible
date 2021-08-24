@@ -2,11 +2,9 @@ import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
 
 const searchResults = ( state = [], action ) => {
-	let newState,
-		getCurrentVersePosition,
-		reference;
 	switch ( action.type ) {
 		case 'ADD_SEARCH_RESULTS':
+			let newState;
 			const searchResultsPosition = findIndex( state, searchTerm => {
 					return isEqual( searchTerm.terms, action.terms );
 				} );

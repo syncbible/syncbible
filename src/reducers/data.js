@@ -1,9 +1,4 @@
-const initialState = {
-	KJV: javascripture.data.kjv,
-	LC: javascripture.data.literalConsistent,
-};
-
-const data = ( state = initialState, action ) => {
+const data = ( state = {}, action ) => {
 	switch ( action.type ) {
 		case 'REQUEST_DATA':
 			const requestState = { ...state };

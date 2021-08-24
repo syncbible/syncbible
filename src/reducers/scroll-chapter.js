@@ -1,5 +1,5 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
-import { getReferenceText, getReferenceFromHash, getRandomReference } from '../lib/reference.js';
+import { getReferenceFromHash } from '../lib/reference.js';
 
 const initialState = [];
 

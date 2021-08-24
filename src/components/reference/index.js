@@ -11,7 +11,7 @@ import styles from './styles.scss';
 
 let oldHeight = 0, scroller = null, isScrolling = false;
 
-const Reference = React.memo( ( props ) => {
+const ReferenceComponent = React.memo( ( props ) => {
 	const [ references, setReferences ] = useState( {} );
 	const referenceWindow = useRef();
 	const inSync = useSelector( state => state.settings.inSync );
@@ -164,9 +164,9 @@ const Reference = React.memo( ( props ) => {
 
 	return (
 		<div id={ 'referenceWindow' + props.index } className={ classname } key={ currentBook + '-' + currentChapter } ref={ referenceWindow } onScroll={ handleScroll }>
-			{ references.references && references.references.map( ( reference ) => {
-				const book = bible.getBook( reference.bookID );
-				const chapter = reference.chapter1;
+			{ references.references && references.references.map( ( referencesItem ) => {
+				const book = bible.getBook( referencesItem.bookID );
+				const chapter = referencesItem.chapter1;
 
 				return (
 					<div className={ styles.referenceInner } key={ book + chapter }>
@@ -187,4 +187,4 @@ const Reference = React.memo( ( props ) => {
 	);
 } );
 
-export default Reference;
+export default ReferenceComponent;

@@ -16,7 +16,7 @@ const BookControl = React.memo( ( { chapters, name } ) => {
 	const referenceSelector = useRef( null );
 	const handleGoToReference = () => {
 		const version = stateReference[ 0 ].version;
-		dispatch( goToReferenceAction( { book: name, chapter, verse: 1, version }, 0 ) );
+		dispatch( goToReferenceAction( { book: name, chapter, verse: 1, version } ) );
 	};
 
 	const handleMouseMove = ( event ) => {

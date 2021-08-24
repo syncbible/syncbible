@@ -20,8 +20,16 @@ export const getHashFromStateReference = ( stateReference ) => {
 };
 
 export const getHashAndUpdateWithIndex = ( stateReference, newReference, index ) => {
-	stateReference[ index ] = newReference;
-	return getHashFromStateReference( stateReference );
+	const unmutatedReference = stateReference.map( ( reference, key ) => {
+		if ( key === index ) {
+			newReference.version = reference.version;
+			return newReference;
+		}
+
+		return reference;
+	} );
+
+	return getHashFromStateReference( unmutatedReference );
 }
 
 export const getVerseData = ( reference, version, data ) => {
@@ -145,8 +153,7 @@ export const getReferenceFromHashFragment = function( hash ) {
 	const reference = hash.split( '/' );
 
 	if ( ! reference[ 1 ] || reference[ 1 ] === '' ) {
-		const randomReference = getRandomReference( version );
-		return false;
+		return getRandomReference( version );
 	}
 
 	const version = reference[ 1 ],
@@ -158,8 +165,10 @@ export const getReferenceFromHashFragment = function( hash ) {
 };
 
 export const getReferenceFromHash = function( hash ) {
-	const referenceArray = hash.replace( '#', '' ).split( '&' );
-	return referenceArray.map( hashFragment => getReferenceFromHashFragment( hashFragment ) );
+	const cleanHash = hash.replace( '#', '' ).split( '&' );
+	return cleanHash.map( hashFragment => {
+		return getReferenceFromHashFragment( hashFragment );
+	} );
 };
 
 export const getRandomReference = function( version = 'KJV') {
@@ -197,7 +206,7 @@ export const goToReferenceHelper = ( stateReference, newReference, index, inSync
 	if ( inSync ) {
 		return createSyncedHashFromReference( stateReference, newReference );
 	} else {
-		return getHashAndUpdateWithIndex( stateReference, newReference, index, inSync );
+		return getHashAndUpdateWithIndex( stateReference, newReference, index );
 	}
 }
 

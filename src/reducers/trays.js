@@ -1,5 +1,3 @@
-import { LOCATION_CHANGE } from 'connected-react-router';
-
 const initalState = [
 	{
 		visible: true,

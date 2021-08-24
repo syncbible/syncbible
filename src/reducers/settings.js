@@ -11,6 +11,7 @@ const initialState = {
 	type: "SETTINGS_CHANGE",
 	darkMode: null,
 	compareMode: false,
+	targetColumn: 0,
 }
 
 export default ( state = initialState, action ) => {

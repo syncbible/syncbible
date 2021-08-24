@@ -1,7 +1,7 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { REHYDRATE } from 'redux-persist/lib/constants'
 
-import { getReferenceText, getReferenceFromHash, getRandomReference } from '../lib/reference.js';
+import { getReferenceText, getReferenceFromHash } from '../lib/reference.js';
 
 const getReferenceFromAction = ( reference, version ) => {
 	const book = reference.book.replace( /\%20/gi, ' ' ),
@@ -23,13 +23,14 @@ const reference = ( state = [], action ) => {
 
 			timer = new Date();
 
-			const reference = getReferenceFromHash( hash );
-			if ( ! reference || ! window.location.hash || '#/' === window.location.hash ) {
+			const referenceFromHash = getReferenceFromHash( hash );
+			if ( ! referenceFromHash || ! window.location.hash || '#/' === window.location.hash ) {
 				return state;
 			}
 
-			document.title = getReferenceText( reference[ 0 ] ) + ' | sync.bible';
-			return reference;
+			document.title = getReferenceText( referenceFromHash[ 0 ] ) + ' | sync.bible';
+
+			return referenceFromHash;
 
 		case 'SET_REFERENCE':
 			const setReferenceState = [ ...state ];
@@ -38,7 +39,6 @@ const reference = ( state = [], action ) => {
 
 		case 'ADD_COLUMN':
 			const addedState = [ ...state ];
-			const numberOfColumns = state.length;
 			const addedColumn = Object.assign( {}, state[ state.length - 1 ] );
 			addedState.push( addedColumn );
 			return addedState;

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 
 // Internal
-import Reference from '../reference';
+import ReferenceComponent from '../reference';
 import Comparison from '../comparison';
 import styles from './style.scss';
 import { areReferencesInSync } from '../../lib/reference';
@@ -23,10 +23,10 @@ const ReferenceWrapper = React.memo( () => {
 	}
 
 	if ( inSync ) {
-		references = <Reference reference={ reference[ 0 ] } index={ 0 } />
+		references = <ReferenceComponent reference={ reference[ 0 ] } index={ 0 } />
 	} else {
 		references = reference.map( ( singleReference, index ) => {
-			return ( <Reference reference={ singleReference } key={ index } index={ index } /> );
+			return ( <ReferenceComponent reference={ singleReference } key={ index } index={ index } /> );
 		} );
 	}
 

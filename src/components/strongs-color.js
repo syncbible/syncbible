@@ -39,9 +39,7 @@ var getHue = function( strongsInt ) {
 
 var getHighlight = function ( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies ) {
 	var newColor = getStrongsColorWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies );
-	console.log( newColor );
 	var className = getClassNameWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies  );
-	console.log( className );
 	return '.' + className + ' {color:#fff !important;background:' + newColor + ' !important;}';
 };
 

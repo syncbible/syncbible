@@ -49,14 +49,13 @@ const list = ( state = initialState, action ) => {
 				} )
 			]
 		case 'ADD_SEARCH_RESULTS':
-			return [
-				...state.map( item => {
-					if ( isEqual( action.terms, item.data ) ) {
-						item.results = action.results;
-					}
-					return item;
-				} )
-			]
+			return state.map( item => {
+				if ( isEqual( action.terms, item.data ) ) {
+					item.results = action.results;
+				}
+				return item;
+			} );
+
 		case 'SET_CURRENT_LIST_RESULT':
 			return [
 				...state.map( item => {
