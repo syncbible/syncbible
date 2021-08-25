@@ -8,7 +8,12 @@ import styles from './styles.scss';
 const VersionSelect = React.memo( ( { name, value="default", onChange, large } ) => {
 	const classes = classnames( styles.sidebarSelect, large ? styles.large : styles.small );
 	return (
-		<select className={ classes } name={ name } value={ value } onChange={ onChange }>
+		<select className={ classes } name={ name } value={ value } onChange={ ( event ) => {
+			if( typeof ga !== 'undefined' ) {
+				ga('send', 'event', 'version', 'select', 'Version Selected', value );
+			}
+			onChange( event );
+		} }>
 			<option disabled hidden value="default">Select a version to get started</option>
 			{ Object.keys( bible.Data.interfaceLanguages ).map( ( key ) => {
 				const versionsForLanguage = Object.keys( bible.Data.supportedVersions ).filter( versionForLanguage => bible.Data.supportedVersions[ versionForLanguage ].language === key );
