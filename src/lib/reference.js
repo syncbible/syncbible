@@ -49,7 +49,7 @@ export const getReferenceText = ( referenceObject ) => {
 };
 
 export const getAllLemmasFromReference = ( reference, data ) => {
-	const verse = data[ reference.book ][ reference.chapter - 1 ][ reference.verse - 1 ];
+	const verse = data[ reference.version ][ reference.book ][ reference.chapter - 1 ][ reference.verse - 1 ];
 	const lemmas = verse.map( word => {
 		const lemma = word[ 1 ].split( '/' );
 		// filter out non-numeric lemmas
@@ -61,15 +61,19 @@ export const getAllLemmasFromReference = ( reference, data ) => {
 };
 
 export const getLemmasForReference = ( reference, data ) => {
+	if ( typeof data === 'undefined' || typeof data.original === 'undefined' ) {
+		return [];
+	}
+
 	if ( ! reference.verse || reference.verse === 'all' ) {
-		return data[ reference.book ][ reference.chapter - 1 ].map( verse => {
+		return data.original[ reference.book ][ reference.chapter - 1 ].map( verse => {
 			return verse.map( word => {
 				return word[ 1 ].split('/');
 			} ).flat();
 		} ).flat();
 	}
 
-	return data[ reference.book ][ reference.chapter - 1 ][ reference.verse - 1 ].map( word => {
+	return data[ 'original' ][ reference.book ][ reference.chapter - 1 ][ reference.verse - 1 ].map( word => {
 		return word[ 1 ].split('/');
 	} ).flat();
 
@@ -93,8 +97,8 @@ export const compareTwoReferences = ( { referenceInfo: { reference, referenceToC
 		return null;
 	}
 
-	const ref1Lemmas = getLemmasForReference( reference, getDataFromBook( reference, data ) );
-	const ref2Lemmas = getLemmasForReference( referenceToCompareWith, getDataFromBook( referenceToCompareWith, data ) );
+	const ref1Lemmas = getLemmasForReference( reference, data );
+	const ref2Lemmas = getLemmasForReference( referenceToCompareWith, data );
 	const comparison = ref1Lemmas.filter( lemma => {
 		if ( javascripture.data.strongsObjectWithFamilies[ lemma ].count < limit ) {
 			if ( ref2Lemmas.indexOf( lemma ) > -1 ) {
@@ -111,7 +115,7 @@ export const calculateRareWords = ( { referenceInfo: { reference, limit }, data 
 		return null;
 	}
 
-	const lemmas = getLemmasForReference( reference, getDataFromBook( reference, data ) );
+	const lemmas = getLemmasForReference( reference, data );
 	return uniq( lemmas.filter( lemma => {
 		return javascripture.data.strongsObjectWithFamilies[ lemma ].count < limit;
 	} ) );
@@ -122,7 +126,7 @@ export const calculateCommonWords = ( { referenceInfo: { reference }, data } ) =
 		return null;
 	}
 
-	const lemmas = getLemmasForReference( reference, getDataFromBook( reference, data ) );
+	const lemmas = getLemmasForReference( reference, data );
 	const counted = {};
 	forEach( lemmas, lemma => {
 		if ( typeof counted[ lemma ] === 'undefined' ) {
@@ -143,7 +147,7 @@ export const calculateConnectionQuality = ( state ) => {
 
 	const comparisonState = JSON.parse( JSON.stringify( state ) );
 	comparisonState.referenceInfo.limit = 99999999999;
-	const numberOfWordsInReference = uniq( getLemmasForReference( reference, getDataFromBook( reference, data ) ) ).length;
+	const numberOfWordsInReference = uniq( getLemmasForReference( reference, data ) ).length;
 	const comparison = compareTwoReferences( comparisonState );
 	const numberOfConnections = comparison ? comparison.length : 0;
 	return numberOfConnections / numberOfWordsInReference;

@@ -1,10 +1,11 @@
 // External dependencies
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
 import { compareTwoReferences, calculateRareWords, calculateCommonWords, calculateConnectionQuality } from '../../lib/reference';
 import {
+	fetchData,
 	selectWord,
 	setReferenceInfo,
 	setReferenceInfoCompareWith,
@@ -32,6 +33,12 @@ const ReferenceInfo = React.memo( ( props ) => {
 			version: 'original',
 		} ) );
 	};
+
+	useEffect( () => {
+		if ( props.visible ) {
+			dispatch( fetchData( 'original' ) );
+		}
+	}, [ props.visible ] );
 
 	const getOverlap = () => {
 		if ( ! overlap ) {
