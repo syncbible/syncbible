@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import classnames from 'classnames';
 
 // Internal
-import { addColumnAction } from '../../actions';
+import { addColumnAction, settingsChange } from '../../actions';
 import Navigation from '../navigation';
 import Controls from '../controls';
 import styles from './style.scss';
@@ -19,6 +19,7 @@ const Dock = React.memo( () => {
 	const onSelectVerion = ( event ) => {
 		const version = event.target.value;
 		dispatch( addColumnAction( version ) );
+		dispatch( settingsChange( 'interfaceLanguage', version ) );
 		event.target.blur();
 	};
 
