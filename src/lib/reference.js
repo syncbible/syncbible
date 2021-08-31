@@ -61,7 +61,7 @@ export const getAllLemmasFromReference = ( reference, data ) => {
 };
 
 export const getLemmasForReference = ( reference, data ) => {
-	if ( typeof data === 'undefined' || typeof data.original === 'undefined' ) {
+	if ( typeof data === 'undefined' || typeof data.original === 'undefined' || typeof data.original[ reference.book ] === 'undefined' ) {
 		return [];
 	}
 
