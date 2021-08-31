@@ -380,7 +380,7 @@ export const fetchCrossReferences = () => {
 export const fetchStrongsDictonary = () => {
 	return function( dispatch, getState ) {
 		const { data } = getState();
-			if ( data.strongsDictonary ) {
+		if ( data.strongsDictionary ) {
 			return;
 		}
 
