@@ -1,9 +1,10 @@
 // External dependencies
 import React, { useState, Fragment } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
-import { createReferenceLink } from '../../lib/reference';
-import ReferenceText from '../reference-text';
+import { goToReferenceAction } from '../../actions';
+import { goToReferenceHelper } from '../../lib/reference';
 import styles from './styles.scss';
 
 const getMonthName = ( monthNumber ) => {
@@ -30,6 +31,9 @@ function getDaysIntoYear(date){
 }
 
 const DailyReadings = React.memo( () => {
+	const stateReference = useSelector( state => state.reference );
+	const settings = useSelector( state => state.settings );
+	const dispatch = useDispatch();
 	const [ selectedMonth, setSelectedMonth ] = useState( new Date().getMonth() );
 	const [ selectedDay, setSelectedDay ] = useState( new Date().getDate() );
 
@@ -63,8 +67,20 @@ const DailyReadings = React.memo( () => {
 			reference.verse = 1;
 		}
 
+
+
+
+
+
+
+		const newHash = '/#' + goToReferenceHelper( stateReference, reference, settings.targetColumn, settings.inSync );
+
 		return (
-			<a href={ '/#' + createReferenceLink( reference ) } onClick={ ( event ) => event.stopPropagation() }>
+			<a href={ newHash } onClick={ ( event ) => {
+				event.stopPropagation();
+				event.preventDefault();
+				dispatch( goToReferenceAction( reference ) );
+			} }>
 				{ referenceString }
 			</a>
 		);
