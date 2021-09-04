@@ -19,7 +19,7 @@
 
 .chapter-tray {
 	display: flex;
-	font-size: 13px;
+	font-size: 14px;
 	line-height: 30px;
 
 	* {
@@ -30,21 +30,8 @@
 		width: 80px;
 	}
 
-	input, select {
-
-	}
-
 	button {
 		width: 100%;
-
-		&[disabled] {
-			border: none;
-			color: #999;
-
-			&:hover {
-				background: #eee;
-			}
-		}
 	}
 }
 
@@ -107,7 +94,8 @@
 .limit {
 	display: inline;
 	height: 30px;
-	width: 50px;
+	margin-left: 5px;
+	width: 80px;
 }
 
 .scrolling-block {

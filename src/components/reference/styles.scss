@@ -125,7 +125,7 @@
 }
 
 .placeholder {
-	background: #eee;
+	background: var(--background-ui);
 	font-size: .8em;
 	display: block;
 	margin: .4em 0 .5em 0;
