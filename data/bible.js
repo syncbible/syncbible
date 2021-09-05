@@ -103,6 +103,7 @@ bible.Data.supportedVersions = {
 	'LEB': { name: 'Lexham English Bible', language: 'en' },
 	'NET': { name: 'New English Translation', language: 'en' },
 	'WMB': { name: 'World Messianic Bible', language: 'en' },
+	'BSB': { name: 'Berean Study Bible', language: 'en' },
 	'OPV': { name: 'ترجمه-ی قدام', language: 'fa' },
 	'TPV': { name: 'مژده برای اسرع جدید', language: 'fa' },
 	'NMV': { name: 'ترجمه هزارۀ نو', language: 'fa' },
