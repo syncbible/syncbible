@@ -10,7 +10,6 @@ import Footer from '../footer';
 
 const Trays = React.memo( () => {
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
-	console.log( interfaceLanguage );
 
 	if ( interfaceLanguage ) {
 		return (
