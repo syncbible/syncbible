@@ -7,10 +7,9 @@
 	"description": "A JavaScript bible exploration app",
 	"icons": [
 		{
-			"src": "\/syncbible.svg",
-			"sizes": "500x500",
-			"type": "image\/svg",
-			"density": "4.0"
+            "src": "syncbible.svg",
+            "purpose": "maskable any",
+            "sizes": "any"
 		}
 	],
 	"app": {
