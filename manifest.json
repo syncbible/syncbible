@@ -8,7 +8,7 @@
 	"icons": [
 		{
             "src": "syncbible.svg",
-            "purpose": "maskable any",
+            "purpose": "any",
             "sizes": "any"
 		}
 	],
