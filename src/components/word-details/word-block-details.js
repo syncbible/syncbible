@@ -112,7 +112,7 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 				<strong>Family: </strong>{ getFamily( strongsNumber, strongsWithFamilies ) }
 			</div>
 			<div>
-				{ strongsWithFamilies && strongsWithFamilies[ strongsNumber ].count } uses
+				{ strongsWithFamilies && strongsWithFamilies[ strongsNumber ] && strongsWithFamilies[ strongsNumber ].count } uses
 			</div>
 			<br />
 			<div>
