@@ -1,4 +1,4 @@
-var cache = 'javascripture.22.0.1631649217';
+var cache = 'syncbible.23.0.1632340866';
 
 self.addEventListener('install', function( e ) {
 	e.waitUntil( caches.open( cache ).then(function(cache) {
@@ -7,8 +7,7 @@ self.addEventListener('install', function( e ) {
 			'index.html',
 			'css/layout.css',
 			'manifest.json',
-			'javascripture.svg',
-			'android-icon-512x512.png',
+			'syncbible.svg',
 
 			//libs
 			'lib/MorphCodes.js',
