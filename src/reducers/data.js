@@ -11,6 +11,15 @@ const data = ( state = {}, action ) => {
 			javascripture.data[ action.key ] = action.data; //for search
 			return newState;
 
+		case 'UPDATE_DATA':
+			const unmutatedState = { ...state };
+			if ( ! action.lemma ) {
+				action.lemma = '';
+			}
+
+			unmutatedState[ action.version ][ action.word ][ action.lemma ][ action.morph ] = action.translation;
+			return unmutatedState;
+
 		default:
 			return state;
 	}

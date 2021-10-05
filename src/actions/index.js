@@ -524,3 +524,14 @@ export const setCurrentListResult = ( id, index ) => {
 		type: 'SET_CURRENT_LIST_RESULT'
 	}
 }
+
+export const updateData = ( { version, word, lemma, morph, translation } ) => {
+	return {
+		type: 'UPDATE_DATA',
+		version,
+		word,
+		lemma,
+		morph,
+		translation,
+	}
+}

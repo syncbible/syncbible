@@ -1,44 +1,50 @@
 // External
-import React from 'react';
+import React, { useState } from 'react';
 import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal
 import {
 	selectWord,
+	updateData,
 } from '../../actions';
 import { getFamily } from '../../lib/word';
 import morphology from '../../lib/morphology';
 
-export default React.memo( ( props ) => {
-	const { lemma, morph, version, word } = props;
-	const dispatch = useDispatch();
-	const LC = useSelector( state => state.data.LC );
-	const strongsObjectWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
 
-	const getLiteralConsistent = function( word, lemma, morph ) {
-		if ( ! LC ) {
-			return null;
-		}
-
-		if ( ! LC[ word ] ) {
-			return null;
-		}
-
-		if ( ! lemma ) {
-			lemma = '';
-		}
-
-		if ( typeof LC[ word ][ lemma ][ morph ] === 'string' ) {
-			return LC[ word ][ lemma ][ morph ];
-		}
-
+const getLiteralConsistent = function( LC, word, lemma, morph ) {
+	if ( ! LC ) {
 		return null;
 	}
 
+	if ( ! LC[ word ] ) {
+		return null;
+	}
+
+	if ( ! lemma ) {
+		lemma = '';
+	}
+
+	if ( 'הו' === word ) {
+		console.log( word, lemma, morph, LC[ word ][ lemma ][ morph ] );
+	}
+
+	if ( typeof LC[ word ][ lemma ][ morph ] === 'string' ) {
+		return LC[ word ][ lemma ][ morph ];
+	}
+
+	return null;
+}
+
+export default React.memo( ( props ) => {
+	const { lemma, morph, version, word } = props;
+	const dispatch = useDispatch();
+	const literalConsistentTranslation = useSelector( state => getLiteralConsistent( state.data.LC, word, lemma, morph ) );
+	const strongsObjectWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
+
 	const getWord = () => {
 		if ( version === 'LC' ) {
-			return getLiteralConsistent( word, lemma, morph ) + ' ';
+			return literalConsistentTranslation + ' ';
 		}
 
 		return word;
@@ -77,7 +83,14 @@ export default React.memo( ( props ) => {
 			className={ getClassName() }
 			onMouseOver={ highlightWord }
 			onMouseOut={ clearHighlightWord }
-			onClick={ () => dispatch( selectWord( props ) ) }
+			onClick={ ( event ) => {
+				if( event.altKey && ( version === 'LC' || version === 'original' ) ) {
+					const translation = window.prompt( word + ' ' + lemma + ' ' + morph, literalConsistentTranslation );
+					dispatch( updateData( { version: 'LC', word, lemma, morph, translation } ) );
+				} else {
+					dispatch( selectWord( props ) );
+				}
+			} }
 			title={ getTitle() }
 			key={ lemma }
 			>

@@ -4,10 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
 import { settingsChange } from '../../actions';
-import SingleReference from '../reference/single-reference';
 import VersionSelect from '../version-select';
 import styles from './styles.scss';
-
 
 // set up global - to be deleted
 javascripture.state = {};
@@ -16,6 +14,7 @@ const SettingsTray = React.memo( () => {
 	const dispatch = useDispatch();
 	const settings = useSelector( state => state.settings );
 	const reference = useSelector( state => state.reference );
+	const LC = useSelector( state => state.data.LC );
 
  	// remove this line
 	javascripture.state.settings = settings;
@@ -34,6 +33,15 @@ const SettingsTray = React.memo( () => {
 		localStorage.clear();
 		window.location.href="/";
 	};
+
+	const exportLC = () => {
+		const element = document.createElement("a");
+		const file = new Blob([ JSON.stringify( LC ) ], {type: 'text/plain'});
+		element.href = URL.createObjectURL(file);
+		element.download = "LC.json";
+		document.body.appendChild(element); // Required for this to work in FireFox
+		element.click();
+	}
 
 	return (
 		<div>
@@ -154,7 +162,9 @@ const SettingsTray = React.memo( () => {
 				<p>Built in Firefox. Tested in Chrome.</p>
 				<a href="https://github.com/morphgnt/tischendorf">Greek text: Tischendorf</a><br />
 				<a href="https://github.com/openscriptures/morphhb">Hebrew text source</a><br />
-				<a href="https://github.com/javascripture/javascripture/blob/gh-pages/data/literalConsistent.js">Literal: A work in progress</a><br />
+				<a href="https://github.com/javascripture/javascripture/blob/gh-pages/data/literalConsistent.js">Literal: A work in progress</a>.
+				<a onClick={ ()=>exportLC() }>export</a>
+				<br />
 				ESV: The Holy Bible, English Standard Version ©2011 Crossway Bibles, a division of Good News Publishers. All rights reserved.<br />
 				<p><br />Version: { typeof( javascripture.sw ) !== 'undefined' ? javascripture.sw : null }</p>
 				<p><a href="#" onClick={ clear }>Clear settings and start over</a></p>

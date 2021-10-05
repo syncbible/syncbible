@@ -5,20 +5,7 @@ import React from 'react';
 import CopySvg from '../svg/copy.js';
 import styles from './styles.scss';
 
-const copyToClipboardHelper = ( event, textToCopy ) => {
-	if ( textToCopy.current ) {
-		textToCopy = textToCopy.current.innerText;
-	}
-
-	event.stopPropagation();
-	const textarea = document.createElement( 'textarea' )
-	textarea.value = textToCopy;
-	document.body.appendChild( textarea );
-	textarea.select();
-	document.execCommand('copy');
-	textarea.remove();
-	event.target.focus();
-};
+import copyToClipboardHelper from '../../lib/copy-to-clipboard-helper';
 
 const CopyToClipboard = ( { fill, textToCopy } ) => {
 	return (
