@@ -73,11 +73,13 @@
 	// has to come before service worker
 	worker.addEventListener( 'message', function( e ) {
 		if( e.data.task === 'search' ) {
-			javascripture.reactHelpers.dispatch( {
-				terms: e.data.parameters,
-				results: e.data.result,
-				type: 'ADD_SEARCH_RESULTS',
-			} );
+			if ( javascripture.reactHelpers.dispatch ) {
+				javascripture.reactHelpers.dispatch( {
+					terms: e.data.parameters,
+					results: e.data.result,
+					type: 'ADD_SEARCH_RESULTS',
+				} );
+			}
 		}
 
 		/*if( e.data.task === 'loading' ) {

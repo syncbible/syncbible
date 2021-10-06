@@ -266,3 +266,20 @@ export const getNewVersionHash = ( stateReference, index, version ) => {
 
 	return getHashFromStateReference( newReference );
 }
+
+export const sortReferences = ( referenceA, referenceB ) => {
+	const referenceAArray = referenceA.split('.');
+	const referenceBArray = referenceB.split('.');
+	const positionOfReferenceA = bible.Data.allBooks.indexOf( referenceAArray[ 0 ] );
+	const positionOfReferenceB = bible.Data.allBooks.indexOf( referenceBArray[ 0 ] );
+
+	if ( positionOfReferenceA === positionOfReferenceB ) {
+		if ( referenceAArray[1] === referenceBArray[1] ) {
+			return referenceAArray[2] - referenceBArray[2];
+		}
+
+		return referenceAArray[1] - referenceBArray[1];
+	}
+
+	return positionOfReferenceA - positionOfReferenceB;
+}

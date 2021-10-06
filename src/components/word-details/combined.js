@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 // Internal dependencies
 import Collapsible from '../collapsible';
 import SearchLink from '../search/search-link';
-import { getReferenceFromSearchResult } from '../../lib/reference.js'
+import { getReferenceFromSearchResult, sortReferences } from '../../lib/reference.js'
 import styles from './styles.scss';
 
 const CombinedResults = React.memo( () => {
