@@ -91108,7 +91108,7 @@
 	},
 	"אחבא": {
 		"H2244": {
-			"HVNw1cs": "make hidden",
+			"HVNw1cs": "I was hidden",
 			"HVhw1cs": "make hidden"
 		}
 	},
@@ -91141,7 +91141,7 @@
 	"אחד": {
 		"H259": {
 			"HAcmsa": "one",
-			"HAcmsc": "first"
+			"HAcmsc": "one"
 		}
 	},
 	"אחדים": {
@@ -91844,7 +91844,7 @@
 	},
 	"אחת": {
 		"H259": {
-			"HAcfsa": "first",
+			"HAcfsa": "one",
 			"HAcfsc": "first"
 		},
 		"H269": {
@@ -91978,7 +91978,7 @@
 	},
 	"אי": {
 		"H335": {
-			"HTi": "where?"
+			"HTi": "where"
 		},
 		"H336": {
 			"HTj": "island (Job 22:30)"
@@ -92366,7 +92366,7 @@
 	},
 	"אירא": {
 		"H3372": {
-			"HVqw1cs": "be fearful",
+			"HVqw1cs": "I was fearful",
 			"HVqi1cs": "be fearful"
 		}
 	},
@@ -92583,8 +92583,8 @@
 		"H398": {
 			"HVqa": "eating",
 			"HVqc": "eat",
-			"HVqw1cs": "eat",
-			"HVqq3ms": "eat",
+			"HVqw1cs": "I ate",
+			"HVqq3ms": "he will eat",
 			"HVqi1cs": "I will eat",
 			"HVqv2ms": "eat",
 			"HVqp3ms": "eat",
@@ -92671,8 +92671,8 @@
 	},
 	"אכלת": {
 		"H398": {
-			"HVqp2ms": "eat",
-			"HVqq2ms": "eat",
+			"HVqp2ms": "you have eaten",
+			"HVqq2ms": "you will eat",
 			"HVqp3fs": "eat",
 			"HVqrfsa": "eat",
 			"HVqq2fs": "eat",
@@ -95294,7 +95294,7 @@
 	},
 	"אעשה": {
 		"H6213": {
-			"HVqi1cs": "do",
+			"HVqi1cs": "I will do",
 			"HVqw1cs": "do",
 			"HVqh1cs": "do"
 		}
@@ -96373,7 +96373,7 @@
 			"HNcfsa": "hatch"
 		},
 		"H7235": {
-			"HVhi1cs": "be multiplied",
+			"HVhi1cs": "I will make multiplied",
 			"HVhh1cs": "be multiplied"
 		}
 	},
@@ -96659,13 +96659,13 @@
 	},
 	"ארור": {
 		"H779": {
-			"HVqsmsa": "curse",
+			"HVqsmsa": "being cursed",
 			"HVqa": "curse"
 		}
 	},
 	"ארורה": {
 		"H779": {
-			"HVqsfsa": "curse"
+			"HVqsfsa": "being cursed"
 		}
 	},
 	"ארורים": {
@@ -97669,7 +97669,7 @@
 	},
 	"אשית": {
 		"H7896": {
-			"HVqi1cs": "set"
+			"HVqi1cs": "I will set"
 		}
 	},
 	"אשך": {
@@ -99099,7 +99099,7 @@
 	},
 	"בד": {
 		"H905": {
-			"HNcmsc": "staves",
+			"HNcmsc": "alone",
 			"HNcmsa": "staves"
 		},
 		"H906": {
@@ -100651,7 +100651,7 @@
 			"HVqp1cs": "mingle"
 		},
 		"H1115": {
-			"HC": "except",
+			"HC": "not",
 			"HTn": "except",
 			"HR": "except"
 		}
@@ -105555,7 +105555,7 @@
 	},
 	"דבק": {
 		"H1692": {
-			"HVqq3ms": "cleave",
+			"HVqq3ms": "he will cleave",
 			"HVqp3ms": "cleave"
 		},
 		"H1694": {
@@ -108144,7 +108144,7 @@
 	},
 	"הגיד": {
 		"H5046": {
-			"HVhp3ms": "make present",
+			"HVhp3ms": "he made present",
 			"HVhv2ms": "make present",
 			"HVhc": "make present",
 			"HVhq3ms": "make present",
@@ -108660,7 +108660,7 @@
 			"HPp3ms": "her"
 		},
 		"": {
-			"HSp3ms": "him/s",
+			"HSp3ms": "him",
 			"HSp3mp": ""
 		}
 	},
@@ -110337,7 +110337,7 @@
 	},
 	"היה": {
 		"H1961": {
-			"HVqp3ms": "he will be",
+			"HVqp3ms": "being",
 			"HVqq3ms": "to be",
 			"HVqv2ms": "to be",
 			"HVqa": "to be"
@@ -110353,7 +110353,7 @@
 	},
 	"היות": {
 		"H1961": {
-			"HVqc": "to be"
+			"HVqc": "being"
 		}
 	},
 	"היטב": {
@@ -110425,7 +110425,7 @@
 	},
 	"הייתם": {
 		"H1961": {
-			"HVqq2mp": "to be",
+			"HVqq2mp": "you will be",
 			"HVqp2mp": "to be",
 			"HVqq2cp": "to be"
 		}
@@ -111385,7 +111385,7 @@
 			"HNp": "Ham"
 		},
 		"H1992": {
-			"HPp3mp": "they/them",
+			"HPp3mp": "they",
 			"HSp3mp": "they/them"
 		},
 		"": {
@@ -114137,7 +114137,7 @@
 	},
 	"הרבה": {
 		"H7235": {
-			"HVha": "be multiplied",
+			"HVha": "making multiplied",
 			"HVhp3ms": "be multiplied",
 			"HVhq3ms": "be multiplied",
 			"HVhv2ms": "be multiplied"
@@ -115111,7 +115111,7 @@
 	},
 	"השיא": {
 		"H5377": {
-			"HVhp3ms": "make lifted up"
+			"HVhp3ms": "he made lifted up"
 		}
 	},
 	"השיאו": {
@@ -115252,7 +115252,7 @@
 	},
 	"השכיל": {
 		"H7919": {
-			"HVhc": "skill",
+			"HVhc": "make skilful",
 			"HVhp3ms": "skill",
 			"HVha": "skill",
 			"HVhq3ms": "skill"
@@ -116889,7 +116889,7 @@
 			"HR": "and"
 		},
 		"": {
-			"HSp3ms": "his/m",
+			"HSp3ms": "him",
 			"HPp3ms": "their",
 			"HSp3mp": "their",
 			"HSp3cs": "their"
@@ -119018,7 +119018,7 @@
 	},
 	"חגרת": {
 		"H2290": {
-			"HNcfpa": "girding",
+			"HNcfpa": "girdings",
 			"HNcfsc": "girding"
 		},
 		"H2296": {
@@ -120162,7 +120162,7 @@
 			"HVpv2ms": "be alive"
 		},
 		"H2425": {
-			"HVqq3ms": "be alive",
+			"HVqq3ms": "he will be alive",
 			"HVqp3ms": "be alive"
 		}
 	},
@@ -120252,7 +120252,7 @@
 	},
 	"חיי": {
 		"H2416": {
-			"HNcmpc": "alive"
+			"HNcmpc": "alives"
 		},
 		"H2417": {
 			"ANcmpc": "life",
@@ -125247,7 +125247,7 @@
 	},
 	"יאכל": {
 		"H398": {
-			"HVqw3ms": "eat",
+			"HVqw3ms": "he ate",
 			"HVNi3ms": "eat",
 			"HVqi3ms": "eat",
 			"HVqi3mp": "eat",
@@ -126002,7 +126002,7 @@
 	},
 	"יבן": {
 		"H1129": {
-			"HVqw3ms": "build",
+			"HVqw3ms": "he built",
 			"HVqj3ms": "build"
 		},
 		"H995": {
@@ -126854,7 +126854,7 @@
 	},
 	"יגרש": {
 		"H1644": {
-			"HVpw3ms": "drive out",
+			"HVpw3ms": "he drove out",
 			"HVpi3ms": "drive out"
 		}
 	},
@@ -127227,7 +127227,7 @@
 	},
 	"ידע": {
 		"H3045": {
-			"HVqrmsa": "make known",
+			"HVqrmsa": "knowing",
 			"HVqp3ms": "he had known",
 			"HVqw3ms": "make known",
 			"HVqa": "make known",
@@ -127254,7 +127254,7 @@
 	},
 	"ידעו": {
 		"H3045": {
-			"HVqw3mp": "make known",
+			"HVqw3mp": "they knew",
 			"HVqp3cp": "make known",
 			"HVqq3cp": "make known",
 			"HVqi3mp": "make known"
@@ -127267,7 +127267,7 @@
 	},
 	"ידעי": {
 		"H3045": {
-			"HVqrmpc": "make known"
+			"HVqrmpc": "knowing"
 		},
 		"H3046": {
 			"AVqrmpc": "certify"
@@ -127686,7 +127686,7 @@
 	},
 	"יהונתן": {
 		"H3083": {
-			"HNp": "Jonathan Compare H3129 (יוֹנָתָן)"
+			"HNp": "Jonathan"
 		},
 		"H3129": {
 			"HNp": "Jonathan"
@@ -130796,7 +130796,7 @@
 	},
 	"יישן": {
 		"H3462": {
-			"HVqw3ms": "be asleep",
+			"HVqw3ms": "he was asleep",
 			"HVqi3ms": "be asleep"
 		}
 	},
@@ -131444,7 +131444,7 @@
 	},
 	"ילבש": {
 		"H3847": {
-			"HVhw3ms": "make clothed",
+			"HVhw3ms": "he made clothed",
 			"HVqi3ms": "make clothed",
 			"HVqw3ms": "make clothed",
 			"HVhw3mp": "make clothed"
@@ -132490,7 +132490,7 @@
 	},
 	"ימשל": {
 		"H4910": {
-			"HVqi3ms": "rule"
+			"HVqi3ms": "he will rule"
 		},
 		"H4911": {
 			"HVqi3ms": "make comparable"
@@ -133320,7 +133320,7 @@
 	},
 	"יסגר": {
 		"H5462": {
-			"HVqw3ms": "make enclosed",
+			"HVqw3ms": "he closed",
 			"HVhi3ms": "make enclosed",
 			"HVpi3ms": "make enclosed",
 			"HVhi3mp": "make enclosed",
@@ -134015,7 +134015,7 @@
 	},
 	"יעזב": {
 		"H5800": {
-			"HVqi3ms": "leave",
+			"HVqi3ms": "he will leave",
 			"HVqw3ms": "leave",
 			"HVqw3mp": "leave",
 			"HVqj3ms": "leave",
@@ -134695,7 +134695,7 @@
 			"HNp": "Jaasau"
 		},
 		"H6213": {
-			"HVqw3mp": "do",
+			"HVqw3mp": "they did",
 			"HVNi3mp": "do",
 			"HVqi3mp": "do",
 			"HVqj3mp": "do"
@@ -134967,7 +134967,7 @@
 	},
 	"יפל": {
 		"H5307": {
-			"HVhw3ms": "fall",
+			"HVhw3ms": "he made fall",
 			"HVqw3ms": "fall",
 			"HVqi3ms": "fall",
 			"HVqj3ms": "fall",
@@ -135983,7 +135983,7 @@
 		},
 		"H3335": {
 			"HVqp3ms": "he had formed",
-			"HVqw3ms": "be made formed",
+			"HVqw3ms": "he had formed",
 			"HVqrmsa": "be made formed",
 			"HVqrmsc": "be made formed",
 			"HNcmsa": "be made formed",
@@ -136728,8 +136728,8 @@
 	"יקרא": {
 		"H7121": {
 			"HVqw3ms": "he called",
-			"HVqi3ms": "wing",
-			"HVNi3ms": "wing",
+			"HVqi3ms": "he will call",
+			"HVNi3ms": "he will be called",
 			"HVNw3ms": "wing",
 			"HVqi3mp": "wing"
 		},
@@ -138728,7 +138728,7 @@
 	},
 	"ישופ": {
 		"H7779": {
-			"HVqi3ms": "bruise"
+			"HVqi3ms": "he will bruise"
 		}
 	},
 	"ישור": {
@@ -139140,7 +139140,7 @@
 	},
 	"ישכן": {
 		"H7931": {
-			"HVhw3ms": "dwell",
+			"HVhw3ms": "he made tabernacle",
 			"HVqj3ms": "dwell",
 			"HVqi3ms": "dwell",
 			"HVqw3ms": "dwell",
@@ -139193,7 +139193,7 @@
 	"ישלח": {
 		"H7971": {
 			"HVqi3ms": "he will send",
-			"HVpw3ms": "make sent",
+			"HVpw3ms": "he sent",
 			"HVqw3ms": "make sent",
 			"HVpi3ms": "make sent",
 			"HVqj3ms": "make sent",
@@ -139451,7 +139451,7 @@
 	},
 	"ישמעו": {
 		"H8085": {
-			"HVqw3mp": "hear",
+			"HVqw3mp": "they heard",
 			"HVqi3mp": "hear",
 			"HVqj3mp": "hear",
 			"HVNw3mp": "hear",
@@ -140323,7 +140323,7 @@
 	},
 	"יתבששו": {
 		"H954": {
-			"HVri3mp": "be ashamed"
+			"HVri3mp": "they shamed themselves"
 		}
 	},
 	"יתגאל": {
@@ -140488,7 +140488,7 @@
 	},
 	"יתחבא": {
 		"H2244": {
-			"HVtw3ms": "make hidden",
+			"HVtw3ms": "he hid himself",
 			"HVti3ms": "make hidden"
 		}
 	},
@@ -141072,7 +141072,7 @@
 	},
 	"יתפרו": {
 		"H8609": {
-			"HVqw3mp": "sew"
+			"HVqw3mp": "they sewed"
 		}
 	},
 	"יתפרקו": {
@@ -141303,7 +141303,7 @@
 		},
 		"": {
 			"HSp2ms": "you",
-			"HSp2fs": "your",
+			"HSp2fs": "you",
 			"HSp3fs": "your",
 			"HSp2mp": "",
 			"HPp2ms": "",
@@ -141585,7 +141585,7 @@
 			"AD": "hitherto"
 		},
 		"": {
-			"HSp2ms": "",
+			"HSp2ms": "you",
 			"HSp2fs": ""
 		}
 	},
@@ -143249,7 +143249,7 @@
 	},
 	"כרבים": {
 		"H3742": {
-			"HNcmpa": "kerub"
+			"HNcmpa": "kerubim"
 		}
 	},
 	"כרבלת": {
@@ -143863,7 +143863,7 @@
 	},
 	"כתנות": {
 		"H3801": {
-			"HNcfpc": "tunic"
+			"HNcfpc": "tunics"
 		}
 	},
 	"כתנת": {
@@ -145223,9 +145223,9 @@
 	},
 	"לקח": {
 		"H3947": {
-			"HVqp3ms": "he took",
-			"HVqq3ms": "take",
-			"HVPp3ms": "take",
+			"HVqp3ms": "he had taken",
+			"HVqq3ms": "he will take",
+			"HVPp3ms": "he was taken",
 			"HVqrmsa": "take",
 			"HVqv2ms": "take",
 			"HVqa": "take",
@@ -145239,7 +145239,7 @@
 	},
 	"לקחה": {
 		"H3947": {
-			"HVPp3fs": "take",
+			"HVPp3fs": "she was taken",
 			"HVqp3fs": "take",
 			"HVqq3fs": "take"
 		}
@@ -145274,7 +145274,7 @@
 	},
 	"לקחת": {
 		"H3947": {
-			"HVPp2ms": "take",
+			"HVPp2ms": "you were taken",
 			"HVqp2ms": "you will take",
 			"HVqq2ms": "you will take",
 			"HVqp2fs": "take"
@@ -145437,7 +145437,7 @@
 	},
 	"ם": {
 		"": {
-			"HSp3mp": "their"
+			"HSp3mp": "them"
 		}
 	},
 	"מא": {
@@ -153845,7 +153845,7 @@
 			"HNcmsc": "going out"
 		},
 		"H4672": {
-			"HVqp3ms": "make found",
+			"HVqp3ms": "he had found",
 			"HVqrmsc": "make found",
 			"HVqc": "make found",
 			"HVqq3ms": "make found",
@@ -157756,7 +157756,7 @@
 	},
 	"מתהלך": {
 		"H1980": {
-			"HVtrmsa": "go"
+			"HVtrmsa": "going himself"
 		}
 	},
 	"מתהלכים": {
@@ -157786,7 +157786,7 @@
 	},
 	"מתהפכת": {
 		"H2015": {
-			"HVtrfsa": "be made turned"
+			"HVtrfsa": "turning herself"
 		}
 	},
 	"מתו": {
@@ -158537,7 +158537,7 @@
 	},
 	"נאכל": {
 		"H398": {
-			"HVqi1cp": "eat",
+			"HVqi1cp": "we will eat",
 			"HVNp3ms": "eat",
 			"HVqw1cp": "eat"
 		}
@@ -160290,7 +160290,7 @@
 			"HNcmsa": "wailing"
 		},
 		"": {
-			"HSp3fs": "",
+			"HSp3fs": "her",
 			"HSp3fp": "",
 			"HSn": ""
 		}
@@ -160575,7 +160575,7 @@
 		},
 		"": {
 			"HSp1cp": "our",
-			"HSp3ms": "",
+			"HSp3ms": "him",
 			"HPp1cp": ""
 		}
 	},
@@ -164679,7 +164679,7 @@
 	},
 	"נפקחו": {
 		"H6491": {
-			"HVNq3cp": "open"
+			"HVNq3cp": "they will be opened"
 		}
 	},
 	"נפקין": {
@@ -166982,7 +166982,7 @@
 	},
 	"נתנה": {
 		"H5414": {
-			"HVqp3fs": "be made given",
+			"HVqp3fs": "she gave",
 			"HVNq3fs": "be made given",
 			"HVNp3fs": "be made given",
 			"HVqq3fs": "be made given",
@@ -167182,7 +167182,7 @@
 	},
 	"נתתה": {
 		"H5414": {
-			"HVqp2ms": "be made given",
+			"HVqp2ms": "you gave her",
 			"HVqq2ms": "be made given"
 		}
 	},
@@ -169337,7 +169337,7 @@
 	},
 	"עבור": {
 		"H5668": {
-			"HNcmsc": "in cause",
+			"HNcmsc": "sake",
 			"HR": "in cause",
 			"HC": "in cause"
 		},
@@ -171961,7 +171961,7 @@
 			"HNcmsc": "standing"
 		},
 		"H5978": {
-			"HR": "with me"
+			"HR": "with"
 		},
 		"H5982": {
 			"HNcmsc": "stand",
@@ -173121,7 +173121,7 @@
 			"HVqq3ms": "be strong"
 		},
 		"H6106": {
-			"HNcfsa": "strength",
+			"HNcfsa": "strengthening",
 			"HNcfsc": "strength"
 		},
 		"H6107": {
@@ -173137,7 +173137,7 @@
 			"HVqc": "be strong"
 		},
 		"H6106": {
-			"HNcfpc": "strength",
+			"HNcfpc": "strengthenings",
 			"HNcfsc": "strength"
 		},
 		"H6108": {
@@ -174249,7 +174249,7 @@
 	},
 	"עשית": {
 		"H6213": {
-			"HVqp2fs": "do",
+			"HVqp2fs": "you have done",
 			"HVqp2ms": "you have done",
 			"HVqp1cs": "do",
 			"HVqq2ms": "do",
@@ -178272,7 +178272,7 @@
 	},
 	"צויתי": {
 		"H6680": {
-			"HVpp1cs": "command",
+			"HVpp1cs": "I had commanded",
 			"HVPp1cs": "command",
 			"HVpq1cs": "command"
 		}
@@ -178887,7 +178887,7 @@
 	},
 	"צלעתי": {
 		"H6763": {
-			"HNcbpc": "side part"
+			"HNcbpc": "side parts"
 		}
 	},
 	"צלף": {
@@ -183118,7 +183118,7 @@
 	},
 	"ראות": {
 		"H7200": {
-			"HVqc": "seer",
+			"HVqc": "see",
 			"HVqrfpa": "seer",
 			"HVNc": "seer"
 		}
@@ -187925,7 +187925,7 @@
 	},
 	"שוב": {
 		"H7725": {
-			"HVqc": "make returned",
+			"HVqc": "returning",
 			"HVqa": "make returned",
 			"HVqv2ms": "make returned"
 		}
@@ -190806,7 +190806,7 @@
 	},
 	"שמות": {
 		"H8034": {
-			"HNcmpa": "name",
+			"HNcmpa": "names",
 			"HNcmpc": "name"
 		},
 		"H8047": {
@@ -191258,7 +191258,7 @@
 			"HNcfsc": "hearing"
 		},
 		"H8085": {
-			"HVqp2ms": "hear",
+			"HVqp2ms": "you heard",
 			"HVqrfsa": "hear",
 			"HVqq2ms": "hear",
 			"HVqp2fs": "hear",
@@ -191274,7 +191274,7 @@
 	},
 	"שמעתי": {
 		"H8085": {
-			"HVqp1cs": "hear",
+			"HVqp1cs": "I heard",
 			"HVqq1cs": "hear"
 		}
 	},
@@ -193830,8 +193830,8 @@
 	"תאכל": {
 		"H398": {
 			"HVqi2ms": "you will eat",
-			"HVqw3fs": "eat",
-			"HVqw2ms": "eat",
+			"HVqw3fs": "she ate",
+			"HVqw2ms": "you ate",
 			"HVqi3fs": "eat",
 			"HVNi3fs": "eat",
 			"HVqi2mp": "eat",
@@ -193845,7 +193845,7 @@
 	},
 	"תאכלו": {
 		"H398": {
-			"HVqi2mp": "eat",
+			"HVqi2mp": "you will eat",
 			"HVqj2mp": "eat",
 			"HVQi2mp": "eat"
 		}
@@ -195000,7 +195000,7 @@
 	},
 	"תגעו": {
 		"H5060": {
-			"HVqi2mp": "make touched",
+			"HVqi2mp": "you will touch",
 			"HVqj2mp": "make touched"
 		}
 	},
@@ -198211,7 +198211,7 @@
 	},
 	"תלדי": {
 		"H3205": {
-			"HVqi2fs": "make born"
+			"HVqi2fs": "you will bear"
 		}
 	},
 	"תלדן": {
@@ -198371,7 +198371,7 @@
 	},
 	"תלך": {
 		"H3212": {
-			"HVqi2ms": "she will go",
+			"HVqi2ms": "you will go",
 			"HVqw3fs": "went",
 			"HVqi3fs": "she will go",
 			"HVqw2ms": "went",
@@ -199257,7 +199257,7 @@
 	},
 	"תמתו": {
 		"H4191": {
-			"HVqi2mp": "they died"
+			"HVqi2mp": "you will die"
 		}
 	},
 	"תמתיק": {
@@ -201020,7 +201020,7 @@
 	},
 	"תפקחנה": {
 		"H6491": {
-			"HVNw3fp": "open",
+			"HVNw3fp": "they were opened",
 			"HVNi3fp": "open"
 		}
 	},
@@ -201398,7 +201398,7 @@
 	},
 	"תצמיח": {
 		"H6779": {
-			"HVhi3fs": "sprout"
+			"HVhi3fs": "she will grow"
 		}
 	},
 	"תצמית": {
@@ -203193,7 +203193,7 @@
 	},
 	"תשוב": {
 		"H7725": {
-			"HVqi2ms": "make returned",
+			"HVqi2ms": "you will return",
 			"HVqi3fs": "make returned",
 			"HVqi2mp": "make returned"
 		}
@@ -203260,7 +203260,7 @@
 	},
 	"תשופ": {
 		"H7779": {
-			"HVqi2ms": "bruise"
+			"HVqi2ms": "you will bruise"
 		}
 	},
 	"תשוקת": {
@@ -204456,7 +204456,7 @@
 	},
 	"תתן": {
 		"H5414": {
-			"HVqw3fs": "be made given",
+			"HVqw3fs": "she gave",
 			"HVqi2ms": "be made given",
 			"HVqj2ms": "be made given",
 			"HVqi3fs": "be made given",
