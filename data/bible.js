@@ -86,6 +86,7 @@ bible.Data.bookNamesByLanguage = {
 	'luo': ['Chakruok','Wuok','Tim jo-Lawi','Kwan','Rapar mar Chik','Joshua','Jong’ad Bura','Ruth','1 Samuel','2 Samuel','1 Ruodhi','2 Ruodhi','1 Weche mag Ndalo','2 Weche mag Ndalo','Ezra','Nehemia','Tobit','Judith','Esta, kod weche moko momedie','1 Jo-Makabayo','2 Jo-Makabayo','Ayub','Zaburi','Ngeche','Eklesiastes','Wer Mamit Moloyo Wende Moko Duto','Rieko','Eklesiastikus','Isaya','Jeremia','Ywagruok','Baruk','Ezekiel','Daniel','Hosea','Joel','Amos','Obadia','Jona','Mika','Nahum','Habakuk','Zefania','Hagai','Zekaria','Malaki','Mathayo','Mariko','Luka','Johana','Tich Joote','Jo-Rumi','1 Jo-Korintho','2 Jo-Korintho','Jo-Galatia','Jo-Efeso','Jo-Filipi','Jo-Kolosai','1 Jo-Thesalonika','2 Jo-Thesalonika','1 Timotheo','2 Timotheo','Tito','Filemon','Jo-Hibrania','Jakobo','1 Petro','2 Petro','1 Johana','2 Johana','3 Johana','Juda','Fweny'],
 	'yo': ['Chakruok','Wuok','Tim Jo-Lawi','Kwan','Rapar Mar Chik','Joshua','Jongʼad Bura','Ruth','1 Samuel','2 Samuel','1 Ruodhi','2 Ruodhi','1 Weche Mag Ndalo','2 Weche Mag Ndalo','Ezra','Nehemia','Esta','Ayub','Zaburi','Ngeche','Eklesiastes','Wer Mamit','Isaya','Jeremia','Ywagruok','Ezekiel','Daniel','Hosea','Joel','Amos','Obadia','Jona','Mika','Nahum','Habakuk','Zefania','Hagai','Zekaria','Malaki','Mathayo','Mariko','Luka','Johana','Tich Joote','Jo-Rumi','1 Jo-Korintho','2 Jo-Korintho','Jo-Galatia','Jo-Efeso','Jo-Filipi','Jo-Kolosai','1 Jo-Thesalonika','2 Jo-Thesalonika','1 Timotheo','2 Timotheo','Tito','Filemon','Jo-Hibrania','Jakobo','1 Petro','2 Petro','1 Johana','2 Johana','3 Johana','Juda','Fweny'],
 	'twi': ['1 Mose','2 Mose','3 Mose','4 Mose','5 Mose','Yosua','Atemmufoɔ','Rut','1 Samuel','2 Samuel','1 Ahemfo','2 Ahemfo','1 Berɛsosɛm','2 Berɛsosɛm','Ɛsra','Nehemia','Ɛster','Hiob','Nnwom','Mmɛbusɛm','Ɔsɛnkafoɔ','Nnwom Mu Dwom','Yesaia','Yeremia','Kwadwom','Hesekiel','Daniel','Hosea','Yoɛl','Amos','Obadia','Yona','Mika','Nahum','Habakuk','Sefania','Hagai','Sakaria','Malaki','Mateo','Marko','Luka','Yohane','Asomafoɔ','Romafoɔ','1 Korintofoɔ','2 Korintofoɔ','Galatifoɔ','Efesofoɔ','Filipifoɔ','Kolosefoɔ','1 Tesalonikafoɔ','2 Tesalonikafoɔ','1 Timoteo','2 Timoteo','Tito','Filemon','Hebrifoɔ','Yakobo','1 Petro','2 Petro','1 Yohane','2 Yohane','3 Yohane','Yuda','Adiyisɛm'],
+	'tl': ['Genesis','Exodo','Levitico','Bilang','Deuteronomio','Josue','Mga Hukom','Rut','1 Samuel','2 Samuel','1 Mga Hari','2 Mga Hari','1 Cronica','2 Cronica','Ezra','Nehemias','Ester','Job','Salmo','Kawikaan','Eclesiastes','Awit ni Solomon','Isaias','Jeremias','Mga Panaghoy','Ezequiel','Daniel','Oseas','Joel','Amos','Obadias','Jonas','Miqueas','Nahum','Habacuc','Zefanias','Hagai','Zacarias','Malaquias','Mateo','Marcos','Lucas','Juan','Mga Gawa','Roma','1 Corinto','2 Corinto','Galata','Efeso','Filipos','Coloso','1 Tesalonica','2 Tesalonica','1 Timoteo','2 Timoteo','Tito','Filemon','Hebreo','Santiago','1 Pedro','2 Pedro','1 Juan','2 Juan','3 Juan','Judas','Pahayag'],
 };
 bible.Data.rtlLanguages = [ 'he', 'fa', 'ar', 'ckb' ];
 bible.Data.supportedVersions = {
@@ -117,10 +118,10 @@ bible.Data.supportedVersions = {
 	'swONEN': { name: "Toleo Wazi Neno: Bibilia Takatifu™", language: 'sw' },
 	'hinIRV': { name: "हिंदी भारतीय संशोधित संस्करण बाइबिल भारत", language: 'hi' },
 	'luoONL': { name: "Ochiw Thuolo Motingʼo Loko Manyien", language: 'luo' },
+	'TagAngBiblia': { name: "Philippine Bible Society (1905)", language: 'tl' },
 	'twiONA': { name: "Wɔnhia ɛho kwamma nwoma Asante Twi Nkwa Asɛm", language: 'twi' },
 	'twkONA': { name: "Wonhia Akuapem Twi Nkwa Asɛm™ ho kwamma nhoma", language: 'twi' },
 	'yoOBYO': { name: "Biblica® Open Yoruba Contemporary Bible", language: 'yo' },
-
 };
 bible.Data.interfaceLanguages = {
 	'original': 'Hebrew/Greek',
@@ -134,6 +135,7 @@ bible.Data.interfaceLanguages = {
 	'sw': 'Swahili',
 	'hi': 'Hindi',
 	'luo': 'Luo',
+	'tl': 'Tagalog',
 	'twi': 'Twi',
 	'yo': 'Yoruba',
 };
