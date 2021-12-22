@@ -396,7 +396,7 @@
 	},
 	"αγαπησει": {
 		"G25": {
-			"V-FAI-3S": "beloveed"
+			"V-FAI-3S": "he will love"
 		}
 	},
 	"αγαπησεις": {
@@ -1523,7 +1523,7 @@
 	},
 	"αδικιας": {
 		"G93": {
-			"N-GSF": "iniquity"
+			"N-GSF": "unrighteous"
 		}
 	},
 	"αδικοι": {
@@ -1533,7 +1533,7 @@
 	},
 	"αδικος": {
 		"G94": {
-			"A-NSM": "unjust"
+			"A-NSM": "unrighteous"
 		}
 	},
 	"αδικουμενον": {
@@ -1556,7 +1556,7 @@
 			"V-PAI-1S": "hurt"
 		},
 		"G94": {
-			"A-DSM": "unjust"
+			"A-DSM": "unrighteous"
 		}
 	},
 	"αδικων": {
@@ -2186,7 +2186,7 @@
 	},
 	"αισχυνομαι": {
 		"G153": {
-			"V-PMI-1S": "be ashamed"
+			"V-PMI-1S": "I am ashamed"
 		}
 	},
 	"αιτειν": {
@@ -3017,7 +3017,7 @@
 	},
 	"ακουω": {
 		"G191": {
-			"V-PAI-1S": "give in the audience of",
+			"V-PAI-1S": "i hear",
 			"V-PAS-1S": "give in the audience of"
 		}
 	},
@@ -3398,7 +3398,7 @@
 	},
 	"αληθινον": {
 		"G228": {
-			"A-ASN": "TRUE",
+			"A-ASN": "true",
 			"A-NSN": "true",
 			"A-ASM": "true"
 		}
@@ -3622,7 +3622,7 @@
 	},
 	"αλλοτριω": {
 		"G245": {
-			"A-DSN": "alien",
+			"A-DSN": "another man",
 			"A-DSM": "alien"
 		}
 	},
@@ -8672,7 +8672,7 @@
 	},
 	"αποδος": {
 		"G591": {
-			"V-2AAM-2S": "deliver again"
+			"V-2AAM-2S": "give"
 		}
 	},
 	"αποδοτε": {
@@ -12410,7 +12410,7 @@
 	},
 	"αφαιρειται": {
 		"G851": {
-			"V-PMI-3S": "cut smite off"
+			"V-PMI-3S": "cut off"
 		}
 	},
 	"αφανης": {
@@ -15725,7 +15725,7 @@
 	},
 	"γενεαν": {
 		"G1074": {
-			"N-ASF": "age"
+			"N-ASF": "generation"
 		}
 	},
 	"γενεας": {
@@ -16898,7 +16898,7 @@
 	},
 	"γραψον": {
 		"G1125": {
-			"V-AAM-2S": "describe"
+			"V-AAM-2S": "write"
 		}
 	},
 	"γραψω": {
@@ -17891,7 +17891,7 @@
 	},
 	"δεξαι": {
 		"G1209": {
-			"V-ADM-2S": "accept"
+			"V-ADM-2S": "recieve"
 		}
 	},
 	"δεξαμενη": {
@@ -17971,7 +17971,7 @@
 	},
 	"δεξωνται": {
 		"G1209": {
-			"V-ADS-3P": "accept"
+			"V-ADS-3P": "they should recieve"
 		}
 	},
 	"δεομαι": {
@@ -19174,7 +19174,7 @@
 	},
 	"διασκορπιζων": {
 		"G1287": {
-			"V-PAP-NSM": "disperse"
+			"V-PAP-NSM": "he was wasting"
 		}
 	},
 	"διασκορπισθησονται": {
@@ -19733,7 +19733,7 @@
 	},
 	"διεβληθη": {
 		"G1225": {
-			"V-API-3S": "accuse"
+			"V-API-3S": "he was accused"
 		}
 	},
 	"διεγειρειν": {
@@ -21451,7 +21451,7 @@
 	},
 	"δουλευειν": {
 		"G1398": {
-			"V-PAN": "be in bondage"
+			"V-PAN": "to serve"
 		}
 	},
 	"δουλευετε": {
@@ -21825,7 +21825,7 @@
 	},
 	"δυνη": {
 		"G1410": {
-			"V-PNI-2S": "be able"
+			"V-PNI-2S": "you are able"
 		}
 	},
 	"δυνηθητε": {
@@ -21895,7 +21895,7 @@
 	},
 	"δυσι": {
 		"G1417": {
-			"A-DPM": "both",
+			"A-DPM": "two",
 			"A-DPF": "both"
 		}
 	},
@@ -22033,7 +22033,7 @@
 	},
 	"δωσει": {
 		"G1325": {
-			"V-FAI-3S": "is given"
+			"V-FAI-3S": "he will give"
 		}
 	},
 	"δωσεις": {
@@ -22134,7 +22134,7 @@
 	},
 	"εαυτοις": {
 		"G1438": {
-			"F-2DPM": "alone",
+			"F-2DPM": "to yourselves",
 			"F-3DPM": "alone",
 			"F-1DPM": "alone"
 		}
@@ -22160,12 +22160,12 @@
 	},
 	"εαυτω": {
 		"G1438": {
-			"F-3DSM": "alone"
+			"F-3DSM": "himself"
 		}
 	},
 	"εαυτων": {
 		"G1438": {
-			"F-3GPM": "alone",
+			"F-3GPM": "of themselves",
 			"F-3GPF": "alone",
 			"F-2GPM": "alone",
 			"F-1GPM": "alone",
@@ -22694,7 +22694,7 @@
 	},
 	"εγενεσθε": {
 		"G1096": {
-			"V-2ADI-2P": "you should become"
+			"V-2ADI-2P": "you should be"
 		}
 	},
 	"εγενετο": {
@@ -23050,7 +23050,7 @@
 	},
 	"εγνων": {
 		"G1097": {
-			"V-2AAI-1S": "allow"
+			"V-2AAI-1S": "I am resolved"
 		}
 	},
 	"εγνωρισα": {
@@ -25059,7 +25059,7 @@
 	},
 	"ειχεν": {
 		"G2192": {
-			"V-IAI-3S": "have"
+			"V-IAI-3S": "he had"
 		}
 	},
 	"ειχετε": {
@@ -25221,7 +25221,7 @@
 	"εκαστον": {
 		"G1538": {
 			"A-NSN": "any",
-			"A-ASM": "any",
+			"A-ASM": "every",
 			"A-ASN": "any"
 		}
 	},
@@ -26084,7 +26084,7 @@
 	},
 	"εκλιπη": {
 		"G1587": {
-			"V-2AAS-3S": "fail"
+			"V-2AAS-3S": "they should fail"
 		}
 	},
 	"εκλιποντος": {
@@ -27144,7 +27144,7 @@
 	},
 	"ελεγεν": {
 		"G3004": {
-			"V-IAI-3S": "ask"
+			"V-IAI-3S": "he said"
 		}
 	},
 	"ελεγετε": {
@@ -31376,7 +31376,7 @@
 	},
 	"επαιτειν": {
 		"G1871": {
-			"V-PAN": "beg"
+			"V-PAN": "to beg"
 		}
 	},
 	"επαιτων": {
@@ -31846,7 +31846,7 @@
 	},
 	"επειτα": {
 		"G1899": {
-			"ADV": "after thatward"
+			"ADV": "then"
 		}
 	},
 	"επειχεν": {
@@ -32373,7 +32373,7 @@
 	},
 	"επηνεσεν": {
 		"G1867": {
-			"V-AAI-3S": "I praise"
+			"V-AAI-3S": "he praised"
 		}
 	},
 	"επηξεν": {
@@ -34316,7 +34316,7 @@
 	},
 	"εποιησεν": {
 		"G4160": {
-			"V-AAI-3S": "abide"
+			"V-AAI-3S": "he did"
 		}
 	},
 	"εποικοδομει": {
@@ -36320,7 +36320,7 @@
 	},
 	"ετερω": {
 		"G2087": {
-			"A-DSM": "altered",
+			"A-DSM": "to another",
 			"A-DSN": "altered"
 		}
 	},
@@ -44167,7 +44167,7 @@
 	},
 	"ισχυω": {
 		"G2480": {
-			"V-PAI-1S": "be able"
+			"V-PAI-1S": "I can"
 		}
 	},
 	"ισως": {
@@ -50564,7 +50564,7 @@
 	},
 	"κορους": {
 		"G2884": {
-			"N-APM": "measure"
+			"N-APM": "measures"
 		}
 	},
 	"κοσμειν": {
@@ -51720,7 +51720,7 @@
 	},
 	"κυριοις": {
 		"G2962": {
-			"N-DPM": "lord"
+			"N-DPM": "lords"
 		}
 	},
 	"κυριον": {
@@ -54135,7 +54135,7 @@
 	},
 	"μαθητας": {
 		"G3101": {
-			"N-APM": "disciple"
+			"N-APM": "disciples"
 		}
 	},
 	"μαθητε": {
@@ -56305,7 +56305,7 @@
 	},
 	"μετασταθω": {
 		"G3179": {
-			"V-APS-1S": "put out"
+			"V-APS-1S": "I am put out"
 		}
 	},
 	"μεταστησας": {
@@ -57007,7 +57007,7 @@
 	},
 	"μισησει": {
 		"G3404": {
-			"V-FAI-3S": "hateful"
+			"V-FAI-3S": "he will hate"
 		}
 	},
 	"μισησεις": {
@@ -59150,7 +59150,7 @@
 	},
 	"ογδοηκοντα": {
 		"G3589": {
-			"A-NUI": "fourscore"
+			"A-NUI": "eighty"
 		}
 	},
 	"ογδοον": {
@@ -59656,7 +59656,7 @@
 	},
 	"οικονομειν": {
 		"G3621": {
-			"V-PAN": "be steward"
+			"V-PAN": "to housekeep"
 		}
 	},
 	"οικονομια": {
@@ -59666,12 +59666,12 @@
 	},
 	"οικονομιαν": {
 		"G3622": {
-			"N-ASF": "dispensation"
+			"N-ASF": "housekeeping"
 		}
 	},
 	"οικονομιας": {
 		"G3622": {
-			"N-GSF": "dispensation"
+			"N-GSF": "housekeeping"
 		}
 	},
 	"οικονομοι": {
@@ -59686,12 +59686,12 @@
 	},
 	"οικονομον": {
 		"G3623": {
-			"N-ASM": "chamberlain"
+			"N-ASM": "housekeeper"
 		}
 	},
 	"οικονομος": {
 		"G3623": {
-			"N-NSM": "chamberlain"
+			"N-NSM": "housekeeper"
 		}
 	},
 	"οικονομους": {
@@ -59732,7 +59732,7 @@
 	},
 	"οικους": {
 		"G3624": {
-			"N-APM": "house"
+			"N-APM": "houses"
 		}
 	},
 	"οικουσα": {
@@ -61045,7 +61045,7 @@
 	},
 	"ος": {
 		"G3739": {
-			"R-NSM": "one"
+			"R-NSM": "who"
 		}
 	},
 	"οσα": {
@@ -61198,7 +61198,7 @@
 	},
 	"οταν": {
 		"G3752": {
-			"CONJ": "as long soon as"
+			"CONJ": "when"
 		}
 	},
 	"οτε": {
@@ -61499,7 +61499,7 @@
 	},
 	"ουτος": {
 		"G3778": {
-			"D-NSM": "these"
+			"D-NSM": "this"
 		}
 	},
 	"ουτω": {
@@ -61535,7 +61535,7 @@
 	},
 	"οφειλεις": {
 		"G3784": {
-			"V-PAI-2S": "is indebted"
+			"V-PAI-2S": "you owe"
 		}
 	},
 	"οφειλεται": {
@@ -65758,7 +65758,7 @@
 	},
 	"περι": {
 		"G4012": {
-			"PREP": "thereabout"
+			"PREP": "about"
 		}
 	},
 	"περιαγειν": {
@@ -68580,7 +68580,7 @@
 	},
 	"ποιησατε": {
 		"G4160": {
-			"V-AAM-2P": "abide"
+			"V-AAM-2P": "do"
 		}
 	},
 	"ποιησατω": {
@@ -68644,7 +68644,7 @@
 	"ποιησω": {
 		"G4160": {
 			"V-FAI-1S": "abide",
-			"V-AAS-1S": "abide"
+			"V-AAS-1S": "I should do"
 		}
 	},
 	"ποιησωμεν": {
@@ -69095,7 +69095,7 @@
 	},
 	"πολλω": {
 		"G4183": {
-			"A-DSN": "abundant",
+			"A-DSN": "much",
 			"A-DSM": "abundant"
 		}
 	},
@@ -69706,7 +69706,7 @@
 	"ποσον": {
 		"G4214": {
 			"Q-NSN": "how great long",
-			"Q-ASN": "how great long"
+			"Q-ASN": "how much"
 		}
 	},
 	"ποσος": {
@@ -71742,7 +71742,7 @@
 	},
 	"προσκαλεσαμενος": {
 		"G4341": {
-			"V-ADP-NSM": "call for"
+			"V-ADP-NSM": "calling"
 		}
 	},
 	"προσκαλεσασθω": {
@@ -72603,7 +72603,7 @@
 	"πρωτω": {
 		"G4413": {
 			"A-DSN-S": "before",
-			"A-DSM-S": "before"
+			"A-DSM-S": "first"
 		}
 	},
 	"πρωτων": {
@@ -74669,7 +74669,7 @@
 	},
 	"σιτου": {
 		"G4621": {
-			"N-GSM": "corn"
+			"N-GSM": "of wheat"
 		}
 	},
 	"σιων": {
@@ -74790,7 +74790,7 @@
 	},
 	"σκαπτειν": {
 		"G4626": {
-			"V-PAN": "dig"
+			"V-PAN": "to dig"
 		}
 	},
 	"σκαφην": {
@@ -74858,7 +74858,7 @@
 	},
 	"σκηνας": {
 		"G4633": {
-			"N-APF": "habitation"
+			"N-APF": "habitations"
 		}
 	},
 	"σκηνει": {
@@ -79488,7 +79488,7 @@
 	},
 	"τα": {
 		"G3588": {
-			"T-APN": "to",
+			"T-APN": "the",
 			"T-NPN": "to"
 		}
 	},
@@ -79723,7 +79723,7 @@
 	},
 	"τας": {
 		"G3588": {
-			"T-APF": "to"
+			"T-APF": "the"
 		}
 	},
 	"τασσομενος": {
@@ -79819,7 +79819,7 @@
 	},
 	"ταχεως": {
 		"G5030": {
-			"ADV": "hastily"
+			"ADV": "quickly"
 		}
 	},
 	"ταχινη": {
@@ -81539,8 +81539,8 @@
 	},
 	"του": {
 		"G3588": {
-			"T-GSM": "of",
-			"T-GSN": "to"
+			"T-GSM": "of the",
+			"T-GSN": "of"
 		}
 	},
 	"τουναντιον": {
@@ -81555,7 +81555,7 @@
 	},
 	"τους": {
 		"G3588": {
-			"T-APM": "to",
+			"T-APM": "the",
 			"T-DPM": "to"
 		}
 	},
@@ -81567,7 +81567,7 @@
 	"τουτο": {
 		"G3778": {
 			"D-NSN": "these",
-			"D-ASN": "these"
+			"D-ASN": "this"
 		}
 	},
 	"τουτοις": {
@@ -81583,7 +81583,7 @@
 	},
 	"τουτου": {
 		"G3778": {
-			"D-GSM": "these",
+			"D-GSM": "this",
 			"D-GSN": "these"
 		}
 	},
@@ -82487,7 +82487,7 @@
 	},
 	"υιοι": {
 		"G5207": {
-			"N-NPM": "son",
+			"N-NPM": "sons",
 			"N-VPM": "son"
 		}
 	},
@@ -82513,7 +82513,7 @@
 	},
 	"υιους": {
 		"G5207": {
-			"N-APM": "son"
+			"N-APM": "sons"
 		}
 	},
 	"υιω": {
@@ -82754,7 +82754,7 @@
 	},
 	"υπαρχοντα": {
 		"G5225": {
-			"V-PAP-APN": "he is",
+			"V-PAP-APN": "goods",
 			"V-PAP-NPN": "he is",
 			"V-PAP-ASM": "he is"
 		}
@@ -82889,7 +82889,7 @@
 	},
 	"υπερ": {
 		"G5228": {
-			"PREP": "for"
+			"PREP": "than"
 		}
 	},
 	"υπεραιρομενος": {
@@ -85093,7 +85093,7 @@
 	},
 	"φιλους": {
 		"G5384": {
-			"A-APM": "friend"
+			"A-APM": "friends"
 		}
 	},
 	"φιλουσιν": {
@@ -86031,7 +86031,7 @@
 	},
 	"φωνησας": {
 		"G5455": {
-			"V-AAP-NSM": "call for"
+			"V-AAP-NSM": "he called"
 		}
 	},
 	"φωνησατε": {
@@ -86152,7 +86152,7 @@
 	},
 	"φωτος": {
 		"G5457": {
-			"N-GSN": "fire"
+			"N-GSN": "light"
 		}
 	},
 	"φωτων": {
@@ -87001,7 +87001,7 @@
 	},
 	"χρεοφειλετων": {
 		"G5533": {
-			"N-GPM": "debtor"
+			"N-GPM": "his debtors"
 		}
 	},
 	"χρη": {
@@ -88183,7 +88183,7 @@
 	},
 	"ως": {
 		"G5613": {
-			"ADV": "like"
+			"ADV": "that"
 		}
 	},
 	"ωσαννα": {
@@ -89303,7 +89303,7 @@
 	},
 	"אגדל": {
 		"H1431": {
-			"HVqi1cs": "greaten",
+			"HVqi1cs": "I will be greater",
 			"HVph1cs": "greaten"
 		}
 	},
@@ -97334,7 +97334,7 @@
 			"HVhi1cs": "be satisfied"
 		},
 		"H7650": {
-			"HVhi1cs": "i will make swear",
+			"HVhi1cs": "I will make swear",
 			"HVhw1cs": "being sworn"
 		}
 	},
@@ -128437,7 +128437,7 @@
 	},
 	"יוסף": {
 		"H3130": {
-			"HNp": "Joseph Compare H3084 (יְהוֹסֵף)"
+			"HNp": "Joseph"
 		},
 		"H3254": {
 			"HVhj3ms": "make added",
@@ -135522,7 +135522,7 @@
 	},
 	"יצבר": {
 		"H6651": {
-			"HVqw3ms": "heap",
+			"HVqw3ms": "he heaped",
 			"HVqi3ms": "heap"
 		}
 	},
@@ -136127,7 +136127,7 @@
 	},
 	"יקבץ": {
 		"H6908": {
-			"HVqw3ms": "gather",
+			"HVqw3ms": "he gathered",
 			"HVqi3ms": "gather",
 			"HVpi3ms": "gather"
 		}
@@ -136741,7 +136741,7 @@
 	},
 	"יקראו": {
 		"H7121": {
-			"HVqw3mp": null,
+			"HVqw3mp": "they called",
 			"HVNi3mp": "wing",
 			"HVqi3mp": "wing",
 			"HVNw3mp": "wing"
@@ -136945,7 +136945,7 @@
 		"H7200": {
 			"HVqw3ms": "he saw",
 			"HVNw3ms": "he was seen",
-			"HVqj3ms": "seer",
+			"HVqj3ms": "see",
 			"HVqi3ms": "seer",
 			"HVNj3ms": "seer",
 			"HVhi3ms": "seer",
@@ -183067,7 +183067,7 @@
 	},
 	"ראה": {
 		"H7200": {
-			"HVqv2ms": "seer",
+			"HVqv2ms": "see",
 			"HVqrmsa": "seer",
 			"HVqp3ms": "seer",
 			"HVqc": "seer",
@@ -200617,7 +200617,7 @@
 		"H6213": {
 			"HVqi2ms": "do",
 			"HVqj2ms": "do",
-			"HVqw3fs": "do",
+			"HVqw3fs": "she did",
 			"HVqw2ms": "do",
 			"HVNj3fs": "do"
 		}
