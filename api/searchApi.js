@@ -1,9 +1,6 @@
 var language;
 
 javascripture.api.search = {
-	books: {
-		NMV: bible.Data.ntBooks,
-	},
 	types: [
 		'word',
 		'lemma',
@@ -74,9 +71,6 @@ javascripture.api.search = {
 		self.resetMatches();
 
 		var booksToSearch = bible.Data.allBooks;
-		if ( this.books[ self.parameters.version ] ) {
-			booksToSearch = this.books[ self.parameters.version ];
-		}
 		booksToSearch.forEach( function( bookName, bookNumber ) {
 			self.searchInABook( dataSource, bookName, bookNumber, booksToSearch );
 		} );
