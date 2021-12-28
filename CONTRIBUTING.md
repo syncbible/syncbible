@@ -33,6 +33,34 @@ Because sync.bible preloads all the data for the selected bible version, its imp
 
 ```
 {
+	"version": "NET",
+	"versionName": "New English Translation",
+	"meta": "This part varies for each version",
+	"books": {
+		"Genesis": [ // This is a book array.
+			[ // This is a chapter array.
+				"Verse one goes here",
+				"Verse two goes here",
+				...
+			],
+			[
+				// Chapter two goes here.
+			]
+		],
+		"Exodus": [
+			[
+				// Exodus 1v1 goes here.
+			],
+			...
+		],
+		...
+	}
+```
+
+For versions that also contain Strong's numbers the format is like this:
+
+```
+{
 	"version": "KJV",
 	"versionName": "Authorized King James Version",
 	"meta": "This part varies for each version",
@@ -42,7 +70,7 @@ Because sync.bible preloads all the data for the selected bible version, its imp
 				[ // This is a verse array.
 					["In the beginning", "H7225"], // This is a word array.
 					["God", "H430"],
-					["created", "H853 H1254", "TH8804"]
+					["created", "H853 H1254", "TH8804"], // The first array element is the word to display, the second is the strongs number(s), the third is any morphological data.
 					...
 				],
 				[
