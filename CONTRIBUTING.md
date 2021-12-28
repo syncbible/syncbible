@@ -27,3 +27,109 @@ When you have a patch ready to submit in your local version you need to submit a
 4. Commit the files: `git commit -m "Commit message goes here"
 5. Push your local branch to the remote server: `git push --set-upstream origin branch-name`
 6. Open the repo and use the GUI to create and submit a pull request from this branch: https://github.com/syncbible/syncbible
+
+## Data Structure
+Because sync.bible preloads all the data for the selected bible version, its important for the data files to be as small as possible. To achieve this we format the data using a JSON object with the chapters, verses and words stored in arrays. The format is of this structure:
+
+```
+{
+	"version": "KJV",
+	"versionName": "Authorized King James Version",
+	"meta": "This part varies for each version",
+	"books": {
+		"Genesis": [ // This is the book array.
+			[ // This is a chapter array.
+				[ // This is a verse array.
+					["In the beginning", "H7225"], // This is a word array.
+					["God", "H430"],
+					["created", "H853 H1254", "TH8804"]
+					...
+				],
+				[
+					// The next verse goes here.
+				],
+				...
+			],
+			[
+				// The next chapter goes here.
+			],
+			...
+		],
+		"Exodus": [
+			// The next book goes here...
+		],
+		...
+	}
+}
+```
+
+All the data is stored in the `/bibles` directory. Book names are all in English and are according to the OSIS standard:
+
+```
+Genesis
+Exodus
+Leviticus
+Numbers
+Deuteronomy
+Joshua
+Judges
+Ruth
+I Samuel
+II Samuel
+I Kings
+II Kings
+I Chronicles
+II Chronicles
+Ezra
+Nehemiah
+Esther
+Job
+Psalms
+Proverbs
+Ecclesiastes
+Song of Solomon
+Isaiah
+Jeremiah
+Lamentations
+Ezekiel
+Daniel
+Hosea
+Joel
+Amos
+Obadiah
+Jonah
+Micah
+Nahum
+Habakkuk
+Zephaniah
+Haggai
+Zechariah
+Malachi
+Matthew
+Mark
+Luke
+John
+Acts
+Romans
+I Corinthians
+II Corinthians
+Galatians
+Ephesians
+Philippians
+Colossians
+I Thessalonians
+II Thessalonians
+I Timothy
+II Timothy
+Titus
+Philemon
+Hebrews
+James
+I Peter
+II Peter
+I John
+II John
+III John
+Jude
+Revelation of John
+```
