@@ -6,6 +6,14 @@
 	max-width: 100%;
 	text-indent: 5px;
 
+	optgroup {
+		color: var(--color-dimmed);
+	}
+
+	option {
+		color: var(--color);
+	}
+
 	@media ( min-width: 599px ) {
 		font-size: 1.2em;
 	}
