@@ -18,7 +18,12 @@ const VersionSelect = React.memo( ( { name, value="default", onChange, large } )
 			{ Object.keys( bible.Data.interfaceLanguages ).map( ( key ) => {
 				const versionsForLanguage = Object.keys( bible.Data.supportedVersions ).filter( versionForLanguage => bible.Data.supportedVersions[ versionForLanguage ].language === key );
 				const versionOption = versionsForLanguage.map( version => {
-					return <option value={ version } key={ version } title={ bible.Data.supportedVersions[ version ].name }>{ version } - { bible.Data.supportedVersions[ version ].name }</option>
+					const versionData = bible.Data.supportedVersions[ version ];
+					return (
+						<option value={ version } key={ version } title={ versionData.name }>
+							{ version }{ versionData.strongs ? ' *' : '' } - { versionData.name }
+						</option>
+					);
 				} );
 				return <optgroup key={ 'optgroup' + key } label={ bible.Data.interfaceLanguages[ key ] }>{ versionOption }</optgroup>;
 			} ) }

@@ -61,6 +61,9 @@ const SettingsTray = React.memo( () => {
 							<li><strong>Previous reference</strong>: -</li>
 							<li><strong>Jump to chapter</strong>: type a number</li>
 						</ul>
+						<p>
+							Versions with a * are indexed with Strong's numbers.
+						</p>
 					</div>
 				</div>
 			</div>
