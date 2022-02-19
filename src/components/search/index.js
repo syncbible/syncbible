@@ -15,6 +15,7 @@ import {
 	selectWord,
 } from '../../actions'
 import PickerSvg from '../svg/picker.js';
+import VersionSelect from '../version-select';
 import styles from './styles.scss';
 import SearchResults from './search-results';
 
@@ -118,11 +119,8 @@ const Search = React.memo( () => {
 							{ pickerButton( 'morph' ) }
 						</fieldset>
 						<fieldset>
-							<label htmlFor="version">Version:</label> <select name="version" onChange={ selectChange } value={ searchForm.version }>
-								{ Object.keys( versions ).map( ( version, index ) => (
-									<option value={ version } key={ index }>{ version }</option>
-								) ) }
-							</select>
+							<label htmlFor="version">Version: </label>
+							<VersionSelect name="version" onChange={ selectChange } value={ searchForm.version } />
 						</fieldset>
 						<fieldset>
 							<label htmlFor="clusivity">Find</label> <select name="clusivity" onChange={ change } value={ searchForm.clusivity }>
