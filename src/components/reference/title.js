@@ -13,14 +13,6 @@ const Title =  React.memo( ( { book, chapter, version, textToCopy } ) => {
 	const dispatch = useDispatch();
 	const data = useSelector( state => state.data );
 	const language = mapVersionToData( book, version );
-	let text = 'not loaded';
-	if ( data[ language ] && data[ language ][ book ] && data[ language ][ book ][ chapter ] ) {
-		text = data[ language ][ book ][ chapter ].map( ( verse, verseNumber ) => {
-			return verseNumber + 1 + '. ' + verse.map( word => {
-				return word[ 0 ];
-			} ).join( ' ' );
-		} ).join( '\n' );
-	}
 
 	const tranlatedBook = bible.getTranslatedBookName( book, version );
 	const showChapterDetails = () => {
