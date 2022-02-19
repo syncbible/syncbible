@@ -1,6 +1,6 @@
 const copyToClipboardHelper = ( event, textToCopy ) => {
 	if ( textToCopy.current ) {
-		textToCopy = textToCopy.current.innerText;
+		textToCopy = textToCopy.current.innerText.replace(/([0-9])(?:\r\n|\r|\n)/g, '$1. ' );
 	}
 
 	event.stopPropagation();

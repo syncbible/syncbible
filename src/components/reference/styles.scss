@@ -30,6 +30,32 @@
 	text-align: center;
 }
 
+
+.heading {
+	.copy-hidden {
+		display: none;
+		position: relative;
+
+		a {
+			position: absolute;
+			top: 0;
+			left: 20px;
+
+			&:hover {
+				path {
+					fill: var(--color)
+				}
+			}
+		}
+	}
+}
+
+.heading:hover {
+	.copy-hidden {
+		display: inline;
+	}
+}
+
 .chapter-column {
 	display: flex;
 	justify-content: center;
@@ -133,4 +159,10 @@
 
 .isCurrent {
 	background: var(--active);
+}
+
+.invisible {
+	height: 0;
+	overflow: hidden;
+	width: 0;
 }

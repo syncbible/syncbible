@@ -1,5 +1,5 @@
 // External
-import React, { useEffect, useRef } from 'react';
+import React, { createRef, useEffect, useRef, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -65,7 +65,17 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 		const title = (
 			<div className={ styles.chapterColumn }>
 				{ reference.map( ( { version }, index ) => {
-					return <Title book={ book } chapter={ chapter } version={ version } key={ index } />;
+					const textToCopy = createRef( book + chapter + version + index );
+
+					// This outputs an extra div for copying
+					return (
+						<Fragment key={ index }>
+							<Title book={ book } chapter={ chapter } version={ version } key={ index } textToCopy={ textToCopy } />
+							<div className={ styles.invisible }>
+								{ getDifferentVerses( version, textToCopy ) }
+							</div>
+						</Fragment>
+					);
 				} ) }
 			</div>
 		);
@@ -94,12 +104,10 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 		)
 	}
 
-	const getDifferentVerses = () => {
-		const version = currentReference.version;
-
+	const getDifferentVerses = ( version, textToCopy ) => {
 		return (
-			<div>
-				<Title book={ book } chapter={ chapter } version={ version } />
+			<div ref={ textToCopy }>
+				<Title book={ book } chapter={ chapter } version={ version } textToCopy={ textToCopy } />
 				{ verseMap.map( ( verse, verseNumber ) => {
 					return (
 						<div className={ styles.singleReference } key={ verseNumber } ref={ isCurrentRef( verseNumber ) }>
@@ -116,9 +124,12 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 		);
 	}
 
+	const version = currentReference.version;
+	const textToCopy = createRef( book + chapter + version + index );
+
 	return (
 		<div className={ styles.chapter }>
-			{ areReferencesInSync( reference ) ? getSyncVerses() : getDifferentVerses() }
+			{ areReferencesInSync( reference ) ? getSyncVerses() : getDifferentVerses( version, textToCopy ) }
 		</div>
 	);
 } );
