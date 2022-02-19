@@ -2,7 +2,7 @@ const initialState = {
 	word: '',
 	lemma: '',
 	morph: '',
-	version: 'KJV',
+	version: '',
 	clusivity: 'exclusive',
 	range: 'verse',
 	strict: false,
