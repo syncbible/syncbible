@@ -6,9 +6,10 @@ import { getReferenceText, getReferenceFromHash } from '../lib/reference.js';
 const getReferenceFromAction = ( reference, version ) => {
 	const book = reference.book.replace( /\%20/gi, ' ' ),
 		chapter = parseInt( reference.chapter ),
-		verse = reference.verse ? parseInt( reference.verse ) : 1;
+		verse = reference.verse ? parseInt( reference.verse ) : 1,
+		endVerse = reference.verse ? parseInt( reference.endVerse ) : null;
 
-	return { book, chapter, verse, version };
+	return { book, chapter, verse, endVerse, version };
 }
 
 const reference = ( state = [], action ) => {
@@ -37,7 +38,9 @@ const reference = ( state = [], action ) => {
 			setReferenceState[ action.index ] = getReferenceFromAction( action.reference, setReferenceState[ action.index ].version );
 			return setReferenceState;
 
+		// I suspect this isn't used.
 		case 'ADD_COLUMN':
+			console.log( 'oh look this is used after all!' );
 			const addedState = [ ...state ];
 			const addedColumn = Object.assign( {}, state[ state.length - 1 ] );
 			addedState.push( addedColumn );

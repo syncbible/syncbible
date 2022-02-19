@@ -3,7 +3,11 @@ import { uniq, sortBy, forEach, toPairs, fromPairs, orderBy } from 'lodash';
 import reference from '../reducers/reference';
 
 export const createReferenceLink = ( reference ) => {
-	return '/' + reference.version + '/' + reference.book + '/' + reference.chapter + '/' + reference.verse + '/';
+	let newReference = '/' + reference.version + '/' + reference.book + '/' + reference.chapter + '/' + reference.verse + '/';
+	if ( reference.endVerse ) {
+		newReference += reference.endVerse + '/';
+	}
+	return newReference;
 };
 
 export const createSyncedHashFromReference = ( stateReference, newReference ) => {
@@ -163,9 +167,10 @@ export const getReferenceFromHashFragment = function( hash ) {
 	const version = reference[ 1 ],
 		book = reference[ 2 ].replace( /\%20/gi, ' ' ),
 		chapter = parseInt( reference[ 3 ] ),
-		verse = reference[ 4 ] ? parseInt( reference[ 4 ] ) : 1;
+		verse = reference[ 4 ] ? parseInt( reference[ 4 ] ) : 1,
+		endVerse = reference[ 5 ] ? parseInt( reference[ 5 ] ) : null;
 
-	return { book, chapter, verse, version };
+	return { book, chapter, verse, endVerse, version };
 };
 
 export const getReferenceFromHash = function( hash ) {
@@ -219,7 +224,7 @@ export const addColumnHelper = ( stateReference, version = '' ) => {
 		return createReferenceLink( getRandomReference( version ) );
 	}
 
-	const referenceToAdd =  stateReference[ stateReference.length - 1 ];
+	const referenceToAdd = stateReference[ stateReference.length - 1 ];
 	if ( version ) {
 		referenceToAdd.version = version;
 	}
@@ -234,12 +239,19 @@ export const deleteColumnHelper = ( stateReference ) => {
 
 export const getSyncReference = ( stateReference ) => {
 	const syncedReference = stateReference.map( reference => {
-		return {
+		let newSyncedReference = {
 			book: stateReference[ 0 ].book,
 			chapter: stateReference[ 0 ].chapter,
 			verse: stateReference[ 0 ].verse,
 			version: reference.version
 		};
+
+		if ( stateReference[ 0 ].endVerse ) {
+			newSyncedReference.endVerse = stateReference[ 0 ].endVerse;
+		}
+
+
+		return newSyncedReference;
 	});
 	return getHashFromStateReference( syncedReference );
 }

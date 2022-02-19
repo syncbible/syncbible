@@ -13,6 +13,7 @@ let oldHeight = 0, scroller = null, isScrolling = false;
 
 const ReferenceComponent = React.memo( ( props ) => {
 	const [ references, setReferences ] = useState( {} );
+	const reference = useSelector( state => state.reference );
 	const referenceWindow = useRef();
 	const inSync = useSelector( state => state.settings.inSync );
 	const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const ReferenceComponent = React.memo( ( props ) => {
 	}, [ references.book, references.chapter ] );
 
 	useEffect( () => {
-		if( references.loadingPrev ) {
+		if( references.loadingPrev && referenceWindow.current ) {
 			const newHeight = referenceWindow.current.scrollHeight;
 			document.body.style.overflow = '';
 
@@ -158,9 +159,27 @@ const ReferenceComponent = React.memo( ( props ) => {
 		return null;
 	}
 
+	const classname = classnames( styles.reference, inSync ? null : styles.isNotSync );
 	const currentBook = references.book;
 	const currentChapter = references.chapter;
-	const classname = classnames( styles.reference, inSync ? null : styles.isNotSync );
+
+	const referenceHasEndVerse = () => {
+		return reference.filter( singleReference => singleReference.endVerse ).length > 0;
+	}
+
+	if ( referenceHasEndVerse() ) {
+		return (
+			<div className={ classname }>
+				<div className={ styles.referenceInner } key={ currentBook + currentBook }>
+					<Chapter
+						book={ currentBook }
+						chapter={ currentChapter }
+						index={ props.index }
+					/>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div id={ 'referenceWindow' + props.index } className={ classname } key={ currentBook + '-' + currentChapter } ref={ referenceWindow } onScroll={ handleScroll }>

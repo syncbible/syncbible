@@ -24,6 +24,8 @@ const dockHeight = 60;
 const Chapter = React.memo( ( { book, chapter, index } ) => {
 	const reference = useSelector( state => state.reference );
 	const currentReference = reference[ index ];
+	const startVerse = currentReference.verse;
+	const endVerse = currentReference.endVerse;
 
 	const bookId = bible.getBookId( book + ' ' + chapter );
 	const numberOfVerses = bible.Data.verses[ bookId - 1 ][ chapter - 1 ];
@@ -53,9 +55,10 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 
 	const scrollToCurrentChapter = () => {
 		const currrentChapter = ReactDOM.findDOMNode( currentRef.current );
-		if ( currrentChapter ) {
+		const referenceWindow = document.getElementById( 'referenceWindow' + index );
+		if ( currrentChapter && referenceWindow ) {
 			currrentChapter.scrollIntoView();
-			document.getElementById( 'referenceWindow' + index ).scrollBy( 0, 0 - dockHeight );
+			referenceWindow.scrollBy( 0, 0 - dockHeight );
 		}
 	};
 
@@ -84,6 +87,16 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 			<div>
 				{ title }
 				{ verseMap.map( ( verse, verseNumber ) => {
+					if ( endVerse && startVerse ) {
+						if ( verseNumber + 1 < startVerse ) {
+							return;
+						}
+						if ( verseNumber >= endVerse ) {
+							return;
+						}
+
+					}
+
 					return (
 						<div className={ styles.singleReference } key={ verseNumber } ref={ isCurrentRef( verseNumber ) }>
 							{ reference.map( ( { version }, index ) => {
@@ -109,6 +122,15 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 			<div ref={ textToCopy }>
 				<Title book={ book } chapter={ chapter } version={ version } textToCopy={ textToCopy } />
 				{ verseMap.map( ( verse, verseNumber ) => {
+					if ( endVerse && startVerse ) {
+						if ( verseNumber + 1 < startVerse ) {
+							return;
+						}
+						if ( verseNumber >= endVerse ) {
+							return;
+						}
+					}
+
 					return (
 						<div className={ styles.singleReference } key={ verseNumber } ref={ isCurrentRef( verseNumber ) }>
 							<VerseWrapper

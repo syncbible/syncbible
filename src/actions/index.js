@@ -264,19 +264,6 @@ export const openReferenceSelectorMobile = ( index ) => {
 	}
 }
 
-export const addColumn = () => {
-	return {
-		type: 'ADD_COLUMN'
-	}
-}
-
-export const removeColumn = ( index ) => {
-	return {
-		index,
-		type: 'REMOVE_COLUMN'
-	}
-}
-
 export const activateSearchSelect = ( target ) => {
 	return {
 		target,
