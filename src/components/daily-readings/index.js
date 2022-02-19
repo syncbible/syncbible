@@ -51,18 +51,21 @@ const DailyReadings = React.memo( () => {
 	const selectedDate = new Date( 1970, selectedMonth, selectedDay );
 	const daysIntoYear = getDaysIntoYear( selectedDate );
 
-	const getReferenceLink = ( oneRef ) => {
+	const getReferenceLink = ( { Book, Chapter, Verses } ) => {
 		let chapter = 1;
-		if ( oneRef.Chapter ) {
-			chapter = oneRef.Chapter;
+		if ( Chapter ) {
+			chapter = Chapter;
 		}
 
-		let referenceString = oneRef.Book + ' ' + chapter;
-		const reference = { book: oneRef.Book, chapter };
+		let referenceString = Book + ' ' + Chapter;
+		const reference = { book: Book, chapter };
 
-		if ( oneRef.Verses ) {
-			reference.verse = oneRef.Verses.split('-')[0];
-			referenceString += ':' + oneRef.Verses;
+		if ( Verses ) {
+			const versesArray = Verses.split('-');
+			reference.verse = versesArray[0];
+			// Don't add an end verse as this will limit the verses output.
+			// reference.endVerse = versesArray[1];
+			referenceString += ':' + Verses;
 		} else {
 			reference.verse = 1;
 		}
