@@ -13,7 +13,6 @@ import SearchSvg from '../svg/search.js';
 import CalendarSvg from '../svg/calendar.js';
 import TrayFilter from '../../components/trays/filter.js';
 import MenuOpenSvg from '../svg/menu-open.js';
-import MenuCloseSvg from '../svg/menu-close.js';
 import { toggleSidebar } from '../../actions';
 
 import styles from './styles.scss';
@@ -49,8 +48,8 @@ const Footer = React.memo( () => {
 		<button onClick={ ( event ) => {
 			event.preventDefault();
 			dispatch( toggleSidebar() );
-		} } title="Close sidebar" className={ classnames( styles.sidebarButton, sidebarOpen ? null : styles.closeWithSidebarClosed ) }>
-			{ sidebarOpen ? <MenuOpenSvg /> : <MenuCloseSvg /> }
+		} } title="Close sidebar" className={ classnames( styles.sidebarButton ) }>
+			<MenuOpenSvg />
 		</button>
 	</div>
 ) } );

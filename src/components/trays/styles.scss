@@ -9,7 +9,7 @@
 }
 
 .tray {
-	width: 320px;
+	width: calc(320px - 1px);
 	z-index: 10;
 }
 

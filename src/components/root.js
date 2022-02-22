@@ -1,12 +1,13 @@
 // External
 import React from 'react';
-import Sidebar from 'react-sidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
+import { SwipeableDrawer } from '@mui/material';
 
 // Internal
 import Dock from './dock';
 import ReferenceWrapper from '../components/reference-wrapper';
+import MenuCloseSvg from './svg/menu-close.js';
 import KeyboardShortcuts from './keyboard-shortcuts';
 import Trays from './trays';
 import WordHighlight from './word-highlight';
@@ -48,8 +49,53 @@ const Root = React.memo( ( { highlightedWord } ) => {
 		dispatch( closeReferenceSelectorMobile() )
 	};
 
+	const drawerWidth = 320;
+
 	return (
 		<div className={ classnames( 'root', { 'dark-mode-on': darkMode === true, 'dark-mode-off': darkMode === false } ) }>
+			<SwipeableDrawer
+				sx={{
+					width: drawerWidth,
+					flexShrink: 0,
+					'& .MuiDrawer-paper': {
+						background: 'var(--background)',
+						borderRight: '1px solid var(--shadow)',
+						boxSizing: 'border-box',
+						color: 'var(--color)',
+						width: drawerWidth,
+					},
+				}}
+				variant="persistent"
+				anchor="left"
+				open={ sidebarOpen }
+				onClose={ () => dispatch( toggleSidebar() ) }
+				onOpen={ () => dispatch( toggleSidebar() ) }
+			>
+				<Trays />
+			</SwipeableDrawer>
+			<button onClick={ ( event ) => {
+				event.preventDefault();
+				dispatch( toggleSidebar() );
+			} } title="Close sidebar" className={ classnames( styles.sidebarButton ) }>
+				<MenuCloseSvg />
+			</button>
+			<div className={ styles.root }>
+				<style>{ getBodyStyles() }</style>
+				<KeyboardShortcuts />
+				<WordHighlight word={ highlightedWord } />
+				{ compareMode ? null : <Dock /> }
+				<div onClick={ clearReferenceSelector }>
+					<ReferenceWrapper />
+				</div>
+				<InitialView />
+			</div>
+		</div>
+	);
+} );
+
+export default Root;
+
+/**
 			<Sidebar
 				sidebar={
 					<Trays />
@@ -63,19 +109,5 @@ const Root = React.memo( ( { highlightedWord } ) => {
 					content: { backgroundColor: "var(--background)" },
 				}}
 			>
-				<div className={ styles.root }>
-					<style>{ getBodyStyles() }</style>
-					<KeyboardShortcuts />
-					<WordHighlight word={ highlightedWord } />
-					{ compareMode ? null : <Dock /> }
-					<div onClick={ clearReferenceSelector }>
-						<ReferenceWrapper />
-					</div>
-					<InitialView />
-				</div>
 			</Sidebar>
-		</div>
-	);
-} );
-
-export default Root;
+ */

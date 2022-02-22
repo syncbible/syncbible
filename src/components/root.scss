@@ -86,3 +86,10 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 100;
 	letter-spacing: .02em;
 }
+
+.sidebarButton {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 999;
+}
