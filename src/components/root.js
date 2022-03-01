@@ -64,22 +64,28 @@ const Root = React.memo( ( { highlightedWord } ) => {
 						color: 'var(--color)',
 						width: drawerWidth,
 					},
+					'& .MuiBackdrop-root': {
+						display: 'none',
+					},
 				}}
-				variant="persistent"
 				anchor="left"
 				open={ sidebarOpen }
 				onClose={ () => dispatch( toggleSidebar() ) }
 				onOpen={ () => dispatch( toggleSidebar() ) }
+				BackdropProps={{ invisible: true }}
 			>
 				<Trays />
 			</SwipeableDrawer>
-			<button onClick={ ( event ) => {
-				event.preventDefault();
-				dispatch( toggleSidebar() );
-			} } title="Close sidebar" className={ classnames( styles.sidebarButton ) }>
-				<MenuCloseSvg />
-			</button>
 			<div className={ styles.root }>
+				{ reference.length > 0 && (
+					<button onClick={ ( event ) => {
+						event.preventDefault();
+						dispatch( toggleSidebar() );
+					} } title="Close sidebar" className={ classnames( styles.sidebarButton ) }>
+						<MenuCloseSvg />
+					</button>
+				) }
+
 				<style>{ getBodyStyles() }</style>
 				<KeyboardShortcuts />
 				<WordHighlight word={ highlightedWord } />

@@ -88,7 +88,8 @@ if ( process.env.NODE_ENV !== 'production' ) {
 	config.devServer = {
 		hot: true,
 		port: 7777,
-		historyApiFallback: true
+		historyApiFallback: true,
+		disableHostCheck: true
 	};
 
 	/*config.module.rules.unshift( {
