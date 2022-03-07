@@ -63,6 +63,7 @@ const Root = React.memo( ( { highlightedWord } ) => {
 						boxSizing: 'border-box',
 						color: 'var(--color)',
 						width: drawerWidth,
+						overflow: 'visible',
 					},
 					'& .MuiBackdrop-root': {
 						display: 'none',
