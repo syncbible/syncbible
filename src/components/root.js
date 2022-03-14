@@ -54,6 +54,7 @@ const Root = React.memo( ( { highlightedWord } ) => {
 	return (
 		<div className={ classnames( 'root', { 'dark-mode-on': darkMode === true, 'dark-mode-off': darkMode === false } ) }>
 			<SwipeableDrawer
+				disableEnforceFocus
 				sx={{
 					width: drawerWidth,
 					flexShrink: 0,
@@ -65,15 +66,13 @@ const Root = React.memo( ( { highlightedWord } ) => {
 						width: drawerWidth,
 						overflow: 'visible',
 					},
-					'& .MuiBackdrop-root': {
-						display: 'none',
-					},
 				}}
 				anchor="left"
 				open={ sidebarOpen }
 				onClose={ () => dispatch( toggleSidebar() ) }
 				onOpen={ () => dispatch( toggleSidebar() ) }
-				BackdropProps={{ invisible: true }}
+				keepMounted={true}
+				hideBackdrop={true}
 			>
 				<Trays />
 			</SwipeableDrawer>

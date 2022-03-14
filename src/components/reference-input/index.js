@@ -38,14 +38,17 @@ const ReferenceInput = React.memo( ( { index, last } ) => {
 	const referenceInputField = useRef();
 
 	const change = ( event ) => {
-		setLocalReference( event.target.value )
+		setLocalReference( event.target.value );
 	};
 
 	const goToReferenceField = ( event ) => {
+		console.log( event );
 		event.preventDefault();
 		referenceInputField.current.focus();
 		referenceInputField.current.selectionStart = referenceInputField.current.selectionEnd = 0;
 		setLocalReference( event.key );
+		console.log( 'end');
+		event.stopPropogation();
 	};
 
 	const getLocalReferenceObject = () => {
