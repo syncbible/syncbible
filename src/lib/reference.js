@@ -295,3 +295,12 @@ export const sortReferences = ( referenceA, referenceB ) => {
 
 	return positionOfReferenceA - positionOfReferenceB;
 }
+
+export const sortCountedReferences = ( reference1, reference2 ) => {
+	const difference = reference2.value - reference1.value;
+	if ( difference === 0 ) {
+		return sortReferences( reference1.key, reference2.key );
+	}
+
+	return difference;
+}

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 // Internal dependencies
 import Collapsible from '../collapsible';
 import SearchLink from '../search/search-link';
-import { getReferenceFromSearchResult, sortReferences } from '../../lib/reference.js'
+import { getReferenceFromSearchResult, sortCountedReferences } from '../../lib/reference.js'
 import styles from './styles.scss';
 
 const CombinedResults = React.memo( () => {
@@ -22,7 +22,7 @@ const CombinedResults = React.memo( () => {
 
 		const countedResults = countBy( combined );
 		const countedResultsArray = Object.keys( countedResults ).map(key => ({ key, value: countedResults[key] }));
-		const sortedResults = sortBy( countedResultsArray, [ 'value', 'key' ] ).filter( result => result.value > 1 ).reverse();
+		const sortedResults = countedResultsArray.sort( sortCountedReferences ).filter( result => result.value > 1 );
 
 		const combinedResults = sortedResults.map( ( result, index ) => {
 			return (
