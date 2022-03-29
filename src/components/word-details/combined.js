@@ -9,9 +9,9 @@ import SearchLink from '../search/search-link';
 import { getReferenceFromSearchResult, sortCountedReferences } from '../../lib/reference.js'
 import styles from './styles.scss';
 
-const CombinedResults = React.memo( () => {
+const CombinedResults = React.memo( ( { type } ) => {
 	const [ open, setOpen ] = useState( false );
-	const words = useSelector( state => state.list.filter( ( { listType } ) => listType === 'word' ) );
+	const words = useSelector( state => state.list.filter( ( { listType } ) => listType === type ) );
 	if ( words.length ) {
 		let combined = [];
 		words.forEach( ( word ) => {

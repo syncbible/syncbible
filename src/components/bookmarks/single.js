@@ -1,7 +1,6 @@
 // External dependencies
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { push } from 'connected-react-router';
 
 // Internal dependencies
 import { goToReferenceAction, removeFromList, toggleListItemVisible } from '../../actions';
@@ -31,26 +30,9 @@ const Single = ( { bookmark, index } ) => {
 	const bookmarkRef = useRef();
 	const { data: { reference } } = bookmark;
 
-	const getCrossReferences = ( reference ) => {
-		if ( ! reference ) {
-			return [];
-		}
-
-		const bookId = bible.getBookId( reference.book );
-		const referenceString = bible.Data.books[ bookId - 1 ][ 1 ] + '.' + reference.chapter + '.' + reference.verse;
-
-		if ( ! data.crossReferences || ! data.crossReferences[ referenceString ] ) {
-			return [];
-		}
-
-		return data.crossReferences[ referenceString ];
-	};
-
 	const handleToggle = () => {
 		dispatch( toggleListItemVisible( bookmark ) );
 	};
-
-	const crossReferences = getCrossReferences( reference );
 
 	const header = (
 		<ReferenceLink reference={ reference } />
@@ -62,9 +44,9 @@ const Single = ( { bookmark, index } ) => {
 		}
 		return (
 			<div>
-				{ crossReferences.length > 0 ? 'Cross references:' : 'No cross references' }
+				{ bookmark.results.length > 0 ? 'Cross references:' : 'No cross references' }
 				<div dir={ bible.isRtlVersion( interfaceLanguage ) ? 'rtl' : 'ltr' }>
-					{ crossReferences.map( ( crossReference, index2 ) => {
+					{ bookmark.results.map( ( crossReference, index2 ) => {
 						const referenceSections = crossReference.split('-');
 						const referenceArrays = referenceSections.map( ( referenceSection ) => getReferenceFromCrossReference( referenceSection ) );
 						const newHash = '/#' + goToReferenceHelper( stateReference, referenceArrays[ 0 ], targetColumn, inSync );

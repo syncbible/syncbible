@@ -18,6 +18,7 @@ import PickerSvg from '../svg/picker.js';
 import VersionSelect from '../version-select';
 import styles from './styles.scss';
 import SearchResults from './search-results';
+import CombinedResults from '../word-details/combined';
 
 const isSimpleLemmaSearch = ( { lemma, word, morph, clusivity, range } ) => {
 	return lemma && lemma.indexOf( ' ' ) < 1 && ! word && ! morph && clusivity === 'exclusive' && range === 'verse';
@@ -147,6 +148,7 @@ const Search = React.memo( () => {
 				</fieldset>
 			</form>
 			<SearchResults />
+			<CombinedResults type="search" />
 		</div>
 	);
 } );

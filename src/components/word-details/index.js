@@ -16,7 +16,7 @@ const WordDetails = React.memo( () => {
 					<WordBlock { ...word } key={ index } />
 				);
 			} ) }
-			<CombinedResults />
+			<CombinedResults type="word" />
 		</div>
 	) : <div className={ styles.wordBlockHelp }>Select a word to show more details about it here.</div>;
 

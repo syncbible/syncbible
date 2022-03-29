@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 // Internal dependencies
 import Bookmark from '../svg/bookmark.js';
+import CombinedResults from '../word-details/combined.js';
 import Single from './single';
 import styles from './styles.scss';
 
@@ -14,6 +15,7 @@ const BookMarks = React.memo( () => {
 		<div className={ styles.bookmarks }>
 			{ bookmarks.length === 0 && ( <p>Click the <Bookmark /> to bookmark a verse.</p> ) }
 			{ bookmarks.map( ( bookmark, key ) => <Single bookmark={ bookmark } key={ key } index={ key } /> ) }
+			<CombinedResults type="bookmark" />
 		</div>
 	)
 } );
