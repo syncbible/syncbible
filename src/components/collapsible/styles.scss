@@ -14,10 +14,14 @@
 	margin: 0 !important;
 	position: relative;
 
+	> div {
+		padding: 5px;
+	}
+
 	div {
 		display: flex;
 		justify-content: space-between;
-		padding: 5px;
+		width: 100%;
 	}
 
 	a {

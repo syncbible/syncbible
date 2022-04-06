@@ -1,15 +1,18 @@
 // External dependencies
-import { countBy, sortBy } from 'lodash';
+import { countBy } from 'lodash';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
+import { setTrayVisibilityFilter } from '../../actions';
 import Collapsible from '../collapsible';
 import SearchLink from '../search/search-link';
 import { getReferenceFromSearchResult, sortCountedReferences } from '../../lib/reference.js'
 import styles from './styles.scss';
+import JoinFull from '../svg/join-full';
 
 const CombinedResults = React.memo( ( { type } ) => {
+	const dispatch = useDispatch();
 	const [ open, setOpen ] = useState( false );
 	const words = useSelector( state => state.list.filter( ( { listType } ) => listType === type ) );
 	if ( words.length ) {
@@ -33,10 +36,12 @@ const CombinedResults = React.memo( ( { type } ) => {
 		if ( combinedResults.length > 0 ) {
 			return (
 				<Collapsible
-					header="Combined"
 					open={ open }
 					onToggle={ () => setOpen( ! open ) }
 					className="collapse"
+					header={
+						<div>Combined <a onClick={ ( event ) => { event.stopPropagation(); dispatch( setTrayVisibilityFilter('combinedall') ); console.log( 'her' ) } }><JoinFull /></a></div>
+					}
 				>
 					<ol className={ styles.results }>
 						{ combinedResults }

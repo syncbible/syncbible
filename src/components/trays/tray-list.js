@@ -11,6 +11,7 @@ import SettingsTray from './settings';
 import ReferenceInfo from './reference-info';
 import ReferenceSelector from '../reference-selector';
 import WordDetails from '../word-details';
+import CombinedAll from '../combined-all';
 
 function getComponent( ComponentString, visible ) {
 	switch ( ComponentString ) {
@@ -34,6 +35,10 @@ function getComponent( ComponentString, visible ) {
 
 		case 'ReferenceInfo':
 			return <ReferenceInfo visible={ visible } />
+
+		case 'CombinedAll':
+			return <CombinedAll visible={ visible } />
+
 	}
 }
 

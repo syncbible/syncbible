@@ -11,6 +11,7 @@ import BookmarksSvg from '../svg/bookmarks.js';
 import HelpSvg from '../svg/help.js';
 import InfoSvg from '../svg/info.js';
 import CalendarSvg from '../svg/calendar.js';
+import JoinFull from '../svg/join-full.js';
 import styles from './styles.scss';
 import { mapVersionToData } from '../../lib/reference';
 import VersionSelect from '../version-select';
@@ -24,6 +25,7 @@ const icons = {
 	HelpSvg: <HelpSvg />,
 	InfoSvg: <InfoSvg />,
 	CalendarSvg: <CalendarSvg />,
+	JoinFull: <JoinFull />,
 };
 
 const SidebarControls = React.memo( () => {
@@ -61,7 +63,7 @@ const SidebarControls = React.memo( () => {
 				} />
 
 				<span className={ styles.sidebarControlsRight }>
-					<Clear selectedTrayId={ selectedTray.id } />
+					<Clear selectedTrayId={ selectedTray && selectedTray.id } />
 				</span>
 			</span>
 		</div>

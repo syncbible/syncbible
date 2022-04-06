@@ -47,6 +47,13 @@ const initalState = [
 		text: 'Daily Readings',
 		component: 'DailyReadings',
 		icon: 'CalendarSvg',
+	},
+	{
+		visible: false,
+		id: 'combinedall',
+		text: 'Combined',
+		component: 'CombinedAll',
+		icon: 'JoinFull',
 	}
 ];
 

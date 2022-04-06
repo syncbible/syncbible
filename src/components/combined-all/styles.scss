@@ -1,0 +1,13 @@
+.results {
+	line-height: 1.5;
+	list-style-type: none;
+	margin: 1em;
+
+	a {
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

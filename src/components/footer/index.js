@@ -13,6 +13,7 @@ import SearchSvg from '../svg/search.js';
 import CalendarSvg from '../svg/calendar.js';
 import TrayFilter from '../../components/trays/filter.js';
 import MenuOpenSvg from '../svg/menu-open.js';
+import JoinFull from '../svg/join-full.js';
 import { toggleSidebar } from '../../actions';
 
 import styles from './styles.scss';
@@ -34,6 +35,9 @@ const Footer = React.memo( () => {
 		</TrayFilter>
 		<TrayFilter filter="bookmarks">
 			<BookmarksSvg />
+		</TrayFilter>
+		<TrayFilter filter="combinedall">
+			<JoinFull />
 		</TrayFilter>
 		<TrayFilter filter="reference">
 			<InfoSvg />
