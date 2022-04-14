@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // Internal
 import { goToReferenceAction } from '../../actions/index.js';
 import { closeReferenceSelectorMobile, toggleReferenceSelectorMobile, referenceSelectorMobileSetBook, setReference, setScrollChapter } from '../../actions'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowBackIcon from '../svg/arrow-back';
 import styles from './style.scss';
 
 const ReferenceSelectorMobile = React.memo( ( { index, version } ) => {

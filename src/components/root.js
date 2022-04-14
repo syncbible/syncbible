@@ -100,20 +100,3 @@ const Root = React.memo( ( { highlightedWord } ) => {
 } );
 
 export default Root;
-
-/**
-			<Sidebar
-				sidebar={
-					<Trays />
-				}
-				open={ sidebarOpen }
-				onSetOpen={ () => dispatch( toggleSidebar() ) }
-				shadow={ false }
-				styles={{
-					sidebar: { background: "var(--background)", borderTop: "1px solid var(--mid)", boxShadow: "var(--shadow) 2px 2px 4px", overflowY: "none", width: "320px", zIndex: "10" },
-					overlay: { disply: "none", bottom: "auto", right: "auto" },
-					content: { backgroundColor: "var(--background)" },
-				}}
-			>
-			</Sidebar>
- */
