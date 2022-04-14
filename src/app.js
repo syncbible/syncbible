@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { createStore, compose, applyMiddleware } from 'redux'
 import { Provider, ReactReduxContext } from 'react-redux'
 import { createBrowserHistory } from 'history';
@@ -56,26 +56,23 @@ const store = createStore( persistedReducer, composeEnhancers(
 
 const persistor = persistStore( store );
 
-class App extends React.Component{
-	constructor(props) {
-		super(props);
-		this.state = {
-			highlightedWord: ''
-		};
-	}
-	render() {
-		return (
-			<Provider store={ store } context={ ReactReduxContext }>
-				<PersistGate loading={null} persistor={ persistor }>
-					<ConnectedRouter history={ history } context={ ReactReduxContext }>
-						<HashRouter>
-							<Route path="/" render={ () => <Root highlightedWord={ this.state.highlightedWord } /> } />
-						</HashRouter>
-					</ConnectedRouter>
-				</PersistGate>
-			</Provider>
-		);
-	}
+const App = () => {
+	const [ highlightedWord, setHightlightedWord ] = useState('');
+	// Make this available externally.
+	window.updateAppComponent = ( key, value ) => {
+		setHightlightedWord( value );
+	};
+	return (
+		<Provider store={ store } context={ ReactReduxContext }>
+			<PersistGate loading={null} persistor={ persistor }>
+				<ConnectedRouter history={ history } context={ ReactReduxContext }>
+					<HashRouter>
+						<Route path="/" render={ () => <Root highlightedWord={ highlightedWord } /> } />
+					</HashRouter>
+				</ConnectedRouter>
+			</PersistGate>
+		</Provider>
+	);
 }
 
 export default App;

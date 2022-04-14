@@ -2,22 +2,17 @@
  * External dependencies
  */
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import App from './app';
 
-let ContentRoot = render( <App />, document.getElementById( 'content' ) );
+const container = document.getElementById( 'content' );
+let root = createRoot( container );
+root.render(<App />);
 
 if ( module.hot ) {
 	module.hot.accept( './app', () => {
 		const NextRootContainer = require( './app' ).default;
-		ContentRoot = render( <NextRootContainer />, document.getElementById('content') );
+		root.render( <NextRootContainer /> );
 	} );
-};
-
-window.updateAppComponent = ( key, value ) => {
-	// Update state of topmost parent when this method is called
-	const newState = {};
-	newState[ key ] = value;
-	ContentRoot.setState( newState );
 };
