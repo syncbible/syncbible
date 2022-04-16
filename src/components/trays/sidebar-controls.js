@@ -50,7 +50,7 @@ const SidebarControls = React.memo( () => {
 	return (
 		<div className={ styles.sidebarControls }>
 			<span className={ styles.sidebarControlsInner }>
-				{ icons[ icon ] }
+				{ /*icons[ icon ]*/ }
 				<span className={ styles.sidebarControlsTitle }>{ title }</span>
 			</span>
 

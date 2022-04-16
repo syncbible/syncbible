@@ -1,6 +1,8 @@
+@import '../dimensions.scss';
+
 .reference-wrapper {
 	background: var(--background);
-	margin-left: 0;
+	margin-left: $dock-height;
 	transition: margin 200ms;
 }
 

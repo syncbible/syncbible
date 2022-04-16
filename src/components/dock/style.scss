@@ -1,9 +1,12 @@
 @import '../dimensions.scss';
 
 .dock {
+	background-color: var(--background-ui);
+	box-shadow: 0 0 10px 5px var(--shadow);
 	position: fixed;
 	right: 0;
-	left: 0;
+	left: $dock-height;
+	top: 0;
 	transition: margin 200ms;
 	z-index: 8;
 
@@ -18,6 +21,11 @@
 		border-left-width: 1px;
 		border-left-style: solid;
 	}
+
+	select, button, input {
+		border-bottom: none;
+		border-top: none;
+	}
 }
 
 .dock-version-selectors {
@@ -29,10 +37,11 @@
 
 .dock-with-sidebar-open {
 	@media ( max-width: 959px ) {
-		left: 0;
+		left: $dock-height;
 	}
 
 	@media ( min-width: 960px ) {
+		left: 0;
 		margin-left: 320px;
 		transition: margin 200ms;
 		width: calc( 100% - 320px );

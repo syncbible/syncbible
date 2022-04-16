@@ -1,6 +1,10 @@
+@import '../dimensions';
+
 .button {
 	border-left: none;
 	border-right: none;
+	display: inline-block;
+	width: $dock-height;
 }
 
 .clear {

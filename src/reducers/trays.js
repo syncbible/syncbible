@@ -32,7 +32,7 @@ const initalState = [
 		id: 'settings',
 		text: 'Settings',
 		component: 'SettingsTray',
-		icon: 'HelpSvg',
+		icon: 'CogSvg',
 	},
 	{
 		visible: false,
@@ -44,7 +44,7 @@ const initalState = [
 	{
 		visible: false,
 		id: 'dailyreadings',
-		text: 'Daily Readings',
+		text: 'Dailies',
 		component: 'DailyReadings',
 		icon: 'CalendarSvg',
 	},
@@ -54,8 +54,14 @@ const initalState = [
 		text: 'Combined',
 		component: 'CombinedAll',
 		icon: 'JoinFull',
-	}
-];
+	},
+	{
+		visible: false,
+		id: 'help',
+		text: 'Help',
+		component: 'Help',
+		icon: 'HelpSvg',
+	}];
 
 const trays = ( state = initalState, action ) => {
 	switch ( action.type ) {

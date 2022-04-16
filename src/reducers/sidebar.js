@@ -11,11 +11,8 @@ const sidebar = ( state = false, action ) => {
 		case 'TOGGLE_SIDEBAR':
 			return ! state;
 
-		case 'SET_TRAY_VISIBILITY_FILTER':
-			return true;
-
 		case LOCATION_CHANGE:
-			if ( window.innerWidth < 600 ) {
+			if ( window.innerWidth < 960 ) {
 				return false;
 			}
 

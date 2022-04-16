@@ -1,15 +1,28 @@
 @import '../colors.scss';
 @import '../dimensions.scss';
 
+.trays {
+	display: flex;
+	position: fixed;
+	z-index: 19;
+}
+
 .trayList {
+	background: var(--background-ui);
 	overflow: auto;
 	position: absolute;
-	top: $dock-height;
-	bottom: $dock-height;
+	top: 0;
+	bottom: 0;
+	left: calc( -320px - $dock-height );
+	transition: left 200ms;
+}
+
+.sidebarOpen {
+	left: $dock-height;
 }
 
 .tray {
-	width: calc(320px - 1px);
+	width: calc(320px - 1px - $dock-height);
 	z-index: 10;
 }
 
@@ -44,16 +57,12 @@
 }
 
 .trayFilter {
-	border: 1px solid var(--mid);
-	border-right: 0;
 	box-sizing: border-box;
-	display: inline-block;
+	display: block;
 	cursor: pointer;
 	margin: 0;
 	padding: 14px 0;
 	text-align: center;
-	width: calc(100% / 8);
-	height: $dock-height;
 
 	&:hover {
 		background: var(--hover);
@@ -69,10 +78,7 @@
 }
 
 .active {
-	composes: trayFilter;
-	background: var(--background);
-	border-top-color: var(--background);
-	box-shadow: 1px 1px 1px 0 #000;
+	background: var(--background-ui);
 
 	svg {
 		fill: var(--color);
@@ -81,6 +87,15 @@
 
 .help-panel {
 	padding: .5em;
+	font-size: .7em;
+
+	h3 {
+		margin-top: 1em;
+	}
+
+	p {
+		margin-bottom: 1em;
+	}
 }
 
 .settings-li {
@@ -105,18 +120,25 @@
 
 .sidebar-controls {
 	background: var(--background-ui);
-	border-bottom: 1px solid var(--mid);
+	box-shadow: 0 0 10px 5px var(--shadow);
 	display: flex;
 		align-items: center;
 		justify-content: space-between;
-	height: $dock-height - 1;
+	height: $dock-height;
 	position: sticky;
 	top: 0;
-	width: 100%;
-	z-index: 999;
+	left: 0;
+	padding-left: 10px;
+	width: calc( 320px - $dock-height );
+	z-index: 19;
 
 	svg {
 		fill: var(--color);
+	}
+
+	select, button {
+		border-bottom: none;
+		border-top: none;
 	}
 }
 
@@ -124,14 +146,9 @@
 	padding: 0 5px;
 }
 
-.sidebarControlsTitle {
-	padding-left: 10px;
-}
-
 .sidebarControlsInner {
 	display: flex;
 	align-items: center;
-	padding-left: 10px;
 }
 
 .sidebar-controls-right-outer {

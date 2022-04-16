@@ -2,6 +2,7 @@
 
 :root, .dark-mode-off {
   --background: #ffffff;
+  --background-between: rgb(220,220,220);
   --background-smoke: rgba( 255, 255, 255, .95);
   --background-ui: rgb(240,240,240);
   --color: #000000;
@@ -17,13 +18,14 @@
 
 @media ( prefers-color-scheme: dark ) {
 	:root {
-    --background: #333333;
+    --background: rgb(51,51,51);
+    --background-between: rgb(0,0,0);
     --background-smoke: rgba(45, 45, 45, 0.95);
-    --background-ui: rgb(0,0,0);
+    --background-ui: rgb(25,25,25);
     --color: #ffffff;
     --color-dimmed: #aaaaaa;
     --mid: #444;
-    --shadow: rgb( 255, 255, 255, 0.15);
+    --shadow: rgb( 0, 0, 0, 0.15);
     --hover: rgba( 215, 245, 245, .3 );
     --active: rgba( 15, 45, 45, 1 );
     --accent: rgba( 215, 245, 245, 1 );
@@ -32,13 +34,14 @@
 }
 
 .dark-mode-on {
-  --background: #333333;
+  --background: rgb(51,51,51);
+  --background-between: rgb(0,0,0);
   --background-smoke: rgba(45, 45, 45, 0.95);
-  --background-ui: rgb(0,0,0);
+  --background-ui: rgb(25,25,25);
   --color: #ffffff;
   --color-dimmed: #aaaaaa;
   --mid: #444;
-  --shadow: rgb( 255, 255, 255, 0.15);
+  --shadow: rgb( 0, 0, 0, 0.15);
   --hover: rgba( 215, 245, 245, .3 );
   --active: rgba( 15, 45, 45, 1 );
   --accent: rgba( 215, 245, 245, 1 );

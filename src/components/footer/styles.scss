@@ -1,26 +1,19 @@
 @import '../dimensions.scss';
 
 .footer {
-	background: var(--background-ui);
-	position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
-	z-index: 19;
-	width: 320px;
-}
+	background: var(--background-between);
+	height: 100vh;
+	overflow: auto;
+	width: 60px;
+	z-index: 20;
 
-.sidebar-button {
-	background: var(--background-ui);
-	border: 1px solid var(--mid);
-	cursor: pointer;
-	box-sizing: border-box;
-	display: block;
-	height: $dock-height;
-	line-height: $dock-height;
-	position: absolute;
-		bottom: 0;
-		right: - $dock-height;
-	text-align: center;
-	width: $dock-height;
+	button {
+		background: var(--background-between);
+		cursor: pointer;
+
+		&:hover {
+			background: var(--hover);
+
+		}
+	}
 }

@@ -53,37 +53,11 @@ const Root = React.memo( ( { highlightedWord } ) => {
 
 	return (
 		<div className={ classnames( 'root', { 'dark-mode-on': darkMode === true, 'dark-mode-off': darkMode === false } ) }>
-			<SwipeableDrawer
-				disableEnforceFocus
-				sx={{
-					width: drawerWidth,
-					flexShrink: 0,
-					'& .MuiDrawer-paper': {
-						background: 'var(--background)',
-						borderRight: '1px solid var(--shadow)',
-						boxSizing: 'border-box',
-						color: 'var(--color)',
-						width: drawerWidth,
-						overflow: 'visible',
-					},
-				}}
-				anchor="left"
-				open={ sidebarOpen }
-				onClose={ () => dispatch( toggleSidebar() ) }
-				onOpen={ () => dispatch( toggleSidebar() ) }
-				keepMounted={true}
-				hideBackdrop={true}
-			>
-				<Trays />
-			</SwipeableDrawer>
+
+
 			<div className={ styles.root }>
 				{ reference.length > 0 && (
-					<button onClick={ ( event ) => {
-						event.preventDefault();
-						dispatch( toggleSidebar() );
-					} } title="Close sidebar" className={ classnames( styles.sidebarButton ) }>
-						<MenuCloseSvg />
-					</button>
+					<Trays />
 				) }
 
 				<style>{ getBodyStyles() }</style>

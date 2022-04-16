@@ -12,6 +12,7 @@ import ReferenceInfo from './reference-info';
 import ReferenceSelector from '../reference-selector';
 import WordDetails from '../word-details';
 import CombinedAll from '../combined-all';
+import Help from './help';
 
 function getComponent( ComponentString, visible ) {
 	switch ( ComponentString ) {
@@ -39,6 +40,10 @@ function getComponent( ComponentString, visible ) {
 		case 'CombinedAll':
 			return <CombinedAll visible={ visible } />
 
+		case 'Help':
+			return <Help visible={ visible } />
+
+
 	}
 }
 
@@ -46,7 +51,7 @@ const TrayList = React.memo( () => {
 	const trays = useSelector( state => state.trays );
 
 	return (
-		<div className={ styles.trayList }>
+		<div>
 			{ trays.map( tray => {
 				return (
 					<div

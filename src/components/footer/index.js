@@ -1,7 +1,6 @@
 // External dependencies
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import classnames from 'classnames';
+import { useDispatch } from 'react-redux';
 
 // Internal dependencies
 import BookSvg from '../svg/book.js';
@@ -12,18 +11,22 @@ import InfoSvg from '../svg/info.js';
 import SearchSvg from '../svg/search.js';
 import CalendarSvg from '../svg/calendar.js';
 import TrayFilter from '../../components/trays/filter.js';
-import MenuOpenSvg from '../svg/menu-open.js';
 import JoinFull from '../svg/join-full.js';
-import { toggleSidebar } from '../../actions';
+import SyncBible from '../svg/syncbible.js';
+import CogSvg from '../svg/cog.js';
+import { closeSidebar } from '../../actions/index.js';
 
 import styles from './styles.scss';
 
 const Footer = React.memo( () => {
-	const sidebarOpen = useSelector( state => state.sidebar );
 	const dispatch = useDispatch();
-
 	return (
 	<div className={ styles.footer }>
+		<button style={ { border: 'none', padding: '10px' } } onClick={ ()=> {
+			dispatch( closeSidebar() );
+		} }>
+			<SyncBible />
+		</button>
 		<TrayFilter filter="goto">
 			<BookSvg />
 		</TrayFilter>
@@ -46,15 +49,12 @@ const Footer = React.memo( () => {
 			<CalendarSvg />
 		</TrayFilter>
 		<TrayFilter filter="settings">
+			<CogSvg />
+		</TrayFilter>
+		<TrayFilter filter="help">
 			<HelpSvg />
 		</TrayFilter>
 
-		<button onClick={ ( event ) => {
-			event.preventDefault();
-			dispatch( toggleSidebar() );
-		} } title="Close sidebar" className={ classnames( styles.sidebarButton ) }>
-			<MenuOpenSvg />
-		</button>
 	</div>
 ) } );
 

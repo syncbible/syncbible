@@ -1,9 +1,10 @@
 // External dependencies
 import React from 'react';
+import classnames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux'
 
 // Internal dependencies
-import { setTrayVisibilityFilter } from '../../actions'
+import { setTrayVisibilityFilter, openSidebar, toggleSidebar } from '../../actions'
 import styles from './styles.scss';
 
 const TrayFilter = ( { children, filter } ) => {
@@ -11,16 +12,20 @@ const TrayFilter = ( { children, filter } ) => {
 	const active = useSelector( state => state.trays.some( tray => {
 		return ( tray.id === filter && tray.visible );
 	} ) );
-	let className = styles.trayFilter;
-	if ( active ) {
-		className = styles.active
-	}
+	const activeTray = useSelector( state => state.trays.filter( tray => {
+		return tray.visible;
+	} ) )[ 0 ].id;
 
 	return (
-		<span className={ className }
+		<span className={ classnames( styles.trayFilter, active ? styles.active : null ) }
 			onClick={ event => {
-				event.preventDefault()
-				dispatch( setTrayVisibilityFilter( filter ) )
+				event.preventDefault();
+				if ( activeTray === filter ) {
+					dispatch( toggleSidebar() );
+				} else {
+					dispatch( openSidebar() );
+				}
+				dispatch( setTrayVisibilityFilter( filter ) );
 			} }
 		>
 			{ children }
