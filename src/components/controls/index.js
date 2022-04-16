@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Internal
-import { addColumnAction, deleteColumnAction, settingsChange, syncReferences, unSyncReferences } from '../../actions';
+import { addColumnAction, deleteColumnAction, syncReferences, unSyncReferences } from '../../actions';
 import Add from '../svg/add.js';
 import styles from './style.scss';
 

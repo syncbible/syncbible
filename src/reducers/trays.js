@@ -29,10 +29,10 @@ const initalState = [
 	},
 	{
 		visible: false,
-		id: 'settings',
-		text: 'Settings',
-		component: 'SettingsTray',
-		icon: 'CogSvg',
+		id: 'combinedall',
+		text: 'Combined',
+		component: 'CombinedAll',
+		icon: 'JoinFull',
 	},
 	{
 		visible: false,
@@ -50,10 +50,10 @@ const initalState = [
 	},
 	{
 		visible: false,
-		id: 'combinedall',
-		text: 'Combined',
-		component: 'CombinedAll',
-		icon: 'JoinFull',
+		id: 'settings',
+		text: 'Settings',
+		component: 'SettingsTray',
+		icon: 'CogSvg',
 	},
 	{
 		visible: false,

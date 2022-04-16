@@ -17,16 +17,7 @@ import { mapVersionToData } from '../../lib/reference';
 import VersionSelect from '../version-select';
 import Clear from '../clear';
 
-const icons = {
-	BookSvg: <BookSvg />,
-	EyeSvg: <EyeSvg />,
-	SearchSvg: <SearchSvg />,
-	BookmarksSvg: <BookmarksSvg />,
-	HelpSvg: <HelpSvg />,
-	InfoSvg: <InfoSvg />,
-	CalendarSvg: <CalendarSvg />,
-	JoinFull: <JoinFull />,
-};
+
 
 const SidebarControls = React.memo( () => {
 	const dispatch = useDispatch();
@@ -34,7 +25,6 @@ const SidebarControls = React.memo( () => {
 		return tray.visible;
 	} ) );
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
-	const icon = selectedTray && selectedTray.icon;
 	const title = selectedTray && selectedTray.text;
 
 	useEffect( () => {
@@ -50,7 +40,6 @@ const SidebarControls = React.memo( () => {
 	return (
 		<div className={ styles.sidebarControls }>
 			<span className={ styles.sidebarControlsInner }>
-				{ /*icons[ icon ]*/ }
 				<span className={ styles.sidebarControlsTitle }>{ title }</span>
 			</span>
 

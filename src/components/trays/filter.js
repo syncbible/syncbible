@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setTrayVisibilityFilter, openSidebar, toggleSidebar } from '../../actions'
 import styles from './styles.scss';
 
-const TrayFilter = ( { children, filter } ) => {
+const TrayFilter = ( { children, filter, title } ) => {
 	const dispatch = useDispatch();
 	const active = useSelector( state => state.trays.some( tray => {
 		return ( tray.id === filter && tray.visible );
@@ -17,7 +17,7 @@ const TrayFilter = ( { children, filter } ) => {
 	} ) )[ 0 ].id;
 
 	return (
-		<span className={ classnames( styles.trayFilter, active ? styles.active : null ) }
+		<span title={ title } className={ classnames( styles.trayFilter, active ? styles.active : null ) }
 			onClick={ event => {
 				event.preventDefault();
 				if ( activeTray === filter ) {
