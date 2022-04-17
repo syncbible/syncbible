@@ -9,6 +9,94 @@ import SidebarControls from './sidebar-controls';
 import TrayList from './tray-list';
 import Footer from '../footer';
 
+// Tray comonents
+import Search from '../search';
+import DailyReadings from '../daily-readings';
+import BookmarksTray from './bookmarks';
+import SettingsTray from './settings';
+import ReferenceInfo from './reference-info';
+import ReferenceSelector from '../reference-selector';
+import WordDetails from '../word-details';
+import CombinedAll from '../combined-all';
+import Help from './help';
+
+// SVGs
+import BookSvg from '../svg/book.js';
+import BookmarksSvg from '../svg/bookmarks.js';
+import HelpSvg from '../svg/help.js';
+import EyeSvg from '../svg/eye.js';
+import InfoSvg from '../svg/info.js';
+import SearchSvg from '../svg/search.js';
+import CalendarSvg from '../svg/calendar.js';
+import JoinFull from '../svg/join-full.js';
+import CogSvg from '../svg/cog.js';
+
+const trays = [
+	{
+		visible: true,
+		id: 'goto',
+		text: 'Go to',
+		component: <ReferenceSelector />,
+		icon: <BookSvg />,
+	},
+	{
+		visible: false,
+		id: 'word',
+		text: 'Words',
+		component: <WordDetails />,
+		icon: <EyeSvg />,
+	},
+	{
+		visible: false,
+		id: 'search',
+		text: 'Search',
+		component: <Search />,
+		icon: <SearchSvg />,
+	},
+	{
+		visible: false,
+		id: 'bookmarks',
+		text: 'Bookmarks',
+		component: <BookmarksTray />,
+		icon: <BookmarksSvg />,
+	},
+	{
+		visible: false,
+		id: 'combinedall',
+		text: 'Combined',
+		component: <CombinedAll />,
+		icon: <JoinFull />,
+	},
+	{
+		visible: false,
+		id: 'reference',
+		text: 'Compare',
+		component: <ReferenceInfo />,
+		icon: <InfoSvg />,
+	},
+	{
+		visible: false,
+		id: 'dailyreadings',
+		text: 'Dailies',
+		component: <DailyReadings />,
+		icon: <CalendarSvg />,
+	},
+	{
+		visible: false,
+		id: 'settings',
+		text: 'Settings',
+		component: <SettingsTray />,
+		icon: <CogSvg />,
+	},
+	{
+		visible: false,
+		id: 'help',
+		text: 'Help',
+		component: <Help />,
+		icon: <HelpSvg />,
+	}
+];
+
 const Trays = React.memo( () => {
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const sidebarOpen = useSelector( state => state.sidebar );
@@ -16,10 +104,10 @@ const Trays = React.memo( () => {
 	if ( interfaceLanguage ) {
 		return (
 			<div className={ styles.trays }>
-			<Footer />
+			<Footer trays={ trays } />
 				<div className={ classnames( styles.trayList, sidebarOpen ? styles.sidebarOpen : null ) }>
-					<SidebarControls />
-					<TrayList />
+					<SidebarControls trays={ trays } />
+					<TrayList trays={ trays } />
 				</div>
 			</div>
 		);

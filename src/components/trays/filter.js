@@ -9,15 +9,10 @@ import styles from './styles.scss';
 
 const TrayFilter = ( { children, filter, title } ) => {
 	const dispatch = useDispatch();
-	const active = useSelector( state => state.trays.some( tray => {
-		return ( tray.id === filter && tray.visible );
-	} ) );
-	const activeTray = useSelector( state => state.trays.filter( tray => {
-		return tray.visible;
-	} ) )[ 0 ].id;
+	const activeTray = useSelector( state => state.trays );
 
 	return (
-		<span title={ title } className={ classnames( styles.trayFilter, active ? styles.active : null ) }
+		<span title={ title } className={ classnames( styles.trayFilter, filter === activeTray ? styles.active : null ) }
 			onClick={ event => {
 				event.preventDefault();
 				if ( activeTray === filter ) {
