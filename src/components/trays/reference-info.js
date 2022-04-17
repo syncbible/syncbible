@@ -17,6 +17,12 @@ import styles from './styles.scss';
 
 const ReferenceInfo = React.memo( ( props ) => {
 	const dispatch = useDispatch();
+	const tray = useSelector( state => state.trays );
+	if ( tray === 'reference' ) {
+		dispatch( fetchData('original') );
+	}
+
+	const isOriginalLoaded = useSelector( state => 'undefined' !== typeof state.data.original );
 	const reference = useSelector( state => state.referenceInfo.reference );
 	const referenceToCompareWith = useSelector( state => state.referenceInfo.referenceToCompareWith );
 	const overlap = useSelector( state => compareTwoReferences( state ) );
@@ -173,8 +179,16 @@ const ReferenceInfo = React.memo( ( props ) => {
 		);
 	};
 
+	if ( ! isOriginalLoaded ) {
+		return (
+			<div className={ styles.trayPadding }>
+				<p>Loading original texts...</p>
+			</div>
+		)
+	}
+
 	return (
-		<div className={ styles.chapterTrayPadding }>
+		<div className={ styles.trayPadding }>
 			<div className={ styles.chapterTray }>
 				<select name="compareWithBook" name="compareWithBook" onChange={ compareBookChange } value={ reference ? reference.book : '' }>
 					{ getBooks() }
