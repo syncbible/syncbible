@@ -1,8 +1,14 @@
 @import '../_dimensions.scss';
 
 .navigation {
+	border-left: 1px solid var(--mid);
 	display: flex;
+
 	width: $total-column-width;
+
+	&:first-of-type {
+		border-left: none;
+	}
 
 	&:last-of-type {
 		width: $total-column-width - ( $dock-height * 2 );

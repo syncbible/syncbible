@@ -15,7 +15,6 @@
 // Reset stuff
 input, select, button {
 	background: var(--background-ui);
-	border: 1px solid var(--mid);
 	box-sizing: border-box;
 	color: var(--color);
 	font-family: Helvetica, Arial, sans-serif;
@@ -62,7 +61,7 @@ select {
 	background-position: calc(100% - 5px) center;
 	background-repeat: no-repeat;
 
-	padding-right: 20px;
+	padding-right: 23px;
 }
 
 optgroup {
@@ -70,7 +69,7 @@ optgroup {
 	font-weight: 500;
 }
 
-button, input[type=button], input[type=submit] {
+input, button, input[type=button], input[type=submit] {
 	background: var(--background-ui);
 	border: 1px solid var(--mid);
 	box-shadow: none;

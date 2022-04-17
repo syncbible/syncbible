@@ -2,6 +2,7 @@ import { LOCATION_CHANGE } from 'connected-react-router';
 
 const sidebar = ( state = false, action ) => {
 	switch ( action.type ) {
+		case 'SET_TRAY_VISIBILITY_FILTER':
 		case 'OPEN_SIDEBAR':
 			return true;
 

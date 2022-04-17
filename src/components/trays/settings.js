@@ -117,11 +117,11 @@ const SettingsTray = React.memo( () => {
 							</li>
 						</ul>
 					</form>
-					{/*<button onClick={()=>{
+					{<button onClick={()=>{
 						console.log(localStorage);
 					}}>
 						Download
-					</button>*/}
+					</button>}
 				</div>
 			</div>
 		</div>

@@ -123,7 +123,7 @@ const Search = React.memo( () => {
 							<label htmlFor="version">Version: </label>
 							<VersionSelect name="version" onChange={ selectChange } value={ searchForm.version } />
 						</fieldset>
-						<fieldset>
+						<fieldset className={ styles.clusivity }>
 							<label htmlFor="clusivity">Find</label> <select name="clusivity" onChange={ change } value={ searchForm.clusivity }>
 								<option value="exclusive">all</option>
 								<option value="inclusive">any</option>
