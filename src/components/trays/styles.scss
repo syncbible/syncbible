@@ -132,6 +132,7 @@
 	position: sticky;
 	top: 0;
 	left: 0;
+	overflow: hidden;
 	padding-left: 10px;
 	width: calc( 320px - $dock-height );
 	z-index: 19;

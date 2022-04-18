@@ -10,15 +10,15 @@ import TrayList from './tray-list';
 import Footer from '../footer';
 
 // Tray comonents
-import Search from '../search';
+import BookMarks from '../bookmarks';
 import DailyReadings from '../daily-readings';
-import BookmarksTray from './bookmarks';
 import SettingsTray from './settings';
 import ReferenceInfo from './reference-info';
 import ReferenceSelector from '../reference-selector';
 import WordDetails from '../word-details';
 import CombinedAll from '../combined-all';
 import Help from './help';
+import Search from '../search';
 
 // SVGs
 import BookSvg from '../svg/book.js';
@@ -57,7 +57,7 @@ const trays = [
 		visible: false,
 		id: 'bookmarks',
 		text: 'Bookmarks',
-		component: <BookmarksTray />,
+		component: <BookMarks />,
 		icon: <BookmarksSvg />,
 	},
 	{
