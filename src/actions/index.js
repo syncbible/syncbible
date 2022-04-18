@@ -484,9 +484,12 @@ export const addToList = ( item ) => {
 };
 
 export const removeFromList = ( item ) => {
-	return {
-		type: 'REMOVE_FROM_LIST',
-		item: item,
+	return function( dispatch ) {
+		dispatch( removeSearch( item ) );
+		dispatch( {
+			type: 'REMOVE_FROM_LIST',
+			item: item,
+		} );
 	}
 };
 

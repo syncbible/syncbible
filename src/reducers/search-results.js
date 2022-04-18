@@ -29,7 +29,7 @@ const searchResults = ( state = [], action ) => {
 
 		case 'REMOVE_SEARCH':
 			return state.filter( searchTerm => {
-				return ! isEqual( searchTerm.terms, action.terms );
+				return ! isEqual( searchTerm.terms, action.terms.data );
 			} );
 
 		default:
