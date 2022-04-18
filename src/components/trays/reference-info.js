@@ -17,12 +17,8 @@ import styles from './styles.scss';
 
 const ReferenceInfo = React.memo( ( props ) => {
 	const dispatch = useDispatch();
-	const tray = useSelector( state => state.trays );
-	if ( tray === 'reference' ) {
-		dispatch( fetchData('original') );
-	}
-
 	const isOriginalLoaded = useSelector( state => 'undefined' !== typeof state.data.original );
+	const isActiveTray = useSelector( state => state.trays === 'reference' );
 	const reference = useSelector( state => state.referenceInfo.reference );
 	const referenceToCompareWith = useSelector( state => state.referenceInfo.referenceToCompareWith );
 	const overlap = useSelector( state => compareTwoReferences( state ) );
@@ -41,10 +37,10 @@ const ReferenceInfo = React.memo( ( props ) => {
 	};
 
 	useEffect( () => {
-		if ( props.visible ) {
+		if ( isActiveTray ) {
 			dispatch( fetchData( 'original' ) );
 		}
-	}, [ props.visible ] );
+	}, [ isActiveTray ] );
 
 	const getOverlap = () => {
 		if ( ! overlap ) {
