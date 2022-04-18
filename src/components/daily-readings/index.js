@@ -71,11 +71,6 @@ const DailyReadings = React.memo( () => {
 		}
 
 
-
-
-
-
-
 		const newHash = '/#' + goToReferenceHelper( stateReference, reference, settings.targetColumn, settings.inSync );
 
 		return (
@@ -101,7 +96,7 @@ const DailyReadings = React.memo( () => {
 
 	return (
 		<div className={ styles.dailyReadings }>
-			<select value={ selectedMonth } onChange={ ( event ) => { setSelectedMonth( event.target.value ) } } >
+			<select className={ styles.month } value={ selectedMonth } onChange={ ( event ) => { setSelectedMonth( event.target.value ) } } >
 				{ getMonths() }
 			</select>
 			<select className={ styles.day } value={ selectedDay } onChange={ ( event ) => { setSelectedDay( event.target.value ) } } >

@@ -118,7 +118,12 @@ const SettingsTray = React.memo( () => {
 						</ul>
 					</form>
 					{<button onClick={()=>{
-						console.log(localStorage);
+						const element = document.createElement("a");
+						const file = new Blob([ localStorage.getItem('persist:primary') ], {type: 'text/plain'});
+						element.href = URL.createObjectURL(file);
+						element.download = "sync-bible-settings.json";
+						document.body.appendChild(element); // Required for this to work in FireFox
+						element.click();
 					}}>
 						Download
 					</button>}

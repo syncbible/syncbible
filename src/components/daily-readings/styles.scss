@@ -1,11 +1,26 @@
 .daily-readings {
-	padding: 1rem;
+	padding: .4rem;
 	ol {
 		line-height: 1.4em;
+		margin-top: 1rem;
 		padding-left: 1.1rem;
+
+		a {
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 	}
 
 	.day {
+		margin-left: .4rem;
 		width: 90px;
+	}
+
+	select {
+		background-color: var(--background);
+		font-size: 1em;
 	}
 }

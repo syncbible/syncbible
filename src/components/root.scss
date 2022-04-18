@@ -23,12 +23,12 @@ input, select, button {
 	padding: 0;
 }
 
-button {
-	width: $dock-height;
-}
-
 button svg {
 	fill: var(--color);
+
+	&:hover {
+		fill: var(--color);
+	}
 }
 
 input {

@@ -22,20 +22,16 @@ const CombinedAll = React.memo( () => {
 	const sortedResults = countedResultsArray.sort( sortCountedReferences );
 
 	const combinedResults = sortedResults.map( ( result, index ) => {
-		return (
-			<SearchLink key={ index } index={ index } reference={ getReferenceFromSearchResult( result.key ) } count={ result.value } />
-		);
+		return <SearchLink key={ index } index={ index } reference={ getReferenceFromSearchResult( result.key ) } count={ result.value } />
 	} );
 
-	if ( combinedResults.length > 0 ) {
-		return (
-			<ol className={ styles.results }>
-				{ combinedResults }
-			</ol>
-		);
-	}
+	return (
+		<>
+			<div className={ styles.results }>A combination of all the references in the other panels.</div>
+			{ combinedResults && <ol className={ styles.results }>{ combinedResults }</ol> }
+		</>
 
-	return <div className={ styles.results }>A combination of all the references in the other panels.</div>
+	);
 } );
 
 export default CombinedAll;
