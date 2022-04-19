@@ -29,7 +29,7 @@ const CombinedAll = React.memo( () => {
 	return (
 		<div>
 			<div className={ styles.results }>A combination of all the references in the other panels.</div>
-			<InlineResultsToggle />
+			{ combinedResults.length > 0 && <InlineResultsToggle /> }
 			{ combinedResults && <ol className={ styles.results }>{ combinedResults }</ol> }
 		</div>
 

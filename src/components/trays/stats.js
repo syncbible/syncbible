@@ -1,6 +1,7 @@
 // External dependencies
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import classnames from 'classnames';
 
 // Internal dependencies
 import { compareTwoReferences, calculateRareWords, calculateCommonWords, calculateConnectionQuality } from '../../lib/reference';
@@ -123,10 +124,10 @@ const Rare = React.memo( ( props ) => {
 
 	const getBooks = () => {
 		return (
-			<React.Fragment>
+			<>
 				<option value="">Select a book</option>
 				{ bible.Data.books.map( book => <option key={ book[ 0 ] }>{ book[0] }</option> ) }
-			</React.Fragment>
+			</>
 		);
 	};
 
@@ -140,9 +141,9 @@ const Rare = React.memo( ( props ) => {
 
 	return (
 		<>
-			<div className={ styles.statsReference }>
-				<div className={ styles.chapterTray }>
-					<select name="compareWithBook" onChange={ compareBookChange } value={ reference ? reference.book : '' }>
+			<div className={ styles.statsReferenceWrapper }>
+				<div className={ classnames( styles.statsReference ) }>
+					<select className={ styles.compareWithBook } name="compareWithBook" onChange={ compareBookChange } value={ reference ? reference.book : '' }>
 						{ getBooks() }
 					</select>
 					<select name="compareWithChapter" onChange={ compareChapterChange } value={ reference ? reference.chapter : '' }>
@@ -151,22 +152,24 @@ const Rare = React.memo( ( props ) => {
 					<select name="compareWithVerses" onChange={ compareVerseChange } value={ reference ? reference.verse : '' }>{ getVerses( reference ) }</select>
 				</div>
 			</div>
-			<div>
-				<h2>Rare words</h2>
-				<div className={ styles.chapterTray }>
-					Words used less than <input type="number" name="limit" value={ limit } onChange={ changeLimit } className={ styles.limit } /> times { rare ? '(' + rare.length + ')' : null }:
-				</div>
-				<div className={ styles.scrollingBlock }>
-					{ getRareWords() }
-				</div>
-				<div className={ styles.chapterTray }>
-					{ rare && rare.length > 0 && <button onClick={ addAllRareWords }>Select all rare words (slow!)</button> }
-				</div>
-			</div>
-			<div>
-				<h2>All words</h2>
+			<div className={ styles.statsResults }>
 				<div>
-					{ getCommonWords() }
+					<h2>Rare words</h2>
+					<div className={ styles.statsDescription }>
+						Words used less than <input type="number" name="limit" value={ limit } onChange={ changeLimit } className={ styles.limit } /> times { rare ? '(' + rare.length + ')' : null }:
+					</div>
+					<div>
+						{ getRareWords() }
+					</div>
+					<div className={ styles.chapterTray }>
+						{ rare && rare.length > 0 && <button onClick={ addAllRareWords }>Select all rare words (slow!)</button> }
+					</div>
+				</div>
+				<div>
+					<h2>All words</h2>
+					<div>
+						{ getCommonWords() }
+					</div>
 				</div>
 			</div>
 		</>

@@ -147,9 +147,9 @@ const ReferenceInfo = React.memo( ( props ) => {
 	}
 
 	return (
-		<div className={ styles.trayPadding }>
+		<div>
 			<div className={ styles.chapterTray }>
-				<select name="compareWithBook" onChange={ compareBookChange } value={ reference ? reference.book : '' }>
+				<select className={ styles.compareWithBook } name="compareWithBook" onChange={ compareBookChange } value={ reference ? reference.book : '' }>
 					{ getBooks() }
 				</select>
 				<select name="compareWithChapter" onChange={ compareChapterChange } value={ reference ? reference.chapter : '' }>
@@ -159,7 +159,7 @@ const ReferenceInfo = React.memo( ( props ) => {
 			</div>
 			<h2>Compare with</h2>
 			<div className={ styles.chapterTray }>
-				<select name="book" onChange={ bookChange } value={ referenceToCompareWith ? referenceToCompareWith.book : '' }>
+				<select className={ styles.compareWithBook } name="book" onChange={ bookChange } value={ referenceToCompareWith ? referenceToCompareWith.book : '' }>
 					{ getBooks() }
 				</select>
 				<select name="chapter" onChange={ chapterChange } value={ referenceToCompareWith ? referenceToCompareWith.chapter : '' }>{ getChapters() }</select>
@@ -168,7 +168,7 @@ const ReferenceInfo = React.memo( ( props ) => {
 			<div className={ styles.chapterTray }>
 				For words used less than <input type="number" name="limit" value={ limit } onChange={ changeLimit } className={ styles.limit } /> times.
 			</div>
-			<div className={ styles.scrollingBlock }>
+			<div>
 				{ getOverlap() }
 			</div>
 			<div className={ styles.chapterTray }>

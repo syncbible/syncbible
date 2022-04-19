@@ -117,7 +117,7 @@ const SettingsTray = React.memo( () => {
 							</li>
 						</ul>
 					</form>
-					{<button onClick={()=>{
+					{/*<button onClick={()=>{
 						const element = document.createElement("a");
 						const file = new Blob([ localStorage.getItem('persist:primary') ], {type: 'text/plain'});
 						element.href = URL.createObjectURL(file);
@@ -126,7 +126,7 @@ const SettingsTray = React.memo( () => {
 						element.click();
 					}}>
 						Download
-					</button>}
+					</button>*/}
 				</div>
 			</div>
 		</div>

@@ -6,6 +6,10 @@
 	position: fixed;
 	width: 320px;
 	z-index: 19;
+
+	select {
+		background-color: var(--background);
+	}
 }
 
 .isCompareModeWrapper {
@@ -159,6 +163,7 @@
 	}
 
 	select, button {
+		background-color: var(--background-ui);
 		border-bottom: none;
 		border-top: none;
 	}
@@ -178,6 +183,34 @@
 }
 
 
-.statsReference {
+.statsReferenceWrapper {
 	width: 100%;
+}
+
+.statsReference {
+	display: flex;
+	font-size: .7em;
+	gap: 3px;
+}
+
+.compareWithBook {
+	flex-grow: 1;
+	width: 100px;
+}
+
+.statsResults {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+
+	> div {
+		flex-grow: 1;
+		margin-bottom: 1rem;
+		padding: .5rem;
+	}
+}
+
+.statsDescription {
+	font-size: 14px;
+	line-height: 30px;
 }
