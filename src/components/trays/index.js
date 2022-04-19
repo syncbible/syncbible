@@ -13,7 +13,7 @@ import Footer from '../footer';
 import BookMarks from '../bookmarks';
 import DailyReadings from '../daily-readings';
 import SettingsTray from './settings';
-import Stats from './stats';
+import Stats from '../stats';
 import ReferenceInfo from './reference-info';
 import ReferenceSelector from '../reference-selector';
 import WordDetails from '../word-details';

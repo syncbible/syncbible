@@ -1,0 +1,38 @@
+.statsReferenceWrapper {
+	width: 100%;
+}
+
+.statsReference {
+	display: flex;
+	font-size: .7em;
+	gap: 3px;
+}
+
+.compareWithBook {
+	flex-grow: 1;
+	width: 100px;
+}
+
+.statsResults {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+
+	> div {
+		flex-grow: 1;
+		margin-bottom: 1rem;
+		padding: .5rem;
+	}
+}
+
+.statsDescription {
+	font-size: 14px;
+	line-height: 30px;
+}
+
+.limit {
+	display: inline;
+	height: 30px;
+	margin-left: 5px;
+	width: 60px;
+}

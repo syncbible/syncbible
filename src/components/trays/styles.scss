@@ -131,18 +131,6 @@
 	}
 }
 
-.limit {
-	display: inline;
-	height: 30px;
-	margin-left: 5px;
-	width: 80px;
-}
-
-.scrolling-block {
-	max-height: 100px;
-	overflow: auto;
-}
-
 .sidebar-controls {
 	background: var(--background-ui);
 	box-shadow: 0 0 10px 5px var(--shadow);
@@ -180,37 +168,4 @@
 
 .sidebar-controls-right-outer {
 	display: flex;
-}
-
-
-.statsReferenceWrapper {
-	width: 100%;
-}
-
-.statsReference {
-	display: flex;
-	font-size: .7em;
-	gap: 3px;
-}
-
-.compareWithBook {
-	flex-grow: 1;
-	width: 100px;
-}
-
-.statsResults {
-	display: flex;
-	flex-wrap: wrap;
-	width: 100%;
-
-	> div {
-		flex-grow: 1;
-		margin-bottom: 1rem;
-		padding: .5rem;
-	}
-}
-
-.statsDescription {
-	font-size: 14px;
-	line-height: 30px;
 }

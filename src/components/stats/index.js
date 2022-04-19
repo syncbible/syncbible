@@ -156,7 +156,7 @@ const Rare = React.memo( ( props ) => {
 				<div>
 					<h2>Rare words</h2>
 					<div className={ styles.statsDescription }>
-						Words used less than <input type="number" name="limit" value={ limit } onChange={ changeLimit } className={ styles.limit } /> times { rare ? '(' + rare.length + ')' : null }:
+						Used less than <input type="number" name="limit" value={ limit } onChange={ changeLimit } className={ styles.limit } /> times { rare ? '(' + rare.length + ')' : null }:
 					</div>
 					<div>
 						{ getRareWords() }
