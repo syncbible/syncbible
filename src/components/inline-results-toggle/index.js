@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
 import { settingsChange } from '../../actions'
+import UnfoldLess from '../svg/unfold-less';
+import UnfoldMore from '../svg/unfold-more';
 import styles from './styles.scss';
 
 const InlineResultsToggle = React.memo( () => {
@@ -19,9 +21,9 @@ const InlineResultsToggle = React.memo( () => {
 	};
 
 	if ( expandedSearchResults ) {
-		return <a className={ styles.foundInExtra } onClick={ collapseSearchResults }>collapse</a>
+		return <a className={ styles.foundInExtra } onClick={ collapseSearchResults }><UnfoldLess /></a>
  	} else {
-		return <a className={ styles.foundInExtra } onClick={ expandSearchResults }>expand</a>
+		return <a className={ styles.foundInExtra } onClick={ expandSearchResults }><UnfoldMore /></a>
 	}
 } );
 

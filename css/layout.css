@@ -67,12 +67,6 @@ body {
 
 #content { position: relative; }
 
-.root a,
-a {
-  color: var(--color);
-  cursor: pointer;
-}
-
 .root .added,
 .added {
   color: var(--color-dimmed);

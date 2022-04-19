@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import SearchLink from './search-link';
 import { getReferenceFromSearchResult } from '../../lib/reference.js';
 import styles from './styles.scss';
+import InlineResultsToggle from '../inline-results-toggle';
 
 const SearchBlock = React.memo( ( props ) => {
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
@@ -38,6 +39,7 @@ const SearchBlock = React.memo( ( props ) => {
 
 	return (
 		<div className={ visible ? styles.open : styles.hidden } dir={ bible.isRtlVersion( interfaceLanguage ) ? 'rtl' : 'ltr' }>
+			<InlineResultsToggle />
 			<ol className={ styles.results }>
 				{ renderedResults }
 			</ol>

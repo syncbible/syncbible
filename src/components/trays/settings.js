@@ -78,7 +78,7 @@ const SettingsTray = React.memo( () => {
 							<li className={ styles.settingsLi }>
 								<label>Highlight words with:</label>
 								<select value={ settings.highlightWordsWith } id="highlightWordsWith" name="highlightWordsWith" onChange={ changeSetting } >
-									<option value="same">Same Strong's number</option>
+									<option value="same">Same Strongs num</option>
 									<option value="family">Same family</option>
 								</select>
 							</li>

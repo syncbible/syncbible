@@ -12,6 +12,14 @@
 	}
 }
 
+.root a,
+a {
+	color: var(--color);
+	cursor: pointer;
+
+	fill: var(--color);
+}
+
 // Reset stuff
 input, select, button {
 	background: var(--background-ui);
