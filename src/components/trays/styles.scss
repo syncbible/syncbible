@@ -4,25 +4,41 @@
 .trays {
 	display: flex;
 	position: fixed;
+	width: 320px;
 	z-index: 19;
+}
+
+.isCompareModeWrapper {
+	width: 100vw;
 }
 
 .trayList {
 	background: var(--background-ui);
 	overflow: auto;
 	position: absolute;
+	left: $dock-height;
 	top: 0;
 	bottom: 0;
+}
+
+.isReferenceMode {
 	left: calc( -320px - $dock-height );
 	transition: left 200ms;
+	width: calc( 320px - $dock-height );
+
+	&.sidebarOpen {
+		left: $dock-height;
+	}
 }
 
-.sidebarOpen {
-	left: $dock-height;
+.isCompareMode {
+	width: calc( 100vw - $dock-height );
 }
+
 
 .tray {
-	width: calc(320px - 1px - $dock-height);
+	display: flex;
+	flex-wrap: wrap;
 	z-index: 10;
 }
 
@@ -67,6 +83,7 @@
 	margin: 0;
 	padding: 14px 0;
 	text-align: center;
+	width: $dock-height;
 
 	&:hover {
 		background: var(--hover);
@@ -134,7 +151,7 @@
 	left: 0;
 	overflow: hidden;
 	padding-left: 10px;
-	width: calc( 320px - $dock-height );
+
 	z-index: 19;
 
 	svg {
@@ -158,4 +175,9 @@
 
 .sidebar-controls-right-outer {
 	display: flex;
+}
+
+
+.statsReference {
+	width: 100%;
 }

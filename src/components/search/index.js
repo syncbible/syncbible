@@ -100,8 +100,9 @@ const Search = React.memo( () => {
 	}, [ trays ] );
 
 	return (
-		<div>
-			<form className={ styles.search } onSubmit={ submit }>
+		<>
+			<div className={ styles.search }>
+			<form onSubmit={ submit }>
 				<fieldset>
 					<label htmlFor="word" className="has-placeholder">Word</label>
 					<input className={ styles.hasPicker } type="text" name="word" placeholder="Word" onChange={ change } value={ searchForm.word } ref={ (button) => { textInput = button; }} />
@@ -147,9 +148,10 @@ const Search = React.memo( () => {
 					<input type="reset" value="Reset" onClick={ reset } />
 				</fieldset>
 			</form>
+			</div>
 			<SearchResults />
 			<CombinedResults type="search" />
-		</div>
+		</>
 	);
 } );
 

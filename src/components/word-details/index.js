@@ -10,7 +10,7 @@ import WordBlock from './word-block';
 const WordDetails = React.memo( () => {
 	const words = useSelector( state => state.list.filter( ( { listType } ) => listType === 'word' ) );
 	return words.length ? (
-		<div>
+		<div className={ styles.wordDetails }>
 			{ words.map( ( word, index ) => {
 				return (
 					<WordBlock { ...word } key={ index } />

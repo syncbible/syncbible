@@ -16,7 +16,7 @@ const Title =  React.memo( ( { book, chapter, version, textToCopy } ) => {
 
 	const tranlatedBook = bible.getTranslatedBookName( book, version );
 	const showChapterDetails = () => {
-		dispatch( setTrayVisibilityFilter( 'reference' ) );
+		dispatch( setTrayVisibilityFilter( 'stats' ) );
 		dispatch( setReferenceInfo( { book, chapter } ) );
 	};
 

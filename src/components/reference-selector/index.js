@@ -9,7 +9,7 @@ import BookControl from './book-control';
 const ReferenceSelector = React.memo( ( { onGoToReference, onChangeDisplayState } ) => {
 	const [ active, setActive ] = useState( -1 );
 
-	const books = bible.Data.books.map( ( bookArray, index ) => {
+	return bible.Data.books.map( ( bookArray, index ) => {
 		const chapters = parseInt( bible.Data.verses[ index ].length );
 		const isActive = ( active === index );
 		return (
@@ -24,10 +24,6 @@ const ReferenceSelector = React.memo( ( { onGoToReference, onChangeDisplayState 
 				active={ isActive } />
 		);
 	} );
-
-	return (
-		<div className="reference-selector">{ books }</div>
-	);
 } );
 
 export default ReferenceSelector;

@@ -3,17 +3,32 @@
 .footer {
 	background: var(--background-between);
 	height: 100vh;
-	overflow: auto;
-	width: 60px;
+	overflow-y: auto;
 	z-index: 20;
 
 	button {
 		background: var(--background-between);
 		cursor: pointer;
+		width: $dock-height;
 
 		&:hover {
 			background: var(--hover);
 
 		}
 	}
+
+	.sync-button {
+		border: none;
+		padding: 5px;
+
+		&.is-compare-mode {
+			background: var(--color);
+			transform: scaleX(-1);
+
+			svg {
+				fill: var(--background);
+			}
+		}
+	}
+
 }

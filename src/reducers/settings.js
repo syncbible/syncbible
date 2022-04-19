@@ -1,3 +1,5 @@
+import { LOCATION_CHANGE } from 'connected-react-router';
+
 const initialState = {
 	fontSize: "100%",
 	fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", Arial, Helvetica, sans-serif;',
@@ -19,6 +21,11 @@ export default ( state = initialState, action ) => {
 	switch ( action.type ) {
 		case 'SETTINGS_CHANGE':
 			settings = Object.assign( {}, state, action );
+			break;
+
+		case LOCATION_CHANGE:
+			settings = { ...state };
+			settings.compareMode = false;
 			break;
 
 		default:

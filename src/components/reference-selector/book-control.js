@@ -40,9 +40,10 @@ const BookControl = React.memo( ( { chapters, name } ) => {
 	};
 
 	const handleSetChapter = ( clientX ) => {
-		const width = referenceSelector.current.offsetWidth - 40;
+		const width = referenceSelector.current.offsetWidth;
+		const position = clientX - 60; // 60 is the sidebar width
 		const spacing = width / chapters;
-		let newChapter = Math.ceil( clientX / spacing );
+		let newChapter = Math.ceil( position / spacing );
 
 		if ( newChapter < 1 ) {
 			newChapter = 1;

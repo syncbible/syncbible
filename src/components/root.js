@@ -63,10 +63,14 @@ const Root = React.memo( ( { highlightedWord } ) => {
 				<style>{ getBodyStyles() }</style>
 				<KeyboardShortcuts />
 				<WordHighlight word={ highlightedWord } />
-				{ compareMode ? null : <Dock /> }
-				<div onClick={ clearReferenceSelector }>
-					<ReferenceWrapper />
-				</div>
+				{ compareMode ? null : (
+					<>
+						<Dock />
+						<div onClick={ clearReferenceSelector }>
+							<ReferenceWrapper />
+						</div>
+					</>
+				) }
 				<InitialView />
 			</div>
 		</div>

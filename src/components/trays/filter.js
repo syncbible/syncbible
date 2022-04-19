@@ -18,9 +18,8 @@ const TrayFilter = ( { children, filter, title } ) => {
 				if ( activeTray === filter ) {
 					dispatch( toggleSidebar() );
 				} else {
-					dispatch( openSidebar() );
+					dispatch( setTrayVisibilityFilter( filter ) );
 				}
-				dispatch( setTrayVisibilityFilter( filter ) );
 			} }
 		>
 			{ children }

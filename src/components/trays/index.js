@@ -13,6 +13,7 @@ import Footer from '../footer';
 import BookMarks from '../bookmarks';
 import DailyReadings from '../daily-readings';
 import SettingsTray from './settings';
+import Stats from './stats';
 import ReferenceInfo from './reference-info';
 import ReferenceSelector from '../reference-selector';
 import WordDetails from '../word-details';
@@ -23,13 +24,15 @@ import Search from '../search';
 // SVGs
 import BookSvg from '../svg/book.js';
 import BookmarksSvg from '../svg/bookmarks.js';
+import CompareSvg from '../svg/compare.js';
 import HelpSvg from '../svg/help.js';
 import EyeSvg from '../svg/eye.js';
-import InfoSvg from '../svg/info.js';
+import StatsSvg from '../svg/stats.js';
 import SearchSvg from '../svg/search.js';
 import CalendarSvg from '../svg/calendar.js';
 import JoinFull from '../svg/join-full.js';
 import CogSvg from '../svg/cog.js';
+import { style } from '@mui/system';
 
 const trays = [
 	{
@@ -69,10 +72,17 @@ const trays = [
 	},
 	{
 		visible: false,
+		id: 'stats',
+		text: 'Stats',
+		component: <Stats />,
+		icon: <StatsSvg />,
+	},
+	{
+		visible: false,
 		id: 'reference',
 		text: 'Compare',
 		component: <ReferenceInfo />,
-		icon: <InfoSvg />,
+		icon: <CompareSvg />,
 	},
 	{
 		visible: false,
@@ -99,13 +109,18 @@ const trays = [
 
 const Trays = React.memo( () => {
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
+	const compareMode = useSelector( state => state.settings.compareMode );
 	const sidebarOpen = useSelector( state => state.sidebar );
 
 	if ( interfaceLanguage ) {
 		return (
-			<div className={ styles.trays }>
-			<Footer trays={ trays } />
-				<div className={ classnames( styles.trayList, sidebarOpen ? styles.sidebarOpen : null ) }>
+			<div className={ classnames( styles.trays, compareMode ? styles.isCompareModeWrapper : null ) }>
+				<Footer trays={ trays } />
+				<div className={ classnames(
+					styles.trayList,
+					sidebarOpen ? styles.sidebarOpen : null,
+					compareMode ? styles.isCompareMode : styles.isReferenceMode,
+				) }>
 					<SidebarControls trays={ trays } />
 					<TrayList trays={ trays } />
 				</div>

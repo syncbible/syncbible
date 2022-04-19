@@ -12,7 +12,6 @@ import { areReferencesInSync } from '../../lib/reference';
 const ReferenceWrapper = React.memo( () => {
 	const reference = useSelector( state => state.reference );
 	const inSync = areReferencesInSync( reference );
-	const compareMode = useSelector( state => state.settings.compareMode );
 	const searchSelect = useSelector( state => state.searchSelect );
 	const sidebarOpen = useSelector( state => state.sidebar );
 
@@ -28,10 +27,6 @@ const ReferenceWrapper = React.memo( () => {
 		references = reference.map( ( singleReference, index ) => {
 			return ( <ReferenceComponent reference={ singleReference } key={ index } index={ index } /> );
 		} );
-	}
-
-	if ( compareMode ) {
-		references = <Comparison />
 	}
 
 	const className = classnames( styles.referenceWrapper, sidebarOpen ? styles.referenceWrapperSidebarOpen : null, searchSelect ? 'search-select' : null );

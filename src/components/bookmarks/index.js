@@ -12,11 +12,11 @@ const BookMarks = React.memo( () => {
 	const bookmarks = useSelector( state => state.list.filter( ( { listType } ) => listType === 'bookmark' ) );
 
 	return (
-		<div className={ styles.bookmarks }>
-			{ bookmarks.length === 0 && ( <p>Click the <Bookmark /> to bookmark a verse.</p> ) }
+		<>
+			{ bookmarks.length === 0 && ( <p className={ styles.description }>Click the <Bookmark /> to bookmark a verse.</p> ) }
 			{ bookmarks.map( ( bookmark, key ) => <Single bookmark={ bookmark } key={ key } index={ key } /> ) }
 			<CombinedResults type="bookmark" />
-		</div>
+		</>
 	)
 } );
 

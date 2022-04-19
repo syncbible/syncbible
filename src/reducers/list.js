@@ -43,7 +43,7 @@ const list = ( state = initialState, action ) => {
 					if ( item.id === action.item.id ) {
 						item.visible = ! item.visible;
 					} else if ( action.item.listType === item.listType ) {
-						item.visible = false;
+						//item.visible = false;
 					}
 					return item;
 				} )

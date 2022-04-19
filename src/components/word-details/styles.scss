@@ -18,14 +18,12 @@
 	overflow: hidden;
 }
 
-.found-in-extra {
-	color: #999;
-	cursor: pointer;
-	float: right;
-	text-decoration: none;
-}
-
 .strongs-number-title {
 	display: inline-block;
 	margin-right: 15px;
+}
+
+.word-details {
+	display: flex;
+	flex-wrap: wrap;
 }

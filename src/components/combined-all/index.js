@@ -6,6 +6,7 @@ import { countBy } from 'lodash';
 // Internal dependencies
 import SearchLink from '../search/search-link';
 import { getReferenceFromSearchResult, sortCountedReferences } from '../../lib/reference.js'
+import InlineResultsToggle from '../inline-results-toggle'
 import styles from './styles.scss';
 
 const CombinedAll = React.memo( () => {
@@ -26,10 +27,11 @@ const CombinedAll = React.memo( () => {
 	} );
 
 	return (
-		<>
+		<div>
 			<div className={ styles.results }>A combination of all the references in the other panels.</div>
+			<InlineResultsToggle />
 			{ combinedResults && <ol className={ styles.results }>{ combinedResults }</ol> }
-		</>
+		</div>
 
 	);
 } );

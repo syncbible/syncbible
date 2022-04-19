@@ -4,7 +4,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
-import { settingsChange } from '../../actions'
 import KJVDef from './kjv-def';
 import morphology from '../../lib/morphology';
 import stripPointing from '../../lib/strip-pointing.js';
@@ -12,11 +11,10 @@ import styles from './styles.scss';
 import { getFamily } from '../../lib/word';
 import WordBlockLink from './word-block-link';
 import SearchLink from '../search/search-link';
+import InlineResultsToggle from '../inline-results-toggle'
 import { getReferenceFromSearchResult } from '../../lib/reference.js'
 
 const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version, word } ) => {
-	const dispatch = useDispatch();
-	const expandedSearchResults = useSelector( state => state.settings.expandedSearchResults );
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const strongsDictionary = useSelector( state => state.data.strongsDictionary );
 	const strongsWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
@@ -76,14 +74,6 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 		} );
 	}
 
-	const expandSearchResults = () => {
-		dispatch( settingsChange( 'expandedSearchResults', true ) );
-	};
-
-	const collapseSearchResults = () => {
-		dispatch( settingsChange( 'expandedSearchResults', false ) );
-	};
-
 	const results = word.results && word.results.map( ( result, index ) => {
 		const resultArray = result.split( '.' );
 		const reference = {
@@ -123,7 +113,7 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 				<strong>Strongs' Derivation</strong><br />{ wordDetail && wordDetail.derivation }<br />
 			</div>
 			<br />
-			<strong>Found in</strong> { expandedSearchResults ? ( <a className={ styles.foundInExtra } onClick={ collapseSearchResults }>collapse</a> ) : ( <a className={ styles.foundInExtra } onClick={ expandSearchResults }>expand</a> ) }
+			<strong>Found in</strong> <InlineResultsToggle />
 			{ results && (
 				<ol className={ styles.results } dir={ bible.isRtlVersion( interfaceLanguage ) ? 'rtl' : 'ltr' }>
 					{ results }
