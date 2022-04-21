@@ -15,7 +15,7 @@ import {
 
 import styles from './styles.scss';
 
-const ReferenceInfo = React.memo( ( props ) => {
+const Compare = React.memo( ( props ) => {
 	const dispatch = useDispatch();
 	const isOriginalLoaded = useSelector( state => 'undefined' !== typeof state.data.original );
 	const isActiveTray = useSelector( state => state.trays === 'reference' );
@@ -140,43 +140,47 @@ const ReferenceInfo = React.memo( ( props ) => {
 
 	if ( ! isOriginalLoaded ) {
 		return (
-			<div className={ styles.trayPadding }>
+			<div className={ styles.compare }>
 				<p>Loading original texts...</p>
 			</div>
 		)
 	}
 
 	return (
-		<div>
-			<div className={ styles.chapterTray }>
-				<select className={ styles.compareWithBook } name="compareWithBook" onChange={ compareBookChange } value={ reference ? reference.book : '' }>
-					{ getBooks() }
-				</select>
-				<select name="compareWithChapter" onChange={ compareChapterChange } value={ reference ? reference.chapter : '' }>
-					{ getCompareChapters() }
-				</select>
-				<select name="compareWithVerses" onChange={ compareVerseChange } value={ reference ? reference.verse : '' }>{ getVerses( reference ) }</select>
+		<>
+			<div className={ styles.statsReferenceWrapper }>
+				<div className={ styles.statsReference }>
+					<select className={ styles.compareWithBook } name="compareWithBook" onChange={ compareBookChange } value={ reference ? reference.book : '' }>
+						{ getBooks() }
+					</select>
+					<select name="compareWithChapter" onChange={ compareChapterChange } value={ reference ? reference.chapter : '' }>
+						{ getCompareChapters() }
+					</select>
+					<select name="compareWithVerses" onChange={ compareVerseChange } value={ reference ? reference.verse : '' }>{ getVerses( reference ) }</select>
+				</div>
 			</div>
-			<h2>Compare with</h2>
-			<div className={ styles.chapterTray }>
-				<select className={ styles.compareWithBook } name="book" onChange={ bookChange } value={ referenceToCompareWith ? referenceToCompareWith.book : '' }>
-					{ getBooks() }
-				</select>
-				<select name="chapter" onChange={ chapterChange } value={ referenceToCompareWith ? referenceToCompareWith.chapter : '' }>{ getChapters() }</select>
-				<select name="verses" onChange={ verseChange } value={ referenceToCompareWith? referenceToCompareWith.verse : '' }>{ getVerses( referenceToCompareWith ) }</select>
+			<h3 className={ styles.h3 }>compare with</h3>
+			<div className={ styles.statsReferenceWrapper }>
+				<div className={ styles.statsReference }>
+					<select className={ styles.compareWithBook } name="book" onChange={ bookChange } value={ referenceToCompareWith ? referenceToCompareWith.book : '' }>
+						{ getBooks() }
+					</select>
+					<select name="chapter" onChange={ chapterChange } value={ referenceToCompareWith ? referenceToCompareWith.chapter : '' }>{ getChapters() }</select>
+					<select name="verses" onChange={ verseChange } value={ referenceToCompareWith? referenceToCompareWith.verse : '' }>{ getVerses( referenceToCompareWith ) }</select>
+				</div>
 			</div>
-			<div className={ styles.chapterTray }>
-				For words used less than <input type="number" name="limit" value={ limit } onChange={ changeLimit } className={ styles.limit } /> times.
+			<div className={ styles.statsDescription }>
+				Word with less than <input type="number" name="limit" value={ limit } onChange={ changeLimit } className={ styles.limit } /> uses.
 			</div>
-			<div>
+			<div className={ styles.statsResults }>
 				{ getOverlap() }
 			</div>
 			<div className={ styles.chapterTray }>
 				{ overlap && overlap.length > 0 && <button onClick={ addAllWords }>Select all words</button> }
 			</div>
-		</div>
+		</>
 	);
 } );
 
 
-export default ReferenceInfo;
+export default Compare;

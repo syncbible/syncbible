@@ -8,6 +8,7 @@ import ReferenceText from '../reference-text';
 import { goToReferenceHelper } from '../../lib/reference.js';
 import Collapsible from '../collapsible';
 import ReferenceLink from '../reference-link';
+import styles from './styles.scss';
 
 const getReferenceFromCrossReference = ( referenceString ) => {
 	const referenceArray = referenceString.split('.'),
@@ -53,7 +54,7 @@ const Single = ( { bookmark, index } ) => {
 
 						return (
 							<div key={ index2 }>
-								<a href={ newHash } onClick={ ( event ) => {
+								<a href={ newHash } className={ styles.header } onClick={ ( event ) => {
 									event.stopPropagation();
 									event.preventDefault();
 									dispatch( goToReferenceAction( referenceArrays[ 0 ] ) );

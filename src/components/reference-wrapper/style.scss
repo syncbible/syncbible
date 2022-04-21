@@ -3,13 +3,15 @@
 .reference-wrapper {
 	background: var(--background);
 	margin-left: $dock-height;
-	transition: margin 200ms;
+	transition-property: margin;
+	transition-duration: 200ms;
+	transition-timing-function: ease-out;
 }
 
 .reference-wrapper-sidebar-open {
 	@media ( min-width: 960px ) {
 		margin-left: 320px;
-		transition: margin 200ms;
+
 	}
 }
 

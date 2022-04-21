@@ -1,17 +1,6 @@
 @import './colors.scss';
 @import './dimensions.scss';
 
-.root {
-	position: relative;
-
-	input[type=submit],
-	button {
-		&:hover {
-			background: $hover;
-		}
-	}
-}
-
 .root a,
 a {
 	color: var(--color);
