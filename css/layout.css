@@ -67,6 +67,14 @@ body {
 
 #content { position: relative; }
 
+.root {
+	position: relative;
+}
+.root input[type=submit]:hover,
+.root button:not(.no-hover):hover {
+	background: var(--hover);
+}
+
 .root .added,
 .added {
   color: var(--color-dimmed);

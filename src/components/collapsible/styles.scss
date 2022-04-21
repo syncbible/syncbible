@@ -10,15 +10,16 @@
 }
 
 .header {
-	background: $grey-dark;
-	color: #fff;
-	font-size: 1.4em;
+	background: var(--color);
+	background: linear-gradient(0deg, var(--color-dimmed) 0%, var(--color) 50%);
+	color: var(--background);
+	font-size: 1.2em;
 	font-weight: normal;
 	margin: 0 !important;
 	position: relative;
 
 	> div {
-		padding: 5px;
+		padding: .3em;
 	}
 
 	div {
@@ -28,12 +29,14 @@
 	}
 
 	a {
-		color: #fff;
+		color: var(--background) !important;
 		display: inline-block;
 	}
 
 	svg {
-		fill: #fff;
+		color: var(--background) !important;
+
+		fill: var(--background) !important;
 
 		&:hover [fill] {
 			fill: $hover;
@@ -55,7 +58,6 @@
 }
 
 .content {
-	border-bottom: 1px solid #ccc;
 	overflow: hidden;
 
 	ol {

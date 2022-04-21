@@ -14,7 +14,7 @@ import BookMarks from '../bookmarks';
 import DailyReadings from '../daily-readings';
 import SettingsTray from './settings';
 import Stats from '../stats';
-import ReferenceInfo from './reference-info';
+import Compare from '../compare';
 import ReferenceSelector from '../reference-selector';
 import WordDetails from '../word-details';
 import CombinedAll from '../combined-all';
@@ -81,7 +81,7 @@ const trays = [
 		visible: false,
 		id: 'reference',
 		text: 'Compare',
-		component: <ReferenceInfo />,
+		component: <Compare />,
 		icon: <CompareSvg />,
 	},
 	{

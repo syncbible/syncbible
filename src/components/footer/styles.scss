@@ -6,41 +6,59 @@
 	overflow-y: auto;
 	z-index: 20;
 
-	button {
-		background: var(--background-between);
-		cursor: pointer;
-		width: $dock-height;
-
-		&:hover {
-			background: var(--hover);
-
-		}
+	.logoOuter {
+		perspective: 1000px;
 	}
 
-	.sync-button {
-		background: var(--background-between);
-		border: none;
-		padding: 5px;
-		transition: 0.6s;
+	.isCompareMode .logoInner {
+		transform: rotateY(180deg);
+	}
+
+	.logoInner {
+		position: relative;
+		transition: transform 400ms;
 		transform-style: preserve-3d;
-		transform: scaleX(1);
+	}
+
+	.logoFlipped,
+	.logo {
+		-webkit-backface-visibility: hidden; /* Safari */
+		backface-visibility: hidden;
+	}
+
+	.logoFlipped {
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform: rotateY(180deg);
+	}
+
+	.logo {
+		.sync-button {
+			background: var(--background-between);
+		}
 
 		svg {
 			fill: var(--color);
 		}
+	}
 
-		&:hover {
-			background: none;
-		}
-
-		&.is-compare-mode {
+	.logoFlipped {
+		.sync-button {
 			background: var(--color);
-			transform: scaleX(-1);
-
-			svg {
-				fill: var(--background-between);
-			}
 		}
+
+		svg {
+			fill: var(--background-between);
+			transform: rotateY(180deg);
+		}
+	}
+
+	.sync-button {
+		border: none;
+		cursor: pointer;
+		padding: 5px;
+		width: $dock-height;
 	}
 
 }
