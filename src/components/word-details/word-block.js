@@ -30,7 +30,7 @@ const WordBlock = React.memo( ( props ) => {
 	};
 
 	const getClassName = ( rootNumber ) => {
-		return classnames( rootNumber, styles.wordTree );
+		return classnames( rootNumber, styles.wordTree, styles.wordListHeader );
 	};
 
 	const termTitle = ( { clusivity, version, lemma, range, clickedWord } ) => {

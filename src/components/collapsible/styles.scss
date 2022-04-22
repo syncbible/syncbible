@@ -9,7 +9,7 @@
 	}
 }
 
-.header {
+div.header {
 	background: var(--color);
 	background: linear-gradient(0deg, var(--color-dimmed) 0%, var(--color) 50%);
 	color: var(--background);
@@ -29,14 +29,13 @@
 	}
 
 	a {
-		color: var(--background) !important;
+		color: var(--background);
 		display: inline-block;
 	}
 
 	svg {
-		color: var(--background) !important;
-
-		fill: var(--background) !important;
+		color: var(--background);
+		fill: var(--background);
 
 		&:hover [fill] {
 			fill: $hover;
