@@ -40,31 +40,31 @@ const Rare = React.memo( ( props ) => {
 	}, [ isActiveTray ] );
 
 	const sortByTotalAsc = ( a, b ) => {
-		return javascripture.data.strongsObjectWithFamilies[ a ].count > javascripture.data.strongsObjectWithFamilies[ b ].count;
+		return javascripture.data.strongsObjectWithFamilies[ a ].count - javascripture.data.strongsObjectWithFamilies[ b ].count;
 	};
 
 	const sortByTotalDesc = ( a, b ) => {
-		return javascripture.data.strongsObjectWithFamilies[ a ].count < javascripture.data.strongsObjectWithFamilies[ b ].count;
+		return javascripture.data.strongsObjectWithFamilies[ b ].count - javascripture.data.strongsObjectWithFamilies[ a ].count;
 	};
 
 	const sortByUsesDesc = ( a, b ) => {
-		return common[ a ] < common[ b ];
+		return common[ b ] - common[ a ];
 	};
 
 	const sortByUsesAsc = ( a, b ) => {
-		return common[ a ] > common[ b ];
+		return common[ a ] - common[ b ];
 	};
 
 	const sortBySignificanceAsc = ( a, b ) => {
 		const significanceA =  common[ a ] / javascripture.data.strongsObjectWithFamilies[ a ].count;
 		const significanceB =  common[ b ] / javascripture.data.strongsObjectWithFamilies[ b ].count;
-		return significanceA > significanceB;
+		return significanceA - significanceB;
 	};
 
 	const sortBySignificanceDesc = ( a, b ) => {
 		const significanceA =  common[ a ] / javascripture.data.strongsObjectWithFamilies[ a ].count;
 		const significanceB =  common[ b ] / javascripture.data.strongsObjectWithFamilies[ b ].count;
-		return significanceA < significanceB;
+		return significanceB - significanceA;
 	};
 
 	const getSortFunction = () => {
