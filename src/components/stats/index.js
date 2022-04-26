@@ -50,7 +50,9 @@ const Rare = React.memo( ( props ) => {
 		return Object.keys( common ).map( lemma => {
 			const significance = ( common[ lemma ] / javascripture.data.strongsObjectWithFamilies[ lemma ].count ).toFixed( 2 );
 			return (
-				<div key={ lemma }>
+				<div key={ lemma } className={ lemma } onMouseEnter={ () => {
+					window.updateAppComponent( 'highlightedWord', lemma );
+				} } onClick={ () => dispatch( selectWord( { lemma, version: 'original' } ) ) }>
 					{ lemma } - { javascripture.data.strongsDictionary[ lemma ].lemma } - { javascripture.data.strongsDictionary[ lemma ].xlit } - <span title={ 'significance: ' + significance }>({ common[ lemma ] } times)</span>
 				</div>
 			);
@@ -88,8 +90,19 @@ const Rare = React.memo( ( props ) => {
 			return 'No rare words found';
 		}
 
-		return rare.map( lemma => <div key={ lemma }>{ getWord( lemma ) }</div> );
+		return rare.map( lemma => wordElement( lemma ) );
 	};
+
+	const wordElement = ( lemma ) => (
+		<div key={ lemma } className={ lemma } onMouseEnter={ () => {
+			window.updateAppComponent( 'highlightedWord', lemma );
+		} } onClick={ () => {
+			dispatch( selectWord( { lemma, version: 'original' } ) );
+		} }>
+			{ getWord( lemma ) }
+		</div>
+
+	);
 
 	const getWord = ( lemma ) => {
 		return (
