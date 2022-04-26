@@ -1,5 +1,5 @@
 // External dependencies
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classnames from 'classnames';
 
@@ -17,6 +17,7 @@ import styles from './styles.scss';
 
 const Rare = React.memo( ( props ) => {
 	const dispatch = useDispatch();
+	const [ sort, setSort ] = useState( 'usesDesc' );
 	const isOriginalLoaded = useSelector( state => 'undefined' !== typeof state.data.original );
 	const isActiveTray = useSelector( state => state.trays === 'stats' );
 	const reference = useSelector( state => state.referenceInfo.reference );
@@ -38,25 +39,102 @@ const Rare = React.memo( ( props ) => {
 		}
 	}, [ isActiveTray ] );
 
+	const sortByTotalAsc = ( a, b ) => {
+		return javascripture.data.strongsObjectWithFamilies[ a ].count > javascripture.data.strongsObjectWithFamilies[ b ].count;
+	};
+
+	const sortByTotalDesc = ( a, b ) => {
+		return javascripture.data.strongsObjectWithFamilies[ a ].count < javascripture.data.strongsObjectWithFamilies[ b ].count;
+	};
+
+	const sortByUsesDesc = ( a, b ) => {
+		return common[ a ] < common[ b ];
+	};
+
+	const sortByUsesAsc = ( a, b ) => {
+		return common[ a ] > common[ b ];
+	};
+
+	const sortBySignificanceAsc = ( a, b ) => {
+		const significanceA =  common[ a ] / javascripture.data.strongsObjectWithFamilies[ a ].count;
+		const significanceB =  common[ b ] / javascripture.data.strongsObjectWithFamilies[ b ].count;
+		return significanceA > significanceB;
+	};
+
+	const sortBySignificanceDesc = ( a, b ) => {
+		const significanceA =  common[ a ] / javascripture.data.strongsObjectWithFamilies[ a ].count;
+		const significanceB =  common[ b ] / javascripture.data.strongsObjectWithFamilies[ b ].count;
+		return significanceA < significanceB;
+	};
+
+	const getSortFunction = () => {
+		switch ( sort ) {
+			case 'usesDesc':
+				return sortByUsesDesc;
+
+			case 'usesAsc':
+				return sortByUsesAsc;
+
+			case 'totalAsc':
+				return sortByTotalAsc;
+
+			case 'totalDesc':
+				return sortByTotalDesc;
+
+			case 'significanceAsc':
+				return sortBySignificanceAsc;
+
+			case 'significanceDesc':
+				return sortBySignificanceDesc;
+		}
+	}
+
 	const getCommonWords = () => {
-		if ( ! common ) {
+		if ( ! common || common.length === 0 ) {
 			return null;
 		}
 
-		if ( common.length === 0 ) {
-			return 'No common words found';
-		}
-
-		return Object.keys( common ).map( lemma => {
-			const significance = ( common[ lemma ] / javascripture.data.strongsObjectWithFamilies[ lemma ].count ).toFixed( 2 );
+		const commonWords = Object.keys( common ).sort( getSortFunction() ).map( lemma => {
+			const significance = ( common[ lemma ] / javascripture.data.strongsObjectWithFamilies[ lemma ].count ).toFixed( 3 );
 			return (
-				<div key={ lemma } className={ lemma } onMouseEnter={ () => {
+				<tr key={ lemma } className={ lemma } onMouseEnter={ () => {
 					window.updateAppComponent( 'highlightedWord', lemma );
 				} } onClick={ () => dispatch( selectWord( { lemma, version: 'original' } ) ) }>
-					{ lemma } - { javascripture.data.strongsDictionary[ lemma ].lemma } - { javascripture.data.strongsDictionary[ lemma ].xlit } - <span title={ 'significance: ' + significance }>({ common[ lemma ] } times)</span>
-				</div>
+					<td>{ lemma }</td>
+					<td>{ javascripture.data.strongsDictionary[ lemma ].lemma }</td>
+					<td>{ javascripture.data.strongsDictionary[ lemma ].xlit || javascripture.data.strongsDictionary[ lemma ].translit }</td>
+					<td>{ common[ lemma ] }</td>
+					<td>{ javascripture.data.strongsObjectWithFamilies[ lemma ].count }</td>
+					<td>{ significance }</td>
+				</tr>
 			);
 		} );
+
+		return (
+			<table>
+				<tr>
+					<th>Strongs</th>
+					<th>Word</th>
+					<th>Transliteration</th>
+					<th className={ styles.sort } onClick={ () => sort === 'usesDesc' ? setSort('usesAsc') : setSort( 'usesDesc') }>
+						Uses in chapter
+						{ sort === 'usesAsc' ? ' ↓' : '' }
+						{ sort === 'usesDesc' ? ' ↑' : '' }
+					</th>
+					<th className={ styles.sort } onClick={ () => sort === 'totalDesc' ? setSort( 'totalAsc') : setSort( 'totalDesc') }>
+						Total uses
+						{ sort === 'totalAsc' ? ' ↓' : '' }
+						{ sort === 'totalDesc' ? ' ↑' : '' }
+					</th>
+					<th className={ styles.sort } onClick={ () => sort === 'significanceDesc' ? setSort( 'significanceAsc') : setSort( 'significanceDesc') }>
+						Significance
+						{ sort === 'significanceAsc' ? ' ↓' : '' }
+						{ sort === 'significanceDesc' ? ' ↑' : '' }
+					</th>
+				</tr>
+				{ commonWords }
+			</table>
+		);
 	};
 
 	const getVerses = ( reference ) => {
@@ -77,22 +155,6 @@ const Rare = React.memo( ( props ) => {
 		return <option>-</option>;
 	};
 
-	const addAllRareWords = () => {
-		rare.forEach( lemma => addWord( lemma ) );
-	};
-
-	const getRareWords = () => {
-		if ( ! rare ) {
-			return null;
-		}
-
-		if ( rare.length === 0 ) {
-			return 'No rare words found';
-		}
-
-		return rare.map( lemma => wordElement( lemma ) );
-	};
-
 	const wordElement = ( lemma ) => (
 		<div key={ lemma } className={ lemma } onMouseEnter={ () => {
 			window.updateAppComponent( 'highlightedWord', lemma );
@@ -107,12 +169,10 @@ const Rare = React.memo( ( props ) => {
 	const getWord = ( lemma ) => {
 		return (
 			<div>
-				{ lemma } - { javascripture.data.strongsDictionary[ lemma ].lemma } - { javascripture.data.strongsDictionary[ lemma ].xlit }
+				{ lemma } - { javascripture.data.strongsDictionary[ lemma ].lemma } - { javascripture.data.strongsDictionary[ lemma ].translit }
 			</div>
 		);
 	};
-
-	const changeLimit = (event) => dispatch( setReferenceInfoLimit( event.target.value ) );
 
 	const compareBookChange = ( event ) => {
 		dispatch( setReferenceInfo( { book: event.target.value, chapter: 1, verse: 'all' } ) );
@@ -166,18 +226,6 @@ const Rare = React.memo( ( props ) => {
 				</div>
 			</div>
 			<div className={ styles.statsResults }>
-				<div>
-					<h2>Rare words</h2>
-					<div className={ styles.statsDescription }>
-						Used less than <input type="number" name="limit" value={ limit } onChange={ changeLimit } className={ styles.limit } /> times { rare ? '(' + rare.length + ')' : null }:
-					</div>
-					<div>
-						{ getRareWords() }
-					</div>
-					<div className={ styles.chapterTray }>
-						{ rare && rare.length > 0 && <button onClick={ addAllRareWords }>Select all rare words (slow!)</button> }
-					</div>
-				</div>
 				<div>
 					<h2>All words</h2>
 					<div>

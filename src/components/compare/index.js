@@ -100,8 +100,12 @@ const Compare = React.memo( ( props ) => {
 
 	const getWord = ( lemma ) => {
 		return (
-			<div>
-				{ lemma } - { javascripture.data.strongsDictionary[ lemma ].lemma } - { javascripture.data.strongsDictionary[ lemma ].xlit }
+			<div key={ lemma } className={ lemma } onMouseEnter={ () => {
+				window.updateAppComponent( 'highlightedWord', lemma );
+			} } onClick={ () => {
+				dispatch( selectWord( { lemma, version: 'original' } ) );
+			} }>
+				{ lemma } - { javascripture.data.strongsDictionary[ lemma ].lemma } - { javascripture.data.strongsDictionary[ lemma ].translit }
 			</div>
 		);
 	};
