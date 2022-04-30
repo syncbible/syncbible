@@ -15,7 +15,11 @@ const Dock = React.memo( () => {
 	const reference = useSelector( state => state.reference );
 	const numberOfColumns = reference.length
 	const sidebarOpen = useSelector( state => state.sidebar );
-	const className = classnames( styles.dock, sidebarOpen ? styles.dockWithSidebarOpen : null );
+	const className = classnames(
+		styles.dock,
+		sidebarOpen ? styles.dockWithSidebarOpen : null,
+		reference.length ? null : styles.noReference,
+	);
 	const onSelectVerion = ( event ) => {
 		const version = event.target.value;
 		dispatch( addColumnAction( version ) );

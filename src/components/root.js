@@ -2,12 +2,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
-import { SwipeableDrawer } from '@mui/material';
 
 // Internal
 import Dock from './dock';
 import ReferenceWrapper from '../components/reference-wrapper';
-import MenuCloseSvg from './svg/menu-close.js';
 import KeyboardShortcuts from './keyboard-shortcuts';
 import Trays from './trays';
 import WordHighlight from './word-highlight';
@@ -15,7 +13,6 @@ import InitialView from './inital-view';
 import styles from './root.scss';
 import {
 	closeReferenceSelectorMobile,
-	toggleSidebar,
 	fetchCrossReferences,
 	fetchStrongsDictonary,
 	fetchStrongsDictonaryWithFamilies
