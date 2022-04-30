@@ -10,7 +10,10 @@ const VersionSelect = React.memo( ( { name, value="default", onChange, large } )
 	return (
 		<select className={ classes } name={ name } value={ value } onChange={ ( event ) => {
 			if( typeof ga !== 'undefined' ) {
-				ga('send', 'event', 'version', 'select', 'Version Selected', value );
+				gtag("event", "select_content", {
+					content_type: 'version',
+					item_id: value
+				} );
 			}
 			onChange( event );
 		} }>
