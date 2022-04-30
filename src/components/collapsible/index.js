@@ -6,13 +6,15 @@ import WordBlockHeader from '../word-block-header';
 // Internal dependencies
 import styles from './styles.scss';
 
-const Collapsible = React.memo( ( { children, className, header, open, onToggle, textToCopy, title, onRemove } ) => {
+const Collapsible = React.memo( ( { children, className, header, open, onToggle, textToCopy, title, onRemove, onMouseOver, onMouseOut } ) => {
 	return (
 		<div className={ styles.collapsible }>
 			<div
 				className={ classnames( styles.header, open ? styles.open : styles.closed ) }
 				onClick={ () => onToggle() }
 				title={ title }
+				onMouseOver={ () => onMouseOver && onMouseOver() }
+				onMouseOut={ () => onMouseOut && onMouseOut() }
 			>
 				<WordBlockHeader
 					className={ className }

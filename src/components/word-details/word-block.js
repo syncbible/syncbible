@@ -13,7 +13,7 @@ import { removeFromList, toggleListItemVisible } from '../../actions';
 
 
 const WordBlock = React.memo( ( props ) => {
-	const { data, visible } = props;
+	const { data, visible, highlight, setFocus } = props;
 	const { clickedWord, morphology, lemma, version } = data;
 	const subdue = useSelector( state => state.settings.subdue );
 	const strongsDictionary = useSelector( state => state.data.strongsDictionary );
@@ -61,8 +61,10 @@ const WordBlock = React.memo( ( props ) => {
 			className={ getClassName( lemma ) }
 			textToCopy={ wordBlockRef }
 			onRemove={ () => dispatch( removeFromList( props ) ) }
+			onMouseOver={ () => setFocus( lemma ) }
+			onMouseOut={ () => setFocus( null ) }
 		>
-			<style>{ getHighlight( lemma, subdue, null, strongsDictionaryWithFamilies ) }</style>
+			{ highlight && <style>{ getHighlight( lemma, subdue, null, strongsDictionaryWithFamilies ) }</style> }
 			<div ref={ wordBlockRef }>
 				<div className={ classnames( styles.wordBlock, visible ? styles.visible : styles.hidden ) }>
 					<WordBlockDetails morphologyProp={ morphology } strongsNumber={ lemma } version={ version } word={ props } />
