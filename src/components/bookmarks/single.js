@@ -3,33 +3,21 @@ import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
-import { goToReferenceAction, removeFromList, toggleListItemVisible } from '../../actions';
-import ReferenceText from '../reference-text';
-import { goToReferenceHelper } from '../../lib/reference.js';
+import { removeFromList, toggleListItemVisible } from '../../actions';
 import Collapsible from '../collapsible';
 import ReferenceLink from '../reference-link';
-import styles from './styles.scss';
-
-const getReferenceFromCrossReference = ( referenceString ) => {
-	const referenceArray = referenceString.split('.'),
-	bookId = bible.getBookId( referenceArray[0] ),
-	referenceObject = {
-		book: bible.Data.books[bookId - 1][0],
-		chapter: referenceArray[1],
-		verse: referenceArray[2]
-	};
-	return referenceObject;
-};
+import SearchLink from '../search/search-link';
+import { getReferenceFromSearchResult } from '../../lib/reference.js';
+import { getCrossReferencesArray } from '../../lib/cross-references.js';
+import InlineResultsToggle from '../inline-results-toggle';
 
 const Single = ( { bookmark, index } ) => {
 	const dispatch = useDispatch();
-	const inSync = useSelector( state => state.settings.inSync );
-	const targetColumn = useSelector( state => state.settings.targetColumn );
 	const data = useSelector( state => state.data );
-	const stateReference = useSelector( state => state.reference );
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const bookmarkRef = useRef();
 	const { data: { reference } } = bookmark;
+	const crossReferencesArray = getCrossReferencesArray( data, reference );
 
 	const handleToggle = () => {
 		dispatch( toggleListItemVisible( bookmark ) );
@@ -46,23 +34,13 @@ const Single = ( { bookmark, index } ) => {
 		return (
 			<div>
 				{ bookmark.results.length > 0 ? 'Cross references:' : 'No cross references' }
+				<InlineResultsToggle />
 				<div dir={ bible.isRtlVersion( interfaceLanguage ) ? 'rtl' : 'ltr' }>
-					{ bookmark.results.map( ( crossReference, index2 ) => {
-						const referenceSections = crossReference.split('-');
-						const referenceArrays = referenceSections.map( ( referenceSection ) => getReferenceFromCrossReference( referenceSection ) );
-						const newHash = '/#' + goToReferenceHelper( stateReference, referenceArrays[ 0 ], targetColumn, inSync );
-
+					{ bookmark.results.map( ( crossReference, referenceKey ) => {
 						return (
-							<div key={ index2 }>
-								<a href={ newHash } className={ styles.header } onClick={ ( event ) => {
-									event.stopPropagation();
-									event.preventDefault();
-									dispatch( goToReferenceAction( referenceArrays[ 0 ] ) );
-								} }>
-									{ index2 + 1 }. <ReferenceText reference={ referenceArrays[ 0 ] } />
-									{ referenceArrays[ 1 ] && ( <span> - <ReferenceText reference={ referenceArrays[ 1 ] } /></span> ) }
-								</a>
-							</div>
+							<ol key={ referenceKey } title={ crossReferencesArray[ referenceKey ] }>
+								<SearchLink key={ referenceKey } index={ referenceKey } reference={ getReferenceFromSearchResult( crossReference ) } />
+							</ol>
 						);
 					} ) }
 				</div>

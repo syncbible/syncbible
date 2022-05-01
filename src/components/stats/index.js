@@ -112,27 +112,31 @@ const Rare = React.memo( ( props ) => {
 
 		return (
 			<table>
-				<tr>
-					<th>Strongs</th>
-					<th>Word</th>
-					<th>Transliteration</th>
-					<th className={ styles.sort } onClick={ () => sort === 'usesDesc' ? setSort('usesAsc') : setSort( 'usesDesc') }>
-						Uses in chapter
-						{ sort === 'usesAsc' ? ' ↓' : '' }
-						{ sort === 'usesDesc' ? ' ↑' : '' }
-					</th>
-					<th className={ styles.sort } onClick={ () => sort === 'totalDesc' ? setSort( 'totalAsc') : setSort( 'totalDesc') }>
-						Total uses
-						{ sort === 'totalAsc' ? ' ↓' : '' }
-						{ sort === 'totalDesc' ? ' ↑' : '' }
-					</th>
-					<th className={ styles.sort } onClick={ () => sort === 'significanceDesc' ? setSort( 'significanceAsc') : setSort( 'significanceDesc') }>
-						Significance
-						{ sort === 'significanceAsc' ? ' ↓' : '' }
-						{ sort === 'significanceDesc' ? ' ↑' : '' }
-					</th>
-				</tr>
-				{ commonWords }
+				<thead>
+					<tr>
+						<th>Strongs</th>
+						<th>Word</th>
+						<th>Transliteration</th>
+						<th className={ styles.sort } onClick={ () => sort === 'usesDesc' ? setSort('usesAsc') : setSort( 'usesDesc') }>
+							Uses in chapter
+							{ sort === 'usesAsc' ? ' ↓' : '' }
+							{ sort === 'usesDesc' ? ' ↑' : '' }
+						</th>
+						<th className={ styles.sort } onClick={ () => sort === 'totalDesc' ? setSort( 'totalAsc') : setSort( 'totalDesc') }>
+							Total uses
+							{ sort === 'totalAsc' ? ' ↓' : '' }
+							{ sort === 'totalDesc' ? ' ↑' : '' }
+						</th>
+						<th className={ styles.sort } onClick={ () => sort === 'significanceDesc' ? setSort( 'significanceAsc') : setSort( 'significanceDesc') }>
+							Significance
+							{ sort === 'significanceAsc' ? ' ↓' : '' }
+							{ sort === 'significanceDesc' ? ' ↑' : '' }
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{ commonWords }
+				</tbody>
 			</table>
 		);
 	};
