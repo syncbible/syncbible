@@ -10,6 +10,7 @@ import Verse from '../reference/verse';
 import styles from './styles.scss';
 import ReferenceText from '../reference-text';
 import { goToReferenceHelper } from '../../lib/reference.js';
+import { style } from '@mui/system';
 
 const SearchLink = React.memo( ( { reference, index, count, word } ) => {
 	// State constants
@@ -20,10 +21,11 @@ const SearchLink = React.memo( ( { reference, index, count, word } ) => {
 	const inSync = useSelector( state => state.settings.inSync );
 	const targetColumn = useSelector( state => state.settings.targetColumn );
 	const stateReference = useSelector( state => state.reference );
+	const compareMode = useSelector( state => state.settings.compareMode );
 	const dispatch = useDispatch();
 
 	// Component constants
-	const className = isActive ? styles.activeReference : null;
+	const className = classnames( styles.searchLink, isActive ? styles.activeReference : null );
 	const highlightWords = () => {
 		if( ! highlightSearchResults ) {
 			return;
@@ -45,8 +47,13 @@ const SearchLink = React.memo( ( { reference, index, count, word } ) => {
 	};
 	const expandedSearchResultsRendered = ( reference ) => {
 		const adjustedReference = { book: reference.book, chapter: reference.chapter - 1, verse: reference.verse - 1 };
+		const className = classnames(
+			styles.verse,
+			expandedSearchResults ? styles.verseExpanded : null,
+			compareMode ? styles.compareMode : styles.smallSidebar,
+		);
 		return (
-			<div className={ classnames( styles.verse, expandedSearchResults ? styles.verseExpanded : null ) }>
+			<div className={ className }>
 				<Verse reference={ adjustedReference } index={ adjustedReference.verse } version={ interfaceLanguage } />
 			</div>
 		);
