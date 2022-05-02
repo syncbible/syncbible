@@ -20,6 +20,12 @@ input, select, button {
 	padding: 0;
 }
 
+select, button {
+	background-color: var(--background-ui);
+	border-bottom: none;
+	border-top: none;
+  }
+
 button svg {
 	fill: var(--color);
 

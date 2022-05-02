@@ -6,7 +6,7 @@ import classnames from 'classnames';
 // Internal dependencies
 import SyncBible from '../svg/syncbible.js';
 import TrayFilter from '../../components/trays/filter.js';
-import { closeSidebar, settingsChange } from '../../actions/index.js';
+import { closeSidebar, settingsChange, openSidebar } from '../../actions/index.js';
 import styles from './styles.scss';
 
 const Footer = React.memo( ( { trays } ) => {
@@ -19,7 +19,10 @@ const Footer = React.memo( ( { trays } ) => {
 		<div className={ classnames( styles.logoOuter, compareMode ? styles.isCompareMode : null ) }>
 			<div className={ styles.logoInner }>
 				<div className={ styles.logo }>
-					<button className={ classnames( 'no-hover', styles.syncButton ) } onClick={ ()=> dispatch( settingsChange( "compareMode", true ) ) }>
+					<button className={ classnames( 'no-hover', styles.syncButton ) } onClick={ () => {
+						dispatch( settingsChange( "compareMode", true ) )
+						dispatch( openSidebar() )
+					} }>
 						<SyncBible />
 					</button>
 				</div>

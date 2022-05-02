@@ -1,13 +1,15 @@
 // External dependencies
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import classnames from 'classnames';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
 // Internal dependencies
 import styles from './styles.scss';
 import SidebarControls from './sidebar-controls';
 import TrayList from './tray-list';
 import Footer from '../footer';
+import { toggleSidebar } from '../../actions';
 
 // Tray comonents
 import BookMarks from '../bookmarks';
@@ -108,22 +110,56 @@ const trays = [
 ];
 
 const Trays = React.memo( () => {
+	const dispatch = useDispatch();
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const compareMode = useSelector( state => state.settings.compareMode );
 	const sidebarOpen = useSelector( state => state.sidebar );
+	const drawerBleeding = 60;
+	const drawerWidth = compareMode ? '100vw' : 320;
+	const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
 
 	if ( interfaceLanguage ) {
 		return (
 			<div className={ classnames( styles.trays, compareMode ? styles.isCompareModeWrapper : null ) }>
 				<Footer trays={ trays } />
-				<div className={ classnames(
-					styles.trayList,
-					sidebarOpen ? styles.sidebarOpen : null,
-					compareMode ? styles.isCompareMode : styles.isReferenceMode,
-				) }>
-					<SidebarControls trays={ trays } />
-					<TrayList trays={ trays } />
-				</div>
+				<SwipeableDrawer
+					sx={{
+						width: drawerWidth,
+						flexShrink: 0,
+						zIndex: 9,
+						'& .MuiDrawer-paper': {
+							background: 'var(--background)',
+							boxShadow: 'none',
+							boxSizing: 'border-box',
+							color: 'var(--color)',
+							width: drawerWidth,
+						},
+						'& .MuiBackdrop-root': {
+							display: 'none',
+						},
+					}}
+					anchor="left"
+					open={ sidebarOpen }
+					onClose={ () => dispatch( toggleSidebar() )}
+					onOpen={ () => dispatch( toggleSidebar() )}
+					disableSwipeToOpen={ false }
+					disableBackdropTransition={ !iOS }
+					disableDiscovery={ iOS }
+					ModalProps={{
+						keepMounted: true,
+					}}
+					BackdropProps={{ invisible: true }}
+				>
+					<div className={ classnames(
+						styles.trayList,
+						sidebarOpen ? styles.sidebarOpen : null,
+						compareMode ? styles.isCompareMode : styles.isReferenceMode,
+					) }>
+						<SidebarControls trays={ trays } />
+						<TrayList trays={ trays } />
+					</div>
+				</SwipeableDrawer>
 			</div>
 		);
 	}

@@ -5,14 +5,6 @@
 	display: flex;
 	position: fixed;
 	z-index: 19;
-
-	select {
-		background-color: var(--background);
-	}
-}
-
-.isCompareModeWrapper {
-	width: 100vw;
 }
 
 .trayList {
@@ -22,10 +14,6 @@
 	left: $dock-height;
 	top: 0;
 	bottom: 0;
-
-	transition-property: left, width;
-	transition-duration: 200ms;
-	transition-timing-function: ease-out;
 }
 
 .isReferenceMode {
@@ -38,7 +26,7 @@
 }
 
 .isCompareMode {
-	width: calc( 100vw - $dock-height );
+	width: calc( 100vw - $dock-height - 1px );
 }
 
 
@@ -46,6 +34,10 @@
 	display: flex;
 	flex-wrap: wrap;
 	z-index: 10;
+
+	select, button, input, input[type=submit], input[type=button] {
+		background-color: var(--background);
+	}
 }
 
 .chapter-tray-padding {
@@ -150,12 +142,6 @@
 
 	svg {
 		fill: var(--color);
-	}
-
-	select, button {
-		background-color: var(--background-ui);
-		border-bottom: none;
-		border-top: none;
 	}
 }
 
