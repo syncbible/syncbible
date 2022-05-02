@@ -21,17 +21,7 @@ const Rare = React.memo( ( props ) => {
 	const isOriginalLoaded = useSelector( state => 'undefined' !== typeof state.data.original );
 	const isActiveTray = useSelector( state => state.trays === 'stats' );
 	const reference = useSelector( state => state.referenceInfo.reference );
-	const overlap = useSelector( state => compareTwoReferences( state ) );
-	const rare = useSelector( state => calculateRareWords( state ) );
 	const common = useSelector( state => calculateCommonWords( state ) );
-	const limit = useSelector( state => state.referenceInfo.limit );
-	const addWord = ( lemma ) => {
-		dispatch( setTrayVisibilityFilter( 'word' ) );
-		dispatch( selectWord( {
-			lemma,
-			version: 'original',
-		} ) );
-	};
 
 	useEffect( () => {
 		if ( isActiveTray ) {
@@ -118,7 +108,7 @@ const Rare = React.memo( ( props ) => {
 						<th>Word</th>
 						<th>Transliteration</th>
 						<th className={ styles.sort } onClick={ () => sort === 'usesDesc' ? setSort('usesAsc') : setSort( 'usesDesc') }>
-							Uses in chapter
+							Uses in reference
 							{ sort === 'usesAsc' ? ' ↓' : '' }
 							{ sort === 'usesDesc' ? ' ↑' : '' }
 						</th>
@@ -157,25 +147,6 @@ const Rare = React.memo( ( props ) => {
 		}
 
 		return <option>-</option>;
-	};
-
-	const wordElement = ( lemma ) => (
-		<div key={ lemma } className={ lemma } onMouseEnter={ () => {
-			window.updateAppComponent( 'highlightedWord', lemma );
-		} } onClick={ () => {
-			dispatch( selectWord( { lemma, version: 'original' } ) );
-		} }>
-			{ getWord( lemma ) }
-		</div>
-
-	);
-
-	const getWord = ( lemma ) => {
-		return (
-			<div>
-				{ lemma } - { javascripture.data.strongsDictionary[ lemma ].lemma } - { javascripture.data.strongsDictionary[ lemma ].translit }
-			</div>
-		);
 	};
 
 	const compareBookChange = ( event ) => {

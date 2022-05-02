@@ -32,7 +32,7 @@
 	overflow-x: hidden;
 	position: fixed;
 	top: $dock-height;
-	left: calc( 50% - 320px / 2 );
+	left: calc( max( 50% - 320px / 2, $dock-height ) );
 	width: 320px;
 	z-index: 20;
 
