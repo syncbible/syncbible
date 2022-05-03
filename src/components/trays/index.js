@@ -146,6 +146,7 @@ const Trays = React.memo( () => {
 					disableSwipeToOpen={ false }
 					disableBackdropTransition={ !iOS }
 					disableDiscovery={ iOS }
+					disableEnforceFocus
 					ModalProps={{
 						keepMounted: true,
 					}}
