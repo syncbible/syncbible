@@ -7,8 +7,8 @@ import { Provider, ReactReduxContext } from 'react-redux'
 import { createBrowserHistory } from 'history';
 import { ConnectedRouter, routerMiddleware } from 'connected-react-router'
 import thunk from 'redux-thunk';
-import { persistStore, persistCombineReducers } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { persistStore, persistCombineReducers, getStoredState } from 'redux-persist';
+import storage from 'redux-persist-indexeddb-storage';
 import { HashRouter, Route } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react'
 
@@ -25,13 +25,13 @@ const insertCss = (...styles) => {
 
 const config = {
 	key: 'primary',
-	storage,
+	storage: storage('syncbible'),
 	blacklist: [ 'data' ],
 };
 
 const history = createBrowserHistory()
 
-const persistedReducer = persistCombineReducers(config, rootReducer( history ) );
+const persistedReducer = persistCombineReducers( config, rootReducer( history ) );
 
 const composeEnhancers =
 	typeof window === 'object' &&
@@ -50,11 +50,11 @@ const composeEnhancers =
 			}
     }) : compose;
 
-const store = createStore( persistedReducer, composeEnhancers(
+let store = createStore( persistedReducer, composeEnhancers(
 	applyMiddleware( routerMiddleware( history ), thunk )
 ) );
 
-const persistor = persistStore( store );
+let persistor = persistStore( store );
 
 const App = () => {
 	const [ highlightedWord, setHightlightedWord ] = useState('');
@@ -76,3 +76,40 @@ const App = () => {
 }
 
 export default App;
+
+export async function getStore() {
+	return getStoredState( config );
+}
+
+// From https://stackoverflow.com/questions/52465891/how-to-save-redux-store-as-a-downloaded-file-and-then-load-it-back.
+const loadState = ( state ) => {
+	store = createStore(
+		persistedReducer,
+		state,
+		composeEnhancers(
+			applyMiddleware( routerMiddleware( history ), thunk )
+		)
+	);
+	persistor = persistStore(store);
+}
+
+export async function loadStore( json ) {
+  return new Promise((resolve, reject) => {
+    let state
+
+    try {
+      state = JSON.parse(json)
+    } catch (err) {
+      return reject(err)
+    }
+
+    if (!persistor) {
+      return resolve(loadState(state))
+    }
+    persistor.purge().then(() => {
+      return resolve(loadState(state))
+    }).catch(() => {
+      return resolve(loadState(state))
+    })
+  })
+}

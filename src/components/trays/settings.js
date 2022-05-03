@@ -1,11 +1,12 @@
 // External dependencies
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
 import { settingsChange } from '../../actions';
 import VersionSelect from '../version-select';
 import styles from './styles.scss';
+import { getStore, loadStore } from '../../app';
 
 // set up global - to be deleted
 javascripture.state = {};
@@ -117,16 +118,40 @@ const SettingsTray = React.memo( () => {
 							</li>
 						</ul>
 					</form>
-					{/*<button onClick={()=>{
+					<button onClick={ async ()=>{
+						const appState = await getStore();
 						const element = document.createElement("a");
-						const file = new Blob([ localStorage.getItem('persist:primary') ], {type: 'text/plain'});
+						const file = new Blob( [ JSON.stringify( appState ) ], {type: 'text/plain'});
 						element.href = URL.createObjectURL(file);
 						element.download = "sync-bible-settings.json";
 						document.body.appendChild(element); // Required for this to work in FireFox
 						element.click();
 					}}>
-						Download
-					</button>*/}
+						Download settings
+					</button>
+					<label className={ styles.uploadSettings }>
+						Upload settings
+						<input type="file" name="files" onChange={ ( event ) => {
+							event.preventDefault();
+							let files = event.target.files; // FileList object
+
+							// use the 1st file from the list
+							const settingsFile = files[0];
+
+							let reader = new FileReader();
+
+							// Closure to capture the file information.
+							reader.onload = (function(theFile) {
+								return async function(e) {
+									await loadStore( e.target.result );
+								};
+							})( settingsFile );
+
+							// Read in the image file as a data URL.
+							reader.readAsText( settingsFile );
+						}
+						} />
+					</label>
 				</div>
 			</div>
 		</div>
