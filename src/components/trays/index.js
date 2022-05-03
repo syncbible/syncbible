@@ -117,13 +117,14 @@ const Trays = React.memo( () => {
 	const drawerBleeding = 60;
 	const drawerWidth = compareMode ? '100vw' : 320;
 	const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
-
+	const darkMode = useSelector( state => state.settings.darkMode );
 
 	if ( interfaceLanguage ) {
 		return (
 			<div className={ classnames( styles.trays, compareMode ? styles.isCompareModeWrapper : null ) }>
 				<Footer trays={ trays } />
 				<SwipeableDrawer
+					className={ darkMode ? '' : 'dark-mode-off' }
 					sx={{
 						width: drawerWidth,
 						flexShrink: 0,
