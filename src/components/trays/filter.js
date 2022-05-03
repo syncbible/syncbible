@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { useSelector, useDispatch } from 'react-redux'
 
 // Internal dependencies
-import { setTrayVisibilityFilter, openSidebar, toggleSidebar } from '../../actions'
+import { setTrayVisibilityFilter, settingsChange, toggleSidebar } from '../../actions'
 import styles from './styles.scss';
 
 const TrayFilter = ( { children, filter, title } ) => {
@@ -17,6 +17,7 @@ const TrayFilter = ( { children, filter, title } ) => {
 				event.preventDefault();
 				if ( activeTray === filter ) {
 					dispatch( toggleSidebar() );
+					dispatch( settingsChange( "compareMode", false ) );
 				} else {
 					dispatch( setTrayVisibilityFilter( filter ) );
 				}
