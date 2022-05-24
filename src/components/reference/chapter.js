@@ -18,9 +18,6 @@ function usePrevious(value) {
 	return ref.current;
 }
 
-// Also needs updating in _dimensions.scss
-const dockHeight = 60;
-
 const Chapter = React.memo( ( { book, chapter, index } ) => {
 	const reference = useSelector( state => state.reference );
 	const currentReference = reference[ index ];
@@ -58,7 +55,7 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 		const referenceWindow = document.getElementById( 'referenceWindow' + index );
 		if ( currrentChapter && referenceWindow ) {
 			currrentChapter.scrollIntoView();
-			referenceWindow.scrollBy( 0, 0 - dockHeight );
+			referenceWindow.scrollBy( 0, 0 );
 		}
 	};
 

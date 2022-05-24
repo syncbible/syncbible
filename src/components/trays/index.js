@@ -114,7 +114,7 @@ const Trays = React.memo( () => {
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const compareMode = useSelector( state => state.settings.compareMode );
 	const sidebarOpen = useSelector( state => state.sidebar );
-	const drawerBleeding = 60;
+	const drawerBleeding = 10; // Might be too small.
 	const drawerWidth = compareMode ? '100vw' : 320;
 	const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 	const darkMode = useSelector( state => state.settings.darkMode );
@@ -152,6 +152,7 @@ const Trays = React.memo( () => {
 						keepMounted: true,
 					}}
 					BackdropProps={{ invisible: true }}
+					swipeAreaWidth={drawerBleeding}
 				>
 					<div className={ classnames(
 						styles.trayList,

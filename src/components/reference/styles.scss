@@ -2,7 +2,8 @@
 @import '../_colors.scss';
 
 .reference {
-	height: calc( 100vh );
+	height: calc( 100vh - $dock-height );
+	margin-top: $dock-height;
 	overflow-x: hidden;
 	overflow-y: scroll;
 	width: 100%;

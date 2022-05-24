@@ -5,7 +5,6 @@ import classnames from 'classnames';
 
 // Internal
 import ReferenceComponent from '../reference';
-import Comparison from '../comparison';
 import styles from './style.scss';
 import { areReferencesInSync } from '../../lib/reference';
 
