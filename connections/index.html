@@ -20,9 +20,10 @@
 				const response3 = await fetch("../data/comparison-data.json");
 				comparison = await response3.json();
 				document.getElementById('loading').innerHTML='Loading connections...'
-
-				document.getElementById('loading').style.display="none";
-				document.getElementById('form').style.display="block";
+				if ( comparison ) {
+					document.getElementById('loading').style.display="none";
+					document.getElementById('form').style.display="block";
+				}
 				/* generates a comparison */
 				//document.getElementById('table').innerHTML = getCrossChart();
 			}
