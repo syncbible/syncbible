@@ -6,8 +6,7 @@
 		<script src="../data/bible.js"></script>
 		<script src="../map/lodash.min.js"></script>
 		<script>
-			var javascripture = { data: {} };
-			var data, strongs = {};
+			var data, strongs, comparison = {};
 
 			async function fetchJSON() {
     			const response = await fetch("../bibles/original.json");
@@ -20,37 +19,13 @@
 				const response3 = await fetch("../data/comparison-data.json");
 				comparison = await response3.json();
 				document.getElementById('loading').innerHTML='Loading connections...'
-				if ( comparison ) {
+				if ( comparison.Genesis ) {
 					document.getElementById('loading').style.display="none";
 					document.getElementById('form').style.display="block";
 				}
-				/* generates a comparison */
-				//document.getElementById('table').innerHTML = getCrossChart();
 			}
 
 			fetchJSON();
-			var strongs = javascripture.data.strongsObjectWithFamilies;
-			const getNumberOfUsesOfLemma = ( lemmaToFind, reference ) => {
-				const numberOfUses = data[ reference.book ][ reference.chapter - 1 ].map( verse => {
-					return verse.map( word => {
-						return word[ 1 ].split('/').filter( lemma => lemma === lemmaToFind );
-					} ).flat();
-				} ).flat();
-
-				return numberOfUses.length;
-			}
-
-
-			const getCrossChart = () => {
-				let content = '';
-				bible.Data.ntBooks.forEach( ( book, bookId ) => {
-					ntBookId = bookId + 39;
-					bible.Data.verses[ ntBookId ].forEach( ( numberOfVerses, chapterNumber ) => {
-						content += getDataForSingleReference( book, chapterNumber );
-					} );
-				} );
-				return content;
-			};
 
 			const sortByProperty = ( property ) => {
 				return ( a, b ) => {
@@ -115,6 +90,27 @@
 				const saturation = compareChapterData[ 1 ] / averageWordCount;
 				const lightness = compareChapterData[ 0 ] / smallerReferenceLength;
 				return { hue, saturation, lightness };
+			};
+			/** unused stuff
+			const getNumberOfUsesOfLemma = ( lemmaToFind, reference ) => {
+				const numberOfUses = data[ reference.book ][ reference.chapter - 1 ].map( verse => {
+					return verse.map( word => {
+						return word[ 1 ].split('/').filter( lemma => lemma === lemmaToFind );
+					} ).flat();
+				} ).flat();
+
+				return numberOfUses.length;
+			}
+
+			const getCrossChart = () => {
+				let content = '';
+				bible.Data.ntBooks.forEach( ( book, bookId ) => {
+					ntBookId = bookId + 39;
+					bible.Data.verses[ ntBookId ].forEach( ( numberOfVerses, chapterNumber ) => {
+						content += getDataForSingleReference( book, chapterNumber );
+					} );
+				} );
+				return content;
 			};
 
 			const getNumberOfWordsInReference = ( reference ) => {
@@ -325,7 +321,7 @@
 			const getColor = ( ref1, ref2 ) => {
 				const quality = calculateConnectionQuality( ref1, ref2 );
 				return getColorsFromConnectionQuality( quality );
-			};
+			};*/
 		</script>
 		<style>
 			body {
@@ -342,9 +338,6 @@
 				--compare-lemma-count: 1;
 				--word-count: 1;
 				--compare-word-count: 1;
-				--hue-factor: 0.5;
-				--saturation-factor: 5%;
-				--lightness-factor: 100%;
 			}
 
 			.content {
@@ -379,10 +372,13 @@
 				text-indent: 7px;
 			}
 
-			#form, #more {
+			#form, #more, #adjustments {
 				display: none;
 			}
 		</style>
+		<style id="hueFactorVariable">body{--hue-factor: 0.5;}</style>
+		<style id="saturationFactorVariable">body{--saturation-factor: 5%;}</style>
+		<style id="lightnessFactorVariable">body{--lightness-factor: 100%;}</style>
 	</head>
 	<body>
 		<div class="content">
@@ -415,7 +411,17 @@
 			</form>
 		</div>
 		<div id="bookcase"></div>
-		<!--<button id="#generateCounts" onClick="javascript:generateCounts()">generate counts</button>-->
+		<div id="adjustments" class="content">
+			<h2>Adjustments</h2>
+			<p>The colors are adjusted to make the differences between them easier to see in the average case, but in some cases you might want to change these settings to make it clearer.</p>
+			<label for="hueFactor">Uniqueness</label>
+			<input type="range" min="0" max="100" value="50" id="hueFactor">
+			<label for="saturationFactor">Density</label>
+			<input type="range" min="0" max="100" value="50" id="saturationFactor">
+			<label for="lightnessFactor">Significance</label>
+			<input type="range" min="0" max="200" value="100" id="lightnessFactor">
+		</div>
+<!--<button id="#generateCounts" onClick="javascript:generateCounts()">generate counts</button>-->
 	</body>
 	<script>
 		document.getElementById( 'book' ).innerHTML = (
@@ -440,11 +446,24 @@
 			createChart();
 		};
 
+		document.getElementById('hueFactor').oninput = ( event ) => {
+			document.getElementById('hueFactorVariable').innerHTML="body{--hue-factor:" + event.target.value / 10 + ";}";
+		};
+
+		document.getElementById('saturationFactor').oninput = ( event ) => {
+			document.getElementById('saturationFactorVariable').innerHTML="body{--saturation-factor:" + event.target.value / 10 + "%;}";
+		};
+
+		document.getElementById('lightnessFactor').oninput = ( event ) => {
+			document.getElementById('lightnessFactorVariable').innerHTML="body{--lightness-factor:" + event.target.value + "%;}";
+		};
+
 		function createChart() {
 			const bookName = document.getElementById( 'book' ).value;
 			const chapterNumber = document.getElementById( 'chapter' ).value;
 			if ( bookName && chapterNumber ) {
 				document.getElementById('bookcase').innerHTML = getDataForSingleReference( bookName, chapterNumber - 1 );
+				document.getElementById('adjustments').style.display = 'block';
 			}
 		}
 
