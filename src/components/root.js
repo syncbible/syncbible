@@ -29,7 +29,6 @@ const Root = React.memo( ( { highlightedWord } ) => {
 	dispatch( fetchStrongsDictonaryWithFamilies() );
 
 	const reference = useSelector( state => state.reference );
-	const sidebarOpen = useSelector( state => state.sidebar );
 	const darkMode = useSelector( state => state.settings.darkMode );
 	const compareMode = useSelector( state => state.settings.compareMode );
 	const getBodyStyles = () => {

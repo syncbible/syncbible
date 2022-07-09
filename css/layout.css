@@ -52,10 +52,13 @@ html {
   font-size: 140%;
 }
 
+.root {
+  background-image: url(/syncbible.svg);
+}
+
 .root,
 body {
   background-color: var(--background);
-  background-image: url(/syncbible.svg);
   background-repeat: no-repeat;
   background-size: 150px;
   background-position: center center;
@@ -65,7 +68,9 @@ body {
   font-weight: 300;
 }
 
-#content { position: relative; }
+#content {
+  position: relative;
+}
 
 .root {
 	position: relative;

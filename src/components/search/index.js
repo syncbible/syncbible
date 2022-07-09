@@ -84,6 +84,7 @@ const Search = React.memo( () => {
 		change( event );
 		dispatch( fetchData( event.target.value ) );
 	};
+
 	const pickerButton = ( mode ) => {
 		return (
 			<button
