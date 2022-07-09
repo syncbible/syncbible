@@ -52,6 +52,7 @@ const Search = React.memo( () => {
 		const versionData = data[ searchForm.version ];
 		return ! versionData || Object.keys( versionData ).length === 0;
 	};
+
 	const searchButtonText = () => {
 		if ( isSubmitButtonDisabled() ) {
 			return 'Loading ' + searchForm.version + '...';
@@ -98,6 +99,13 @@ const Search = React.memo( () => {
 	useEffect( () => {
 		textInput.focus();
 	}, [ trays ] );
+
+	// Get the data if its not loaded
+	useEffect( () => {
+		if ( isSubmitButtonDisabled ) {
+			dispatch( fetchData( searchForm.version ) );
+		}
+	}, [ searchForm.version ] );
 
 	return (
 		<>
