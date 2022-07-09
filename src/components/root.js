@@ -47,7 +47,7 @@ const Root = React.memo( ( { highlightedWord } ) => {
 	};
 
 	const drawerWidth = 320;
-
+	return <div className={ classnames( 'root', { 'dark-mode-on': darkMode === true, 'dark-mode-off': darkMode === false } ) }/>;
 	return (
 		<div className={ classnames( 'root', { 'dark-mode-on': darkMode === true, 'dark-mode-off': darkMode === false } ) }>
 

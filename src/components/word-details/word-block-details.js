@@ -110,7 +110,7 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 				<br />
 				<strong>KJV translations</strong><br />{ getKJVDefinitions( strongsNumber ) }<br />
 				<br />
-				<strong>Strongs' Derivation</strong><br />{ wordDetail && wordDetail.derivation }<br />
+				<strong>Strong's Derivation</strong><br />{ wordDetail && wordDetail.derivation }<br />
 			</div>
 			<br />
 			<strong>Found in</strong> <InlineResultsToggle />
