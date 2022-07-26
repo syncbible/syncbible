@@ -1,4 +1,4 @@
-var cache = 'syncbible.23.0.1653428502';
+var cache = 'syncbible.23.0.1658863149';
 import xhr from 'xhr';
 import {
 	addColumnHelper,
