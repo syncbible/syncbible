@@ -124,7 +124,7 @@ const Trays = React.memo( () => {
 			<div className={ classnames( styles.trays, compareMode ? styles.isCompareModeWrapper : null ) }>
 				<Footer trays={ trays } />
 				<SwipeableDrawer
-					className={ darkMode ? '' : 'dark-mode-off' }
+					className={ darkMode ? 'dark-mode-on' : 'dark-mode-off' }
 					sx={{
 						width: drawerWidth,
 						flexShrink: 0,
