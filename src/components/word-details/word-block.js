@@ -60,7 +60,10 @@ const WordBlock = React.memo( ( props ) => {
 			onToggle={ () => dispatch( toggleListItemVisible( props ) ) }
 			className={ getClassName( lemma ) }
 			textToCopy={ wordBlockRef }
-			onRemove={ () => dispatch( removeFromList( props ) ) }
+			onRemove={ () => {
+				setFocus( null );
+				dispatch( removeFromList( props ) );
+			} }
 			onMouseOver={ () => setFocus( lemma ) }
 			onMouseOut={ () => setFocus( null ) }
 		>
