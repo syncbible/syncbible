@@ -1,5 +1,5 @@
 // External
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
 
@@ -46,12 +46,14 @@ const Root = React.memo( ( { highlightedWord } ) => {
 		dispatch( closeReferenceSelectorMobile() )
 	};
 
-	const drawerWidth = 320;
+	useEffect( () => {
+		// show the fallback errors which are hidden initially.
+		// this does mean that if this component has an error then nothing will load.
+		window.errors.style.display = "block";
+	}, [] )
 
 	return (
 		<div className={ rootClasses( darkMode ) }>
-
-
 			<div className={ styles.root }>
 				{ reference.length > 0 && (
 					<Trays />

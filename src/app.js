@@ -62,6 +62,7 @@ const App = () => {
 	window.updateAppComponent = ( key, value ) => {
 		setHightlightedWord( value );
 	};
+
 	return (
 		<Provider store={ store } context={ ReactReduxContext }>
 			<PersistGate loading={null} persistor={ persistor }>

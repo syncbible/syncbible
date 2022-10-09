@@ -154,6 +154,10 @@ body {
   width: 5%;
 }
 
+#errors {
+  display: none; /* keep this hidden before we load */
+}
+
 .errors {
   position: fixed;
   top: 1em;
