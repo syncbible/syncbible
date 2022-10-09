@@ -10,6 +10,7 @@ import SidebarControls from './sidebar-controls';
 import TrayList from './tray-list';
 import Footer from '../footer';
 import { toggleSidebar } from '../../actions';
+import { rootClasses } from '../utils';
 
 // Tray comonents
 import BookMarks from '../bookmarks';
@@ -124,7 +125,7 @@ const Trays = React.memo( () => {
 			<div className={ classnames( styles.trays, compareMode ? styles.isCompareModeWrapper : null ) }>
 				<Footer trays={ trays } />
 				<SwipeableDrawer
-					className={ classnames( 'root', { 'dark-mode-on': darkMode === true, 'dark-mode-off': darkMode === false } ) }
+					className={ rootClasses( darkMode ) }
 					sx={{
 						width: drawerWidth,
 						flexShrink: 0,

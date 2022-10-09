@@ -17,6 +17,7 @@ import {
 	fetchStrongsDictonary,
 	fetchStrongsDictonaryWithFamilies
 } from '../actions'
+import { rootClasses } from './utils';
 
 const Root = React.memo( ( { highlightedWord } ) => {
 	const dispatch = useDispatch();
@@ -48,7 +49,7 @@ const Root = React.memo( ( { highlightedWord } ) => {
 	const drawerWidth = 320;
 
 	return (
-		<div className={ classnames( 'root', { 'dark-mode-on': darkMode === true, 'dark-mode-off': darkMode === false } ) }>
+		<div className={ rootClasses( darkMode ) }>
 
 
 			<div className={ styles.root }>
