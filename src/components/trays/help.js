@@ -13,7 +13,7 @@ const HelpTray = React.memo( () => {
 
 	const exportLC = () => {
 		const element = document.createElement("a");
-		const file = new Blob([ JSON.stringify( LC, null, "\t" ) ], {type: 'text/plain'});
+		const file = new Blob([ JSON.stringify( javascripture.data.LC, null, "\t" ) ], {type: 'text/plain'});
 		element.href = URL.createObjectURL(file);
 		element.download = "LC.json";
 		document.body.appendChild(element); // Required for this to work in FireFox
