@@ -1,8 +1,16 @@
 @import '../dimensions.scss';
 
+.controls {
+	position: relative;
+}
+
 .extraOptions {
 	border-top: none;
 	width: $dock-height;
+	position: absolute;
+	top: 0;
+	right: 0;
+	opacity: 0;
 }
 
 .addButton {
@@ -11,4 +19,10 @@
 
 .addButton.addButton {
 	border-left-width: 1px;
+	border-right-width: 0;
+}
+
+.menu {
+	color: var(--color);
+	width: $dock-height;
 }
