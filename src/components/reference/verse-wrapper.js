@@ -20,12 +20,12 @@ const getClassName = ( book, version ) => {
 	return styles.verse
 };
 
-const VerseWrapper = React.memo( ( { book, version, chapter, verse, isCurrentRef } ) => {
+const VerseWrapper = React.memo( ( { book, version, chapter, verse, isCurrentRef, lang } ) => {
 	const verseWrapperRef = useRef( null );
 	const reference = { book, chapter: chapter - 1, verse: verse - 1 };
 
 	return (
-		<div className={ classnames( styles.verseWrapper, isCurrentRef ? styles.isCurrent : null ) } dir={ bible.isRtlVersion( version, book ) ? 'rtl' : 'ltr' } ref={ verseWrapperRef }>
+		<div lang={ lang } className={ classnames( styles.verseWrapper, isCurrentRef ? styles.isCurrent : null ) } dir={ bible.isRtlVersion( version, book ) ? 'rtl' : 'ltr' } ref={ verseWrapperRef }>
 			<div className={ styles.helpers }>
 				<VerseNumber book={ book } chapter={ chapter } verse={ verse } />
 				<span className={ styles.hidden }>

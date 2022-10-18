@@ -1,6 +1,10 @@
 @import './colors.scss';
 @import './dimensions.scss';
 
+.root {
+	hyphens: manual;
+}
+
 .root a,
 a {
 	color: var(--color);

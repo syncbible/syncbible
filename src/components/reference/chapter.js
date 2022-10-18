@@ -18,6 +18,17 @@ function usePrevious(value) {
 	return ref.current;
 }
 
+function getLanguageFromVersion( version, book ) {
+	if ( version === 'original' ) {
+		if ( bible.Data.otBooks.indexOf( book ) > -1 ) {
+			return 'hbo';
+		}
+
+		return 'grc';
+	}
+	return bible.Data.supportedVersions[ version ].language;
+}
+
 const Chapter = React.memo( ( { book, chapter, index } ) => {
 	const reference = useSelector( state => state.reference );
 	const currentReference = reference[ index ];
@@ -99,6 +110,7 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 							{ reference.map( ( { version }, index ) => {
 								return (
 									<VerseWrapper
+										lang={ getLanguageFromVersion( version, book ) }
 										book={ book }
 										version={ version }
 										chapter={ chapter }
@@ -131,6 +143,7 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 					return (
 						<div className={ styles.singleReference } key={ verseNumber } ref={ isCurrentRef( verseNumber ) }>
 							<VerseWrapper
+								lang={ getLanguageFromVersion( version, book ) }
 								book={ book }
 								version={ version }
 								chapter={ chapter }
