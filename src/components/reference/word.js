@@ -25,7 +25,7 @@ export default React.memo( ( { word, version } ) => {
 
 	const [ wordValue, lemma, morph ] = word;
 	const lemmaArray = lemma ? lemma.split('/') : null;
-	const morphArray = morph ? morph.split('/'): null;
+	const morphArray = ( morph && typeof morph === 'string' ) ? morph.split('/'): null;
 
 	const getMorphSingle = ( key ) => {
 		if ( ! morphArray ) {

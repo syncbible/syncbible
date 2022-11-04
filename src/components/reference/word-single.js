@@ -39,11 +39,10 @@ const getLiteralConsistent = function( LC, word, lemma, morph ) {
 export default React.memo( ( props ) => {
 	const { lemma, morph, version, word } = props;
 	const dispatch = useDispatch();
-	const literalConsistentTranslation = useSelector( state => getLiteralConsistent( state.data.LC, word, lemma, morph ) );
-	const strongsObjectWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
 
 	const getWord = () => {
 		if ( version === 'LC' ) {
+			const literalConsistentTranslation = useSelector( state => getLiteralConsistent( state.data.LC, word, lemma, morph ) );
 			return literalConsistentTranslation + ' ';
 		}
 
@@ -69,7 +68,12 @@ export default React.memo( ( props ) => {
 	};
 
 	const getClassName = () => {
-		const family = lemma ? lemma.split( ' ' ).map( oneLemma => getFamily( oneLemma, strongsObjectWithFamilies ) + '-family' ) : null;
+		let family = null;
+
+		if ( lemma ) {
+			const strongsObjectWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
+			family = lemma.split( ' ' ).map( oneLemma => getFamily( oneLemma, strongsObjectWithFamilies ) + '-family' );
+		}
 
 		if ( lemma === 'added' ) {
 			return classnames( 'single', lemma );
