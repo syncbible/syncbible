@@ -29,7 +29,7 @@ function getLanguageFromVersion( version, book ) {
 	return bible.Data.supportedVersions[ version ].language;
 }
 
-const Chapter = React.memo( ( { book, chapter, index } ) => {
+const Chapter = ( { book, chapter, index } ) => {
 	const reference = useSelector( state => state.reference );
 	const currentReference = reference[ index ];
 	const startVerse = currentReference.verse;
@@ -164,6 +164,6 @@ const Chapter = React.memo( ( { book, chapter, index } ) => {
 			{ areReferencesInSync( reference ) ? getSyncVerses() : getDifferentVerses( version, textToCopy ) }
 		</div>
 	);
-} );
+};
 
-export default Chapter;
+export default React.memo( Chapter );

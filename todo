@@ -1,4 +1,6 @@
 // todo
+- don't render the stuff in the copy to clipboard until the button is clicked
+- if a word is common don't do an autosearch
 - missing word in acts 16:29 - esv
 - morph search broken? - HVhw3mp
 - search for warm filled

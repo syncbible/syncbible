@@ -7,11 +7,11 @@ import { mapVersionToData } from '../../lib/reference';
 import Word from './word';
 import styles from './styles.scss';
 
-const Verse = React.memo( ( { reference, version } ) => {
+const Verse = ( { reference, version } ) => {
 	const { book, chapter, verse } = reference;
 	const data = useSelector( state => state.data );
 	const language = mapVersionToData( book, version );
-	let lastWord = null;
+	let prevWord = null;
 	let words = null;
 
 	const placeholder = ( key ) => {
@@ -44,14 +44,15 @@ const Verse = React.memo( ( { reference, version } ) => {
 	const verseData = data[ language ][ book ][ chapter ][ verse ] ;
 	if ( verseData && verseData.map ) {
 		words = verseData.map( ( word, index ) => {
-			lastWord = word;
-			return <Word word={ word } key={ index } version={ version } lastWord={ lastWord }/>;
+			const wordComponentInstance = <Word word={ word } key={ index } version={ version } prevWord={ prevWord }/>;
+			prevWord = word;
+			return wordComponentInstance;
 		} );
 	} else if ( verseData ) {
 		words = verseData.replace(/<[^>]+>/g, ''); // to strip tags like <FI>
 	}
 
 	return words;
-} );
+};
 
-export default Verse;
+export default React.memo( Verse );

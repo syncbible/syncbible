@@ -12,7 +12,7 @@ import { getFamily } from '../../lib/word';
 import morphology from '../../lib/morphology';
 import { getLiteralConsistentTranslation } from '../utils.js';
 
-export default React.memo( ( props ) => {
+const WordSingleComponent = ( props ) => {
 	// wordText is the word to display, usually the same as word unless this is LC.
 	const { lemma, morph, version, word, wordText } = props;
 	const dispatch = useDispatch();
@@ -73,4 +73,6 @@ export default React.memo( ( props ) => {
 			{ wordText }
 		</span>
 	);
-} );
+};
+
+export default React.memo( WordSingleComponent );

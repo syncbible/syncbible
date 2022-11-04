@@ -20,7 +20,7 @@ function startsWithPunctuation( word ) {
 		word.indexOf( ',' ) === 0;
 }
 
-export default React.memo( ( { word, version } ) => {
+const WordComponent = ( { word, version, prevWord } ) => {
 	if ( ! word ) {
 		return null;
 	}
@@ -31,7 +31,7 @@ export default React.memo( ( { word, version } ) => {
 
 	const getWordSingle = ( wordSingleValue, lemmaSingle, morphSingle ) => {
 		if ( version === 'LC' ) {
-			return useSelector( state => getLiteralConsistentTranslation( state.data.LC, wordSingleValue, lemmaSingle, morphSingle ) );
+			return useSelector( state => getLiteralConsistentTranslation( state.data.LC, wordSingleValue, lemmaSingle, morphSingle, prevWord ) );
 		}
 
 		return wordSingleValue;
@@ -73,4 +73,6 @@ export default React.memo( ( { word, version } ) => {
 	}
 
 	return <React.Fragment key={ word }> { wordString }</React.Fragment>;
-} );
+};
+
+export default React.memo( WordComponent );

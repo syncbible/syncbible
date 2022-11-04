@@ -9,7 +9,7 @@ import CopyToClipboard from '../copy-to-clipboard';
 import styles from './styles.scss';
 import VerseNumber from './verse-number';
 
-const Title =  React.memo( ( { book, chapter, version, textToCopy } ) => {
+const Title =  ( { book, chapter, version, textToCopy } ) => {
 	const dispatch = useDispatch();
 	const data = useSelector( state => state.data );
 	const language = mapVersionToData( book, version );
@@ -30,6 +30,6 @@ const Title =  React.memo( ( { book, chapter, version, textToCopy } ) => {
 			</span>
 		</h1>
 	);
-} );
+};
 
-export default Title;
+export default React.memo( Title );

@@ -20,7 +20,7 @@ const getClassName = ( book, version ) => {
 	return styles.verse
 };
 
-const VerseWrapper = React.memo( ( { book, version, chapter, verse, isCurrentRef, lang } ) => {
+const VerseWrapper = ( { book, version, chapter, verse, isCurrentRef, lang } ) => {
 	const verseWrapperRef = useRef( null );
 	const reference = { book, chapter: chapter - 1, verse: verse - 1 };
 
@@ -37,6 +37,6 @@ const VerseWrapper = React.memo( ( { book, version, chapter, verse, isCurrentRef
 			</div>
 		</div>
 	);
-} );
+};
 
-export default VerseWrapper;
+export default  React.memo( VerseWrapper );
