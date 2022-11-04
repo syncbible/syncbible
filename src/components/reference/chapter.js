@@ -1,5 +1,5 @@
 // External
-import React, { createRef, useEffect, useRef, Fragment } from 'react';
+import React, { createRef, useEffect, useRef, Fragment, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,6 +9,7 @@ import Title from './title';
 import VerseWrapper from './verse-wrapper';
 import styles from './styles.scss';
 import { mapVersionToData, areReferencesInSync } from '../../lib/reference';
+import copyToClipboardHelper from '../../lib/copy-to-clipboard-helper';
 
 function usePrevious(value) {
 	const ref = useRef();
@@ -72,19 +73,24 @@ const Chapter = ( { book, chapter, index } ) => {
 
 	const isCurrentRef = ( verseNumber ) => ( currentReference && currentReference.book === book && currentReference.chapter === chapter && currentReference.verse === ( verseNumber + 1 ) ) ? currentRef : null;
 
+	const textToCopyRef = createRef( book + chapter + version + index );
+	const [ textToCopyText, setTextToCopyText ] = useState( '' );
+
+	const customClickHandler = ( version ) => {
+		setTextToCopyText( getDifferentVerses( version ) );
+	}
+	useEffect( () => {
+		copyToClipboardHelper( textToCopyRef );
+	}, [ textToCopyText ] );
+
+
 	const getSyncVerses = () => {
 		const title = (
 			<div className={ styles.chapterColumn }>
 				{ reference.map( ( { version }, index ) => {
-					const textToCopy = createRef( book + chapter + version + index );
-
-					// This outputs an extra div for copying
 					return (
 						<Fragment key={ index }>
-							<Title book={ book } chapter={ chapter } version={ version } key={ index } textToCopy={ textToCopy } />
-							<div className={ styles.invisible }>
-								{ getDifferentVerses( version, textToCopy ) }
-							</div>
+							<Title book={ book } chapter={ chapter } version={ version } key={ index } customClickHandler={ customClickHandler } />
 						</Fragment>
 					);
 				} ) }
@@ -126,10 +132,10 @@ const Chapter = ( { book, chapter, index } ) => {
 		)
 	}
 
-	const getDifferentVerses = ( version, textToCopy ) => {
+	const getDifferentVerses = ( version ) => {
 		return (
-			<div ref={ textToCopy }>
-				<Title book={ book } chapter={ chapter } version={ version } textToCopy={ textToCopy } />
+			<div>
+				<Title book={ book } chapter={ chapter } version={ version } customClickHandler={ customClickHandler } />
 				{ verseMap.map( ( verse, verseNumber ) => {
 					if ( endVerse && startVerse ) {
 						if ( verseNumber + 1 < startVerse ) {
@@ -157,11 +163,12 @@ const Chapter = ( { book, chapter, index } ) => {
 	}
 
 	const version = currentReference.version;
-	const textToCopy = createRef( book + chapter + version + index );
 
 	return (
 		<div className={ styles.chapter }>
-			{ areReferencesInSync( reference ) ? getSyncVerses() : getDifferentVerses( version, textToCopy ) }
+			{ /*This outputs an extra div for copying*/ }
+			<div className={ styles.invisible } ref={ textToCopyRef }>{ textToCopyText }</div>
+			{ areReferencesInSync( reference ) ? getSyncVerses() : getDifferentVerses( version ) }
 		</div>
 	);
 };

@@ -1,18 +1,14 @@
 // External
-import React, { useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
 // Internal
 import { setTrayVisibilityFilter, setReferenceInfo } from '../../actions';
-import { mapVersionToData } from '../../lib/reference';
 import CopyToClipboard from '../copy-to-clipboard';
 import styles from './styles.scss';
-import VerseNumber from './verse-number';
 
-const Title =  ( { book, chapter, version, textToCopy } ) => {
+const Title = ( { book, chapter, version, customClickHandler } ) => {
 	const dispatch = useDispatch();
-	const data = useSelector( state => state.data );
-	const language = mapVersionToData( book, version );
 
 	const tranlatedBook = bible.getTranslatedBookName( book, version );
 	const showChapterDetails = () => {
@@ -26,7 +22,7 @@ const Title =  ( { book, chapter, version, textToCopy } ) => {
 		<h1 className={ styles.heading } onClick={ showChapterDetails }>
 			{ tranlatedBook + ' ' + chapter + '‍' }
 			<span className={ styles.copyHidden }>
-				<CopyToClipboard fill={ '#999' } textToCopy={ textToCopy } />
+				<CopyToClipboard fill={ '#999' } customClickHandler={ customClickHandler } version={ version } />
 			</span>
 		</h1>
 	);
