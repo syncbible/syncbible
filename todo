@@ -14,17 +14,6 @@
 - byzparsed has strongs numbers joined with &
 
 
-stuff that will be fixed with muriel UI
-- can't see book names in portrait
-- use tab names in the footer
-- show tab names in the sidebar
-- make the reference selector better
-- touch reference - open selector
-- book selector doesn't scroll
-- book names are stupid!
-- icons are too small for touch
-- material-ui: cf933fffe1a083607d899ae591f245606c960746
-
 - fix kjv def search
 - open help in a full screen
 

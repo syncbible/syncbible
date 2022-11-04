@@ -1,8 +1,10 @@
 // External
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 // Internal
 import WordSingle from './word-single.js';
+import { getLiteralConsistentTranslation } from '../utils.js';
 
 function startingPunctuation( word ) {
 	return word.indexOf( '(' ) === 0;
@@ -27,6 +29,18 @@ export default React.memo( ( { word, version } ) => {
 	const lemmaArray = lemma ? lemma.split('/') : null;
 	const morphArray = ( morph && typeof morph === 'string' ) ? morph.split('/'): null;
 
+	const getWordSingle = ( wordSingleValue, lemmaSingle, morphSingle ) => {
+		if ( version === 'LC' ) {
+			return useSelector( state => getLiteralConsistentTranslation( state.data.LC, wordSingleValue, lemmaSingle, morphSingle ) );
+		}
+
+		return wordSingleValue;
+	};
+
+	const getLemmaSingle = ( key ) => {
+		return lemmaArray ? lemmaArray[ key ]: null ;
+	};
+
 	const getMorphSingle = ( key ) => {
 		if ( ! morphArray ) {
 			return null;
@@ -41,10 +55,17 @@ export default React.memo( ( { word, version } ) => {
 		}
 
 		return morphArray[ key ];
-	}
+	};
 
 	const wordString = wordValue && wordValue.split('/').map( ( wordSingleValue, key ) => {
-		return <WordSingle key={ key } lemma={ lemmaArray ? lemmaArray[ key ]: null } word={ wordSingleValue } morph={ getMorphSingle( key ) } version={ version } />;
+		const lemmaSingle = getLemmaSingle( key );
+		const morphSingle = getMorphSingle( key );
+		const wordSingle = getWordSingle( wordSingleValue, lemmaSingle, morphSingle );
+		if ( version === 'LC' ) {
+			return <React.Fragment key={ key }> <WordSingle key={ key } lemma={ lemmaSingle } word={ wordSingleValue } wordText={ wordSingle } morph={ morphSingle } version={ version } /></React.Fragment>;
+
+		}
+		return <WordSingle key={ key } lemma={ lemmaSingle } word={ wordSingleValue } wordText={ wordSingle } morph={ morphSingle } version={ version } />;
 	} );
 
 	if ( startsWithPunctuation( wordValue ) ) {

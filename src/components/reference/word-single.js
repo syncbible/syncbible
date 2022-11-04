@@ -1,5 +1,5 @@
 // External
-import React, { useState } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,44 +10,16 @@ import {
 } from '../../actions';
 import { getFamily } from '../../lib/word';
 import morphology from '../../lib/morphology';
-
-
-const getLiteralConsistent = function( LC, word, lemma, morph ) {
-	if ( ! LC ) {
-		return null;
-	}
-
-	if ( ! LC[ word ] ) {
-		return null;
-	}
-
-	if ( ! lemma ) {
-		lemma = '';
-	}
-
-	if ( 'הו' === word ) {
-		console.log( word, lemma, morph, LC[ word ][ lemma ][ morph ] );
-	}
-
-	if ( typeof LC[ word ][ lemma ][ morph ] === 'string' ) {
-		return LC[ word ][ lemma ][ morph ];
-	}
-
-	return null;
-}
+import { getLiteralConsistentTranslation } from '../utils.js';
 
 export default React.memo( ( props ) => {
-	const { lemma, morph, version, word } = props;
+	// wordText is the word to display, usually the same as word unless this is LC.
+	const { lemma, morph, version, word, wordText } = props;
 	const dispatch = useDispatch();
-
-	const getWord = () => {
-		if ( version === 'LC' ) {
-			const literalConsistentTranslation = useSelector( state => getLiteralConsistent( state.data.LC, word, lemma, morph ) );
-			return literalConsistentTranslation + ' ';
-		}
-
-		return word;
-	};
+	let literalConsistentTranslation;
+	if ( version === 'LC' || version === 'original' ) {
+		literalConsistentTranslation = useSelector( state => getLiteralConsistentTranslation( state.data.LC, word, lemma, morph ) );
+	}
 
 	const clearHighlightWord = () => {
 		window.updateAppComponent( 'highlightedWord', '' );
@@ -98,7 +70,7 @@ export default React.memo( ( props ) => {
 			title={ getTitle() }
 			key={ lemma }
 			>
-			{ getWord() }
+			{ wordText }
 		</span>
 	);
 } );
