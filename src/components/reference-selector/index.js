@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 // Internal
 import BookControl from './book-control';
 
-const ReferenceSelector = React.memo( ( { onGoToReference, onChangeDisplayState } ) => {
+const ReferenceSelector = ( { onGoToReference, onChangeDisplayState } ) => {
 	const [ active, setActive ] = useState( -1 );
 
 	return bible.Data.books.map( ( bookArray, index ) => {
@@ -24,6 +24,6 @@ const ReferenceSelector = React.memo( ( { onGoToReference, onChangeDisplayState 
 				active={ isActive } />
 		);
 	} );
-} );
+};
 
-export default ReferenceSelector;
+export default React.memo( ReferenceSelector );

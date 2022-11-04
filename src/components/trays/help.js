@@ -4,7 +4,7 @@ import React from 'react';
 // Internal dependencies
 import styles from './styles.scss';
 
-const HelpTray = React.memo( () => {
+const HelpTray = () => {
 
 	const clear = () => {
 		localStorage.clear();
@@ -55,6 +55,6 @@ const HelpTray = React.memo( () => {
 			</div>
 		</div>
 	);
-} );
+};
 
-export default HelpTray;
+export default React.memo( HelpTray );

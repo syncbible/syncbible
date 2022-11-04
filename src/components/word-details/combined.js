@@ -11,7 +11,7 @@ import { getReferenceFromSearchResult, sortCountedReferences } from '../../lib/r
 import styles from './styles.scss';
 import JoinFull from '../svg/join-full';
 
-const CombinedResults = React.memo( ( { type } ) => {
+const CombinedResults = ( { type } ) => {
 	const dispatch = useDispatch();
 	const [ open, setOpen ] = useState( false );
 	const words = useSelector( state => state.list.filter( ( { listType } ) => listType === type ) );
@@ -54,6 +54,6 @@ const CombinedResults = React.memo( ( { type } ) => {
 	}
 
 	return null;
-} );
+};
 
-export default CombinedResults;
+export default React.memo( CombinedResults );

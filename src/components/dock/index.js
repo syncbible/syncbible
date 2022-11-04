@@ -10,7 +10,7 @@ import Controls from '../controls';
 import styles from './style.scss';
 import VersionSelect from '../version-select';
 
-const Dock = React.memo( () => {
+const Dock = () => {
 	const dispatch = useDispatch();
 	const reference = useSelector( state => state.reference );
 	const numberOfColumns = reference.length
@@ -41,6 +41,6 @@ const Dock = React.memo( () => {
 			</div>
 		</div>
 	);
-} );
+};
 
-export default Dock;
+export default React.memo( Dock );

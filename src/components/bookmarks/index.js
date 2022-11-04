@@ -8,7 +8,7 @@ import CombinedResults from '../word-details/combined.js';
 import Single from './single';
 import styles from './styles.scss';
 
-const BookMarks = React.memo( () => {
+const BookMarks = () => {
 	const bookmarks = useSelector( state => state.list.filter( ( { listType } ) => listType === 'bookmark' ) );
 
 	return (
@@ -18,6 +18,6 @@ const BookMarks = React.memo( () => {
 			<CombinedResults type="bookmark" />
 		</>
 	)
-} );
+};
 
-export default BookMarks;
+export default React.memo( BookMarks );

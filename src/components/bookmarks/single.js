@@ -64,4 +64,4 @@ const Single = ( { bookmark, index } ) => {
 	);
 };
 
-export default Single;
+export default React.memo( Single );

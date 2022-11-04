@@ -110,7 +110,7 @@ const trays = [
 	}
 ];
 
-const Trays = React.memo( () => {
+const Trays = () => {
 	const dispatch = useDispatch();
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const compareMode = useSelector( state => state.settings.compareMode );
@@ -169,6 +169,6 @@ const Trays = React.memo( () => {
 	}
 
 	return null;
-} );
+};
 
-export default Trays;
+export default React.memo( Trays );

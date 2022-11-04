@@ -9,7 +9,7 @@ import { closeReferenceSelectorMobile, toggleReferenceSelectorMobile, referenceS
 import ArrowBackIcon from '../svg/arrow-back';
 import styles from './style.scss';
 
-const ReferenceSelectorMobile = React.memo( ( { index, version } ) => {
+const ReferenceSelectorMobile = ( { index, version } ) => {
 	const dispatch = useDispatch();
 	const inSync = useSelector( state => state.settings.inSync );
 	const open = useSelector( state => state.referenceSelectorMobile[ index ].open );
@@ -124,6 +124,6 @@ const ReferenceSelectorMobile = React.memo( ( { index, version } ) => {
 			</div> }
 		</span>
 	);
-} );
+};
 
-export default ReferenceSelectorMobile;
+export default React.memo( ReferenceSelectorMobile );

@@ -9,7 +9,7 @@ import { getReferenceFromSearchResult, sortCountedReferences } from '../../lib/r
 import InlineResultsToggle from '../inline-results-toggle'
 import styles from './styles.scss';
 
-const CombinedAll = React.memo( () => {
+const CombinedAll = () => {
 	const list = useSelector( state => state.list );
 	let combined = [];
 	list.forEach( ( item ) => {
@@ -34,6 +34,6 @@ const CombinedAll = React.memo( () => {
 		</div>
 
 	);
-} );
+};
 
-export default CombinedAll;
+export default React.memo( CombinedAll );

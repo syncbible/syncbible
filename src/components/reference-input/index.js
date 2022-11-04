@@ -26,7 +26,7 @@ const getReferenceValue = ( reference, scrollChapter, version ) => {
 	return tranlatedBook + ' ' + chapter;
 };
 
-const ReferenceInput = React.memo( ( { index, last } ) => {
+const ReferenceInput = ( { index, last } ) => {
 	const dispatch = useDispatch();
 	const inSync = useSelector( ( state ) => state.settings.inSync );
 	const localIndex = inSync ? 0 : index;
@@ -84,6 +84,6 @@ const ReferenceInput = React.memo( ( { index, last } ) => {
 			</form>
 		</div>
 	);
-} );
+};
 
-export default ReferenceInput;
+export default React.memo( ReferenceInput );

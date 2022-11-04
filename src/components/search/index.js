@@ -24,7 +24,7 @@ const isSimpleLemmaSearch = ( { lemma, word, morph, clusivity, range } ) => {
 	return lemma && lemma.indexOf( ' ' ) < 1 && ! word && ! morph && clusivity === 'exclusive' && range === 'verse';
 };
 
-const Search = React.memo( () => {
+const Search = () => {
 	const searchAdvanced = useSelector( state => state.searchAdvanced );
 	const settings = useSelector( state => state.settings );
 	const searchForm = useSelector( state => state.searchForm );
@@ -162,7 +162,7 @@ const Search = React.memo( () => {
 			<CombinedResults type="search" />
 		</>
 	);
-} );
+};
 
 
-export default Search;
+export default React.memo( Search );

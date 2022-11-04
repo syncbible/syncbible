@@ -9,7 +9,7 @@ import { getReferenceFromSearchResult } from '../../lib/reference.js';
 import styles from './styles.scss';
 import InlineResultsToggle from '../inline-results-toggle';
 
-const SearchBlock = React.memo( ( props ) => {
+const SearchBlock = ( props ) => {
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const { visible, sorted, terms, results } = props;
 	if ( ! results ) {
@@ -45,6 +45,6 @@ const SearchBlock = React.memo( ( props ) => {
 			</ol>
 		</div>
 	);
-} );
+};
 
-export default SearchBlock;
+export default React.memo( SearchBlock );

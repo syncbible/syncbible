@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { addSearch, setTrayVisibilityFilter } from '../../actions';
 import styles from './styles.scss';
 
-const KJVDef = React.memo( ( { word, strongsNumber } ) => {
+const KJVDef = ( { word, strongsNumber } ) => {
 	const dispatch = useDispatch();
 	const searchWord = () => {
 		const searchParameters = {
@@ -26,6 +26,6 @@ const KJVDef = React.memo( ( { word, strongsNumber } ) => {
 	return (
 		<span className={ styles.fakeLink } onClick={ searchWord }>{ word }</span>
 	);
-} );
+};
 
-export default KJVDef;
+export default React.memo( KJVDef );

@@ -8,7 +8,7 @@ import Add from '../svg/add.js';
 import Menu from '../svg/menu.js';
 import styles from './style.scss';
 
-const Controls = React.memo( ( { } ) => {
+const Controls = () => {
 	const dispatch = useDispatch();
 	const inSync = useSelector( state => state.settings.inSync );
 	const reference = useSelector( state => state.reference );
@@ -56,6 +56,6 @@ const Controls = React.memo( ( { } ) => {
 			</div>
 		);
 	}
-} );
+};
 
-export default Controls;
+export default React.memo( Controls );

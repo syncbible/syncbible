@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 // Internal
 import styles from './styles.scss';
 
-const TrayList = React.memo( ( { trays } ) => {
+const TrayList = ( { trays } ) => {
 	const activeTray = useSelector( state => state.trays );
 	return trays.map( tray => {
 		return (
@@ -19,6 +19,6 @@ const TrayList = React.memo( ( { trays } ) => {
 			</div>
 		);
 	} );
-} );
+};
 
-export default TrayList;
+export default React.memo( TrayList );

@@ -15,7 +15,7 @@ import {
 
 import styles from './styles.scss';
 
-const Rare = React.memo( ( props ) => {
+const Rare = () => {
 	const dispatch = useDispatch();
 	const [ sort, setSort ] = useState( 'usesDesc' );
 	const isOriginalLoaded = useSelector( state => 'undefined' !== typeof state.data.original );
@@ -210,6 +210,6 @@ const Rare = React.memo( ( props ) => {
 			</div>
 		</>
 	);
-} );
+};
 
-export default Rare;
+export default React.memo( Rare );

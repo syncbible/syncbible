@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.scss';
 import { selectWord } from '../../actions';
 
-const WordBlockLink = React.memo( ( { strongsNumber, version } ) => {
+const WordBlockLink = ( { strongsNumber, version } ) => {
 	const subdue = useSelector( state => state.settings.subdue );
 	const dispatch = useDispatch();
 
@@ -37,6 +37,6 @@ const WordBlockLink = React.memo( ( { strongsNumber, version } ) => {
 			{ strongsNumber }
 		</a> </span>
 	)
-} );
+};
 
-export default WordBlockLink;
+export default React.memo( WordBlockLink );

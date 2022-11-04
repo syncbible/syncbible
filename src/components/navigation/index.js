@@ -11,7 +11,7 @@ import VersionSelect from '../version-select';
 // Internal dependencies
 import styles from './styles.scss';
 
-const Navigation = React.memo( ( { index, last } ) => {
+const Navigation = ( { index, last } ) => {
 	const dispatch = useDispatch();
 	const inSync = useSelector( ( state ) => state.settings.inSync );
 	const references = useSelector( ( state ) => state.reference );
@@ -29,6 +29,6 @@ const Navigation = React.memo( ( { index, last } ) => {
 			<VersionSelect name={ index } value={ version } onChange={ handleChangeVersion } />
 		</div>
 	);
-} );
+};
 
-export default Navigation ;
+export default React.memo( Navigation );

@@ -6,7 +6,7 @@ import WordBlockHeader from '../word-block-header';
 // Internal dependencies
 import styles from './styles.scss';
 
-const Collapsible = React.memo( ( { children, className, header, open, onToggle, textToCopy, title, onRemove, onMouseOver, onMouseOut } ) => {
+const Collapsible = ( { children, className, header, open, onToggle, textToCopy, title, onRemove, onMouseOver, onMouseOut } ) => {
 	return (
 		<div className={ styles.collapsible }>
 			<div
@@ -29,6 +29,6 @@ const Collapsible = React.memo( ( { children, className, header, open, onToggle,
 			</div>
 		</div>
 	)
-} );
+};
 
-export default Collapsible;
+export default React.memo( Collapsible );

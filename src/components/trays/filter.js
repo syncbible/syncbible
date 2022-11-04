@@ -28,4 +28,4 @@ const TrayFilter = ( { children, filter, title } ) => {
 	);
 };
 
-export default TrayFilter;
+export default React.memo( TrayFilter );

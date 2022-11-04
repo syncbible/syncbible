@@ -6,7 +6,7 @@ import RemoveSvg from '../svg/remove.js';
 import CopyToClipboard from '../copy-to-clipboard';
 import styles from './styles.scss';
 
-const WordBlockHeader = React.memo( ( { children, className, textToCopy, onRemove } ) => {
+const WordBlockHeader = ( { children, className, textToCopy, onRemove } ) => {
 	return (
 		<div className={ className }>
 				{ children }
@@ -23,6 +23,6 @@ const WordBlockHeader = React.memo( ( { children, className, textToCopy, onRemov
 				</span>
 		</div>
 	);
-} );
+};
 
-export default WordBlockHeader;
+export default React.memo( WordBlockHeader );

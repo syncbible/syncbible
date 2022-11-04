@@ -12,7 +12,7 @@ import ReferenceText from '../reference-text';
 import { goToReferenceHelper } from '../../lib/reference.js';
 import { style } from '@mui/system';
 
-const SearchLink = React.memo( ( { reference, index, count, word } ) => {
+const SearchLink = ( { reference, index, count, word } ) => {
 	// State constants
 	const expandedSearchResults = useSelector( state => state.settings.expandedSearchResults );
 	const highlightSearchResults = useSelector( state => state.settings.highlightSearchResults );
@@ -82,6 +82,6 @@ const SearchLink = React.memo( ( { reference, index, count, word } ) => {
 			{ expandedSearchResultsRendered( reference ) }
 		</li>
 	);
-} );
+};
 
-export default SearchLink;
+export default React.memo( SearchLink );

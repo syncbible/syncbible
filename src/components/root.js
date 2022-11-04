@@ -19,7 +19,7 @@ import {
 } from '../actions'
 import { rootClasses } from './utils';
 
-const Root = React.memo( ( { highlightedWord } ) => {
+const Root = ( { highlightedWord } ) => {
 	const dispatch = useDispatch();
 
 	// Fetch the other data we need
@@ -74,6 +74,6 @@ const Root = React.memo( ( { highlightedWord } ) => {
 			</div>
 		</div>
 	);
-} );
+};
 
-export default Root;
+export default React.memo( Root );

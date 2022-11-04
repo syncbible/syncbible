@@ -11,7 +11,7 @@ import styles from './styles.scss';
 
 let oldHeight = 0, scroller = null, isScrolling = false;
 
-const ReferenceComponent = React.memo( ( props ) => {
+const ReferenceComponent = ( props ) => {
 	const [ references, setReferences ] = useState( {} );
 	const reference = useSelector( state => state.reference );
 	const referenceWindow = useRef();
@@ -204,6 +204,6 @@ const ReferenceComponent = React.memo( ( props ) => {
 			} ) }
 		</div>
 	);
-} );
+};
 
-export default ReferenceComponent;
+export default React.memo( ReferenceComponent );

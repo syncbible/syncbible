@@ -15,7 +15,7 @@ import {
 
 import styles from './styles.scss';
 
-const Compare = React.memo( ( props ) => {
+const Compare = ( props ) => {
 	const dispatch = useDispatch();
 	const isOriginalLoaded = useSelector( state => 'undefined' !== typeof state.data.original );
 	const isActiveTray = useSelector( state => state.trays === 'reference' );
@@ -184,7 +184,7 @@ const Compare = React.memo( ( props ) => {
 			</div>
 		</>
 	);
-} );
+};
 
 
-export default Compare;
+export default React.memo( Compare );

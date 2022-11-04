@@ -5,7 +5,7 @@ import classnames from 'classnames';
 // Internal
 import styles from './styles.scss';
 
-const VersionSelect = React.memo( ( { name, value="default", onChange, large } ) => {
+const VersionSelect = ( { name, value="default", onChange, large } ) => {
 	const classes = classnames( styles.sidebarSelect, large ? styles.large : styles.small );
 	return (
 		<select className={ classes } name={ name } value={ value } onChange={ ( event ) => {
@@ -32,6 +32,6 @@ const VersionSelect = React.memo( ( { name, value="default", onChange, large } )
 			} ) }
 		</select>
 	);
-} );
+};
 
-export default VersionSelect;
+export default React.memo( VersionSelect );

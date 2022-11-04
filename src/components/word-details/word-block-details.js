@@ -14,7 +14,7 @@ import SearchLink from '../search/search-link';
 import InlineResultsToggle from '../inline-results-toggle'
 import { getReferenceFromSearchResult } from '../../lib/reference.js'
 
-const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version, word } ) => {
+const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) => {
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const strongsDictionary = useSelector( state => state.data.strongsDictionary );
 	const strongsWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
@@ -121,6 +121,6 @@ const WordBlockDetails = React.memo( ( { morphologyProp, strongsNumber, version,
 			) }
 		</div>
 	)
-} );
+};
 
-export default WordBlockDetails;
+export default React.memo( WordBlockDetails );

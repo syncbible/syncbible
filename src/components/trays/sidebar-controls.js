@@ -11,7 +11,7 @@ import Clear from '../clear';
 
 
 
-const SidebarControls = React.memo( ( { trays } ) => {
+const SidebarControls = ( { trays } ) => {
 	const dispatch = useDispatch();
 	const activeTray = useSelector( state => state.trays );
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
@@ -47,6 +47,6 @@ const SidebarControls = React.memo( ( { trays } ) => {
 			</span>
 		</div>
 	);
-} );
+};
 
-export default SidebarControls;
+export default React.memo( SidebarControls );

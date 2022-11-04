@@ -12,7 +12,7 @@ import WordBlockDetails from './word-block-details';
 import { removeFromList, toggleListItemVisible } from '../../actions';
 
 
-const WordBlock = React.memo( ( props ) => {
+const WordBlock = ( props ) => {
 	const { data, visible, highlight, setFocus } = props;
 	const { clickedWord, morphology, lemma, version } = data;
 	const subdue = useSelector( state => state.settings.subdue );
@@ -75,6 +75,6 @@ const WordBlock = React.memo( ( props ) => {
 			</div>
 		</Collapsible>
 	);
-} );
+};
 
-export default WordBlock;
+export default React.memo( WordBlock );

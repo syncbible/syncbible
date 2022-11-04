@@ -9,7 +9,7 @@ import ClearSvg from '../svg/clear.js';
 import DeleteForever from '../svg/delete-forever.js';
 import styles from './style.scss';
 
-const Clear = React.memo( ( { selectedTrayId } ) => {
+const Clear = ( { selectedTrayId } ) => {
 	const dispatch = useDispatch();
 	const words = useSelector( state => state.list.filter( ( { listType } ) => listType === 'word' ) );
 	const bookmarks = useSelector( state => state.list.filter( ( { listType } ) => listType === 'bookmark' ) );
@@ -53,6 +53,6 @@ const Clear = React.memo( ( { selectedTrayId } ) => {
 			<DeleteForever />
 		</button>
 	);
-} );
+};
 
-export default Clear;
+export default React.memo( Clear );

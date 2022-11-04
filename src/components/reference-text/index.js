@@ -2,7 +2,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 
-const ReferenceText = React.memo( ( { reference } ) => {
+const ReferenceText = ( { reference } ) => {
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	let text = bible.getTranslatedBookName( reference.book, interfaceLanguage );
 	if ( reference.chapter ) {
@@ -13,6 +13,6 @@ const ReferenceText = React.memo( ( { reference } ) => {
 		text += ':' + reference.verse;
 	}
 	return text;
-} );
+};
 
-export default ReferenceText;
+export default React.memo( ReferenceText );

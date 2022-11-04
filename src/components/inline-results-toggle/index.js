@@ -8,7 +8,7 @@ import UnfoldLess from '../svg/unfold-less';
 import UnfoldMore from '../svg/unfold-more';
 import styles from './styles.scss';
 
-const InlineResultsToggle = React.memo( () => {
+const InlineResultsToggle = () => {
 	const dispatch = useDispatch();
 	const expandedSearchResults = useSelector( state => state.settings.expandedSearchResults );
 
@@ -25,6 +25,6 @@ const InlineResultsToggle = React.memo( () => {
  	} else {
 		return <a className={ styles.foundInExtra } onClick={ expandSearchResults }><UnfoldMore /></a>
 	}
-} );
+};
 
-export default InlineResultsToggle;
+export default React.memo( InlineResultsToggle );

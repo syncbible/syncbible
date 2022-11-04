@@ -11,7 +11,7 @@ import { getReferenceFromSearchResult } from '../lib/reference.js';
 let lastTimeStamp = 0,
 	waiter;
 
-const KeyboardShortcuts = React.memo( () => {
+const KeyboardShortcuts = () => {
 	const currentListItem = useSelector( state => state.list.filter( ( { current } ) => typeof current !== 'undefined' ) ).shift();
 	const reference = useSelector( ( state ) => state.reference );
 
@@ -64,6 +64,6 @@ const KeyboardShortcuts = React.memo( () => {
 	} );
 
 	return null;
-} );
+};
 
-export default KeyboardShortcuts;
+export default React.memo( KeyboardShortcuts );

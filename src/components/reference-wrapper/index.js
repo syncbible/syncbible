@@ -8,7 +8,7 @@ import ReferenceComponent from '../reference';
 import styles from './style.scss';
 import { areReferencesInSync } from '../../lib/reference';
 
-const ReferenceWrapper = React.memo( () => {
+const ReferenceWrapper = () => {
 	const reference = useSelector( state => state.reference );
 	const inSync = areReferencesInSync( reference );
 	const searchSelect = useSelector( state => state.searchSelect );
@@ -36,6 +36,6 @@ const ReferenceWrapper = React.memo( () => {
 			</div>
 		</div>
 	);
-} );
+};
 
-export default ReferenceWrapper;
+export default React.memo( ReferenceWrapper );

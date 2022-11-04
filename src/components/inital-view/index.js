@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 // Internal
 import styles from './styles.scss';
-const InitialView = React.memo( () => {
+const InitialView = () => {
 	const reference = useSelector( state => state.reference );
 
 	if ( reference.length ) {
@@ -25,6 +25,6 @@ const InitialView = React.memo( () => {
 			</div>
 		</div>
 	);
-} );
+};
 
-export default InitialView;
+export default React.memo( InitialView );

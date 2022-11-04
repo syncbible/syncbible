@@ -37,4 +37,4 @@ const SearchResults = () => {
 	} );
 }
 
-export default SearchResults;
+export default React.memo( SearchResults );

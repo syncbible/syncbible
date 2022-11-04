@@ -10,7 +10,7 @@ import Title from '../reference/title.js';
 import styles from './styles.scss';
 import { sortReferences } from '../../lib/reference.js';
 
-const Comparison = React.memo( () => {
+const Comparison = () => {
 	const list = useSelector( state => state.list );
 	const referenceControl = useSelector( state => state.reference );
 
@@ -65,6 +65,6 @@ const Comparison = React.memo( () => {
 			isCurrentRef={ false } />
 	);
 
-} );
+};
 
-export default Comparison;
+export default React.memo( Comparison );

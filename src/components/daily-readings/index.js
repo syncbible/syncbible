@@ -1,10 +1,8 @@
 // External dependencies
 import React, { useState, Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
-import { goToReferenceAction } from '../../actions';
-import { goToReferenceHelper } from '../../lib/reference';
+import DailyReadingLink from './daily-reading-link';
 import styles from './styles.scss';
 
 const getMonthName = ( monthNumber ) => {
@@ -30,10 +28,7 @@ function getDaysIntoYear(date){
   return (Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) - Date.UTC(date.getFullYear(), 0, 0)) / 24 / 60 / 60 / 1000;
 }
 
-const DailyReadings = React.memo( () => {
-	const stateReference = useSelector( state => state.reference );
-	const settings = useSelector( state => state.settings );
-	const dispatch = useDispatch();
+const DailyReadings = () => {
 	const [ selectedMonth, setSelectedMonth ] = useState( new Date().getMonth() );
 	const [ selectedDay, setSelectedDay ] = useState( new Date().getDate() );
 
@@ -51,44 +46,19 @@ const DailyReadings = React.memo( () => {
 	const selectedDate = new Date( 1970, selectedMonth, selectedDay );
 	const daysIntoYear = getDaysIntoYear( selectedDate );
 
-	const getReferenceLink = ( { Book, Chapter, Verses } ) => {
-		let chapter = 1;
-		if ( Chapter ) {
-			chapter = Chapter;
-		}
-
-		let referenceString = Book + ' ' + Chapter;
-		const reference = { book: Book, chapter };
-
-		if ( Verses ) {
-			const versesArray = Verses.split('-');
-			reference.verse = versesArray[0];
-			// Don't add an end verse as this will limit the verses output.
-			// reference.endVerse = versesArray[1];
-			referenceString += ':' + Verses;
-		} else {
-			reference.verse = 1;
-		}
-
-
-		const newHash = '/#' + goToReferenceHelper( stateReference, reference, settings.targetColumn, settings.inSync );
-
-		return (
-			<a href={ newHash } onClick={ ( event ) => {
-				event.stopPropagation();
-				event.preventDefault();
-				dispatch( goToReferenceAction( reference ) );
-			} }>
-				{ referenceString }
-			</a>
-		);
-	}
-
 	const dailyReadingsList = javascripture.data.dailyReadings[ daysIntoYear - 1 ].Readings.map( ( reading, key ) => {
 		return (
 			<li key={ key }>
 				{ reading.Refs.map( ( oneRef, index ) => {
-					return ( <Fragment key={ index }>{ getReferenceLink( oneRef ) }<br /></Fragment> );
+					const book = oneRef.Book;
+					const chapter = oneRef.Chapter ? oneRef.Chapter : 1;
+					const verses = oneRef.Verses;
+					return (
+						<Fragment key={ index }>
+							<DailyReadingLink book={ book } chapter={ chapter } verses={ verses } />
+							<br />
+						</Fragment>
+					);
 				} ) }
 			</li>
 		);
@@ -107,6 +77,6 @@ const DailyReadings = React.memo( () => {
 			</ol>
 		</div>
 	)
-} );
+};
 
-export default DailyReadings;
+export default React.memo( DailyReadings );

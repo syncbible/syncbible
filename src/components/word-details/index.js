@@ -7,7 +7,7 @@ import styles from './styles.scss';
 import CombinedResults from './combined';
 import WordBlock from './word-block';
 
-const WordDetails = React.memo( () => {
+const WordDetails = () => {
 	const words = useSelector( state => state.list.filter( ( { listType } ) => listType === 'word' ) );
 
 	const [ focus, setFocus ] = useState( null );
@@ -23,6 +23,6 @@ const WordDetails = React.memo( () => {
 		</div>
 	) : <div className={ styles.wordBlockHelp }>Select a word to show more details about it here.</div>;
 
-} );
+};
 
-export default WordDetails;
+export default React.memo( WordDetails );

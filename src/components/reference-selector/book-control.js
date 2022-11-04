@@ -7,7 +7,7 @@ import { goToReferenceAction } from '../../actions'
 import ReferenceText from '../reference-text';
 import styles from './styles.scss';
 
-const BookControl = React.memo( ( { chapters, name } ) => {
+const BookControl = ( { chapters, name } ) => {
 	const dispatch = useDispatch();
 	const stateReference = useSelector( state => state.reference );
 	const [ chapter, setChapter ] = useState( 1 );
@@ -73,6 +73,6 @@ const BookControl = React.memo( ( { chapters, name } ) => {
 				</span>
 		</div>
 	);
-} );
+};
 
-export default BookControl;
+export default React.memo( BookControl );

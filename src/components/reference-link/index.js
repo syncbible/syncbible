@@ -26,4 +26,4 @@ const ReferenceLink = ( { reference, number } ) => {
 	);
 };
 
-export default ReferenceLink;
+export default React.memo( ReferenceLink );

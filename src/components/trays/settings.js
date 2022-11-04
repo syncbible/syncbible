@@ -11,7 +11,7 @@ import { getStore, loadStore } from '../../app';
 // set up global - to be deleted
 javascripture.state = {};
 
-const SettingsTray = React.memo( () => {
+const SettingsTray = () => {
 	const dispatch = useDispatch();
 	const settings = useSelector( state => state.settings );
 	const reference = useSelector( state => state.reference );
@@ -156,6 +156,6 @@ const SettingsTray = React.memo( () => {
 			</div>
 		</div>
 	);
-} );
+};
 
-export default SettingsTray;
+export default React.memo( SettingsTray );

@@ -9,7 +9,7 @@ import TrayFilter from '../../components/trays/filter.js';
 import { closeSidebar, settingsChange, openSidebar } from '../../actions/index.js';
 import styles from './styles.scss';
 
-const Footer = React.memo( ( { trays } ) => {
+const Footer = ( { trays } ) => {
 	const compareMode = useSelector( state => state.settings.compareMode );
 
 	const dispatch = useDispatch();
@@ -44,6 +44,6 @@ const Footer = React.memo( ( { trays } ) => {
 			);
 		} ) }
 	</div>
-) } );
+) };
 
-export default Footer;
+export default React.memo( Footer );

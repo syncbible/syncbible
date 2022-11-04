@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 // Internal
 import { getHighlight, getHighlightBorder } from '../strongs-color.js';
 
-const WordHighlight = React.memo( ( { word } ) => {
+const WordHighlight = ( { word } ) => {
 	const settings = useSelector( state => state.settings );
 	const searchSelect = useSelector( state => state.searchSelect );
 	const strongsObjectWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
@@ -25,6 +25,6 @@ const WordHighlight = React.memo( ( { word } ) => {
 			} ) }
 		</style>
 	);
-} );
+};
 
-export default WordHighlight;
+export default React.memo( WordHighlight );
