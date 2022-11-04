@@ -1,10 +1,11 @@
 import classnames from 'classnames';
+import { indexOf } from 'lodash';
 
 export function rootClasses( darkMode ) {
 	return classnames( 'root', { 'dark-mode-on': darkMode === true, 'dark-mode-off': darkMode === false } );
 }
 
-export function getLiteralConsistentTranslation( LC, word, lemma, morph ) {
+export function getLiteralConsistentTranslation( LC, word, lemma, morph, prevWord ) {
 	if ( ! LC ) {
 		return null;
 	}
@@ -18,7 +19,13 @@ export function getLiteralConsistentTranslation( LC, word, lemma, morph ) {
 	}
 
 	if ( 'הו' === word ) {
-		console.log( word, lemma, morph, LC[ word ][ lemma ][ morph ] );
+		// If the last word was a noun then modify "him" to "his".
+		if ( prevWord && prevWord[ 2 ] ) {
+			const morphContainsAVerb = prevWord[ 2 ].match(/[N|\/N]/);
+			if ( morphContainsAVerb && morphContainsAVerb.length > 0 ) {
+				return 'his';
+			}
+		}
 	}
 
 	if ( typeof LC[ word ][ lemma ][ morph ] === 'string' ) {
