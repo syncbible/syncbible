@@ -127,7 +127,14 @@ export const addWord = ( word ) => {
 
 		// Send data to our worker.
 		dispatch( addToList( word ) );
-		postMessageToWorker( 'search', word.data, getState() );
+
+		const state = getState();
+		const strongsObjectWithFamilies = state.data.strongsObjectWithFamilies;
+		const uses = strongsObjectWithFamilies[ word.data.lemma ].count;
+
+		if ( uses < 100 ) {
+			postMessageToWorker( 'search', word.data, getState() );
+		}
 	}
 }
 
@@ -175,6 +182,22 @@ export const addSearch = ( terms, target ) => {
 		}
 		dispatch( addToList( searchItem ) );
 	}
+}
+
+export const searchForWord = ( parameters ) => {
+	return function( dispatch, getState ) {
+		dispatch( wordResultsLoading( parameters ) );
+
+		// Send data to our worker.
+		postMessageToWorker( 'search', parameters, getState() );
+	}
+}
+
+export const wordResultsLoading = ( terms ) => {
+	return {
+		terms,
+		type: 'WORD_RESULTS_LOADING'
+	};
 }
 
 export const removeSearch = ( terms ) => {

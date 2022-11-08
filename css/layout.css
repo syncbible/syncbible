@@ -13,7 +13,6 @@
   --active: rgba( 215, 245, 245, .5 );
   --accent: rgba( 215, 245, 245, 1 );
   --select-svg: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23000000'><polygon points='0,0 100,0 50,50'/></svg>");
-
 }
 
 @media ( prefers-color-scheme: dark ) {
@@ -207,4 +206,8 @@ body {
 
 label.has-placeholder {
 	display: none;
+}
+
+a.word-block-details__find-all-uses {
+	text-decoration: underline !important;
 }

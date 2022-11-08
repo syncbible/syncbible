@@ -1,7 +1,7 @@
 // External dependencies
 import map from 'lodash/map';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
 import KJVDef from './kjv-def';
@@ -13,11 +13,14 @@ import WordBlockLink from './word-block-link';
 import SearchLink from '../search/search-link';
 import InlineResultsToggle from '../inline-results-toggle'
 import { getReferenceFromSearchResult } from '../../lib/reference.js'
+import { searchForWord } from '../../actions'
 
 const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) => {
+	const dispatch = useDispatch();
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const strongsDictionary = useSelector( state => state.data.strongsDictionary );
 	const strongsWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
+
 	const getBranchesData = () => {
 		return map( javascripture.data.strongsObjectWithFamilies, ( strongsObjectData, strongsObjectNumber ) => {
 			if ( strongsObjectData.roots && strongsObjectData.roots.indexOf( strongsNumber ) > -1 ) {
@@ -85,6 +88,34 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 		return <SearchLink key={ index } index={ index } reference={ getReferenceFromSearchResult( result ) } word={ word } />;
 	} );
 
+	function getResultsDisplay() {
+		if ( results ) {
+			return (
+				<>
+					<strong>Found in</strong> <InlineResultsToggle />
+					<ol className={ styles.results } dir={ bible.isRtlVersion( interfaceLanguage ) ? 'rtl' : 'ltr' }>
+						{ results }
+					</ol>
+				</>
+			)
+		}
+
+		if ( word.loading ) {
+			return (
+				<p>Loading search results.</p>
+			);
+		}
+
+		if ( strongsWithFamilies && strongsWithFamilies[ strongsNumber ] && strongsWithFamilies[ strongsNumber ].count < 100 ) {
+			return ( <p>Searching...</p> );
+		}
+
+		return (
+			<p><a href="#" className="word-block-details__find-all-uses" onClick={ () => dispatch( searchForWord( word.data ) ) }>Find all uses</a></p>
+		);
+	}
+	let resultsDisplay = getResultsDisplay();
+
 	return (
 		<div>
 			{ strongsNumber } | { wordDetail && stripPointing( wordDetail.lemma ) }
@@ -113,14 +144,9 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 				<strong>Strong's Derivation</strong><br />{ wordDetail && wordDetail.derivation }<br />
 			</div>
 			<br />
-			<strong>Found in</strong> <InlineResultsToggle />
-			{ results && (
-				<ol className={ styles.results } dir={ bible.isRtlVersion( interfaceLanguage ) ? 'rtl' : 'ltr' }>
-					{ results }
-				</ol>
-			) }
+			{ resultsDisplay }
 		</div>
-	)
-};
+	);
+}
 
 export default React.memo( WordBlockDetails );

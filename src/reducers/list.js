@@ -51,6 +51,8 @@ const list = ( state = initialState, action ) => {
 		case 'ADD_SEARCH_RESULTS':
 			return state.map( item => {
 				if ( isEqual( action.terms, item.data ) ) {
+					item.loading = false;
+					item.loaded = true;
 					item.results = action.results;
 				}
 				return item;
@@ -66,7 +68,16 @@ const list = ( state = initialState, action ) => {
 					}
 					return item;
 				} )
-			]
+			];
+
+		case 'WORD_RESULTS_LOADING':
+			return state.map( item => {
+				if ( isEqual( action.terms, item.data ) ) {
+					item.loading = true;
+				}
+				return item;
+			} );
+
 		default:
 			return state
 	}
