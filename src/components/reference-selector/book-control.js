@@ -9,14 +9,12 @@ import styles from './styles.scss';
 
 const BookControl = ( { chapters, name } ) => {
 	const dispatch = useDispatch();
-	const stateReference = useSelector( state => state.reference );
 	const [ chapter, setChapter ] = useState( 1 );
 	const [ touched, setTouched ] = useState( false );
 	const [ touchChapter, setTouchChapter ] = useState( false );
 	const referenceSelector = useRef( null );
 	const handleGoToReference = () => {
-		const version = stateReference[ 0 ].version;
-		dispatch( goToReferenceAction( { book: name, chapter, verse: 1, version } ) );
+		dispatch( goToReferenceAction( { book: name, chapter, verse: 1 } ) );
 	};
 
 	const handleMouseMove = ( event ) => {
@@ -57,7 +55,6 @@ const BookControl = ( { chapters, name } ) => {
 	};
 
 	var buttonText = touchChapter ? chapter : '';
-
 	return (
 		<div
 			className={ styles.bookControl }

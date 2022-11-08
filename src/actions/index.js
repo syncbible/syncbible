@@ -14,6 +14,11 @@ import { push } from 'connected-react-router';
 export const goToReferenceAction = ( reference, targetColumn ) => {
 	return function( dispatch, getState ) {
 		const state = getState();
+
+		// Preserve the old version.
+		const version = state.reference[ 0 ].version;
+		reference.version = version;
+
 		if ( typeof targetColumn === "undefined" ) {
 			targetColumn = state.settings.targetColumn;
 		}
