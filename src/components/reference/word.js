@@ -26,7 +26,7 @@ const WordComponent = ( { word, version, prevWord } ) => {
 	}
 
 	const [ wordValue, lemma, morph ] = word;
-	const lemmaArray = lemma ? lemma.split('/') : null;
+	const lemmaArray = lemma && typeof lemma === 'string' ? lemma.split('/') : null;
 	const morphArray = ( morph && typeof morph === 'string' ) ? morph.split('/'): null;
 
 	const getWordSingle = ( wordSingleValue, lemmaSingle, morphSingle ) => {
@@ -57,7 +57,7 @@ const WordComponent = ( { word, version, prevWord } ) => {
 		return morphArray[ key ];
 	};
 
-	const wordString = wordValue && wordValue.split('/').map( ( wordSingleValue, key ) => {
+	const wordString = wordValue && typeof wordValue === 'string' && wordValue.split('/').map( ( wordSingleValue, key ) => {
 		const lemmaSingle = getLemmaSingle( key );
 		const morphSingle = getMorphSingle( key );
 		const wordSingle = getWordSingle( wordSingleValue, lemmaSingle, morphSingle );

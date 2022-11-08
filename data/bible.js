@@ -189,6 +189,7 @@ bible.Data.supportedVersions = {
 	'OPV': { name: 'ترجمه-ی قدام', language: 'fa' },
 	'TPV': { name: 'مژده برای اسرع جدید', language: 'fa' },
 	'NMV': { name: 'ترجمه هزارۀ نو', language: 'fa' },
+	'NMV_strongs': { name: '*with strongs - ترجمه هزارۀ نو', language: 'fa' },
 	'AraSVD': { name: 'Arabic Bible', language: 'ar' },
 	'NorthernAzeri': { name: 'Northern Azeri', language: 'az' },
 	'Bela': { name: 'Belarusian Bible', language: 'be' },
