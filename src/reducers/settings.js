@@ -20,19 +20,17 @@ export default ( state = initialState, action ) => {
 	let settings;
 	switch ( action.type ) {
 		case 'SETTINGS_CHANGE':
-			settings = Object.assign( {}, state, action );
+			state = Object.assign( {}, state, action );
 			break;
 
 		case LOCATION_CHANGE:
-			settings = { ...state };
-			settings.compareMode = false;
+			state.compareMode = false;
 			break;
 
 		default:
-			settings = state;
 			break;
 	}
 
-	javascripture.state.settings = settings;
-	return settings;
+	javascripture.state.settings = state;
+	return state;
 }

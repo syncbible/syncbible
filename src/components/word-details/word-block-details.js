@@ -12,7 +12,6 @@ import { getFamily } from '../../lib/word';
 import WordBlockLink from './word-block-link';
 import SearchLink from '../search/search-link';
 import InlineResultsToggle from '../inline-results-toggle'
-import { getReferenceFromSearchResult } from '../../lib/reference.js'
 import { searchForWord } from '../../actions'
 
 const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) => {
@@ -78,14 +77,8 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 	}
 
 	const results = word.results && word.results.map( ( result, index ) => {
-		const resultArray = result.split( '.' );
-		const reference = {
-			book: resultArray[ 0 ],
-			chapter: resultArray[ 1 ],
-			verse: resultArray[ 2 ],
-		};
-
-		return <SearchLink key={ index } index={ index } reference={ getReferenceFromSearchResult( result ) } word={ word } />;
+		const isActive = word && typeof word.current !== 'undefined' && word.current === index;
+		return <SearchLink key={ index } index={ index } referenceString={ result } wordId={ word.id } isActive={ isActive } />;
 	} );
 
 	function getResultsDisplay() {

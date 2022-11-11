@@ -59,16 +59,26 @@ const list = ( state = initialState, action ) => {
 			} );
 
 		case 'SET_CURRENT_LIST_RESULT':
-			return [
-				...state.map( item => {
-					if ( item.id === action.id ) {
-						item.current = action.index;
-					} else {
-						delete( item.current )
-					}
-					return item;
-				} )
-			];
+			//const indexToChange = state.findIndex( item => item.id === action.id );
+			//console.log( state[ indexToChange ] );
+			//state[ indexToChange ].current = action.index;
+			state.forEach( item => {
+				if ( item.id === action.id ) {
+					item.current = action.index;
+				} else {
+					delete( item.current )
+				}
+			} );
+			/*return state.map( item => {
+				if ( item.id === action.id ) {
+					item.current = action.index;
+				} else {
+					item.current = -1;
+					//delete( item.current )
+				}
+				return item;
+			} );*/
+			return state;
 
 		case 'WORD_RESULTS_LOADING':
 			return state.map( item => {

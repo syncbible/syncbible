@@ -2,26 +2,26 @@
 import React from 'react';
 import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
-import { push } from 'connected-react-router';
 
 // Internal dependencies
 import { setCurrentListResult, goToReferenceAction } from '../../actions';
 import Verse from '../reference/verse';
 import styles from './styles.scss';
 import ReferenceText from '../reference-text';
-import { goToReferenceHelper } from '../../lib/reference.js';
-import { style } from '@mui/system';
+import { getReferenceFromSearchResult } from '../../lib/reference';
 
-const SearchLink = ( { reference, index, count, word } ) => {
+const SearchLink = ( { referenceString, index, count, wordId, isActive } ) => {
 	// State constants
-	const expandedSearchResults = useSelector( state => state.settings.expandedSearchResults );
-	const highlightSearchResults = useSelector( state => state.settings.highlightSearchResults );
-	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
-	const isActive = word && typeof word.current !== 'undefined' && word.current === index;
-	const inSync = useSelector( state => state.settings.inSync );
-	const targetColumn = useSelector( state => state.settings.targetColumn );
-	const stateReference = useSelector( state => state.reference );
-	const compareMode = useSelector( state => state.settings.compareMode );
+	const settings = useSelector( state => state.settings );
+	const compareMode = settings && settings.compareMode;
+	const expandedSearchResults = settings && settings.expandedSearchResults;
+	const highlightSearchResults = settings && settings.highlightSearchResults;
+	const interfaceLanguage = settings && settings.interfaceLanguage;
+
+	const reference = getReferenceFromSearchResult( referenceString );
+	if ( ! reference ) {
+		return null;
+	}
 	const dispatch = useDispatch();
 
 	// Component constants
@@ -59,15 +59,13 @@ const SearchLink = ( { reference, index, count, word } ) => {
 		);
 	};
 
-	const newHash = '/#' + goToReferenceHelper( stateReference, reference, targetColumn, inSync );
-
 	return (
 		<li className={ className }>
-			<a href={ newHash }
+			<a
 				className={ styles.searchLink }
 				onClick={ ( event ) => {
-					if ( word ) {
-						dispatch( setCurrentListResult( word.id, index ) );
+					if ( wordId ) {
+						dispatch( setCurrentListResult( wordId, index ) );
 					}
 					event.stopPropagation();
 					event.preventDefault();

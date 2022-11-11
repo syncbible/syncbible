@@ -84,6 +84,9 @@ export const getLemmasForReference = ( reference, data ) => {
 };
 
 export const getReferenceFromSearchResult = ( result ) => {
+	if ( ! result ) {
+		return null;
+	}
 	const reference = result.split( '.' );
 	return {
 		book: reference[0],
