@@ -31,10 +31,14 @@ const SearchBlock = ( props ) => {
 		const sortedResults = sortBy( countedResultsArray, [ 'value', 'key' ] ).filter( result => result.value > 2 ).reverse();
 
 		renderedResults = sortedResults.map( ( result, index ) => {
-			return <SearchLink key={ index } index={ index } reference={ getReferenceFromSearchResult( result.key ) } terms={ terms } count={ result.value } word={ props } />;
+			const isActive = props && typeof props.current !== 'undefined' && props.current === index;
+			return <SearchLink key={ index } index={ index } referenceString={ result } wordId={ props.id } isActive={ isActive } count={ result.value } />;
 		} );
 	} else {
-		renderedResults = results.map( ( result, index ) => <SearchLink key={ index } index={ index } reference={ getReferenceFromSearchResult( result ) } terms={ terms } word={ props } /> )
+		renderedResults = results.map( ( result, index ) => {
+			const isActive = props && typeof props.current !== 'undefined' && props.current === index;
+			return <SearchLink key={ index } index={ index } referenceString={ result } wordId={ props.id } isActive={ isActive } />;
+		} )
 	}
 
 	return (
