@@ -7,8 +7,6 @@ import { removeFromList, toggleListItemVisible } from '../../actions';
 import Collapsible from '../collapsible';
 import ReferenceLink from '../reference-link';
 import SearchLink from '../search/search-link';
-import { getReferenceFromSearchResult } from '../../lib/reference.js';
-import { getCrossReferencesArray } from '../../lib/cross-references.js';
 import InlineResultsToggle from '../inline-results-toggle';
 
 const Single = ( { bookmark, index } ) => {
@@ -17,9 +15,9 @@ const Single = ( { bookmark, index } ) => {
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const bookmarkRef = useRef();
 	const { data: { reference } } = bookmark;
-	const crossReferencesArray = getCrossReferencesArray( data, reference );
 
 	const handleToggle = () => {
+		console.log( bookmark );
 		dispatch( toggleListItemVisible( bookmark ) );
 	};
 
@@ -36,13 +34,12 @@ const Single = ( { bookmark, index } ) => {
 				{ bookmark.results.length > 0 ? 'Cross references:' : 'No cross references' }
 				<InlineResultsToggle />
 				<div dir={ bible.isRtlVersion( interfaceLanguage ) ? 'rtl' : 'ltr' }>
-					{ bookmark.results.map( ( crossReference, referenceKey ) => {
-						return (
-							<ol key={ referenceKey } title={ crossReferencesArray[ referenceKey ] }>
-								<SearchLink key={ referenceKey } index={ referenceKey } reference={ getReferenceFromSearchResult( crossReference ) } />
-							</ol>
-						);
-					} ) }
+					<ol>
+						{ bookmark.results.map( ( crossReference, referenceKey ) => {
+							const isActive = bookmark && typeof bookmark.current !== 'undefined' && bookmark.current === referenceKey;
+							return <SearchLink key={ referenceKey } index={ referenceKey } referenceString={ crossReference } wordId={ bookmark.id } isActive={ isActive } />;
+						} ) }
+					</ol>
 				</div>
 			</div>
 		);
@@ -64,4 +61,4 @@ const Single = ( { bookmark, index } ) => {
 	);
 };
 
-export default React.memo( Single );
+export default Single; // Adding memo here stops it updating correctly.
