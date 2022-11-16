@@ -17,7 +17,6 @@ const Single = ( { bookmark, index } ) => {
 	const { data: { reference } } = bookmark;
 
 	const handleToggle = () => {
-		console.log( bookmark );
 		dispatch( toggleListItemVisible( bookmark ) );
 	};
 
