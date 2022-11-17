@@ -26,12 +26,7 @@ const CombinedResults = ( { type } ) => {
 		const countedResults = countBy( combined );
 		const countedResultsArray = Object.keys( countedResults ).map(key => ({ key, value: countedResults[key] }));
 		const sortedResults = countedResultsArray.sort( sortCountedReferences ).filter( result => result.value > 1 );
-
-		const combinedResults = sortedResults.map( ( result, index ) => {
-			return (
-				<SearchLink key={ index } index={ index } reference={ getReferenceFromSearchResult( result.key ) } count={ result.value } />
-			);
-		} );
+		const combinedResults = sortedResults.map( ( result, index ) => <SearchLink key={ index } index={ index } referenceString={ result.key } count={ result.value } /> );
 
 		if ( combinedResults.length > 0 ) {
 			return (
