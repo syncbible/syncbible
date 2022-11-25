@@ -1,6 +1,6 @@
 // External dependencies
 import map from 'lodash/map';
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
@@ -19,6 +19,7 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const strongsDictionary = useSelector( state => state.data.strongsDictionary );
 	const strongsWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
+	const [ showDetails, setShowDetails ] = useState( false );
 
 	const getBranchesData = () => {
 		return map( javascripture.data.strongsObjectWithFamilies, ( strongsObjectData, strongsObjectNumber ) => {
@@ -106,36 +107,60 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 		return (
 			<p><a href="#" className="word-block-details__find-all-uses" onClick={ () => dispatch( searchForWord( word.data ) ) }>Find all uses</a></p>
 		);
+ 	}
+	let moreDetails = (
+		<p><a className={ styles.moreDetails } href="#" onClick={ ( event ) => {
+			event.preventDefault();
+			setShowDetails( true );
+		} }>
+			View details
+		</a></p>
+	);
+	if ( showDetails ) {
+		moreDetails = (
+			<>
+				{ strongsNumber } | { wordDetail && stripPointing( wordDetail.lemma ) }
+				{ wordDetail && wordDetail.xlit ? ' | ' + wordDetail.xlit : null }
+				{ wordDetail && wordDetail.translit ? ' | ' + wordDetail.translit : null }
+				{ wordDetail && wordDetail.pronounciation ? ' | ' + wordDetail.pronounciation : null }
+				<br />
+				<div>
+					<strong>Roots: </strong>{ getRoots() }
+				</div>
+				<div>
+					<strong>Branches: </strong>{ getBranches() }
+				</div>
+				<div>
+					<strong>Family: </strong>{ getFamily( strongsNumber, strongsWithFamilies ) }
+				</div>
+				<div>
+					{ strongsWithFamilies && strongsWithFamilies[ strongsNumber ] && strongsWithFamilies[ strongsNumber ].count } uses
+				</div>
+				<br />
+				<div>
+					<strong>Morphology</strong><br />{ morphologyProp } - { morphologyProp && getMorphology() }<br />
+					<br />
+					<strong>KJV translations</strong><br />{ getKJVDefinitions( strongsNumber ) }<br />
+					<br />
+					<strong>Strong's Derivation</strong><br />{ wordDetail && wordDetail.derivation }<br />
+				</div>
+				<br />
+				<p>
+					<a className={ styles.moreDetails } href="#" onClick={ ( event ) => {
+						event.preventDefault();
+						setShowDetails( false );
+					} }>
+						Hide details
+					</a>
+				</p>
+			</>
+		)
 	}
 	let resultsDisplay = getResultsDisplay();
 
 	return (
 		<div>
-			{ strongsNumber } | { wordDetail && stripPointing( wordDetail.lemma ) }
-			{ wordDetail && wordDetail.xlit ? ' | ' + wordDetail.xlit : null }
-			{ wordDetail && wordDetail.translit ? ' | ' + wordDetail.translit : null }
-			{ wordDetail && wordDetail.pronounciation ? ' | ' + wordDetail.pronounciation : null }
-			<br />
-			<div>
-				<strong>Roots: </strong>{ getRoots() }
-			</div>
-			<div>
-				<strong>Branches: </strong>{ getBranches() }
-			</div>
-			<div>
-				<strong>Family: </strong>{ getFamily( strongsNumber, strongsWithFamilies ) }
-			</div>
-			<div>
-				{ strongsWithFamilies && strongsWithFamilies[ strongsNumber ] && strongsWithFamilies[ strongsNumber ].count } uses
-			</div>
-			<br />
-			<div>
-				<strong>Morphology</strong><br />{ morphologyProp } - { morphologyProp && getMorphology() }<br />
-				<br />
-				<strong>KJV translations</strong><br />{ getKJVDefinitions( strongsNumber ) }<br />
-				<br />
-				<strong>Strong's Derivation</strong><br />{ wordDetail && wordDetail.derivation }<br />
-			</div>
+			{ moreDetails }
 			<br />
 			{ resultsDisplay }
 		</div>
