@@ -23,7 +23,7 @@ const CombinedAll = () => {
 	const sortedResults = countedResultsArray.sort( sortCountedReferences );
 
 	const combinedResults = sortedResults.map( ( result, index ) => {
-		return <SearchLink key={ index } index={ index } reference={ getReferenceFromSearchResult( result.key ) } count={ result.value } />
+		return <SearchLink key={ index } index={ index } referenceString={ result.key } wordId={ result.id } count={ result.value } />
 	} );
 
 	return (
