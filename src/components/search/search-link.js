@@ -2,6 +2,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
+import { motion } from "framer-motion"
 
 // Internal dependencies
 import { setCurrentListResult, goToReferenceAction } from '../../actions';
@@ -49,13 +50,24 @@ const SearchLink = ( { referenceString, index, count, wordId, isActive } ) => {
 		const adjustedReference = { book: reference.book, chapter: reference.chapter - 1, verse: reference.verse - 1 };
 		const className = classnames(
 			styles.verse,
-			expandedSearchResults ? styles.verseExpanded : null,
 			compareMode ? styles.compareMode : styles.smallSidebar,
 		);
+		const variants = {
+			open: { height: 'auto' },
+			closed: { height: "0" },
+		}
+
 		return (
-			<div className={ className }>
-				<Verse reference={ adjustedReference } index={ adjustedReference.verse } version={ interfaceLanguage } />
-			</div>
+			<motion.div
+				initial={ expandedSearchResults ? "open" : "closed" }
+				animate={ expandedSearchResults ? "open" : "closed" }
+				variants={ variants }
+				style={{ overflow: 'hidden' }}
+			>
+				<div className={ className }>
+					<Verse reference={ adjustedReference } index={ adjustedReference.verse } version={ interfaceLanguage } />
+				</div>
+			</motion.div>
 		);
 	};
 

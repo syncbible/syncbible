@@ -58,6 +58,7 @@ div.header {
 
 .content {
 	overflow: hidden;
+	padding: .7em;
 
 	ol {
 		line-height: 1.4;
@@ -72,13 +73,4 @@ div.header {
 			}
 		}
 	}
-}
-
-.visible {
-	height: auto;
-	padding: .7em;
-}
-
-.hidden {
-	height: 0;
 }

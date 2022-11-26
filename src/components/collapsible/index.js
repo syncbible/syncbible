@@ -1,12 +1,18 @@
 // External dependencies
 import classnames from 'classnames';
 import React from 'react';
-import WordBlockHeader from '../word-block-header';
+import { motion } from "framer-motion"
 
 // Internal dependencies
 import styles from './styles.scss';
+import WordBlockHeader from '../word-block-header';
 
 const Collapsible = ( { children, className, header, open, onToggle, textToCopy, title, onRemove, onMouseOver, onMouseOut } ) => {
+	const variants = {
+		open: { height: 'auto' },
+		closed: { height: "0" },
+	}
+
 	return (
 		<div className={ styles.collapsible }>
 			<div
@@ -24,9 +30,16 @@ const Collapsible = ( { children, className, header, open, onToggle, textToCopy,
 					{ header }
 				</WordBlockHeader>
 			</div>
-			<div className={ classnames( styles.content, open ? styles.visible : styles.hidden ) }>
-				{ children }
-			</div>
+			<motion.div
+				initial="closed"
+				animate={ open ? "open" : "closed" }
+				variants={ variants }
+				style={{ overflow: 'hidden' }}
+			>
+				<div className={ classnames( styles.content ) }>
+					{ children }
+				</div>
+			</motion.div>
 		</div>
 	)
 };
