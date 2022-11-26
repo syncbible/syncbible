@@ -484,7 +484,7 @@ export const selectWord = ( props ) => {
 			dispatch( setTrayVisibilityFilter( 'word' ) );
 
 			lemma && lemma.split( ' ' ).map( strongsNumber => {
-				if ( strongsNumber === 'G3588' || strongsNumber === 'dvnNm' ) {
+				if ( strongsNumber === 'added' || strongsNumber === 'dvnNm' ) {
 					return;
 				}
 

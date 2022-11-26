@@ -39,10 +39,6 @@ const WordBlock = ( props ) => {
 
 	const wordDetail = strongsDictionary && strongsDictionary[ lemma ];
 
-	if ( lemma === 'G3588' ) {
-		return null;
-	}
-
 	const dispatch = useDispatch();
 
 	const header = (

@@ -26,9 +26,7 @@ const WordSingleComponent = ( props ) => {
 	};
 
 	const highlightWord = () => {
-		if ( lemma !== "G3588" ) {
-			window.updateAppComponent( 'highlightedWord', lemma );
-		}
+		window.updateAppComponent( 'highlightedWord', lemma );
 	};
 
 	const getTitle = () => {

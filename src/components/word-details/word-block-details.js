@@ -83,10 +83,13 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 	} );
 
 	function getResultsDisplay() {
+		const numberOfUses = strongsWithFamilies && strongsWithFamilies[ strongsNumber ] && strongsWithFamilies[ strongsNumber ].count;
+		const useString = numberOfUses === 1 ? 'use' : 'uses';
+		const resultString = numberOfUses === 1 ? 'result' : 'results';
 		if ( results ) {
 			return (
 				<>
-					<strong>Found in</strong> <InlineResultsToggle />
+					Found { numberOfUses } { useString } in: <InlineResultsToggle />
 					<ol className={ styles.results } dir={ bible.isRtlVersion( interfaceLanguage ) ? 'rtl' : 'ltr' }>
 						{ results }
 					</ol>
@@ -96,7 +99,7 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 
 		if ( word.loading ) {
 			return (
-				<p>Loading search results.</p>
+				<p>Loading { numberOfUses } search { resultString }.</p>
 			);
 		}
 
@@ -105,7 +108,7 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 		}
 
 		return (
-			<p><a href="#" className="word-block-details__find-all-uses" onClick={ () => dispatch( searchForWord( word.data ) ) }>Find all uses</a></p>
+			<p><a href="#" className="word-block-details__find-all-uses" onClick={ () => dispatch( searchForWord( word.data ) ) }>Find { numberOfUses } { useString } { numberOfUses > 1000 && <span>(slow!)</span> }</a></p>
 		);
  	}
 	let moreDetails = (
