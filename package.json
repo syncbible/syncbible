@@ -43,6 +43,7 @@
     "connected-react-router": "^6.9.1",
     "css-loader": "^5.2.6",
     "debug": "^4.3.1",
+    "framer-motion": "^7.6.12",
     "history": "^4.10.1",
     "hoist-non-react-statics": "^3.3.2",
     "http-server": "^0.12.3",

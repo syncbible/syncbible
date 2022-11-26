@@ -2,6 +2,7 @@
 import map from 'lodash/map';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { motion } from "framer-motion"
 
 // Internal dependencies
 import KJVDef from './kjv-def';
@@ -22,18 +23,18 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 	const [ showDetails, setShowDetails ] = useState( false );
 
 	const getBranchesData = () => {
-		return map( javascripture.data.strongsObjectWithFamilies, ( strongsObjectData, strongsObjectNumber ) => {
+		return strongsWithFamilies && map( strongsWithFamilies, ( strongsObjectData, strongsObjectNumber ) => {
 			if ( strongsObjectData.roots && strongsObjectData.roots.indexOf( strongsNumber ) > -1 ) {
 				return (
 					<WordBlockLink key={ strongsObjectNumber } strongsNumber={ strongsObjectNumber } version={ version } />
 				);
 			}
-		} );
+		} ).filter( branches => branches );
 	};
 
 	const getBranches = () => {
 		const branchesData = getBranchesData();
-		if ( branchesData ) {
+		if ( branchesData && branchesData.length > 0 ) {
 			return branchesData;
 		}
 
@@ -111,59 +112,57 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 			<p><a href="#" className="word-block-details__find-all-uses" onClick={ () => dispatch( searchForWord( word.data ) ) }>Find { numberOfUses } { useString } { numberOfUses > 1000 && <span>(slow!)</span> }</a></p>
 		);
  	}
-	let moreDetails = (
+	const toggleDetails = (
 		<p><a className={ styles.moreDetails } href="#" onClick={ ( event ) => {
 			event.preventDefault();
-			setShowDetails( true );
+			setShowDetails( ! showDetails );
 		} }>
-			View details
+			{ showDetails ? 'Hide' : 'View '} details
 		</a></p>
 	);
-	if ( showDetails ) {
-		moreDetails = (
-			<>
-				{ strongsNumber } | { wordDetail && stripPointing( wordDetail.lemma ) }
-				{ wordDetail && wordDetail.xlit ? ' | ' + wordDetail.xlit : null }
-				{ wordDetail && wordDetail.translit ? ' | ' + wordDetail.translit : null }
-				{ wordDetail && wordDetail.pronounciation ? ' | ' + wordDetail.pronounciation : null }
-				<br />
-				<div>
-					<strong>Roots: </strong>{ getRoots() }
-				</div>
-				<div>
-					<strong>Branches: </strong>{ getBranches() }
-				</div>
-				<div>
-					<strong>Family: </strong>{ getFamily( strongsNumber, strongsWithFamilies ) }
-				</div>
-				<div>
-					{ strongsWithFamilies && strongsWithFamilies[ strongsNumber ] && strongsWithFamilies[ strongsNumber ].count } uses
-				</div>
-				<br />
-				<div>
-					<strong>Morphology</strong><br />{ morphologyProp } - { morphologyProp && getMorphology() }<br />
-					<br />
-					<strong>KJV translations</strong><br />{ getKJVDefinitions( strongsNumber ) }<br />
-					<br />
-					<strong>Strong's Derivation</strong><br />{ wordDetail && wordDetail.derivation }<br />
-				</div>
-				<br />
-				<p>
-					<a className={ styles.moreDetails } href="#" onClick={ ( event ) => {
-						event.preventDefault();
-						setShowDetails( false );
-					} }>
-						Hide details
-					</a>
-				</p>
-			</>
-		)
+	const variants = {
+		open: { height: 'auto' },
+		closed: { height: "0" },
 	}
+	const moreDetails = (
+		<motion.div
+			initial="closed"
+			animate={ showDetails ? "open" : "closed" }
+			variants={ variants }
+			style={{ overflow: 'hidden' }}
+		>
+			{ strongsNumber } | { wordDetail && stripPointing( wordDetail.lemma ) }
+			{ wordDetail && wordDetail.xlit ? ' | ' + wordDetail.xlit : null }
+			{ wordDetail && wordDetail.translit ? ' | ' + wordDetail.translit : null }
+			{ wordDetail && wordDetail.pronounciation ? ' | ' + wordDetail.pronounciation : null }
+			<br />
+			<div>
+				<strong>Roots: </strong>{ getRoots() }
+			</div>
+			<div>
+				<strong>Branches: </strong>{ getBranches() }
+			</div>
+			<div>
+				<strong>Family: </strong>{ getFamily( strongsNumber, strongsWithFamilies ) }
+			</div>
+			<br />
+			<div>
+				<strong>Morphology</strong><br />{ morphologyProp } - { morphologyProp && getMorphology() }<br />
+				<br />
+				<strong>KJV translations</strong><br />{ getKJVDefinitions( strongsNumber ) }<br />
+				<br />
+				<strong>Strong's Derivation</strong><br />{ wordDetail && wordDetail.derivation }<br />
+			</div>
+			<br />
+		</motion.div>
+	);
+
 	let resultsDisplay = getResultsDisplay();
 
 	return (
-		<div>
+		<div className={ styles.wordBlocDetails }>
 			{ moreDetails }
+			{ toggleDetails }
 			<br />
 			{ resultsDisplay }
 		</div>
