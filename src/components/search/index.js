@@ -19,18 +19,17 @@ import VersionSelect from '../version-select';
 import styles from './styles.scss';
 import SearchResults from './search-results';
 import CombinedResults from '../word-details/combined';
+import withPropsChecker from '../determine-changed-props';
 
 const isSimpleLemmaSearch = ( { lemma, word, morph, clusivity, range } ) => {
 	return lemma && lemma.indexOf( ' ' ) < 1 && ! word && ! morph && clusivity === 'exclusive' && range === 'verse';
 };
 
-const Search = () => {
+const Search = ( { isActive } ) => {
 	const searchAdvanced = useSelector( state => state.searchAdvanced );
 	const settings = useSelector( state => state.settings );
 	const searchForm = useSelector( state => state.searchForm );
-	const versions = bible.Data.supportedVersions;
 	const data = useSelector( state => state.data );
-	const trays = useSelector( state => state.trays );
 	const dispatch = useDispatch();
 	javascripture.reactHelpers.dispatch = dispatch;
 
@@ -84,7 +83,6 @@ const Search = () => {
 		change( event );
 		dispatch( fetchData( event.target.value ) );
 	};
-
 	const pickerButton = ( mode ) => {
 		return (
 			<button
@@ -99,7 +97,7 @@ const Search = () => {
 	let textInput = null;
 	useEffect( () => {
 		textInput.focus();
-	}, [ trays ] );
+	}, [ isActive ] );
 
 	// Get the data if its not loaded
 	useEffect( () => {

@@ -8,13 +8,14 @@ import styles from './styles.scss';
 const TrayList = ( { trays } ) => {
 	const activeTray = useSelector( state => state.trays );
 	return trays.map( tray => {
+		const isActive = activeTray === tray.id;
 		return (
 			<div
 				key={ tray.id }
-				className={ activeTray === tray.id ? styles.visible : styles.hidden }
+				className={ isActive ? styles.visible : styles.hidden }
 			>
 				<div className={ styles.tray }>
-					{ tray.component }
+					<tray.component active={ isActive } />
 				</div>
 			</div>
 		);
