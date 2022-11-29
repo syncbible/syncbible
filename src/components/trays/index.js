@@ -23,6 +23,7 @@ import WordDetails from '../word-details';
 import CombinedAll from '../combined-all';
 import Help from './help';
 import Search from '../search';
+import WordStats from '../word-details'
 
 // SVGs
 import BookSvg from '../svg/book.js';
@@ -32,10 +33,10 @@ import HelpSvg from '../svg/help.js';
 import EyeSvg from '../svg/eye.js';
 import StatsSvg from '../svg/stats.js';
 import SearchSvg from '../svg/search.js';
+import TableChartSvg from '../svg/table-chart.js';
 import CalendarSvg from '../svg/calendar.js';
 import JoinFull from '../svg/join-full.js';
 import CogSvg from '../svg/cog.js';
-import { style } from '@mui/system';
 
 const trays = [
 	{
@@ -78,7 +79,7 @@ const trays = [
 		id: 'stats',
 		text: 'Stats',
 		component: Stats,
-		icon: <StatsSvg />,
+		icon: <TableChartSvg />,
 	},
 	{
 		visible: false,

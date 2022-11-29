@@ -1,6 +1,7 @@
 // External dependencies
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { motion } from "framer-motion"
 
 // Internal dependencies
 import {
@@ -103,6 +104,11 @@ const SearchForm = ( { isActive } ) => {
 		}
 	}, [ searchForm.version ] );
 
+	const variants = {
+		open: { height: 'auto' },
+		closed: { height: "0" },
+	}
+
 	return (
 		<div className={ styles.search }>
 			<form onSubmit={ submit }>
@@ -112,7 +118,12 @@ const SearchForm = ( { isActive } ) => {
 					{ pickerButton( 'word' ) }
 				</fieldset>
 				{ searchAdvanced && (
-					<div>
+					<motion.div
+						initial={ searchAdvanced ? "open" : "closed" }
+						animate={ searchAdvanced ? "open" : "closed" }
+						variants={ variants }
+						style={{ overflow: 'hidden' }}
+					>
 						<fieldset>
 							<label htmlFor="lemma" className="has-placeholder">Strongs number</label>
 							<input className={ styles.hasPicker } type="text" name="lemma" placeholder="Strongs number" onChange={ change } value={ searchForm.lemma } />
@@ -143,7 +154,7 @@ const SearchForm = ( { isActive } ) => {
 						<fieldset>
 							<label>Show the verse for context:</label> <input type="checkbox" name="expandedSearchResults" checked={ settings.expandedSearchResults } onChange={ changeExpandedResultsSetting } />
 						</fieldset>
-					</div>
+					</motion.div>
 				) }
 				<fieldset className={ styles.advanced }><a onClick={ showAdvanced }>{ searchAdvanced ? 'Hide advanced' : 'Show advanced' }</a></fieldset>
 				<fieldset>

@@ -73,53 +73,30 @@ const MoreDetails = ( { morphologyProp, strongsNumber, version } ) => {
 		} );
 	}
 
-	const getToggleDetails = () => (
-		<p><a className={ styles.moreDetails } href="#" onClick={ ( event ) => {
-			event.preventDefault();
-			setShowDetails( ! showDetails );
-		} }>
-			{ showDetails ? 'Hide' : 'View '} details
-		</a></p>
-	);
-
-	const variants = {
-		open: { height: 'auto' },
-		closed: { height: "0" },
-	}
-
 	return (
 		<>
-			<motion.div
-				initial="closed"
-				animate={ showDetails ? "open" : "closed" }
-				variants={ variants }
-				style={{ overflow: 'hidden' }}
-			>
-				{ strongsNumber } | { wordDetail && stripPointing( wordDetail.lemma ) }
-				{ wordDetail && wordDetail.xlit ? ' | ' + wordDetail.xlit : null }
-				{ wordDetail && wordDetail.translit ? ' | ' + wordDetail.translit : null }
-				{ wordDetail && wordDetail.pronounciation ? ' | ' + wordDetail.pronounciation : null }
+			{ strongsNumber } | { wordDetail && stripPointing( wordDetail.lemma ) }
+			{ wordDetail && wordDetail.xlit ? ' | ' + wordDetail.xlit : null }
+			{ wordDetail && wordDetail.translit ? ' | ' + wordDetail.translit : null }
+			{ wordDetail && wordDetail.pronounciation ? ' | ' + wordDetail.pronounciation : null }
+			<br />
+			<div>
+				<strong>Roots: </strong>{ getRoots() }
+			</div>
+			<div>
+				<strong>Branches: </strong>{ getBranches() }
+			</div>
+			<div>
+				<strong>Family: </strong>{ getFamily( strongsNumber, strongsWithFamilies ) }
+			</div>
+			<br />
+			<div>
+				<strong>Morphology</strong><br />{ morphologyProp } - { morphologyProp && getMorphology() }<br />
 				<br />
-				<div>
-					<strong>Roots: </strong>{ getRoots() }
-				</div>
-				<div>
-					<strong>Branches: </strong>{ getBranches() }
-				</div>
-				<div>
-					<strong>Family: </strong>{ getFamily( strongsNumber, strongsWithFamilies ) }
-				</div>
+				<strong>KJV translations</strong><br />{ getKJVDefinitions( strongsNumber ) }<br />
 				<br />
-				<div>
-					<strong>Morphology</strong><br />{ morphologyProp } - { morphologyProp && getMorphology() }<br />
-					<br />
-					<strong>KJV translations</strong><br />{ getKJVDefinitions( strongsNumber ) }<br />
-					<br />
-					<strong>Strong's Derivation</strong><br />{ wordDetail && wordDetail.derivation }<br />
-				</div>
-				<br />
-			</motion.div>
-			{ getToggleDetails() }
+				<strong>Strong's Derivation</strong><br />{ wordDetail && wordDetail.derivation }<br />
+			</div>
 		</>
 	);
 };
