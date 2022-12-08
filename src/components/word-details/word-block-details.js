@@ -75,9 +75,9 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 	return (
 		<>
 			<div className={ styles.tabs }>
-				<a className={ activeTab === 'search' && styles.active } onClick={ () => setActiveTab( 'search' ) }><Search /></a>
-				<a className={ activeTab === 'more' && styles.active } onClick={ () => setActiveTab( 'more' ) }><Translate /></a>
-				<a className={ activeTab === 'stats' && styles.active } onClick={ () => setActiveTab( 'stats' ) }><Stats /></a>
+				<a className={ activeTab === 'search' ? styles.active : '' } onClick={ () => setActiveTab( 'search' ) }><Search /></a>
+				<a className={ activeTab === 'more' ? styles.active : '' } onClick={ () => setActiveTab( 'more' ) }><Translate /></a>
+				<a className={ activeTab === 'stats' ? styles.active : '' } onClick={ () => setActiveTab( 'stats' ) }><Stats /></a>
 			</div>
 			<div className={ styles.wordBlocDetails }>
 				{ getActiveTab() }
