@@ -13,7 +13,10 @@ const CombinedAll = () => {
 	const list = useSelector( state => state.list );
 	let combined = [];
 	list.forEach( ( item ) => {
-		const results = item.results;
+		let results = item.results;
+		if ( item.results && ! item.results.length ) {
+			results = Object.keys( item.results );
+		}
 		const uniqueResults = [ ...new Set( results ) ];
 		combined = combined.concat( uniqueResults );
 	} );

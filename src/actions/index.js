@@ -125,6 +125,16 @@ function postMessageToWorker( task, parameters, state ) {
 	} );
 }
 
+const getResultsForWord = ( versionData, strongsNumber ) => {
+	const resultData = {};
+	Object.keys( versionData ).forEach( book => versionData[ book ].forEach( ( chapter, chapterNumber ) => chapter.forEach( ( verse, verseNumber ) => verse.forEach( word => {
+		if ( word[1] === strongsNumber ) { // TODO make word[1] an array first.
+			resultData[ book + '.' + ( chapterNumber + 1 ) + '.' + ( verseNumber + 1 ) ] = word;
+		}
+	} ) ) ) );
+	return resultData;
+};
+
 export const addWord = ( word ) => {
 	return function( dispatch, getState ) {
 		word.data.clusivity = 'exclusive';
@@ -135,10 +145,15 @@ export const addWord = ( word ) => {
 
 		const state = getState();
 		const strongsObjectWithFamilies = state.data.strongsObjectWithFamilies;
+		const versionData = state.data[ word.data.version ];
 		const uses = strongsObjectWithFamilies[ word.data.lemma ].count;
 
 		if ( uses < 100 ) {
-			postMessageToWorker( 'search', word.data, getState() );
+			dispatch( {
+				terms: word.data,
+				results: getResultsForWord( versionData, word.data.lemma ),
+				type: 'ADD_SEARCH_RESULTS',
+			} );
 		}
 	}
 }

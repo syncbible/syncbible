@@ -12,7 +12,6 @@ import InlineResultsToggle from '../inline-results-toggle'
 import { searchForWord } from '../../actions'
 import MoreDetails from './more-details';
 import WordStats from './word-stats';
-import { style } from '@mui/system';
 
 const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) => {
 	const dispatch = useDispatch();
@@ -20,7 +19,11 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 	const strongsWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
 	const [ activeTab, setActiveTab ] = useState( 'search' );
 
-	const results = word.results && word.results.map( ( result, index ) => {
+	let resultsData = word.results;
+	if ( word.results && ! word.results.length ) {
+		resultsData = Object.keys( word.results )
+	}
+	const results = resultsData && resultsData.map( ( result, index ) => {
 		const isActive = word && typeof word.current !== 'undefined' && word.current === index;
 		return <SearchLink key={ index } index={ index } referenceString={ result } wordId={ word.id } isActive={ isActive } />;
 	} );

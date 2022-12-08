@@ -26,7 +26,11 @@ const WordStats = ( { strongsNumber } ) => {
 			</>
 		);
 	}
-	const results = wordForResults.results;
+
+	let results = wordForResults.results;
+	if ( ! wordForResults.results.length ) {
+		results = Object.keys( wordForResults.results );
+	}
 	const resultsArray = results.map( ( result ) => result.split('.') );
 	const resultsByBook = groupBy( resultsArray, 0 );
 	const resultsByBookSorted = orderBy( resultsByBook, ['length'], ['desc'] );

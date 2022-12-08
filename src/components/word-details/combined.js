@@ -18,7 +18,10 @@ const CombinedResults = ( { type } ) => {
 	if ( words.length ) {
 		let combined = [];
 		words.forEach( ( word ) => {
-			const results = word.results;
+			let results = word.results;
+			if ( word.results && ! word.results.length ) {
+				results = Object.keys( word.results );
+			}
 			const uniqueResults = [ ...new Set( results ) ];
 			combined = combined.concat( uniqueResults );
 		} );
