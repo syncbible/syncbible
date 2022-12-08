@@ -17,7 +17,6 @@ const WordStats = ( { strongsNumber } ) => {
 		</select>
 	);
 
-
 	const wordForResults = words.length > 0 && words.find( word => word.data.lemma === strongsNumber );
 	if ( ! wordForResults || ! wordForResults.results ) {
 		return (
