@@ -14,6 +14,8 @@ const WordStats = ( { strongsNumber } ) => {
 			<option value="book-sorted">by book ↓</option>
 			<option value="chapter">by chapter</option>
 			<option value="chapter-sorted">by chapter ↓</option>
+			<option value="word">by word</option>
+			<option value="morph">by morph</option>
 		</select>
 	);
 
@@ -37,6 +39,13 @@ const WordStats = ( { strongsNumber } ) => {
 		return item[0] + ' ' + item[1];
 	} );
 	const resultsByChapterSorted = orderBy( resultsByChapter, [ 'length' ], ['desc'] );
+	const resultsByWord = groupBy( wordForResults.results, function( item ) {
+		return item[0];
+	} );
+	const resultsByMorph = groupBy( wordForResults.results, function( item ) {
+		return item[2];
+	} );
+
 	let resultsToDisplay = resultsByBook;
 	if ( selectedGroup === 'book-sorted' ) {
 		resultsToDisplay = resultsByBookSorted;
@@ -47,6 +56,19 @@ const WordStats = ( { strongsNumber } ) => {
 	if ( selectedGroup === 'chapter-sorted' ) {
 		resultsToDisplay = resultsByChapterSorted;
 	}
+	if ( selectedGroup === 'word' ) {
+		resultsToDisplay = resultsByWord;
+	}
+	if ( selectedGroup === 'morph' ) {
+		resultsToDisplay = resultsByMorph;
+	}
+
+	const getLabel = ( result ) => {
+		if ( selectedGroup === 'morph' ) {
+			return result[2];
+		}
+		return result[0];
+	}
 
 	return (
 		<div className="word-stats">
@@ -56,7 +78,7 @@ const WordStats = ( { strongsNumber } ) => {
 				return (
 					<div key={ index } className={ styles.wordStatsResult } style={{ position: 'relative' }}>
 						<span className={ strongsNumber } style={{ width: percent, display: 'inline-block', position: 'absolute', height: '1.2em', top: 0, right: 0 }}></span>
-						<span className={ styles.wordStatsResultText } style={{ position: 'relative' }} >{ resultsToDisplay[result][0][0] } { ( selectedGroup === 'chapter' || selectedGroup === 'chapter-sorted' ) && resultsToDisplay[result][0][1] } - { resultsToDisplay[ result ].length } ({ percent })</span>
+						<span className={ styles.wordStatsResultText } style={{ position: 'relative' }} >{ getLabel( resultsToDisplay[result][0] ) } { ( selectedGroup === 'chapter' || selectedGroup === 'chapter-sorted' ) && resultsToDisplay[result][0][1] } - { resultsToDisplay[ result ].length } ({ percent })</span>
 					</div>
 				);
 			} ) }

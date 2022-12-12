@@ -192,7 +192,7 @@ const ReferenceComponent = ( props ) => {
 						<Waypoint
 							onEnter={ ( event ) => handleWaypointEnter( event, book, chapter ) }
 							onLeave={ ( event ) => handleWaypointLeave( event, book, chapter ) }
-							topOffset={ 65 } // This is the height of the dock
+							topOffset={ 0 } // This is the height of the dock
 						/>
 						<Chapter
 							book={ book }
