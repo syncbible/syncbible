@@ -128,7 +128,7 @@ function postMessageToWorker( task, parameters, state ) {
 const getResultsForWord = ( versionData, strongsNumber ) => {
 	const resultData = {};
 	Object.keys( versionData ).forEach( book => versionData[ book ].forEach( ( chapter, chapterNumber ) => chapter.forEach( ( verse, verseNumber ) => verse.forEach( word => {
-		const lemmaArray = word[1] && word[1].split(' ');
+		const lemmaArray = word[1] && word[1].split(/ |\//);
 		if ( lemmaArray && lemmaArray.indexOf( strongsNumber ) > -1 ) {
 			resultData[ book + '.' + ( chapterNumber + 1 ) + '.' + ( verseNumber + 1 ) ] = word;
 		}
