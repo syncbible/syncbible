@@ -62,6 +62,27 @@ const WordSingleComponent = ( props ) => {
 		} )
 	}
 
+	const getPromptText = () => {
+		let suggestions = word;
+		// Check the translations have loaded.
+		if ( data.farsiTranslations && data.farsiTranslations[ word ] ) {
+			const farsiTranslations = data.farsiTranslations[ word ];
+			suggestions += '\r\nSuggested translation:\r\n' + farsiTranslations.translation + '\r\n\r\nAdditional translations:\r\n' + parseTranslations( farsiTranslations ) + '\r\n\r\n';
+		}
+		if ( data.original ) {
+			suggestions += 'Options:\r\n';
+			suggestions += data.original[ book ][ chapter ][ verse ].map( word => {
+				const lemma = word[1];
+				return lemma.split( '/' ).map( strongsNumber => {
+					const kjv_def = data.strongsDictionary[ strongsNumber ].kjv_def;
+					return strongsNumber + ' - ' + kjv_def;
+				} ).join( '\r\n\r\n' );
+			} ).join( '\r\n\r\n' );
+			 suggestions += '\r\n';
+		}
+		return suggestions;
+	}
+
 	return (
 		<span
 			className={ getClassName() }
@@ -77,18 +98,14 @@ const WordSingleComponent = ( props ) => {
 
 					// Update the farsi strongs translation.
 					if ( version === 'NMV_strongs' ) {
-						let suggestions = '';
-						// Check the translations have loaded.
-						if ( data.farsiTranslations && data.farsiTranslations[ word ] ) {
-							const farsiTranslations = data.farsiTranslations[ word ];
-							suggestions = '\r\nSuggested translation:\r\n' + farsiTranslations.translation + '\r\n\r\nAdditional translations:\r\n' + parseTranslations( farsiTranslations )
-						}
 
-						const newStrongsNumber = window.prompt( word + suggestions, lemma );
-						// Update the data in memory.
-						data['NMV_strongs'][ book ][ chapter ][ verse ][ index ] = [ word, newStrongsNumber ];
-						// Push the update to the store.
-						dispatch( receiveData( 'NMV_strongs', data['NMV_strongs'] ) );
+						const newStrongsNumber = window.prompt( getPromptText(), lemma );
+						if ( newStrongsNumber !== null ) {
+							// Update the data in memory.
+							data['NMV_strongs'][ book ][ chapter ][ verse ][ index ] = [ word, newStrongsNumber ];
+							// Push the update to the store.
+							dispatch( receiveData( 'NMV_strongs', data['NMV_strongs'] ) );
+						}
 					}
 				} else {
 					dispatch( selectWord( props ) );

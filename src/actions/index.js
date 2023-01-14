@@ -369,6 +369,9 @@ export const fetchData = ( key ) => {
 
 		// If we load NMV_strongs, we need to load the translation data as well.
 		if ( key === 'NMV_strongs' ) {
+			// We also need to load the original to get suggestions.
+			dispatch( fetchData( 'original' ) );
+
 			xhr( {
 				method: "get",
 				uri: "/data/farsi-translations.json",
@@ -386,7 +389,6 @@ export const fetchData = ( key ) => {
 				});
 			} );
 		}
-
 
 		return xhr( {
 			method: "get",
