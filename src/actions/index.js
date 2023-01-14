@@ -367,8 +367,8 @@ export const fetchData = ( key ) => {
 
 		dispatch( requestData( key ) );
 
-		// If we load NMV_ESV_strongs, we need to load the translation data as well.
-		if ( key === 'NMV_ESV_strongs' ) {
+		// If we load NMV_strongs, we need to load the translation data as well.
+		if ( key === 'NMV_strongs' ) {
 			xhr( {
 				method: "get",
 				uri: "/data/farsi-translations.json",
