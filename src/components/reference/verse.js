@@ -44,7 +44,7 @@ const Verse = ( { reference, version } ) => {
 	const verseData = data[ language ][ book ][ chapter ][ verse ] ;
 	if ( verseData && verseData.map ) {
 		words = verseData.map( ( word, index ) => {
-			const wordComponentInstance = <Word word={ word } key={ index } version={ version } prevWord={ prevWord }/>;
+			const wordComponentInstance = <Word word={ word } index={ index } key={ index } version={ version } prevWord={ prevWord } reference={ reference } />;
 			prevWord = word;
 			return wordComponentInstance;
 		} );

@@ -20,7 +20,7 @@ function startsWithPunctuation( word ) {
 		word.indexOf( ',' ) === 0;
 }
 
-const WordComponent = ( { word, version, prevWord } ) => {
+const WordComponent = ( { word, version, prevWord, reference, index } ) => {
 	if ( ! word ) {
 		return null;
 	}
@@ -62,10 +62,10 @@ const WordComponent = ( { word, version, prevWord } ) => {
 		const morphSingle = getMorphSingle( key );
 		const wordSingle = getWordSingle( wordSingleValue, lemmaSingle, morphSingle );
 		if ( version === 'LC' ) {
-			return <React.Fragment key={ key }> <WordSingle key={ key } lemma={ lemmaSingle } word={ wordSingleValue } wordText={ wordSingle } morph={ morphSingle } version={ version } /></React.Fragment>;
+			return <React.Fragment key={ key }> <WordSingle key={ key } lemma={ lemmaSingle } word={ wordSingleValue } wordText={ wordSingle } morph={ morphSingle } version={ version } reference={ reference } index={ index } /></React.Fragment>;
 
 		}
-		return <WordSingle key={ key } lemma={ lemmaSingle } word={ wordSingleValue } wordText={ wordSingle } morph={ morphSingle } version={ version } />;
+		return <WordSingle key={ key } lemma={ lemmaSingle } word={ wordSingleValue } wordText={ wordSingle } morph={ morphSingle } version={ version } reference={ reference } index={ index } />;
 	} );
 
 	if ( startsWithPunctuation( wordValue ) ) {

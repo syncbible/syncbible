@@ -350,7 +350,7 @@ function requestData( key ) {
 	}
 }
 
-function receiveData( key, data ) {
+export function receiveData( key, data ) {
 	return {
 		type: 'RECEIVE_DATA',
 		key,
@@ -366,6 +366,27 @@ export const fetchData = ( key ) => {
 		}
 
 		dispatch( requestData( key ) );
+
+		// If we load NMV_ESV_strongs, we need to load the translation data as well.
+		if ( key === 'NMV_ESV_strongs' ) {
+			xhr( {
+				method: "get",
+				uri: "/data/farsi-translations.json",
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}, function ( error, response, body ) {
+				const parsedData = JSON.parse( body );
+				dispatch( receiveData( 'farsiTranslations', parsedData ) );
+
+				caches.open( cache ).then( function( cache ) {
+					return cache.addAll([
+						'/data/farsi-translations.json',
+					]);
+				});
+			} );
+		}
+
 
 		return xhr( {
 			method: "get",

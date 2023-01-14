@@ -1,5 +1,5 @@
 // External dependencies
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
@@ -15,7 +15,6 @@ const SettingsTray = () => {
 	const dispatch = useDispatch();
 	const settings = useSelector( state => state.settings );
 	const reference = useSelector( state => state.reference );
-	const LC = useSelector( state => state.data.LC );
 
  	// remove this line
 	javascripture.state.settings = settings;
