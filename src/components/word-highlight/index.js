@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 // Internal
 import { getHighlight, getHighlightBorder } from '../strongs-color.js';
+import { isValidWord } from '../../lib/word.js';
 
 const WordHighlight = ( { word } ) => {
 	const settings = useSelector( state => state.settings );
@@ -13,7 +14,7 @@ const WordHighlight = ( { word } ) => {
 	return (
 		<style>
 			{ word && word.split(/[/, ]/).map( word => {
-				if ( word === 'added' || word === 'divineName' ) {
+				if ( ! isValidWord( word ) ) {
 					return;
 				}
 

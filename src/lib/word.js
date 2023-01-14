@@ -9,3 +9,7 @@ export const getFamily = ( strongsNumber, strongsObjectWithFamilies ) => {
 		return strongsNumber;
 	}
 };
+
+export function isValidWord( strongsNumber ) {
+	return strongsNumber !== 'added' && strongsNumber !== 'divineName' && strongsNumber !== 'G3588';
+}

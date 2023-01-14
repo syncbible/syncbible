@@ -98,7 +98,6 @@ const WordSingleComponent = ( props ) => {
 
 					// Update the farsi strongs translation.
 					if ( version === 'NMV_strongs' ) {
-
 						const newStrongsNumber = window.prompt( getPromptText(), lemma );
 						if ( newStrongsNumber !== null ) {
 							// Update the data in memory.

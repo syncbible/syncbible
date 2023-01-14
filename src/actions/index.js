@@ -1,5 +1,10 @@
 var cache = 'syncbible.23.0.1672175789';
+
+// External dependencies.
 import xhr from 'xhr';
+import { push } from 'connected-react-router';
+
+// Internal dependencies.
 import {
 	addColumnHelper,
 	deleteColumnHelper,
@@ -9,7 +14,7 @@ import {
 	getUnSyncReference,
 	getNewVersionHash,
 } from '../lib/reference.js';
-import { push } from 'connected-react-router';
+import { isValidWord } from '../lib/word.js';
 
 export const goToReferenceAction = ( reference, targetColumn ) => {
 	return function( dispatch, getState ) {
@@ -523,7 +528,7 @@ export const selectWord = ( props ) => {
 			dispatch( setTrayVisibilityFilter( 'word' ) );
 
 			lemma && lemma.split( ' ' ).map( strongsNumber => {
-				if ( strongsNumber === 'added' || strongsNumber === 'dvnNm' ) {
+				if ( ! isValidWord( strongsNumber ) ) {
 					return;
 				}
 
