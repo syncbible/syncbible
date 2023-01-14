@@ -76,7 +76,7 @@ const WordSingleComponent = ( props ) => {
 					}
 
 					// Update the farsi strongs translation.
-					if ( version === 'NMV_ESV_strongs' ) {
+					if ( version === 'NMV_strongs' ) {
 						let suggestions = '';
 						// Check the translations have loaded.
 						if ( data.farsiTranslations && data.farsiTranslations[ word ] ) {
@@ -86,9 +86,9 @@ const WordSingleComponent = ( props ) => {
 
 						const newStrongsNumber = window.prompt( word + suggestions, lemma );
 						// Update the data in memory.
-						data['NMV_ESV_strongs'][ book ][ chapter ][ verse ][ index ] = [ word, newStrongsNumber ];
+						data['NMV_strongs'][ book ][ chapter ][ verse ][ index ] = [ word, newStrongsNumber ];
 						// Push the update to the store.
-						dispatch( receiveData( 'NMV_ESV_strongs', data['NMV_ESV_strongs'] ) );
+						dispatch( receiveData( 'NMV_strongs', data['NMV_strongs'] ) );
 					}
 				} else {
 					dispatch( selectWord( props ) );

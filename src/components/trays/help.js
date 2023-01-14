@@ -52,8 +52,8 @@ const HelpTray = () => {
 				<p><a href="https://github.com/openscriptures/morphhb">Hebrew text source</a></p>
 				<p><a href="https://github.com/javascripture/javascripture/blob/gh-pages/data/literalConsistent.js">Literal: A work in progress</a>.
 				<a onClick={ () => exportFile( 'LC' ) }>export</a></p>
-				<p><a href="https://github.com/syncbible/syncbible/blob/trunk/bibles/NMV_ESV_strongs.js">NMV_strongs: A Farsi bible with strongs numbers</a>.
-				<a onClick={ () => exportFile( 'NMV_ESV_strongs') }>export</a></p>
+				<p><a href="https://github.com/syncbible/syncbible/blob/trunk/bibles/NMV_strongs.js">NMV_strongs: A Farsi bible with strongs numbers</a>.
+				<a onClick={ () => exportFile( 'NMV_strongs') }>export</a></p>
 				<br />
 				ESV: The Holy Bible, English Standard Version ©2011 Crossway Bibles, a division of Good News Publishers. All rights reserved.<br />
 				<p><br />Version: { typeof( javascripture.sw ) !== 'undefined' ? javascripture.sw : null }</p>
