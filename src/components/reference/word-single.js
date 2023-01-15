@@ -54,7 +54,7 @@ const WordSingleComponent = ( props ) => {
 			titleText += '  |  ' + farsiTranslations.translation;
 
 			const listOfTranslations = parseTranslations( farsiTranslations );
-			if ( listOfTranslations ) {
+			if ( listOfTranslations.length > 0 ) {
 				titleText += '  |  ' + listOfTranslations;
 			}
 		}
