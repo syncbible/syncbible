@@ -64,6 +64,24 @@ export const getAllLemmasFromReference = ( reference, data ) => {
 	return lemmas.join( ' ' );
 };
 
+function getLemmasForBook( reference, data ) {
+	return data.original[ reference.book ].map( ( chapter, chapterNumber ) => {
+		return getLemmasForChapter( { ...reference, chapter: chapterNumber + 1 }, data );
+	} ).flat();
+}
+
+function getLemmasForChapter( reference, data ) {
+	return data.original[ reference.book ][ reference.chapter - 1 ].map( ( verse, verseNumber ) => {
+		return getLemmasForVerse( { ...reference, verse: verseNumber + 1 }, data )
+	} ).flat();
+}
+
+function getLemmasForVerse( reference, data ) {
+	return data[ 'original' ][ reference.book ][ reference.chapter - 1 ][ reference.verse - 1 ].map( word => {
+		return word[ 1 ].split('/');
+	} ).flat();
+}
+
 export const getLemmasForReference = ( reference, data ) => {
 	if ( typeof data === 'undefined' || typeof data.original === 'undefined' || typeof data.original[ reference.book ] === 'undefined' ) {
 		return [];
@@ -71,29 +89,16 @@ export const getLemmasForReference = ( reference, data ) => {
 
 	// Get lemmas for book.
 	if ( ! reference.chapter || reference.chapter === 'all' ) {
-		return data.original[ reference.book ].map( chapter => {
-			return chapter.map( verse => {
-				return verse.map( word => {
-					return word[ 1 ].split('/');
-				} ).flat();
-			} ).flat();
-		} ).flat();
+		return getLemmasForBook( reference, data );
 	}
 
 	// Get lemmas for chapter.
 	if ( ! reference.verse || reference.verse === 'all' ) {
-		return data.original[ reference.book ][ reference.chapter - 1 ].map( verse => {
-			return verse.map( word => {
-				return word[ 1 ].split('/');
-			} ).flat();
-		} ).flat();
+		return getLemmasForChapter( reference, data );
 	}
 
 	// Get lemmas for verse.
-	return data[ 'original' ][ reference.book ][ reference.chapter - 1 ][ reference.verse - 1 ].map( word => {
-		return word[ 1 ].split('/');
-	} ).flat();
-
+	return getLemmasForVerse( reference, data );
 };
 
 export const getReferenceFromSearchResult = ( result ) => {
