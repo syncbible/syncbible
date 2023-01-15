@@ -4,7 +4,7 @@ import mousetrap from 'mousetrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal
-import { setTrayVisibilityFilter, setCurrentListResult, goToReferenceAction } from '../actions'
+import { setTrayVisibilityFilter, setCurrentListResult, goToReferenceAction, deactivateSearchSelect } from '../actions'
 import { getReferenceFromSearchResult } from '../lib/reference.js';
 
 // Component variables
@@ -60,7 +60,8 @@ const KeyboardShortcuts = () => {
 			}
 		} );
 		mousetrap.bind( [ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ], ( event, combo ) => goToChapter( event, combo ) );
-		mousetrap.bind( ['alt+1','alt+2','alt+3','alt+4','alt+5','alt+6'], ( event, combo ) => openTray( event, combo ) );
+		mousetrap.bind( [ 'alt+1', 'alt+2', 'alt+3', 'alt+4', 'alt+5', 'alt+6' ], ( event, combo ) => openTray( event, combo ) );
+		mousetrap.bind( [ 'esc' ], () => dispatch( deactivateSearchSelect() ) );
 	} );
 
 	return null;
