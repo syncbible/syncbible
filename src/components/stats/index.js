@@ -12,7 +12,10 @@ import {
 	setReferenceInfoLimit,
 	setTrayVisibilityFilter,
 } from '../../actions';
-import { getCompareChapters } from '../../lib/select-helpers';
+import {
+	getBooks,
+	getCompareChapters,
+} from '../../lib/select-helpers';
 
 import styles from './styles.scss';
 
@@ -160,15 +163,6 @@ const Rare = () => {
 
 	const compareVerseChange = ( event ) => {
 		dispatch( setReferenceInfo( { ...reference, verse: event.target.value } ) );
-	};
-
-	const getBooks = () => {
-		return (
-			<>
-				<option value="">Select a book</option>
-				{ bible.Data.books.map( book => <option key={ book[ 0 ] }>{ book[0] }</option> ) }
-			</>
-		);
 	};
 
 	if ( ! isOriginalLoaded ) {

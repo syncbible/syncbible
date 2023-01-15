@@ -12,6 +12,10 @@ import {
 	setReferenceInfoLimit,
 	setTrayVisibilityFilter,
 } from '../../actions';
+import {
+	getBooks,
+	getCompareChapters,
+} from '../../lib/select-helpers';
 
 import styles from './styles.scss';
 
@@ -124,24 +128,6 @@ const Compare = ( props ) => {
 		dispatch( setReferenceInfo( { ...reference, verse: event.target.value } ) );
 	};
 
-	const getCompareChapters = () => {
-		if ( reference && reference.book ) {
-			const bookNumber = bible.getBookId( reference.book );
-			return bible.Data.verses[ bookNumber - 1 ].map( ( verses, index ) => <option key={ index }>{ index + 1 }</option> );
-		}
-
-		return <option>-</option>;
-	};
-
-	const getBooks = () => {
-		return (
-			<React.Fragment>
-				<option value="">Select a book</option>
-				{ bible.Data.books.map( book => <option key={ book[ 0 ] }>{ book[0] }</option> ) }
-			</React.Fragment>
-		);
-	};
-
 	if ( ! isOriginalLoaded ) {
 		return (
 			<div className={ styles.compare }>
@@ -158,7 +144,7 @@ const Compare = ( props ) => {
 						{ getBooks() }
 					</select>
 					<select name="compareWithChapter" onChange={ compareChapterChange } value={ reference ? reference.chapter : '' }>
-						{ getCompareChapters() }
+						{ getCompareChapters( reference ) }
 					</select>
 					<select name="compareWithVerses" onChange={ compareVerseChange } value={ reference ? reference.verse : '' }>{ getVerses( reference ) }</select>
 				</div>
@@ -169,7 +155,7 @@ const Compare = ( props ) => {
 					<select className={ styles.compareWithBook } name="book" onChange={ bookChange } value={ referenceToCompareWith ? referenceToCompareWith.book : '' }>
 						{ getBooks() }
 					</select>
-					<select name="chapter" onChange={ chapterChange } value={ referenceToCompareWith ? referenceToCompareWith.chapter : '' }>{ getChapters() }</select>
+					<select name="chapter" onChange={ chapterChange } value={ referenceToCompareWith ? referenceToCompareWith.chapter : '' }>{ getCompareChapters( referenceToCompareWith ) }</select>
 					<select name="verses" onChange={ verseChange } value={ referenceToCompareWith? referenceToCompareWith.verse : '' }>{ getVerses( referenceToCompareWith ) }</select>
 				</div>
 			</div>
