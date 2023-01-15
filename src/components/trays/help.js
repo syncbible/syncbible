@@ -28,9 +28,7 @@ const HelpTray = () => {
 			<div id="helpPanel" className={ styles.helpPanel }>
 				<div className="content">
 					<div className="content-padding">
-						<h2>Help</h2>
-						<p><a href="/help">Get help here</a></p>
-						<p>To find out about a word, click on it</p>
+						<p><a href="/help">Watch help videos.</a></p>
 						<h3>Keyboard shortcuts</h3>
 						<ul>
 							<li><strong>Go to a reference:</strong> just start typing</li>
@@ -48,17 +46,13 @@ const HelpTray = () => {
 				<p><a href="https://javascripture.org">javascripture.org</a></p>
 
 				<h3>Texts</h3>
-				<p><a href="https://github.com/morphgnt/tischendorf">Greek text: Tischendorf</a></p>
-				<p><a href="https://github.com/openscriptures/morphhb">Hebrew text source</a></p>
-				<p><a href="https://github.com/javascripture/javascripture/blob/gh-pages/data/literalConsistent.js">Literal: A work in progress</a>.
-				<a onClick={ () => exportFile( 'LC' ) }>export</a></p>
-				<p><a href="https://github.com/syncbible/syncbible/blob/trunk/bibles/NMV_strongs.js">NMV_strongs: A Farsi bible with strongs numbers</a>.
-				<a onClick={ () => exportFile( 'NMV_strongs') }>export</a></p>
-				<br />
-				ESV: The Holy Bible, English Standard Version ©2011 Crossway Bibles, a division of Good News Publishers. All rights reserved.<br />
+				<p>Original:<br /><a href="https://github.com/openscriptures/morphhb">Hebrew</a> | <a href="https://github.com/morphgnt/tischendorf">Greek</a></p>
+				<p><a href="https://github.com/javascripture/javascripture/blob/gh-pages/data/literalConsistent.js">Literal consistent</a> | <a onClick={ () => exportFile( 'LC' ) }>export</a></p>
+				<p><a href="https://github.com/syncbible/syncbible/blob/trunk/bibles/NMV_strongs.js">NMV_strongs</a> | <a onClick={ () => exportFile( 'NMV_strongs') }>export</a></p>
+				<p>ESV: The Holy Bible, English Standard Version ©2011 Crossway Bibles, a division of Good News Publishers. All rights reserved.</p>
 				<p><br />Version: { typeof( javascripture.sw ) !== 'undefined' ? javascripture.sw : null }</p>
 				<p><a href="#" onClick={ clear }>Clear settings and start over</a></p>
-				<p>Built in Firefox. Tested in Chrome.</p>
+				<p>Built in Firefox.<br />Tested in Chrome.</p>
 			</div>
 		</div>
 	);
