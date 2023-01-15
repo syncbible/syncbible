@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Internal
 import {
-	receiveData,
+	activateSearchSelect,
 	selectWord,
 	updateData,
 } from '../../actions';
@@ -34,11 +34,32 @@ const WordSingleComponent = ( props ) => {
 	};
 
 	const getTitle = () => {
-		let lemmaForMorph = lemma;
-		if ( ! lemma ) {
-			lemmaForMorph = '';
+		let titleText = '';
+
+		if ( lemma ) {
+			titleText += lemma;
+			if ( morph ) {
+				titleText += '  |  ' + morph;
+
+				const morphDesc = morphology( morph, 'noLinks', lemma );
+				if ( morphDesc ) {
+					titleText += '  |  ' + morphDesc;
+				}
+			}
 		}
-		return lemmaForMorph + ' - ' + ( morph ? morph : '' ) + ' - ' + morphology( morph, 'noLinks', lemmaForMorph );
+
+		// Check the translations have loaded.
+		if ( version === 'NMV_strongs' && data.farsiTranslations && data.farsiTranslations[ word ] ) {
+			const farsiTranslations = data.farsiTranslations[ word ];
+			titleText += '  |  ' + farsiTranslations.translation;
+
+			const listOfTranslations = parseTranslations( farsiTranslations );
+			if ( listOfTranslations ) {
+				titleText += '  |  ' + listOfTranslations;
+			}
+		}
+
+		return titleText;
 	};
 
 	const getClassName = () => {
@@ -62,27 +83,6 @@ const WordSingleComponent = ( props ) => {
 		} )
 	}
 
-	const getPromptText = () => {
-		let suggestions = word;
-		// Check the translations have loaded.
-		if ( data.farsiTranslations && data.farsiTranslations[ word ] ) {
-			const farsiTranslations = data.farsiTranslations[ word ];
-			suggestions += '\r\nSuggested translation:\r\n' + farsiTranslations.translation + '\r\n\r\nAdditional translations:\r\n' + parseTranslations( farsiTranslations ) + '\r\n\r\n';
-		}
-		if ( data.original ) {
-			suggestions += 'Options:\r\n';
-			suggestions += data.original[ book ][ chapter ][ verse ].map( word => {
-				const lemma = word[1];
-				return lemma.split( '/' ).map( strongsNumber => {
-					const kjv_def = data.strongsDictionary[ strongsNumber ].kjv_def;
-					return strongsNumber + ' - ' + kjv_def;
-				} ).join( '\r\n\r\n' );
-			} ).join( '\r\n\r\n' );
-			 suggestions += '\r\n';
-		}
-		return suggestions;
-	}
-
 	return (
 		<span
 			className={ getClassName() }
@@ -98,13 +98,8 @@ const WordSingleComponent = ( props ) => {
 
 					// Update the farsi strongs translation.
 					if ( version === 'NMV_strongs' ) {
-						const newStrongsNumber = window.prompt( getPromptText(), lemma );
-						if ( newStrongsNumber !== null ) {
-							// Update the data in memory.
-							data['NMV_strongs'][ book ][ chapter ][ verse ][ index ] = [ word, newStrongsNumber ];
-							// Push the update to the store.
-							dispatch( receiveData( 'NMV_strongs', data['NMV_strongs'] ) );
-						}
+						reference.index = index;
+						dispatch( activateSearchSelect( reference ) );
 					}
 				} else {
 					dispatch( selectWord( props ) );

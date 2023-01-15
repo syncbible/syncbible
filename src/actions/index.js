@@ -15,6 +15,7 @@ import {
 	getNewVersionHash,
 } from '../lib/reference.js';
 import { isValidWord } from '../lib/word.js';
+import reference from '../reducers/reference.js';
 
 export const goToReferenceAction = ( reference, targetColumn ) => {
 	return function( dispatch, getState ) {
@@ -374,9 +375,6 @@ export const fetchData = ( key ) => {
 
 		// If we load NMV_strongs, we need to load the translation data as well.
 		if ( key === 'NMV_strongs' ) {
-			// We also need to load the original to get suggestions.
-			dispatch( fetchData( 'original' ) );
-
 			xhr( {
 				method: "get",
 				uri: "/data/farsi-translations.json",
@@ -520,9 +518,23 @@ export const selectWord = ( props ) => {
 
 	return function( dispatch, getState ) {
 		const searchSelect = getState().searchSelect;
+		const data = getState().data;
 		if ( searchSelect ) {
-			dispatch( appendToSearchForm( searchSelect, props[ searchSelect ] ) );
-			dispatch( updateSearchForm( 'version', version ) );
+			// If there's a book then this is a reference.
+			if ( searchSelect.book ) {
+				// Get the reference.
+				const { book, chapter, verse, index } = searchSelect;
+
+				// Update the data in memory.
+				const currentWord = data['NMV_strongs'][ book ][ chapter ][ verse ][ index ];
+				data['NMV_strongs'][ book ][ chapter ][ verse ][ index ] = [ currentWord[0], lemma ];
+
+				// Push the update to the store.
+				dispatch( receiveData( 'NMV_strongs', data['NMV_strongs'] ) );
+			} else {
+				dispatch( appendToSearchForm( searchSelect, props[ searchSelect ] ) );
+				dispatch( updateSearchForm( 'version', version ) );
+			}
 			dispatch( deactivateSearchSelect() );
 		} else {
 			dispatch( setTrayVisibilityFilter( 'word' ) );

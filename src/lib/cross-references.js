@@ -1,11 +1,14 @@
+function getCrossRefString( reference ) {
+	const bookId = bible.getBookId( reference.book );
+	return bible.Data.books[ bookId - 1 ][ 1 ] + '.' + reference.chapter + '.' + reference.verse;
+}
+
 export const getCrossReferencesArray = ( data, reference ) => {
 	if ( ! reference ) {
 		return [];
 	}
 
-	const bookId = bible.getBookId( reference.book );
-	const referenceString = bible.Data.books[ bookId - 1 ][ 1 ] + '.' + reference.chapter + '.' + reference.verse;
-
+	const referenceString = getCrossRefString( reference );
 	if ( ! data.crossReferences || ! data.crossReferences[ referenceString ] ) {
 		return [];
 	}
@@ -18,8 +21,7 @@ function getReverseCrossRefs( data, reference ) {
 		return [];
 	}
 
-	const bookId = bible.getBookId( reference.book );
-	const referenceString = bible.Data.books[ bookId - 1 ][ 1 ] + '.' + reference.chapter + '.' + reference.verse;
+	const referenceString = getCrossRefString( reference );
 	return Object.keys( data.crossReferences ).filter( crossReference => {
 		return data.crossReferences[ crossReference ].indexOf( referenceString ) > -1;
 	} );
