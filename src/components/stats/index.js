@@ -150,7 +150,7 @@ const Rare = () => {
 	};
 
 	const compareBookChange = ( event ) => {
-		dispatch( setReferenceInfo( { book: event.target.value, chapter: 1, verse: 'all' } ) );
+		dispatch( setReferenceInfo( { book: event.target.value, chapter: 'all', verse: 'all' } ) );
 	};
 
 	const compareChapterChange = ( event ) => {
@@ -164,7 +164,9 @@ const Rare = () => {
 	const getCompareChapters = () => {
 		if ( reference && reference.book ) {
 			const bookNumber = bible.getBookId( reference.book );
-			return bible.Data.verses[ bookNumber - 1 ].map( ( verses, index ) => <option key={ index }>{ index + 1 }</option> );
+			let chapters = bible.Data.verses[ bookNumber - 1 ].map( ( verses, index ) => <option key={ index }>{ index + 1 }</option> );
+			chapters.unshift( <option key="all" value="all">All</option> );
+			return chapters;
 		}
 
 		return <option>-</option>;

@@ -69,6 +69,18 @@ export const getLemmasForReference = ( reference, data ) => {
 		return [];
 	}
 
+	// Get lemmas for book.
+	if ( ! reference.chapter || reference.chapter === 'all' ) {
+		return data.original[ reference.book ].map( chapter => {
+			return chapter.map( verse => {
+				return verse.map( word => {
+					return word[ 1 ].split('/');
+				} ).flat();
+			} ).flat();
+		} ).flat();
+	}
+
+	// Get lemmas for chapter.
 	if ( ! reference.verse || reference.verse === 'all' ) {
 		return data.original[ reference.book ][ reference.chapter - 1 ].map( verse => {
 			return verse.map( word => {
@@ -77,6 +89,7 @@ export const getLemmasForReference = ( reference, data ) => {
 		} ).flat();
 	}
 
+	// Get lemmas for verse.
 	return data[ 'original' ][ reference.book ][ reference.chapter - 1 ][ reference.verse - 1 ].map( word => {
 		return word[ 1 ].split('/');
 	} ).flat();
