@@ -186,6 +186,7 @@ bible.Data.supportedVersions = {
 	'Wycliffe': { name: 'John Wycliffe Bible (c.1395)', language: 'enm' },
 	'YLT': { name: 'Young\'s Literal Translation', language: 'en' },
 	'LC': { name: 'Literal Consistent', language: 'en' },
+	'HL': { name: 'Hebrew Literal', language: 'en' },
 	'OPV': { name: 'ترجمه-ی قدام', language: 'fa' },
 	'TPV': { name: 'مژده برای اسرع جدید', language: 'fa' },
 	'NMV': { name: 'ترجمه هزارۀ نو', language: 'fa' },
