@@ -13,7 +13,7 @@ const WordHighlight = ( { word } ) => {
 
 	return (
 		<style>
-			{ word && word.split(/[/, ]/).map( word => {
+			{ word && word.map( word => {
 				if ( ! isValidWord( word ) ) {
 					return;
 				}

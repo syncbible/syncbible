@@ -17,6 +17,8 @@ import verse from './verse';
 const WordSingleComponent = ( props ) => {
 	// wordText is the word to display, usually the same as word unless this is LC.
 	const { lemma, morph, version, word, wordText, reference, index } = props;
+	const lemmaArray = lemma ? lemma.split(/[\&\s]/) : []; // Split by space or &.
+
 	const { book, chapter, verse } = reference;
 	const dispatch = useDispatch();
 	const data = useSelector( state => state.data );
@@ -30,22 +32,26 @@ const WordSingleComponent = ( props ) => {
 	};
 
 	const highlightWord = () => {
-		window.updateAppComponent( 'highlightedWord', lemma );
+		window.updateAppComponent( 'highlightedWord', lemmaArray );
 	};
 
 	const getTitle = () => {
 		let titleText = '';
 
-		if ( lemma ) {
-			titleText += lemma;
-			if ( morph ) {
-				titleText += '  |  ' + morph;
+		if ( lemmaArray.length > 0 ) {
+			titleText += lemmaArray.map( oneLemma => {
+				let extraTitleText = oneLemma;
+				if ( morph ) {
+					extraTitleText += '  |  ' + morph;
 
-				const morphDesc = morphology( morph, 'noLinks', lemma );
-				if ( morphDesc ) {
-					titleText += '  |  ' + morphDesc;
+					const morphDesc = morphology( morph, 'noLinks', oneLemma );
+					if ( morphDesc ) {
+						extraTitleText += '  |  ' + morphDesc;
+					}
 				}
-			}
+				return extraTitleText;
+
+			} ). join( ', ' );
 		}
 
 		// Check the translations have loaded.
@@ -65,16 +71,16 @@ const WordSingleComponent = ( props ) => {
 	const getClassName = () => {
 		let family = null;
 
-		if ( lemma ) {
+		if ( lemmaArray.length > 0 ) {
 			const strongsObjectWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
-			family = lemma.split( ' ' ).map( oneLemma => getFamily( oneLemma, strongsObjectWithFamilies ) + '-family' );
+			family = lemmaArray.map( oneLemma => getFamily( oneLemma, strongsObjectWithFamilies ) + '-family' );
 		}
 
 		if ( lemma === 'added' ) {
 			return classnames( 'single', lemma );
 		}
 
-		return classnames( 'single', lemma, family );
+		return classnames( 'single', lemmaArray, family );
 	};
 
 	const parseTranslations = ( farsiTranslations ) => {

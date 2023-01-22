@@ -539,7 +539,7 @@ export const selectWord = ( props ) => {
 		} else {
 			dispatch( setTrayVisibilityFilter( 'word' ) );
 
-			lemma && lemma.split( ' ' ).map( strongsNumber => {
+			lemma && lemma.split(/[\&\s]/).map( strongsNumber => {
 				if ( ! isValidWord( strongsNumber ) ) {
 					return;
 				}
