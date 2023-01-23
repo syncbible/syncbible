@@ -18,11 +18,6 @@ import { PersistGate } from 'redux-persist/integration/react'
 import rootReducer from './reducers';
 import Root from './components/root';
 
-const insertCss = (...styles) => {
-	const removeCss = styles.map(style => style._insertCss())
-	return () => removeCss.forEach(dispose => dispose())
-}
-
 const config = {
 	key: 'primary',
 	storage: storage('syncbible'),
