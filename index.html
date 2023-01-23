@@ -70,7 +70,7 @@
 	// Attach web workers
 	// has to come before service worker
 	worker.addEventListener( 'message', function( e ) {
-		if( e.data.task === 'search' ) {
+		if( e.data.task === 'search' || e.data.task === 'word' ) {
 			if ( javascripture.reactHelpers.dispatch ) {
 				javascripture.reactHelpers.dispatch( {
 					terms: e.data.parameters,

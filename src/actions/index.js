@@ -216,7 +216,7 @@ export const searchForWord = ( parameters ) => {
 		dispatch( wordResultsLoading( parameters ) );
 
 		// Send data to our worker.
-		postMessageToWorker( 'search', parameters, getState() );
+		postMessageToWorker( 'word', parameters, getState() );
 	}
 }
 
