@@ -2,21 +2,35 @@
 import React, { useState } from "react";
 import { groupBy, orderBy } from "lodash";
 import { useSelector } from "react-redux";
+import classnames from 'classnames';
 import styles from "./styles.scss";
 
 const WordStats = ( { strongsNumber } ) => {
 	const words = useSelector( state => state.list.filter( ( { listType } ) => listType === 'word' ) );
 	const [ selectedGroup, setSelectedGroup ] = useState( 'book' );
+	const [ sort, setSort ] = useState( 'reference' );
 
 	const groupSelector = (
-		<select className={ styles.select } value={ selectedGroup } onChange={ ( event ) => setSelectedGroup( event.target.value ) }>
-			<option value="book">by book</option>
-			<option value="book-sorted">by book ↓</option>
-			<option value="chapter">by chapter</option>
-			<option value="chapter-sorted">by chapter ↓</option>
-			<option value="word">by word</option>
-			<option value="morph">by morph</option>
-		</select>
+		<div>
+			<label>Group by</label>
+			<select className={ styles.select } value={ selectedGroup } onChange={ ( event ) => setSelectedGroup( event.target.value ) }>
+				<option value="book">book</option>
+				<option value="chapter">chapter</option>
+				<option value="word">word</option>
+				<option value="morph">morph</option>
+			</select>
+		</div>
+	);
+
+	const sortSelector = (
+		<div>
+			<label>Sort by</label>
+			<select className={ styles.select } value={ sort } onChange={ ( event ) => setSort( event.target.value ) }>
+				<option value="reference">Reference</option>
+				<option value="desc">Descending ↓</option>
+				<option value="asc">Ascending ↑</option>
+			</select>
+		</div>
 	);
 
 	const wordForResults = words.length > 0 && words.find( word => word.data.lemma === strongsNumber );
@@ -28,41 +42,6 @@ const WordStats = ( { strongsNumber } ) => {
 		);
 	}
 
-	let results = wordForResults.results;
-	if ( ! wordForResults.results.length ) {
-		results = Object.keys( wordForResults.results );
-	}
-	const resultsArray = results.map( ( result ) => result.split('.') );
-	const resultsByBook = groupBy( resultsArray, 0 );
-	const resultsByBookSorted = orderBy( resultsByBook, ['length'], ['desc'] );
-	const resultsByChapter = groupBy( resultsArray, function( item ) {
-		return item[0] + ' ' + item[1];
-	} );
-	const resultsByChapterSorted = orderBy( resultsByChapter, [ 'length' ], ['desc'] );
-	const resultsByWord = groupBy( wordForResults.results, function( item ) {
-		return item[0];
-	} );
-	const resultsByMorph = groupBy( wordForResults.results, function( item ) {
-		return item[2];
-	} );
-
-	let resultsToDisplay = resultsByBook;
-	if ( selectedGroup === 'book-sorted' ) {
-		resultsToDisplay = resultsByBookSorted;
-	}
-	if ( selectedGroup === 'chapter' ) {
-		resultsToDisplay = resultsByChapter;
-	}
-	if ( selectedGroup === 'chapter-sorted' ) {
-		resultsToDisplay = resultsByChapterSorted;
-	}
-	if ( selectedGroup === 'word' ) {
-		resultsToDisplay = resultsByWord;
-	}
-	if ( selectedGroup === 'morph' ) {
-		resultsToDisplay = resultsByMorph;
-	}
-
 	const getLabel = ( result ) => {
 		if ( selectedGroup === 'morph' ) {
 			return result[2];
@@ -70,15 +49,55 @@ const WordStats = ( { strongsNumber } ) => {
 		return result[0];
 	}
 
+	let results = wordForResults.results;
+	if ( ! wordForResults.results.length ) {
+		results = Object.keys( wordForResults.results );
+	}
+	const resultsArray = results.map( ( result ) => result.split('.') );
+
+	const getResults = () => {
+		let resultsToDisplay;
+		if ( selectedGroup === 'book' ) {
+			resultsToDisplay = groupBy( resultsArray, 0 );
+		} else if ( selectedGroup === 'chapter' ) {
+			resultsToDisplay = groupBy( resultsArray, function( item ) {
+				return item[0] + ' ' + item[1];
+			} );
+		} else if ( selectedGroup === 'word' ) {
+			resultsToDisplay = groupBy( wordForResults.results, function( item ) {
+				return item[0];
+			} );
+		} else if ( selectedGroup === 'morph' ) {
+			resultsToDisplay = groupBy( wordForResults.results, function( item ) {
+				return item[2];
+			} );
+		}
+
+		if ( sort !== "reference" ) {
+			return orderBy( resultsToDisplay, ['length'], [ sort ] );
+		}
+		return resultsToDisplay;
+	}
+
+	const selectedResults = getResults();
+
 	return (
-		<div className="word-stats">
-			<p>Word stats { groupSelector }</p>
-			{ Object.keys( resultsToDisplay ).map( ( result, index ) => {
-				const percent = Math.round( resultsToDisplay[ result ].length / results.length * 100 ) + '%';
+		<div className={ styles.wordStats }>
+			<h2>Word stats</h2>
+			<fieldset>
+				{ groupSelector }
+				{ sortSelector }
+			</fieldset>
+			{ Object.keys( selectedResults ).map( ( result, index ) => {
+				const label = getLabel( selectedResults[result][0] );
+				const chapter = selectedGroup === 'chapter' && selectedResults[result][0][1]
+				const percent = Math.round( selectedResults[ result ].length / results.length * 100 ) + '%';
 				return (
-					<div key={ index } className={ styles.wordStatsResult } style={{ position: 'relative' }}>
-						<span className={ strongsNumber } style={{ width: percent, display: 'inline-block', position: 'absolute', height: '1.2em', top: 0, right: 0 }}></span>
-						<span className={ styles.wordStatsResultText } style={{ position: 'relative' }} >{ getLabel( resultsToDisplay[result][0] ) } { ( selectedGroup === 'chapter' || selectedGroup === 'chapter-sorted' ) && resultsToDisplay[result][0][1] } - { resultsToDisplay[ result ].length } ({ percent })</span>
+					<div key={ index } className={ styles.wordStatsResult }>
+						<span className={ classnames( styles.wordStatsResultCount, strongsNumber ) } style={ { width: percent } }></span>
+						<span className={ styles.wordStatsResultText }>
+							{ label } { chapter } - { selectedResults[ result ].length } ({ percent })
+						</span>
 					</div>
 				);
 			} ) }
