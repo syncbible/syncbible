@@ -16,7 +16,6 @@ import {
 	getBooks,
 	getCompareChapters,
 } from '../../lib/select-helpers';
-
 import styles from './styles.scss';
 
 const Compare = ( props ) => {
@@ -27,6 +26,7 @@ const Compare = ( props ) => {
 	const referenceToCompareWith = useSelector( state => state.referenceInfo.referenceToCompareWith );
 	const overlap = useSelector( state => compareTwoReferences( state ) );
 	const limit = useSelector( state => state.referenceInfo.limit );
+	const data = useSelector( state => state.data );
 	const addAllWords = () => {
 		overlap.forEach( lemma => addWord( lemma ) );
 	};
@@ -73,15 +73,6 @@ const Compare = ( props ) => {
 
 	const verseChange = ( event ) => {
 		dispatch( setReferenceInfoCompareWith( { ...referenceToCompareWith, verse: event.target.value } ) );
-	};
-
-	const getChapters = () => {
-		if ( referenceToCompareWith && referenceToCompareWith.book ) {
-			const bookNumber = bible.getBookId( referenceToCompareWith.book );
-			return bible.Data.verses[ bookNumber - 1 ].map( ( verses, index ) => <option key={ index }>{ index + 1 }</option> );
-		}
-
-		return <option>-</option>;
 	};
 
 	const getVerses = ( reference ) => {
@@ -136,6 +127,29 @@ const Compare = ( props ) => {
 		)
 	}
 
+	const allChapters = '';/*bible.Data.books.map( ( book, id ) => {
+		<h3>All chapters</h3>
+		return bible.Data.verses[ id ].map( ( numberOfChapters, chapter ) => {
+			const parameters = {
+				referenceInfo: {
+					reference,
+					referenceToCompareWith: {
+						book: book[0],
+						chapter: chapter,
+					},
+					limit
+				},
+				data
+			};
+			const comparisonData = compareTwoReferences( parameters );
+			if ( comparisonData.length ) {
+				return (
+					<div key={ id + chapter }>{ book[ 0 ] + ' ' + ( chapter + 1 ) }: { comparisonData.length }</div>
+				);
+			}
+		} );
+	} );*/
+
 	return (
 		<>
 			<div className={ styles.statsReferenceWrapper }>
@@ -168,6 +182,7 @@ const Compare = ( props ) => {
 			<div className={ styles.chapterTray }>
 				{ overlap && overlap.length > 0 && <button onClick={ addAllWords }>Select all words</button> }
 			</div>
+			<div>{ allChapters }</div>
 		</>
 	);
 };
