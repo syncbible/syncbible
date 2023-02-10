@@ -1,6 +1,4 @@
 // todo
-- export icon
-- hover in roots and branches and comparison.
 - order of search results
 - morph hover
 - search happening in wrong version
@@ -12,7 +10,8 @@
 - clear settings doesn't work
 - follow these rules: https://anthonyhobday.com/sideprojects/saferules/
 - Don't force a reload until everything has refreshed
-- Update to react 18
+- Update to node 18
+- search doesn't match part of a word
 
 lower priority
 - reading mode - inline verses/ drop cap chapters
