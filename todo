@@ -5,7 +5,6 @@
 - search happening in wrong version
 - combined - use verse, chapter or book
 - word stats - uses the first instance of the search instead of the correct version
-- remove hebrew CSS.
 - scroll to position when resizing browser
 - search for H6471פעם - in the wrong order
 - clear settings doesn't work
