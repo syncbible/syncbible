@@ -11,6 +11,8 @@
 - search for H6471פעם - in the wrong order
 - clear settings doesn't work
 - follow these rules: https://anthonyhobday.com/sideprojects/saferules/
+- Don't force a reload until everything has refreshed
+- Update to react 18
 
 lower priority
 - reading mode - inline verses/ drop cap chapters
