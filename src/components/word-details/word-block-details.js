@@ -57,7 +57,16 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 		}
 
 		return (
-			<p><a href="#" className="word-block-details__find-all-uses" onClick={ () => dispatch( searchForWord( word.data ) ) }>Find { numberOfUses } { useString } { numberOfUses > 1000 && <span>(slow!)</span> }</a></p>
+			<p>
+				<a href="#" className="word-block-details__find-all-uses" onClick={
+					( event ) => {
+						event.preventDefault();
+						dispatch( searchForWord( word.data ) );
+					}
+				}>
+					Find { numberOfUses } { useString } { numberOfUses > 1000 && <span>(slow!)</span> }
+				</a>
+			</p>
 		);
  	}
 
