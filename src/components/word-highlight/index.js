@@ -10,10 +10,12 @@ const WordHighlight = ( { word } ) => {
 	const settings = useSelector( state => state.settings );
 	const searchSelect = useSelector( state => state.searchSelect );
 	const strongsObjectWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
-
+	if ( typeof word === 'string' ) {
+		word = [ word ];
+	}
 	return (
 		<style>
-			{ word && [ ...word ].map( word => {
+			{ word && word.map( word => {
 				if ( ! isValidWord( word ) ) {
 					return;
 				}
