@@ -1,6 +1,8 @@
-import _, { stubFalse } from 'lodash';
+import React from 'react';
+import _, { stubFalse, countBy } from 'lodash';
 import { uniq, sortBy, forEach, toPairs, fromPairs, orderBy } from 'lodash';
 import reference from '../reducers/reference';
+import SearchLink from '../components/search/search-link';
 
 export const createReferenceLink = ( reference ) => {
 	let newReference = '/' + reference.version + '/' + reference.book + '/' + reference.chapter + '/' + reference.verse + '/';
@@ -300,7 +302,7 @@ export const getNewVersionHash = ( stateReference, index, version ) => {
 	return getHashFromStateReference( newReference );
 }
 
-export const sortReferences = ( referenceA, referenceB ) => {
+export const sortReferences = ( { reference: referenceA }, { reference: referenceB } ) => {
 	const referenceAArray = referenceA.split('.');
 	const referenceBArray = referenceB.split('.');
 	const positionOfReferenceA = bible.Data.allBooks.indexOf( referenceAArray[ 0 ] );
@@ -320,8 +322,27 @@ export const sortReferences = ( referenceA, referenceB ) => {
 export const sortCountedReferences = ( reference1, reference2 ) => {
 	const difference = reference2.value - reference1.value;
 	if ( difference === 0 ) {
-		return sortReferences( reference1.key, reference2.key );
+		return sortReferences( reference1, reference2 );
 	}
 
 	return difference;
 }
+
+export const getCombinedResults = ( list ) => {
+	let combined = [];
+	list.forEach( ( item ) => {
+		let results = item.results;
+		if ( item.results ) {
+			results = item.results.map( ( { reference } ) => {
+				return reference;
+			 } );
+		}
+		const uniqueResults = [ ...new Set( results ) ];
+		combined = combined.concat( uniqueResults );
+	} );
+
+	const countedResults = countBy( combined );
+	const countedResultsArray = Object.keys( countedResults ).map(reference => ({ reference, value: countedResults[reference] }));
+	const sortedResults = countedResultsArray.sort( sortCountedReferences ).filter( result => result.value > 1 );
+	return sortedResults.map( ( result, index ) => <SearchLink key={ index } index={ index } referenceString={ result.reference } count={ result.value } /> );
+};

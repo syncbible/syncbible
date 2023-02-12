@@ -1,17 +1,16 @@
 // todo
 - show ui control in a language not a version
-- order of search results
 - morph hover
 - search happening in wrong version
 - combined - use verse, chapter or book
 - word stats - uses the first instance of the search instead of the correct version
 - scroll to position when resizing browser
-- search for H6471פעם - in the wrong order
 - clear settings doesn't work
 - follow these rules: https://anthonyhobday.com/sideprojects/saferules/
 - Don't force a reload until everything has refreshed
 - Update to node 18
 - search doesn't match part of a word
+- search for repeated words
 
 lower priority
 - reading mode - inline verses/ drop cap chapters

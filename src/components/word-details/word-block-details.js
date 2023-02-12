@@ -20,12 +20,12 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 	const [ activeTab, setActiveTab ] = useState( 'search' );
 
 	let resultsData = word.results;
-	if ( word.results && ! word.results.length ) {
+	/*if ( word.results && ! word.results.length ) {
 		resultsData = Object.keys( word.results )
-	}
-	const results = resultsData && resultsData.map( ( result, index ) => {
+	}*/
+	const results = resultsData && resultsData.map( ( { reference }, index ) => {
 		const isActive = word && typeof word.current !== 'undefined' && word.current === index;
-		return <SearchLink key={ index } index={ index } referenceString={ result } wordId={ word.id } isActive={ isActive } />;
+		return <SearchLink key={ index } index={ index } referenceString={ reference } wordId={ word.id } isActive={ isActive } />;
 	} );
 
 	function getResultsDisplay() {

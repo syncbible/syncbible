@@ -44,16 +44,26 @@ const WordStats = ( { strongsNumber } ) => {
 
 	const getLabel = ( result ) => {
 		if ( selectedGroup === 'morph' ) {
-			return result[2];
+			return result.word[2];
 		}
-		return result[0];
+		if ( selectedGroup === 'word' ) {
+			return result.word[0];
+		}
+		if ( selectedGroup === 'book' ) {
+			return result[0];
+		}
+		if ( selectedGroup === 'chapter' ) {
+			return result[0] + ' ' + result[1];
+		}
+		if ( selectedGroup === 'verse' ) {
+			return result[0] + ' ' + result[1] + ' ' + result[2];
+		}
+
+		return result;
 	}
 
 	let results = wordForResults.results;
-	if ( ! wordForResults.results.length ) {
-		results = Object.keys( wordForResults.results );
-	}
-	const resultsArray = results.map( ( result ) => result.split('.') );
+	const resultsArray = results.map( ( { reference } ) => reference.split('.') );
 
 	const getResults = () => {
 		let resultsToDisplay;
@@ -64,12 +74,12 @@ const WordStats = ( { strongsNumber } ) => {
 				return item[0] + ' ' + item[1];
 			} );
 		} else if ( selectedGroup === 'word' ) {
-			resultsToDisplay = groupBy( wordForResults.results, function( item ) {
-				return item[0];
+			resultsToDisplay = groupBy( wordForResults.results, function( { word } ) {
+				return word[0];
 			} );
 		} else if ( selectedGroup === 'morph' ) {
-			resultsToDisplay = groupBy( wordForResults.results, function( item ) {
-				return item[2];
+			resultsToDisplay = groupBy( wordForResults.results, function( { word } ) {
+				return word[2];
 			} );
 		}
 
@@ -89,14 +99,13 @@ const WordStats = ( { strongsNumber } ) => {
 				{ sortSelector }
 			</fieldset>
 			{ Object.keys( selectedResults ).map( ( result, index ) => {
-				const label = getLabel( selectedResults[result][0] );
-				const chapter = selectedGroup === 'chapter' && selectedResults[result][0][1]
+				const label = Array.isArray( selectedResults ) ? getLabel( selectedResults[result][0] ) : result;
 				const percent = Math.round( selectedResults[ result ].length / results.length * 100 ) + '%';
 				return (
 					<div key={ index } className={ styles.wordStatsResult }>
 						<span className={ classnames( styles.wordStatsResultCount, strongsNumber ) } style={ { width: percent } }></span>
 						<span className={ styles.wordStatsResultText }>
-							{ label } { chapter } - { selectedResults[ result ].length } ({ percent })
+							{ label } - { selectedResults[ result ].length } ({ percent })
 						</span>
 					</div>
 				);

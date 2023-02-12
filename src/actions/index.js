@@ -13,6 +13,7 @@ import {
 	getSyncReference,
 	getUnSyncReference,
 	getNewVersionHash,
+	sortReferences,
 } from '../lib/reference.js';
 import { isValidWord } from '../lib/word.js';
 import reference from '../reducers/reference.js';
@@ -132,14 +133,14 @@ function postMessageToWorker( task, parameters, state ) {
 }
 
 const getResultsForWord = ( versionData, strongsNumber ) => {
-	const resultData = {};
+	const resultData = [];
 	Object.keys( versionData ).forEach( book => versionData[ book ].forEach( ( chapter, chapterNumber ) => chapter.forEach( ( verse, verseNumber ) => verse.forEach( word => {
-		const lemmaArray = word[1] && word[1].split(/ |\//);
+		const lemmaArray = word[1] && word[1].split(/ |\//); // should also split by &.
 		if ( lemmaArray && lemmaArray.indexOf( strongsNumber ) > -1 ) {
-			resultData[ book + '.' + ( chapterNumber + 1 ) + '.' + ( verseNumber + 1 ) ] = word;
+			resultData.push( { 'reference': book + '.' + ( chapterNumber + 1 ) + '.' + ( verseNumber + 1 ), word } );
 		}
 	} ) ) ) );
-	return resultData;
+	return resultData.sort( sortReferences );
 };
 
 export const addWord = ( word ) => {
