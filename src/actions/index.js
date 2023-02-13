@@ -1,4 +1,4 @@
-var cache = 'syncbible.23.0.1676244676';
+var cache = 'syncbible.23.0.1676324340';
 
 // External dependencies.
 import xhr from 'xhr';
