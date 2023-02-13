@@ -95,7 +95,7 @@ const WordSingleComponent = ( props ) => {
 			onMouseOver={ highlightWord }
 			onMouseOut={ clearHighlightWord }
 			onClick={ ( event ) => {
-				if( event.altKey ) {
+				if( event.altKey|| event.ctrlKey || event.metaKey ) {
 					// Update the literal consistent translation.
 					if (  version === 'LC' ) {
 						const translation = window.prompt( word + ' ' + lemma + ' ' + morph, literalConsistentTranslation );
