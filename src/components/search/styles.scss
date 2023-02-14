@@ -59,9 +59,11 @@
 
 .advanced {
 	cursor: pointer;
-	text-align: right;
+	font-size: 16px;
+	line-height: 2em;
+	text-align: center;
 	a {
-		color: #aaa;
+		color: var(--color-dimmed);
 	}
 }
 
@@ -75,6 +77,8 @@
 
 .search-link {
 	cursor: pointer;
+	margin: 0 -0.7em;
+	padding: 0 0.7em;
 }
 
 .compareMode {
@@ -88,7 +92,7 @@
 }
 
 .has-picker {
-	padding-right: 2em;
+	padding-right: 43px;
 }
 
 .clusivity {

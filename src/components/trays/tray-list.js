@@ -1,6 +1,7 @@
 // External
 import React from 'react';
 import { useSelector } from 'react-redux';
+import classnames from 'classnames';
 
 // Internal
 import styles from './styles.scss';
@@ -12,11 +13,9 @@ const TrayList = ( { trays } ) => {
 		return (
 			<div
 				key={ tray.id }
-				className={ isActive ? styles.visible : styles.hidden }
+				className={ classnames( styles.tray, isActive ? styles.visible : styles.hidden ) }
 			>
-				<div className={ styles.tray }>
-					<tray.component active={ isActive } />
-				</div>
+				<tray.component active={ isActive } />
 			</div>
 		);
 	} );

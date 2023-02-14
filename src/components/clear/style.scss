@@ -8,8 +8,8 @@
 }
 
 .clear {
-	border-left: none;
-	border-right: none;
+	background: var(--background-ui);
+	border: none;
 	cursor: pointer;
 	width: $dock-height;
 }

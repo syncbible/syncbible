@@ -84,6 +84,12 @@ input, button, input[type=button], input[type=submit] {
 	border: 1px solid var(--mid);
 	box-shadow: none;
 	color: var(--color);
+	font-weight: 300;
+}
+
+button, input[type=button], input[type=submit] {
+	background: var(--color);
+	color: var(--background-ui);
 }
 
 form input[type=checkbox] {

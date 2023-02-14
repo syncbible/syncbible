@@ -1,11 +1,11 @@
 * { border: none; box-sizing: border-box; margin: 0; padding: 0; }
 
 :root, .dark-mode-off {
-  --background: #ffffff;
+  --background: #f2f2f2;
   --background-between: rgb(220,220,220);
   --background-smoke: rgba( 255, 255, 255, .95);
-  --background-ui: rgb(240,240,240);
-  --color: #000000;
+  --background-ui: rgb(235,235,235);
+  --color: #222222;
   --color-dimmed: #333333;
 	--mid: rgb(210,210,210);;
   --shadow: rgb( 0, 0, 0, 0.15);
@@ -21,12 +21,12 @@
     --background-between: rgb(0,0,0);
     --background-smoke: rgba(45, 45, 45, 0.95);
     --background-ui: rgb(25,25,25);
-    --color: #ffffff;
+    --color: #f2f2f2;
     --color-dimmed: #aaaaaa;
     --mid: #444;
     --shadow: rgb( 0, 0, 0, 0.15);
-    --hover: rgba( 215, 245, 245, .3 );
-    --active: rgba( 15, 45, 45, 1 );
+    --hover: rgba( 15, 45, 45 );
+    --active: rgba( 25, 55, 55, 1 );
     --accent: rgba( 215, 245, 245, 1 );
     --select-svg: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23ffffff'><polygon points='0,0 100,0 50,50'/></svg>");
 	}
@@ -37,12 +37,12 @@
   --background-between: rgb(0,0,0);
   --background-smoke: rgba(45, 45, 45, 0.95);
   --background-ui: rgb(25,25,25);
-  --color: #ffffff;
+  --color: #f2f2f2;
   --color-dimmed: #aaaaaa;
   --mid: #444;
   --shadow: rgb( 0, 0, 0, 0.15);
-  --hover: rgba( 215, 245, 245, .3 );
-  --active: rgba( 15, 45, 45, 1 );
+  --hover: rgba( 15, 45, 45 );
+  --active: rgba( 25, 55, 55, 1 );
   --accent: rgba( 215, 245, 245, 1 );
   --select-svg: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23ffffff'><polygon points='0,0 100,0 50,50'/></svg>");
 }
