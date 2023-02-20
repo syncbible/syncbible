@@ -80,7 +80,7 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 		}
 
 		if ( activeTab === 'stats' ) {
-			return <WordStats strongsNumber={ strongsNumber } />;
+			return <WordStats strongsNumber={ strongsNumber } version={ version } />;
 		}
 	};
 

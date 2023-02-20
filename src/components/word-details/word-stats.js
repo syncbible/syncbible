@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import classnames from 'classnames';
 import styles from "./styles.scss";
 
-const WordStats = ( { strongsNumber } ) => {
-	const words = useSelector( state => state.list.filter( ( { listType } ) => listType === 'word' ) );
+const WordStats = ( { strongsNumber, version } ) => {
+	const wordForResults = useSelector( state => state.list.find( ( { listType, data } ) => listType === 'word' && data.lemma === strongsNumber && data.version === version ) );
 	const [ selectedGroup, setSelectedGroup ] = useState( 'book' );
 	const [ sort, setSort ] = useState( 'reference' );
 
@@ -33,7 +33,6 @@ const WordStats = ( { strongsNumber } ) => {
 		</div>
 	);
 
-	const wordForResults = words.length > 0 && words.find( word => word.data.lemma === strongsNumber );
 	if ( ! wordForResults || ! wordForResults.results ) {
 		return (
 			<>
@@ -93,7 +92,7 @@ const WordStats = ( { strongsNumber } ) => {
 
 	return (
 		<div className={ styles.wordStats }>
-			<h2>Word stats</h2>
+			<h2>Stats for { version }</h2>
 			<fieldset>
 				{ groupSelector }
 				{ sortSelector }
