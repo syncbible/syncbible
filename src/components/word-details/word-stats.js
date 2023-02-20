@@ -107,12 +107,12 @@ const WordStats = ( { strongsNumber, version } ) => {
 
 	const selectedResults = getResults();
 
-	const getReference = ( label ) => {
+	const getReference = ( result ) => {
 		if ( selectedGroup === 'word' || selectedGroup === 'morph' ) {
 			return null;
 		}
 
-		return bible.parseReference( label );
+		return result[ 0 ]
 	}
 
 	return (
@@ -125,14 +125,14 @@ const WordStats = ( { strongsNumber, version } ) => {
 			{ Object.keys( selectedResults ).map( ( result, index ) => {
 				const label = Array.isArray( selectedResults ) ? getLabel( selectedResults[result][0] ) : result;
 				const percent = Math.round( selectedResults[ result ].length / results.length * 100 ) + '%';
-				const reference = getReference( label );
+				const reference = getReference( selectedResults[ result ] );
 				const TagName = reference ? 'a' : 'span';
 				return (
 					<div key={ index } className={ styles.wordStatsResult }>
 						<span className={ classnames( styles.wordStatsResultCount, strongsNumber ) } style={ { width: percent } }></span>
 						<TagName className={ styles.wordStatsResultText } onClick={ () => {
 							if ( reference ) {
-								const referenceObject = getReferenceFromSearchResult( reference.bookName + '.' + reference.chapter + '.' + reference.verse );
+								const referenceObject = getReferenceFromSearchResult( reference[0] + '.' + reference[1] + '.' + reference[2] );
 								// should use getReferenceFromSearchResult.
 								dispatch( goToReferenceAction( referenceObject ) );
 							}
