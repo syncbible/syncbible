@@ -1,11 +1,16 @@
 // External dependencies
 import React, { useState } from "react";
 import { groupBy, orderBy } from "lodash";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import classnames from 'classnames';
+
+// Internal dependencies.
+import { goToReferenceAction } from '../../actions';
 import styles from "./styles.scss";
+import { getReferenceFromSearchResult } from '../../lib/reference';
 
 const WordStats = ( { strongsNumber, version } ) => {
+	const dispatch = useDispatch();
 	const { interfaceLanguage, wordForResults } = useSelector( state => {
 		return {
 			interfaceLanguage: state.settings.interfaceLanguage,
@@ -21,6 +26,7 @@ const WordStats = ( { strongsNumber, version } ) => {
 			<select className={ styles.select } value={ selectedGroup } onChange={ ( event ) => setSelectedGroup( event.target.value ) }>
 				<option value="book">book</option>
 				<option value="chapter">chapter</option>
+				<option value="verse">verse</option>
 				<option value="word">word</option>
 				<option value="morph">morph</option>
 			</select>
@@ -47,7 +53,6 @@ const WordStats = ( { strongsNumber, version } ) => {
 	}
 
 	const getLabel = ( result ) => {
-		console.log( selectedGroup );
 		if ( selectedGroup === 'morph' ) {
 			return result.word[2];
 		}
@@ -61,7 +66,7 @@ const WordStats = ( { strongsNumber, version } ) => {
 			return result[0] + ' ' + result[1];
 		}
 		if ( selectedGroup === 'verse' ) {
-			return result[0] + ' ' + result[1] + ' ' + result[2];
+			return result[0] + ' ' + result[1] + ':' + result[2];
 		}
 
 		return result;
@@ -79,6 +84,10 @@ const WordStats = ( { strongsNumber, version } ) => {
 		} else if ( selectedGroup === 'chapter' ) {
 			resultsToDisplay = groupBy( resultsArray, function( item ) {
 				return bible.getTranslatedBookName( item[0], interfaceLanguage ) + ' ' + item[1];
+			} );
+		} else if ( selectedGroup === 'verse' ) {
+			resultsToDisplay = groupBy( resultsArray, function( item ) {
+				return bible.getTranslatedBookName( item[0], interfaceLanguage ) + ' ' + item[1] + ':' + item[2];
 			} );
 		} else if ( selectedGroup === 'word' ) {
 			resultsToDisplay = groupBy( wordForResults.results, function( { word } ) {
@@ -98,6 +107,14 @@ const WordStats = ( { strongsNumber, version } ) => {
 
 	const selectedResults = getResults();
 
+	const getReference = ( label ) => {
+		if ( selectedGroup === 'word' || selectedGroup === 'morph' ) {
+			return null;
+		}
+
+		return bible.parseReference( label );
+	}
+
 	return (
 		<div className={ styles.wordStats }>
 			<h2>Stats for { version }</h2>
@@ -108,12 +125,20 @@ const WordStats = ( { strongsNumber, version } ) => {
 			{ Object.keys( selectedResults ).map( ( result, index ) => {
 				const label = Array.isArray( selectedResults ) ? getLabel( selectedResults[result][0] ) : result;
 				const percent = Math.round( selectedResults[ result ].length / results.length * 100 ) + '%';
+				const reference = getReference( label );
+				const TagName = reference ? 'a' : 'span';
 				return (
 					<div key={ index } className={ styles.wordStatsResult }>
 						<span className={ classnames( styles.wordStatsResultCount, strongsNumber ) } style={ { width: percent } }></span>
-						<span className={ styles.wordStatsResultText }>
+						<TagName className={ styles.wordStatsResultText } onClick={ () => {
+							if ( reference ) {
+								const referenceObject = getReferenceFromSearchResult( reference.bookName + '.' + reference.chapter + '.' + reference.verse );
+								// should use getReferenceFromSearchResult.
+								dispatch( goToReferenceAction( referenceObject ) );
+							}
+						} }>
 							{ label } - { selectedResults[ result ].length } ({ percent })
-						</span>
+						</TagName>
 					</div>
 				);
 			} ) }
