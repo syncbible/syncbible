@@ -1,4 +1,4 @@
-var cache = 'syncbible.23.0.1676417884';
+var cache = 'syncbible.23.0.1676933342';
 
 self.addEventListener('install', function( e ) {
 	e.waitUntil( caches.open( cache ).then(function(cache) {
