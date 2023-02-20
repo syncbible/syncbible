@@ -6,7 +6,12 @@ import classnames from 'classnames';
 import styles from "./styles.scss";
 
 const WordStats = ( { strongsNumber, version } ) => {
-	const wordForResults = useSelector( state => state.list.find( ( { listType, data } ) => listType === 'word' && data.lemma === strongsNumber && data.version === version ) );
+	const { interfaceLanguage, wordForResults } = useSelector( state => {
+		return {
+			interfaceLanguage: state.settings.interfaceLanguage,
+			wordForResults: state.list.find( ( { listType, data } ) => listType === 'word' && data.lemma === strongsNumber && data.version === version )
+		}
+ 	} );
 	const [ selectedGroup, setSelectedGroup ] = useState( 'book' );
 	const [ sort, setSort ] = useState( 'reference' );
 
@@ -42,6 +47,7 @@ const WordStats = ( { strongsNumber, version } ) => {
 	}
 
 	const getLabel = ( result ) => {
+		console.log( selectedGroup );
 		if ( selectedGroup === 'morph' ) {
 			return result.word[2];
 		}
@@ -67,10 +73,12 @@ const WordStats = ( { strongsNumber, version } ) => {
 	const getResults = () => {
 		let resultsToDisplay;
 		if ( selectedGroup === 'book' ) {
-			resultsToDisplay = groupBy( resultsArray, 0 );
+			resultsToDisplay = groupBy( resultsArray, function( item ) {
+				return bible.getTranslatedBookName( item[0], interfaceLanguage );
+			} );
 		} else if ( selectedGroup === 'chapter' ) {
 			resultsToDisplay = groupBy( resultsArray, function( item ) {
-				return item[0] + ' ' + item[1];
+				return bible.getTranslatedBookName( item[0], interfaceLanguage ) + ' ' + item[1];
 			} );
 		} else if ( selectedGroup === 'word' ) {
 			resultsToDisplay = groupBy( wordForResults.results, function( { word } ) {

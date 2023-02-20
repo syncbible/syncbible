@@ -1,9 +1,8 @@
 // todo
 - show ui control in a language not a version
 - morph hover
-- search happening in wrong version
 - combined - use verse, chapter or book
-- word stats - uses the first instance of the search instead of the correct version
+- word stats - use correct interface language
 - scroll to position when resizing browser
 - clear settings doesn't work
 - follow these rules: https://anthonyhobday.com/sideprojects/saferules/
