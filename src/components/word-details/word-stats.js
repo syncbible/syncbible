@@ -108,11 +108,15 @@ const WordStats = ( { strongsNumber, version } ) => {
 	const selectedResults = getResults();
 
 	const getReference = ( result ) => {
+		let referenceString ;
 		if ( selectedGroup === 'word' || selectedGroup === 'morph' ) {
-			return null;
+			referenceString  = result[0].reference;
+		} else {
+			const reference = result[0];
+			referenceString = reference[0] + '.' + reference[1] + '.' + reference[2]
 		}
 
-		return result[ 0 ]
+		return getReferenceFromSearchResult( referenceString  );
 	}
 
 	return (
@@ -126,19 +130,16 @@ const WordStats = ( { strongsNumber, version } ) => {
 				const label = Array.isArray( selectedResults ) ? getLabel( selectedResults[result][0] ) : result;
 				const percent = Math.round( selectedResults[ result ].length / results.length * 100 ) + '%';
 				const reference = getReference( selectedResults[ result ] );
-				const TagName = reference ? 'a' : 'span';
 				return (
 					<div key={ index } className={ styles.wordStatsResult }>
 						<span className={ classnames( styles.wordStatsResultCount, strongsNumber ) } style={ { width: percent } }></span>
-						<TagName className={ styles.wordStatsResultText } onClick={ () => {
+						<a className={ styles.wordStatsResultText } onClick={ () => {
 							if ( reference ) {
-								const referenceObject = getReferenceFromSearchResult( reference[0] + '.' + reference[1] + '.' + reference[2] );
-								// should use getReferenceFromSearchResult.
-								dispatch( goToReferenceAction( referenceObject ) );
+								dispatch( goToReferenceAction( reference ) );
 							}
 						} }>
 							{ label } - { selectedResults[ result ].length } ({ percent })
-						</TagName>
+						</a>
 					</div>
 				);
 			} ) }
