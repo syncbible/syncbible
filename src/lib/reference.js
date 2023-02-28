@@ -332,7 +332,7 @@ export const getCombinedResults = ( list ) => {
 	let combined = [];
 	list.forEach( ( item ) => {
 		let results = item.results;
-		if ( item.results ) {
+		if ( item.results && item.results.length > 0 ) {
 			results = item.results.map( ( { reference } ) => {
 				return reference;
 			 } );
