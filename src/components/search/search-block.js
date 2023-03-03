@@ -32,12 +32,12 @@ const SearchBlock = ( props ) => {
 
 		renderedResults = sortedResults.map( ( result, index ) => {
 			const isActive = props && typeof props.current !== 'undefined' && props.current === index;
-			return <SearchLink key={ index } index={ index } referenceString={ result } wordId={ props.id } isActive={ isActive } count={ result.value } />;
+			return <SearchLink key={ index } index={ index } referenceString={ result.reference } wordId={ props.id } isActive={ isActive } count={ result.value } />;
 		} );
 	} else {
 		renderedResults = results.map( ( result, index ) => {
 			const isActive = props && typeof props.current !== 'undefined' && props.current === index;
-			return <SearchLink key={ index } index={ index } referenceString={ result } wordId={ props.id } isActive={ isActive } />;
+			return <SearchLink key={ index } index={ index } referenceString={ result.reference } wordId={ props.id } isActive={ isActive } />;
 		} )
 	}
 

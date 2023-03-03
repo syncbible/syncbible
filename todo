@@ -9,6 +9,11 @@
 - Update to node 18
 - search doesn't match part of a word
 - search for repeated words
+- highlight verse number itself for current
+- vulgate thinks psalms is esther!
+- some psalms are one out in vulgate and wycliff
+- vulgate has title as a separate verse
+
 
 lower priority
 - reading mode - inline verses/ drop cap chapters

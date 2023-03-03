@@ -1,8 +1,6 @@
 import React from 'react';
-import _, { stubFalse, countBy } from 'lodash';
-import { uniq, sortBy, forEach, toPairs, fromPairs, orderBy } from 'lodash';
-import reference from '../reducers/reference';
-import SearchLink from '../components/search/search-link';
+import _, { countBy } from 'lodash';
+import { uniq, forEach, groupBy, orderBy } from "lodash";
 
 export const createReferenceLink = ( reference ) => {
 	let newReference = '/' + reference.version + '/' + reference.book + '/' + reference.chapter + '/' + reference.verse + '/';
@@ -328,12 +326,18 @@ export const sortCountedReferences = ( reference1, reference2 ) => {
 	return difference;
 }
 
-export const getCombinedResults = ( list ) => {
+export const getCombinedResults = ( list, group ) => {
 	let combined = [];
 	list.forEach( ( item ) => {
 		let results = item.results;
 		if ( item.results && item.results.length > 0 ) {
 			results = item.results.map( ( { reference } ) => {
+				if ( group === 'book' ) {
+					return reference.split( '.' )[ 0 ];
+				}
+				if ( group === 'chapter' ) {
+					return reference.split( '.' )[ 0 ] + '.' + reference.split( '.' )[ 1 ];
+				}
 				return reference;
 			 } );
 		}
@@ -344,5 +348,37 @@ export const getCombinedResults = ( list ) => {
 	const countedResults = countBy( combined );
 	const countedResultsArray = Object.keys( countedResults ).map(reference => ({ reference, value: countedResults[reference] }));
 	const sortedResults = countedResultsArray.sort( sortCountedReferences ).filter( result => result.value > 1 );
-	return sortedResults.map( ( result, index ) => <SearchLink key={ index } index={ index } referenceString={ result.reference } count={ result.value } /> );
+	return sortedResults;
+};
+
+export const getGroupedResults = ( results, selectedGroup, sort, interfaceLanguage ) => {
+	let resultsToDisplay;
+	const resultsArray = results.map( ( { reference } ) => reference.split('.') );
+	if ( selectedGroup === 'book' ) {
+		resultsToDisplay = groupBy( resultsArray, function( item ) {
+			return bible.getTranslatedBookName( item[0], interfaceLanguage );
+		} );
+	} else if ( selectedGroup === 'chapter' ) {
+		resultsToDisplay = groupBy( resultsArray, function( item ) {
+			return bible.getTranslatedBookName( item[0], interfaceLanguage ) + ' ' + item[1];
+		} );
+	} else if ( selectedGroup === 'verse' ) {
+		resultsToDisplay = groupBy( resultsArray, function( item ) {
+			return bible.getTranslatedBookName( item[0], interfaceLanguage ) + ' ' + item[1] + ':' + item[2];
+		} );
+	} else if ( selectedGroup === 'word' ) {
+		resultsToDisplay = groupBy( results, function( { word } ) {
+			return word[0];
+		} );
+	} else if ( selectedGroup === 'morph' ) {
+		resultsToDisplay = groupBy( results, function( { word } ) {
+			return word[2];
+		} );
+	}
+
+	if ( sort !== 'reference' ) {
+		return orderBy( resultsToDisplay, ['length'], [ sort ] );
+	}
+
+	return resultsToDisplay;
 };

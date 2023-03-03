@@ -58,7 +58,8 @@ javascripture.api.search = {
 		this.results.matches = {};
 	},
 	addReference: function (bookName, chapterNumber, verseNumber ) {
-		this.results.references.push( bookName + '.' +( chapterNumber + 1 ) + '.' + ( verseNumber + 1 ) );
+		// We could add more to the results object here, but for now we just need the reference.
+		this.results.references.push( { 'reference': bookName + '.' +( chapterNumber + 1 ) + '.' + ( verseNumber + 1 ) } );
 	},
 	lookForTerm: function () {
 		var self = this;

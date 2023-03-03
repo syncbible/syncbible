@@ -707,7 +707,9 @@ bible.getBookId = function( textReference ) {
 	return bookID;
 };
 bible.getBook = function( bookId ) {
-	return bible.Data.books[ bookId - 1][0];
+	if ( bible.Data.books[ bookId - 1] ) {
+		return bible.Data.books[ bookId - 1][0];
+	}
 };
 
 bible.getTranslatedBookNameByLanguage = function( bookName, language ) {

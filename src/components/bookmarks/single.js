@@ -36,7 +36,7 @@ const Single = ( { bookmark, index } ) => {
 					<ol>
 						{ bookmark.results.map( ( crossReference, referenceKey ) => {
 							const isActive = bookmark && typeof bookmark.current !== 'undefined' && bookmark.current === referenceKey;
-							return <SearchLink key={ referenceKey } index={ referenceKey } referenceString={ crossReference } wordId={ bookmark.id } isActive={ isActive } />;
+							return <SearchLink key={ referenceKey } index={ referenceKey } referenceString={ crossReference.reference } wordId={ bookmark.id } isActive={ isActive } />;
 						} ) }
 					</ol>
 				</div>

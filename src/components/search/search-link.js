@@ -10,7 +10,7 @@ import styles from './styles.scss';
 import ReferenceText from '../reference-text';
 import { getReferenceFromSearchResult } from '../../lib/reference';
 
-const SearchLink = ( { referenceString, index, count, wordId, isActive } ) => {
+const SearchLink = ( { referenceString, index, count, wordId, isActive, referenceToDisplay } ) => {
 	// State constants
 	const settings = useSelector( state => state.settings );
 	const compareMode = settings && settings.compareMode;
@@ -22,6 +22,11 @@ const SearchLink = ( { referenceString, index, count, wordId, isActive } ) => {
 	if ( ! reference ) {
 		return null;
 	}
+
+	if ( ! referenceToDisplay ) {
+		referenceToDisplay = <ReferenceText reference={ reference } />;
+	}
+
 	const dispatch = useDispatch();
 
 	// Component constants
@@ -74,7 +79,7 @@ const SearchLink = ( { referenceString, index, count, wordId, isActive } ) => {
 				onMouseOver={ highlightWords }
 				onMouseOut={ unHighlightWords }
 			>
-				{ index + 1 }. <ReferenceText reference={ reference } />
+				{ index + 1 }. { referenceToDisplay }
 				{ count && ' (' + count + ')' }
 			</a>
 			{ expandedSearchResultsRendered( reference ) }

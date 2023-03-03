@@ -39,6 +39,8 @@ export const getCrossReferences = ( data, reference ) => {
 		const referenceSections = referenceString.split('-');
 		const referenceArray = referenceSections[0].split('.');
 		const bookId = bible.getBookId( referenceArray[0] );
-		return bible.Data.books[bookId - 1][0] + "." + referenceArray[1] + "." + referenceArray[2];
+		return {
+			reference: bible.Data.books[bookId - 1][0] + "." + referenceArray[1] + "." + referenceArray[2]
+		};
 	} ) ;
 };

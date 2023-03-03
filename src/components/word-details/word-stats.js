@@ -7,7 +7,7 @@ import classnames from 'classnames';
 // Internal dependencies.
 import { goToReferenceAction } from '../../actions';
 import styles from "./styles.scss";
-import { getReferenceFromSearchResult } from '../../lib/reference';
+import { getReferenceFromSearchResult, getGroupedResults } from '../../lib/reference';
 
 const WordStats = ( { strongsNumber, version } ) => {
 	const dispatch = useDispatch();
@@ -73,10 +73,10 @@ const WordStats = ( { strongsNumber, version } ) => {
 	}
 
 	let results = wordForResults.results;
-	const resultsArray = results.map( ( { reference } ) => reference.split('.') );
 
-	const getResults = () => {
+	const getResults = ( results ) => {
 		let resultsToDisplay;
+		const resultsArray = results.map( ( { reference } ) => reference.split('.') );
 		if ( selectedGroup === 'book' ) {
 			resultsToDisplay = groupBy( resultsArray, function( item ) {
 				return bible.getTranslatedBookName( item[0], interfaceLanguage );
@@ -99,13 +99,10 @@ const WordStats = ( { strongsNumber, version } ) => {
 			} );
 		}
 
-		if ( sort !== "reference" ) {
-			return orderBy( resultsToDisplay, ['length'], [ sort ] );
-		}
-		return resultsToDisplay;
+		return orderBy( resultsToDisplay, ['length'], [ sort ] );
 	}
 
-	const selectedResults = getResults();
+	const selectedResults = getGroupedResults( results, selectedGroup, sort, interfaceLanguage );
 
 	const getReference = ( result ) => {
 		let referenceString ;
