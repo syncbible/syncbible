@@ -7,13 +7,16 @@ import classnames from 'classnames';
 import { goToReferenceAction } from '../../actions';
 import styles from "./styles.scss";
 import { getReferenceFromSearchResult, getGroupedResults } from '../../lib/reference';
+import ExpandedSearchResults from '../expanded-search-results';
 
-const SortGroupResults = ( { results, strongsNumber, initialGroup, initialSort } ) => {
+const SortGroupResults = ( { results, strongsNumber, initialGroup, initialSort, allowPreview, supportsWord } ) => {
     const dispatch = useDispatch();
 	const [ group, setGroup ] = useState( initialGroup );
 	const [ sort, setSort ] = useState( initialSort );
 	const { interfaceLanguage } = useSelector( state => {
 		return {
+            compareMode: state.settings.compareMode,
+            expandedSearchResults: state.settings.expandedSearchResults,
 			interfaceLanguage: state.settings.interfaceLanguage,
 		}
  	} );
@@ -25,8 +28,8 @@ const SortGroupResults = ( { results, strongsNumber, initialGroup, initialSort }
 				<option value="book">book</option>
 				<option value="chapter">chapter</option>
 				<option value="verse">verse</option>
-				<option value="word">word</option>
-				<option value="morph">morph</option>
+				{ supportsWord && <option value="word">word</option> }
+				{ supportsWord && <option value="morph">morph</option> }
 			</select>
 		</div>
 	);
@@ -48,10 +51,10 @@ const SortGroupResults = ( { results, strongsNumber, initialGroup, initialSort }
 
 	const getLabel = ( result ) => {
 		if ( group === 'morph' ) {
-			return result.word[2];
+			return result.word && result.word[2];
 		}
 		if ( group === 'word' ) {
-			return result.word[0];
+			return result.word && result.word[0];
 		}
 		if ( group === 'book' ) {
 			return result[0];
@@ -100,9 +103,9 @@ const SortGroupResults = ( { results, strongsNumber, initialGroup, initialSort }
 								dispatch( goToReferenceAction( reference ) );
 							}
 						} }>
-                            { /*TODO: This should use SearchLink*/ }
 							{ label } ({ selectedResults[ result ].length }{ percent > 1 && ' - ' + percent + '%' })
 						</a>
+						{ allowPreview && group === 'verse' && <ExpandedSearchResults reference={ reference } /> }
 					</div>
 				);
 			} ) }

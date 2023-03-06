@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
 import { setCurrentListResult, goToReferenceAction } from '../../actions';
-import Verse from '../reference/verse';
+import ExpandedSearchResults from '../expanded-search-results';
 import styles from './styles.scss';
 import ReferenceText from '../reference-text';
 import { getReferenceFromSearchResult } from '../../lib/reference';
@@ -13,8 +13,6 @@ import { getReferenceFromSearchResult } from '../../lib/reference';
 const SearchLink = ( { referenceString, index, count, wordId, isActive, referenceToDisplay } ) => {
 	// State constants
 	const settings = useSelector( state => state.settings );
-	const compareMode = settings && settings.compareMode;
-	const expandedSearchResults = settings && settings.expandedSearchResults;
 	const highlightSearchResults = settings && settings.highlightSearchResults;
 	const interfaceLanguage = settings && settings.interfaceLanguage;
 
@@ -50,19 +48,6 @@ const SearchLink = ( { referenceString, index, count, wordId, isActive, referenc
 
 		window.updateAppComponent( 'highlightedWord', null );
 	};
-	const expandedSearchResultsRendered = ( reference ) => {
-		const adjustedReference = { book: reference.book, chapter: reference.chapter - 1, verse: reference.verse - 1 };
-		const className = classnames(
-			styles.verse,
-			expandedSearchResults ? styles.verseExpanded : null,
-			compareMode ? styles.compareMode : styles.smallSidebar,
-		);
-		return (
-			<div className={ className }>
-				<Verse reference={ adjustedReference } index={ adjustedReference.verse } version={ interfaceLanguage } />
-			</div>
-		);
-	};
 
 	return (
 		<li className={ className }>
@@ -82,7 +67,7 @@ const SearchLink = ( { referenceString, index, count, wordId, isActive, referenc
 				{ index + 1 }. { referenceToDisplay }
 				{ count && ' (' + count + ')' }
 			</a>
-			{ expandedSearchResultsRendered( reference ) }
+			<ExpandedSearchResults reference={ reference } />
 		</li>
 	);
 };

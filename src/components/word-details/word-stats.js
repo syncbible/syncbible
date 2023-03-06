@@ -26,7 +26,7 @@ const WordStats = ( { strongsNumber, version } ) => {
 	return (
 		<div className={ styles.wordStats }>
 			<h2>Stats for { version }</h2>
-			<SortGroupResults results={ wordForResults.results } strongsNumber={ strongsNumber } initialGroup="book" initialSort="reference" />
+			<SortGroupResults results={ wordForResults.results } strongsNumber={ strongsNumber } initialGroup="book" initialSort="reference" supportsWord={ true } />
 		</div>
 	);
 };

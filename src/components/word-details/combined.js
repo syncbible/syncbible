@@ -34,7 +34,7 @@ const CombinedResults = ( { type } ) => {
 				<div>Combined <a onClick={ ( event ) => { event.stopPropagation(); dispatch( setTrayVisibilityFilter('combinedall') ); } }><JoinFull /></a></div>
 			}
 		>
-			<SortGroupResults results={ combinedResults } initialGroup="verse" initialSort="desc" />
+			<SortGroupResults results={ combinedResults } initialGroup="verse" initialSort="desc" allowPreview={ true } />
 		</Collapsible>
 	);
 };

@@ -1,4 +1,3 @@
-import React from 'react';
 import _, { countBy } from 'lodash';
 import { uniq, forEach, groupBy, orderBy } from "lodash";
 
@@ -326,6 +325,8 @@ export const sortCountedReferences = ( reference1, reference2 ) => {
 	return difference;
 }
 
+
+// This can be removed I think
 export const getCombinedResults = ( list, group ) => {
 	let combined = [];
 	list.forEach( ( item ) => {
@@ -368,11 +369,11 @@ export const getGroupedResults = ( results, selectedGroup, sort, interfaceLangua
 		} );
 	} else if ( selectedGroup === 'word' ) {
 		resultsToDisplay = groupBy( results, function( { word } ) {
-			return word[0];
+			return word && word[0];
 		} );
 	} else if ( selectedGroup === 'morph' ) {
 		resultsToDisplay = groupBy( results, function( { word } ) {
-			return word[2];
+			return word && word[2];
 		} );
 	}
 

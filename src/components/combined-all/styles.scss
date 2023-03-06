@@ -1,20 +1,5 @@
 .combined-all {
+	padding: .5rem;
 	width: 100%;
-
-	p {
-		margin: .5rem;
-	}
 }
-.results {
-	line-height: 1.5;
-	list-style-type: none;
-	margin: .5rem;
 
-	a {
-		text-decoration: none;
-
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-}
