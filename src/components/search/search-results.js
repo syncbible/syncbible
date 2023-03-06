@@ -10,7 +10,8 @@ import { removeFromList, toggleListItemVisible } from '../../actions';
 
 const SearchResults = () => {
 	const dispatch = useDispatch();
-	const searchTerms = useSelector( state => state.list.filter( ( { listType } ) => listType === 'search' ) );
+	const list = useSelector( state => state.list );
+	const searchTerms = list.filter( ( { listType } ) => listType === 'search' )
 	const termTitle = ( { clusivity, version, lemma, morph, range, strict, word } ) => {
 		return 'word: ' + word + '\nstrongs number: ' + lemma + '\nmorphology: ' + morph + '\nversion: ' + version + '\nclusivity: ' + clusivity + '\nrange: ' + range + '\nstrict: ' + strict;
 	};

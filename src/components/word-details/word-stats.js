@@ -8,41 +8,12 @@ import classnames from 'classnames';
 import { goToReferenceAction } from '../../actions';
 import styles from "./styles.scss";
 import { getReferenceFromSearchResult, getGroupedResults } from '../../lib/reference';
+import SortGroupResults from "../sort-group-results";
 
 const WordStats = ( { strongsNumber, version } ) => {
 	const dispatch = useDispatch();
-	const { interfaceLanguage, wordForResults } = useSelector( state => {
-		return {
-			interfaceLanguage: state.settings.interfaceLanguage,
-			wordForResults: state.list.find( ( { listType, data } ) => listType === 'word' && data.lemma === strongsNumber && data.version === version )
-		}
- 	} );
-	const [ selectedGroup, setSelectedGroup ] = useState( 'book' );
-	const [ sort, setSort ] = useState( 'reference' );
-
-	const groupSelector = (
-		<div>
-			<label>Group by</label>
-			<select className={ styles.select } value={ selectedGroup } onChange={ ( event ) => setSelectedGroup( event.target.value ) }>
-				<option value="book">book</option>
-				<option value="chapter">chapter</option>
-				<option value="verse">verse</option>
-				<option value="word">word</option>
-				<option value="morph">morph</option>
-			</select>
-		</div>
-	);
-
-	const sortSelector = (
-		<div>
-			<label>Sort by</label>
-			<select className={ styles.select } value={ sort } onChange={ ( event ) => setSort( event.target.value ) }>
-				<option value="reference">Reference</option>
-				<option value="desc">Descending ↓</option>
-				<option value="asc">Ascending ↑</option>
-			</select>
-		</div>
-	);
+	const list = useSelector( state => state.list );
+	const wordForResults = list.find( ( { listType, data } ) => listType === 'word' && data.lemma === strongsNumber && data.version === version );
 
 	if ( ! wordForResults || ! wordForResults.results ) {
 		return (
@@ -52,94 +23,10 @@ const WordStats = ( { strongsNumber, version } ) => {
 		);
 	}
 
-	const getLabel = ( result ) => {
-		if ( selectedGroup === 'morph' ) {
-			return result.word[2];
-		}
-		if ( selectedGroup === 'word' ) {
-			return result.word[0];
-		}
-		if ( selectedGroup === 'book' ) {
-			return result[0];
-		}
-		if ( selectedGroup === 'chapter' ) {
-			return result[0] + ' ' + result[1];
-		}
-		if ( selectedGroup === 'verse' ) {
-			return result[0] + ' ' + result[1] + ':' + result[2];
-		}
-
-		return result;
-	}
-
-	let results = wordForResults.results;
-
-	const getResults = ( results ) => {
-		let resultsToDisplay;
-		const resultsArray = results.map( ( { reference } ) => reference.split('.') );
-		if ( selectedGroup === 'book' ) {
-			resultsToDisplay = groupBy( resultsArray, function( item ) {
-				return bible.getTranslatedBookName( item[0], interfaceLanguage );
-			} );
-		} else if ( selectedGroup === 'chapter' ) {
-			resultsToDisplay = groupBy( resultsArray, function( item ) {
-				return bible.getTranslatedBookName( item[0], interfaceLanguage ) + ' ' + item[1];
-			} );
-		} else if ( selectedGroup === 'verse' ) {
-			resultsToDisplay = groupBy( resultsArray, function( item ) {
-				return bible.getTranslatedBookName( item[0], interfaceLanguage ) + ' ' + item[1] + ':' + item[2];
-			} );
-		} else if ( selectedGroup === 'word' ) {
-			resultsToDisplay = groupBy( wordForResults.results, function( { word } ) {
-				return word[0];
-			} );
-		} else if ( selectedGroup === 'morph' ) {
-			resultsToDisplay = groupBy( wordForResults.results, function( { word } ) {
-				return word[2];
-			} );
-		}
-
-		return orderBy( resultsToDisplay, ['length'], [ sort ] );
-	}
-
-	const selectedResults = getGroupedResults( results, selectedGroup, sort, interfaceLanguage );
-
-	const getReference = ( result ) => {
-		let referenceString ;
-		if ( selectedGroup === 'word' || selectedGroup === 'morph' ) {
-			referenceString  = result[0].reference;
-		} else {
-			const reference = result[0];
-			referenceString = reference[0] + '.' + reference[1] + '.' + reference[2]
-		}
-
-		return getReferenceFromSearchResult( referenceString  );
-	}
-
 	return (
 		<div className={ styles.wordStats }>
 			<h2>Stats for { version }</h2>
-			<fieldset>
-				{ groupSelector }
-				{ sortSelector }
-			</fieldset>
-			{ Object.keys( selectedResults ).map( ( result, index ) => {
-				const label = Array.isArray( selectedResults ) ? getLabel( selectedResults[result][0] ) : result;
-				const percent = Math.round( selectedResults[ result ].length / results.length * 100 ) + '%';
-				const reference = getReference( selectedResults[ result ] );
-				return (
-					<div key={ index } className={ styles.wordStatsResult }>
-						<span className={ classnames( styles.wordStatsResultCount, strongsNumber ) } style={ { width: percent } }></span>
-						<a className={ styles.wordStatsResultText } onClick={ () => {
-							if ( reference ) {
-								dispatch( goToReferenceAction( reference ) );
-							}
-						} }>
-							{ label } - { selectedResults[ result ].length } ({ percent })
-						</a>
-					</div>
-				);
-			} ) }
+			<SortGroupResults results={ wordForResults.results } strongsNumber={ strongsNumber } initialGroup="book" initialSort="reference" />
 		</div>
 	);
 };

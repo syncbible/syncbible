@@ -10,7 +10,7 @@ import SearchLink from '../search/search-link';
 
 const CombinedAll = () => {
 	const list = useSelector( state => state.list );
-	const combinedResults = getCombinedResults( list );
+	const combinedResults = getCombinedResults( list ); // TODO replace with getGroupedResults.
 
 	// copied from combined/index.js.
 	const CombinedResultsMarkup = combinedResults.length > 0 ? (

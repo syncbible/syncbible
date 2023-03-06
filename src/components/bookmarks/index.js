@@ -9,7 +9,8 @@ import Single from './single';
 import styles from './styles.scss';
 
 const BookMarks = () => {
-	const bookmarks = useSelector( state => state.list.filter( ( { listType } ) => listType === 'bookmark' ) );
+	const list = useSelector( state => state.list );
+	const bookmarks = list.filter( ( { listType } ) => listType === 'bookmark' );
 
 	return (
 		<>

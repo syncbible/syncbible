@@ -8,11 +8,11 @@ import CombinedResults from './combined';
 import WordBlock from './word-block';
 
 const WordDetails = () => {
-	const words = useSelector( state => state.list.filter( ( { listType } ) => listType === 'word' ) );
-
+	const list = useSelector( state => state.list );
+	const words = list.filter( ( { listType } ) => listType === 'word' );
 	const [ focus, setFocus ] = useState( null );
 
-	return words.length ? (
+	return words && words.length ? (
 		<div className={ styles.wordDetails }>
 			{ words.map( ( word, index ) => {
 				return (

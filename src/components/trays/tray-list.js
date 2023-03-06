@@ -15,7 +15,7 @@ const TrayList = ( { trays } ) => {
 				key={ tray.id }
 				className={ classnames( styles.tray, isActive ? styles.visible : styles.hidden ) }
 			>
-				<tray.component active={ isActive } />
+				<tray.component isActive={ isActive} />
 			</div>
 		);
 	} );
