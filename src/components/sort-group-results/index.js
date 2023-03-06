@@ -100,6 +100,7 @@ const SortGroupResults = ( { results, strongsNumber, initialGroup, initialSort }
 								dispatch( goToReferenceAction( reference ) );
 							}
 						} }>
+                            { /*TODO: This should use SearchLink*/ }
 							{ label } ({ selectedResults[ result ].length }{ percent > 1 && ' - ' + percent + '%' })
 						</a>
 					</div>
