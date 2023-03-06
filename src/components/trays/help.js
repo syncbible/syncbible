@@ -11,7 +11,7 @@ const HelpTray = () => {
 	const data = useSelector( state => state.data );
 
 	const clear = () => {
-		localStorage.clear();
+		indexedDB.deleteDatabase( 'syncbible' );
 		window.location.href="/";
 	};
 

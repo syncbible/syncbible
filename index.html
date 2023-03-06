@@ -28,7 +28,7 @@
 		<div class="errors" id="errors">
 			<h1>Sorry :(</h1>
 			<br />
-			<p>If you can see this, something probably went wrong. <a href="clear.html" onclick="clear()">Clear settings and start over</a>, <a href="https://ben.blog/contact/">Email me</a>.
+			<p>If you can see this, something probably went wrong. <a href="#" onclick="clear()">Clear settings and start over</a>, <a href="https://ben.blog/contact/">Email me</a>.
 			<br />
 			<br />
 			<p>If this is broken, use <a href="https://javascripture.org">javascripture.org</a>.</p>
@@ -55,7 +55,8 @@
 	var timer = new Date();
 
 	function clear() {
-		localStorage.clear();window.location.href="/";
+		indexedDB.deleteDatabase('syncbible');
+		window.location.href="/";
 	}
 </script>
 
@@ -113,7 +114,7 @@
 
 								// notification.style.display = 'block';
 								if ( confirm('A new version of this app is available. Update now?') ) {
-									localStorage.clear();
+									indexedDB.deleteDatabase('syncbible');
 									newWorker.postMessage({ action: 'skipWaiting' });
 								}
 							}
