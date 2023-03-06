@@ -30,12 +30,12 @@ const SearchBlock = ( props ) => {
 		const countedResultsArray = Object.keys( countedResults ).map(key => ({ key, value: countedResults[key] }));
 		const sortedResults = sortBy( countedResultsArray, [ 'value', 'key' ] ).filter( result => result.value > 2 ).reverse();
 
-		renderedResults = sortedResults.map( ( result, index ) => {
+		renderedResults = Array.isArray( sortedResults ) && sortedResults.map( ( result, index ) => {
 			const isActive = props && typeof props.current !== 'undefined' && props.current === index;
 			return <SearchLink key={ index } index={ index } referenceString={ result.reference } wordId={ props.id } isActive={ isActive } count={ result.value } />;
 		} );
 	} else {
-		renderedResults = results.map( ( result, index ) => {
+		renderedResults = Array.isArray( results ) && results.map( ( result, index ) => {
 			const isActive = props && typeof props.current !== 'undefined' && props.current === index;
 			return <SearchLink key={ index } index={ index } referenceString={ result.reference } wordId={ props.id } isActive={ isActive } />;
 		} )

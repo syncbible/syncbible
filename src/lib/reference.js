@@ -354,7 +354,12 @@ export const getCombinedResults = ( list, group ) => {
 
 export const getGroupedResults = ( results, selectedGroup, sort, interfaceLanguage ) => {
 	let resultsToDisplay;
-	const resultsArray = results.map( ( { reference } ) => reference.split('.') );
+	const resultsArray = results.map( ( { reference } ) => {
+		if ( typeof reference === 'string' ) {
+			return reference.split('.');
+		}
+		return reference;
+ 	} );
 	if ( selectedGroup === 'book' ) {
 		resultsToDisplay = groupBy( resultsArray, function( item ) {
 			return bible.getTranslatedBookName( item[0], interfaceLanguage );
