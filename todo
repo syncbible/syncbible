@@ -4,9 +4,7 @@
 - in combined, show the split between the different words?
 - show ui control in a language not a version
 - morph hover
-- combined - use verse, chapter or book
 - scroll to position when resizing browser
-- clear settings doesn't work
 - follow these rules: https://anthonyhobday.com/sideprojects/saferules/
 - Don't force a reload until everything has refreshed
 - Update to node 18
