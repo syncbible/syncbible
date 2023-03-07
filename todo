@@ -1,8 +1,6 @@
 // todo
-- add stats to search results.
 - in combined, don't count verses where its just the same word multiple times?
 - in combined, show the split between the different words?
-- show ui control in a language not a version
 - morph hover
 - scroll to position when resizing browser
 - follow these rules: https://anthonyhobday.com/sideprojects/saferules/
