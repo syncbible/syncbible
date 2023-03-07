@@ -10,10 +10,14 @@ import SortGroupResults from '../sort-group-results/index.js';
 const CombinedAll = () => {
 	const list = useSelector( state => state.list );
 
+	// duplicated from combined.js.
 	let combinedResults = [];
 	list.forEach( ( item ) => {
 		if ( item.results && item.results.length > 0 ) {
-			combinedResults = combinedResults.concat( item.results );
+			const resultsArray = item.results.map( ( { reference } ) => reference );
+			// Make these results unique.
+			const uniqueResults = [ ...new Set( resultsArray ) ];
+			combinedResults = combinedResults.concat( uniqueResults );
 		}
 	} );
 

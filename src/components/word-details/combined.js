@@ -21,7 +21,10 @@ const CombinedResults = ( { type } ) => {
 	let combinedResults = [];
 	words.forEach( ( item ) => {
 		if ( item.results && item.results.length > 0 ) {
-			combinedResults = combinedResults.concat( item.results );
+			const resultsArray = item.results.map( ( { reference } ) => reference );
+			// Make these results unique.
+			const uniqueResults = [ ...new Set( resultsArray ) ];
+			combinedResults = combinedResults.concat( uniqueResults );
 		}
 	} );
 

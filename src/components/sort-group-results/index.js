@@ -57,13 +57,19 @@ const SortGroupResults = ( { results, strongsNumber, initialGroup, initialSort, 
 			return result.word && result.word[0];
 		}
 		if ( group === 'book' ) {
-			return result[0];
+			if ( Array.isArray( result ) ) {
+				return result[0];
+			}
 		}
 		if ( group === 'chapter' ) {
-			return result[0] + ' ' + result[1];
+			if ( Array.isArray( result ) ) {
+				return result[0] + ' ' + result[1];
+			}
 		}
 		if ( group === 'verse' ) {
-			return result[0] + ' ' + result[1] + ':' + result[2];
+			if ( Array.isArray( result ) ) {
+				return result[0] + ' ' + result[1] + ':' + result[2];
+			}
 		}
 
 		return result;
@@ -79,7 +85,9 @@ const SortGroupResults = ( { results, strongsNumber, initialGroup, initialSort, 
 			referenceString  = result[0].reference;
 		} else {
 			const reference = result[0];
-			referenceString = reference[0] + '.' + reference[1] + '.' + reference[2]
+			if ( reference ) {
+				referenceString = reference[0] + '.' + reference[1] + '.' + reference[2];
+			}
 		}
 
 		return getReferenceFromSearchResult( referenceString  );

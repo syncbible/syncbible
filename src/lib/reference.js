@@ -360,7 +360,15 @@ export const getCombinedResults = ( list, group ) => {
 
 export const getGroupedResults = ( results, selectedGroup, sort, interfaceLanguage ) => {
 	let resultsToDisplay;
-	const resultsArray = results.map( ( { reference } ) => {
+	// Allow results to be an array of strings or an array of objects with a reference property.
+	const resultsArray = results.map( result => {
+		let reference = '';
+		if ( typeof result.reference === 'string' ) {
+			reference = result.reference;
+		}
+		if ( typeof result === 'string' ) {
+			reference = result;
+		}
 		if ( typeof reference === 'string' ) {
 			return reference.split('.');
 		}
@@ -368,15 +376,21 @@ export const getGroupedResults = ( results, selectedGroup, sort, interfaceLangua
  	} );
 	if ( selectedGroup === 'book' ) {
 		resultsToDisplay = groupBy( resultsArray, function( item ) {
-			return bible.getTranslatedBookName( item[0], interfaceLanguage );
+			if ( Array.isArray( item ) ) {
+				return bible.getTranslatedBookName( item[0], interfaceLanguage );
+			}
 		} );
 	} else if ( selectedGroup === 'chapter' ) {
 		resultsToDisplay = groupBy( resultsArray, function( item ) {
-			return bible.getTranslatedBookName( item[0], interfaceLanguage ) + ' ' + item[1];
+			if ( Array.isArray( item ) ) {
+				return bible.getTranslatedBookName( item[0], interfaceLanguage ) + ' ' + item[1];
+			}
 		} );
 	} else if ( selectedGroup === 'verse' ) {
 		resultsToDisplay = groupBy( resultsArray, function( item ) {
-			return bible.getTranslatedBookName( item[0], interfaceLanguage ) + ' ' + item[1] + ':' + item[2];
+			if ( Array.isArray( item ) ) {
+				return bible.getTranslatedBookName( item[0], interfaceLanguage ) + ' ' + item[1] + ':' + item[2];
+			}
 		} );
 	} else if ( selectedGroup === 'word' ) {
 		resultsToDisplay = groupBy( results, function( { word } ) {

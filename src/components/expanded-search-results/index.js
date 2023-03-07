@@ -8,6 +8,10 @@ import Verse from '../reference/verse';
 import styles from './styles.scss';
 
 const ExpandedSearchResults = ( { reference } ) => {
+    if ( ! reference ) {
+        return null;
+    }
+
     const { compareMode, expandedSearchResults, interfaceLanguage } = useSelector( state => {
 		return {
             compareMode: state.settings.compareMode,
