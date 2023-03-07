@@ -325,6 +325,12 @@ export const sortCountedReferences = ( reference1, reference2 ) => {
 	return difference;
 }
 
+function sortByReference( reference ) {
+	const bookId = bible.Data.allBooks.indexOf( reference[ 0 ][ 0 ] ) + 1;
+	const chapter = parseInt( reference[ 0 ][ 1 ] );
+	const verse = parseInt( reference[ 0 ][ 2 ] );
+	return bookId * 10000 + chapter * 100 + verse;
+}
 
 // This can be removed I think
 export const getCombinedResults = ( list, group ) => {
@@ -384,7 +390,7 @@ export const getGroupedResults = ( results, selectedGroup, sort, interfaceLangua
 
 	if ( sort !== 'reference' ) {
 		return orderBy( resultsToDisplay, ['length'], [ sort ] );
+	} else {
+		return orderBy( resultsToDisplay, [ sortByReference ] );
 	}
-
-	return resultsToDisplay;
 };
