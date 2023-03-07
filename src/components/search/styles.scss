@@ -81,3 +81,31 @@
 .clusivity {
 	font-size: 15px;
 }
+
+
+// duplicated from word-details.
+.tabs {
+	background: var(--background-between);
+	display: flex;
+	margin: -0.7em;
+	margin-bottom: .7em;
+	justify-content: space-between;
+
+	a {
+		flex-grow: 1;
+		padding: 0.3em 0;
+		text-align: center;
+
+		&.active {
+			background: var(--background-ui);
+		}
+
+		&:hover {
+			background: var(--background);
+		}
+	}
+
+	svg {
+		fill: var(--color);
+	}
+}

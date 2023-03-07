@@ -27,7 +27,7 @@ const VerseWrapper = ( { book, version, chapter, verse, isCurrentRef, lang } ) =
 	return (
 		<div lang={ lang } className={ classnames( styles.verseWrapper, isCurrentRef ? styles.isCurrent : null ) } dir={ bible.isRtlVersion( version, book ) ? 'rtl' : 'ltr' } ref={ verseWrapperRef }>
 			<div className={ styles.helpers }>
-				<VerseNumber book={ book } chapter={ chapter } verse={ verse } />
+				<VerseNumber book={ book } chapter={ chapter } verse={ verse } isCurrentRef={ isCurrentRef } />
 				<span className={ styles.hidden }>
 					<CopyToClipboard fill={ '#999' } textToCopy={ verseWrapperRef } />
 				</span>

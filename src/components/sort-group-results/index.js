@@ -97,13 +97,13 @@ const SortGroupResults = ( { results, strongsNumber, initialGroup, initialSort, 
 				const reference = getReference( selectedResults[ result ] );
 				return (
 					<div key={ index } className={ styles.sortGroupResult }>
-						<span className={ classnames( styles.sortGroupResultCount, strongsNumber ) } style={ { width: percent } }></span>
+						<span className={ classnames( styles.sortGroupResultCount, strongsNumber ) } style={ { width: percent + '%' } }></span>
 						<a className={ styles.sortGroupResultText } onClick={ () => {
 							if ( reference ) {
 								dispatch( goToReferenceAction( reference ) );
 							}
 						} }>
-							{ label } ({ selectedResults[ result ].length }{ percent > 1 && ' - ' + percent + '%' })
+							{ label } <span className={ styles.sortGroupResultNumber }>({ selectedResults[ result ].length }{ percent > 1 && ' - ' + percent + '%' })</span>
 						</a>
 						{ allowPreview && group === 'verse' && <ExpandedSearchResults reference={ reference } /> }
 					</div>

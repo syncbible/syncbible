@@ -20,9 +20,6 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 	const [ activeTab, setActiveTab ] = useState( 'search' );
 
 	let resultsData = word.results;
-	/*if ( word.results && ! word.results.length ) {
-		resultsData = Object.keys( word.results )
-	}*/
 	const results = resultsData && Array.isArray( resultsData ) && resultsData.map( ( { reference }, index ) => {
 		const isActive = word && typeof word.current !== 'undefined' && word.current === index;
 		return <SearchLink key={ index } index={ index } referenceString={ reference } wordId={ word.id } isActive={ isActive } />;

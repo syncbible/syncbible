@@ -16,11 +16,7 @@ const WordStats = ( { strongsNumber, version } ) => {
 	const wordForResults = list.find( ( { listType, data } ) => listType === 'word' && data.lemma === strongsNumber && data.version === version );
 
 	if ( ! wordForResults || ! wordForResults.results ) {
-		return (
-			<>
-				Stats will appear when you have searched for the word.
-			</>
-		);
+		return <p>Stats will appear when you have searched for the word.</p>;
 	}
 
 	return (

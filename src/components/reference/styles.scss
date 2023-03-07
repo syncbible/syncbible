@@ -162,6 +162,10 @@
 	background: var(--active);
 }
 
+.current {
+	background: var(--color);
+}
+
 .invisible {
 	display: none;
 	height: 0;
