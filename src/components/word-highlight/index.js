@@ -21,10 +21,10 @@ const WordHighlight = ( { word } ) => {
 				}
 
 				if ( searchSelect ) {
-					return getHighlightBorder( word, settings.subdue, settings.highlightWordsWith, strongsObjectWithFamilies );
+					return getHighlightBorder( word, null, settings.highlightWordsWith, strongsObjectWithFamilies );
 				}
 
-				return getHighlight( word, settings.subdue, settings.highlightWordsWith, strongsObjectWithFamilies );
+				return getHighlight( word, null, settings.highlightWordsWith, strongsObjectWithFamilies );
 			} ) }
 		</style>
 	);

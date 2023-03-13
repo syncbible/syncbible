@@ -5,7 +5,6 @@ const initialState = {
 	fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", Arial, Helvetica, sans-serif;',
 	highlightWordsWith: "same",
 	referencePicker: "select",
-	subdue: "50%",
 	inSync: true,
 	expandedSearchResults: false,
 	highlightSearchResults: false,

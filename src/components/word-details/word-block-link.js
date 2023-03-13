@@ -7,7 +7,6 @@ import styles from './styles.scss';
 import { selectWord } from '../../actions';
 
 const WordBlockLink = ( { strongsNumber, version } ) => {
-	const subdue = useSelector( state => state.settings.subdue );
 	const dispatch = useDispatch();
 
 	const getClassName = ( strongsNumber ) => {

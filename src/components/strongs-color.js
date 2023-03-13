@@ -1,17 +1,19 @@
 import { getFamily } from '../lib/word';
 
-var getStrongsColor = function( lemma, lightness ) {
+export function getStrongsColor( lemma, lightnessOld ) {
 		var strongsInt = parseInt( lemma );
 		if ( isNaN ( strongsInt ) ) {
 			strongsInt = 0;
 		}
 		var theSizeOfAColorSegment = 360 / 8000,
 			hue = Math.floor( strongsInt * theSizeOfAColorSegment ),
-			staturation = '50%';
+			staturation = ( lemma % 50 + 25 ) + '%',
+			lightness = ( lemma % 10 * 3 ) + 35 + '%';
+
 		return 'hsl( ' + hue + ',' + staturation + ', ' + lightness + ' )';
 };
 
-var getStrongsColorWithSettings = function( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies ) {
+var getStrongsColorWithSettings = function( strongsNumber, lightness = null, highlightWordsWith, strongsObjectWithFamilies ) {
 	var hightlightFamilies = highlightWordsWith === 'family',
 		classInt;
 

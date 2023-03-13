@@ -16,7 +16,7 @@ const SettingsTray = () => {
 	const settings = useSelector( state => state.settings );
 	const reference = useSelector( state => state.reference );
 
- 	// remove this line
+	// remove this line
 	javascripture.state.settings = settings;
 
 	const changeSetting = ( event ) => {
@@ -63,16 +63,6 @@ const SettingsTray = () => {
 									<option value="180%">180%</option>
 									<option value="190%">190%</option>
 									<option value="200%">200%</option>
-								</select>
-							</li>
-							<li className={ styles.settingsLi }>
-								<label>Colours:</label>
-								<select value={ settings.subdue } name="subdue" onChange={ changeSetting }>
-									<option value="90%">Very Bright</option>
-									<option value="75%">Bright</option>
-									<option value="50%">Normal</option>
-									<option value="30%">Dark</option>
-									<option value="20%">Very Dark</option>
 								</select>
 							</li>
 							<li className={ styles.settingsLi }>
