@@ -8,6 +8,7 @@
 - morph hover
 - scroll to position when resizing browser
 - follow these rules: https://anthonyhobday.com/sideprojects/saferules/
+- and these https://practicaltypography.com/typography-in-ten-minutes.html
 - Don't force a reload until everything has refreshed
 - Update to node 18
 - search doesn't match part of a word

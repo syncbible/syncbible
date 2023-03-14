@@ -68,6 +68,7 @@
     "sass-loader": "^11.1.1",
     "strongs": "^1.0.2",
     "style-loader": "^2.0.0",
+    "tinycolor2": "^1.6.0",
     "xhr": "^2.6.0"
   }
 }

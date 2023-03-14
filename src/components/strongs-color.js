@@ -1,16 +1,19 @@
 import { getFamily } from '../lib/word';
+import tinycolor from "tinycolor2";
 
 export function getStrongsColor( lemma, lightnessOld ) {
 		var strongsInt = parseInt( lemma );
 		if ( isNaN ( strongsInt ) ) {
-			strongsInt = 0;
+			var hue = 0,
+				staturation = '0%',
+				lightness = '50%'
+		} else {
+			var theSizeOfAColorSegment = 360 / 8000,
+				hue = Math.floor( strongsInt * theSizeOfAColorSegment ),
+				staturation = ( strongsInt % 50 + 25 ) + '%',
+				lightness = ( strongsInt % 10 * 3 ) + 35 + '%';
 		}
-		var theSizeOfAColorSegment = 360 / 8000,
-			hue = Math.floor( strongsInt * theSizeOfAColorSegment ),
-			staturation = ( lemma % 50 + 25 ) + '%',
-			lightness = ( lemma % 10 * 3 ) + 35 + '%';
-
-		return 'hsl( ' + hue + ',' + staturation + ', ' + lightness + ' )';
+		return 'hsl(' + hue + ',' + staturation + ',' + lightness + ')';
 };
 
 var getStrongsColorWithSettings = function( strongsNumber, lightness = null, highlightWordsWith, strongsObjectWithFamilies ) {
@@ -42,7 +45,13 @@ var getHue = function( strongsInt ) {
 var getHighlight = function ( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies ) {
 	var newColor = getStrongsColorWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies );
 	var className = getClassNameWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies  );
-	return '.' + className + ' {color:#fff !important;background:' + newColor + ' !important;}';
+	let color = '#000';
+	var aTinyColor = tinycolor( newColor );
+	if ( aTinyColor.isDark() ) {
+		color = '#fff';
+	}
+
+	return '.' + className + ' {color:' + color + ' !important;background:' + newColor + ' !important;}';
 };
 
 var getHighlightBorder = function ( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies ) {
