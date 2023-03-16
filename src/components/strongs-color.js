@@ -10,8 +10,8 @@ export function getStrongsColor( lemma, lightnessOld ) {
 		} else {
 			var theSizeOfAColorSegment = 360 / 8000,
 				hue = Math.floor( strongsInt * theSizeOfAColorSegment ),
-				staturation = ( strongsInt % 50 + 25 ) + '%',
-				lightness = ( strongsInt % 10 * 3 ) + 35 + '%';
+				staturation = ( strongsInt % 80 + 10 ) + '%',
+				lightness = ( strongsInt % 10 * 4 ) + 30 + '%';
 		}
 		return 'hsl(' + hue + ',' + staturation + ',' + lightness + ')';
 };
