@@ -1,5 +1,5 @@
 // External dependencies
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import stripPointing from '../../lib/strip-pointing.js';
@@ -62,7 +62,7 @@ const WordBlock = ( props ) => {
 			onMouseOver={ () => setFocus( lemma ) }
 			onMouseOut={ () => setFocus( null ) }
 		>
-			{ highlight && <style>{ getHighlight( lemma, null, null, strongsDictionaryWithFamilies ) }</style> }
+			{ highlight && <style>{ getHighlight( lemma, strongsDictionaryWithFamilies ) }</style> }
 			<div ref={ wordBlockRef }>
 				<div className={ classnames( styles.wordBlock, visible ? styles.visible : styles.hidden ) }>
 					<WordBlockDetails morphologyProp={ morphology } strongsNumber={ lemma } version={ version } word={ props } />

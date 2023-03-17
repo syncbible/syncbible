@@ -1,7 +1,7 @@
 import { getFamily } from '../lib/word';
 import tinycolor from "tinycolor2";
 
-export function getStrongsColor( lemma, lightnessOld ) {
+function getStrongsColor( lemma ) {
 		var strongsInt = parseInt( lemma );
 		if ( isNaN ( strongsInt ) ) {
 			var hue = 0,
@@ -16,7 +16,7 @@ export function getStrongsColor( lemma, lightnessOld ) {
 		return 'hsl(' + hue + ',' + staturation + ',' + lightness + ')';
 };
 
-var getStrongsColorWithSettings = function( strongsNumber, lightness = null, highlightWordsWith, strongsObjectWithFamilies ) {
+function getStrongsColorWithSettings( strongsNumber, highlightWordsWith, strongsObjectWithFamilies ) {
 	var hightlightFamilies = highlightWordsWith === 'family',
 		classInt;
 
@@ -26,10 +26,10 @@ var getStrongsColorWithSettings = function( strongsNumber, lightness = null, hig
 		classInt = parseInt( strongsNumber.substring( 1, strongsNumber.length ), 10 );
 	}
 
-	return getStrongsColor( classInt, lightness );
+	return getStrongsColor( classInt );
 };
 
-var getClassNameWithSettings = function( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies ) {
+function getClassNameWithSettings( strongsNumber, highlightWordsWith, strongsObjectWithFamilies ) {
 	if ( highlightWordsWith === 'family' ) {
 		return getFamily( strongsNumber, strongsObjectWithFamilies ) + '-family';
 	} else {
@@ -37,27 +37,22 @@ var getClassNameWithSettings = function( strongsNumber, lightness, highlightWord
 	}
 };
 
-var getHue = function( strongsInt ) {
-	var theSizeOfAColorSegment = 360 / 8000; //8000 different words
-	return strongsInt * theSizeOfAColorSegment;
-};
-
-var getHighlight = function ( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies ) {
-	var newColor = getStrongsColorWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies );
-	var className = getClassNameWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies  );
+function getHighlight( strongsNumber, highlightWordsWith, strongsObjectWithFamilies ) {
+	var newColor = getStrongsColorWithSettings( strongsNumber, highlightWordsWith, strongsObjectWithFamilies );
+	var className = getClassNameWithSettings( strongsNumber, highlightWordsWith, strongsObjectWithFamilies  );
 	let color = '#000';
 	var aTinyColor = tinycolor( newColor );
 	if ( aTinyColor.isDark() ) {
 		color = '#fff';
 	}
 
-	return '.' + className + ' {color:' + color + ' !important;background:' + newColor + ' !important;}';
+	return '.' + className + ' {color:' + color + ' !important;background:' + newColor + ' !important;}' + '.' + className + ' svg{fill:' + color + '!important;}';
 };
 
-var getHighlightBorder = function ( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies ) {
-	var newColor = getStrongsColorWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies );
-	var className = getClassNameWithSettings( strongsNumber, lightness, highlightWordsWith, strongsObjectWithFamilies );
+function getHighlightBorder( strongsNumber, highlightWordsWith, strongsObjectWithFamilies ) {
+	var newColor = getStrongsColorWithSettings( strongsNumber, highlightWordsWith, strongsObjectWithFamilies );
+	var className = getClassNameWithSettings( strongsNumber, highlightWordsWith, strongsObjectWithFamilies );
 	return '.' + className + ' {outline: 3px solid ' + newColor + ' !important;}';
 };
 
-export { getStrongsColor as get, getHighlight, getHighlightBorder };
+export { getHighlight, getHighlightBorder };
