@@ -15,13 +15,13 @@ const CombinedResults = ( { type } ) => {
 	const list = useSelector( state => state.list );
 	const words = list.filter( ( { listType } ) => listType === type );
 
-	if ( words.length < 2 ) {
-		return null;
-	}
-
 	const combinedResults = useMemo( () => getCombinedResults( words ),
 		[ words ]
 	);
+
+	if ( words.length < 2 ) {
+		return null;
+	}
 
 	return (
 		<Collapsible
