@@ -1,6 +1,6 @@
 // External dependencies
-import React, { useState, useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import classnames from 'classnames';
 
 // Internal dependencies.
@@ -26,6 +26,7 @@ const ExpandedSearchResults = ( { reference } ) => {
         expandedSearchResults ? styles.verseExpanded : null,
         compareMode ? styles.compareMode : styles.smallSidebar,
     );
+
     return (
         <div className={ className }>
             <Verse reference={ adjustedReference } index={ adjustedReference.verse } version={ interfaceLanguage } />

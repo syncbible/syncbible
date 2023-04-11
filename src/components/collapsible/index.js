@@ -10,10 +10,7 @@ import WordBlockHeader from '../word-block-header';
 const Collapsible = ( { children, className, header, onToggle, textToCopy, title, onRemove, onMouseOver, onMouseOut, open } ) => {
 	const variants = {
 		open: {
-			height: 'auto',
-			transition: {
-				ease: "easeIn",
-			}
+			height: 'auto'
 		},
 		closed: {
 			height: "0",
