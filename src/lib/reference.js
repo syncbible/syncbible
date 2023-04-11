@@ -359,15 +359,13 @@ export const getCombinedResults = ( list, group ) => {
 	return sortedResults;
 };*/
 
-export function getCombinedResults( list ) {
+export function getCombinedResults( listResults ) {
 	let combinedResults = [];
-	list.forEach( ( item ) => {
-		if ( item.results && item.results.length > 0 ) {
-			const resultsArray = item.results.map( ( { reference } ) => reference );
-			// Make these results unique.
-			const uniqueResults = [ ...new Set( resultsArray ) ];
-			combinedResults = combinedResults.concat( uniqueResults );
-		}
+	listResults.forEach( ( results ) => {
+		const resultsArray = results.map( ( { reference } ) => reference );
+		// Make these results unique.
+		const uniqueResults = [ ...new Set( resultsArray ) ];
+		combinedResults = combinedResults.concat( uniqueResults );
 	} );
 	return combinedResults;
 }

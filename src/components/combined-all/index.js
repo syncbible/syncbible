@@ -10,8 +10,11 @@ import { getCombinedResults } from '../../lib/reference';
 
 const CombinedAll = () => {
 	const list = useSelector( state => state.list );
-	const combinedResults = useMemo( () => getCombinedResults( list ),
-		[ list ]
+	const results = list.map(({ results }) => {
+		return results;
+	  });
+	const combinedResults = useMemo( () => getCombinedResults( results ),
+		[ results ]
 	);
 
 	return (
