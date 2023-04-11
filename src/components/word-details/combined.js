@@ -1,5 +1,5 @@
 // External dependencies
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
@@ -7,6 +7,7 @@ import { setTrayVisibilityFilter } from '../../actions';
 import Collapsible from '../collapsible';
 import JoinFull from '../svg/join-full';
 import SortGroupResults from '../sort-group-results';
+import { getCombinedResults } from '../../lib/reference';
 
 const CombinedResults = ( { type } ) => {
 	const dispatch = useDispatch();
@@ -18,15 +19,9 @@ const CombinedResults = ( { type } ) => {
 		return null;
 	}
 
-	let combinedResults = [];
-	words.forEach( ( item ) => {
-		if ( item.results && item.results.length > 0 ) {
-			const resultsArray = item.results.map( ( { reference } ) => reference );
-			// Make these results unique.
-			const uniqueResults = [ ...new Set( resultsArray ) ];
-			combinedResults = combinedResults.concat( uniqueResults );
-		}
-	} );
+	const combinedResults = useMemo( () => getCombinedResults( words ),
+		[ words ]
+	);
 
 	return (
 		<Collapsible

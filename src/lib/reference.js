@@ -332,7 +332,8 @@ function sortByReference( reference ) {
 	return bookId * 10000 + chapter * 100 + verse;
 }
 
-// This can be removed I think
+/* This can be removed I think
+Leaving it in incase there's any useful code here.
 export const getCombinedResults = ( list, group ) => {
 	let combined = [];
 	list.forEach( ( item ) => {
@@ -356,7 +357,20 @@ export const getCombinedResults = ( list, group ) => {
 	const countedResultsArray = Object.keys( countedResults ).map(reference => ({ reference, value: countedResults[reference] }));
 	const sortedResults = countedResultsArray.sort( sortCountedReferences ).filter( result => result.value > 1 );
 	return sortedResults;
-};
+};*/
+
+export function getCombinedResults( list ) {
+	let combinedResults = [];
+	list.forEach( ( item ) => {
+		if ( item.results && item.results.length > 0 ) {
+			const resultsArray = item.results.map( ( { reference } ) => reference );
+			// Make these results unique.
+			const uniqueResults = [ ...new Set( resultsArray ) ];
+			combinedResults = combinedResults.concat( uniqueResults );
+		}
+	} );
+	return combinedResults;
+}
 
 export const getGroupedResults = ( results, selectedGroup, sort, interfaceLanguage ) => {
 	let resultsToDisplay;

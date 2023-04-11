@@ -1,25 +1,18 @@
 // External dependencies
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 // Internal dependencies
 import InlineResultsToggle from '../inline-results-toggle'
 import styles from './styles.scss';
 import SortGroupResults from '../sort-group-results/index.js';
+import { getCombinedResults } from '../../lib/reference';
 
 const CombinedAll = () => {
 	const list = useSelector( state => state.list );
-
-	// duplicated from combined.js.
-	let combinedResults = [];
-	list.forEach( ( item ) => {
-		if ( item.results && item.results.length > 0 ) {
-			const resultsArray = item.results.map( ( { reference } ) => reference );
-			// Make these results unique.
-			const uniqueResults = [ ...new Set( resultsArray ) ];
-			combinedResults = combinedResults.concat( uniqueResults );
-		}
-	} );
+	const combinedResults = useMemo( () => getCombinedResults( list ),
+		[ list ]
+	);
 
 	return (
 		<div className={ styles.combinedAll }>
