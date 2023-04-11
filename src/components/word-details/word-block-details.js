@@ -13,16 +13,16 @@ import { searchForWord } from '../../actions'
 import MoreDetails from './more-details';
 import WordStats from './word-stats';
 
-const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) => {
+const WordBlockDetails = ( { morphologyProp, strongsNumber, version, resultsFromProps, current, id, loading, data } ) => {
 	const dispatch = useDispatch();
 	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
 	const strongsWithFamilies = useSelector( state => state.data.strongsObjectWithFamilies );
 	const [ activeTab, setActiveTab ] = useState( 'search' );
 
-	let resultsData = word.results;
+	let resultsData = resultsFromProps;
 	const results = resultsData && Array.isArray( resultsData ) && resultsData.map( ( { reference }, index ) => {
-		const isActive = word && typeof word.current !== 'undefined' && word.current === index;
-		return <SearchLink key={ index } index={ index } referenceString={ reference } wordId={ word.id } isActive={ isActive } />;
+		const isActive = typeof current !== 'undefined' && current === index;
+		return <SearchLink key={ index } index={ index } referenceString={ reference } wordId={ id } isActive={ isActive } />;
 	} );
 
 	function getResultsDisplay() {
@@ -43,7 +43,7 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 			)
 		}
 
-		if ( word.loading ) {
+		if ( loading ) {
 			return (
 				<p>Loading { numberOfUses } search { resultString }...</p>
 			);
@@ -58,7 +58,7 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 				<a href="#" className="word-block-details__find-all-uses" onClick={
 					( event ) => {
 						event.preventDefault();
-						dispatch( searchForWord( word.data ) );
+						dispatch( searchForWord( data ) );
 					}
 				}>
 					Find { numberOfUses } { useString } { numberOfUses > 1000 && <span>(slow!)</span> }
@@ -88,7 +88,7 @@ const WordBlockDetails = ( { morphologyProp, strongsNumber, version, word } ) =>
 				<a className={ activeTab === 'more' ? styles.active : '' } onClick={ () => setActiveTab( 'more' ) }><Translate /></a>
 				<a className={ activeTab === 'stats' ? styles.active : '' } onClick={ () => setActiveTab( 'stats' ) }><Stats /></a>
 			</div>
-			<div className={ styles.wordBlocDetails }>
+			<div className={ styles.wordBlockDetails }>
 				{ getActiveTab() }
 			</div>
 		</>

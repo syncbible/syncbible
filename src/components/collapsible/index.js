@@ -7,17 +7,30 @@ import { motion } from "framer-motion"
 import styles from './styles.scss';
 import WordBlockHeader from '../word-block-header';
 
-const Collapsible = ( { children, className, header, open, onToggle, textToCopy, title, onRemove, onMouseOver, onMouseOut } ) => {
+const Collapsible = ( { children, className, header, onToggle, textToCopy, title, onRemove, onMouseOver, onMouseOut, open } ) => {
 	const variants = {
-		open: { height: 'auto' },
-		closed: { height: "0" },
-	}
+		open: {
+			height: 'auto',
+			transition: {
+				ease: "easeIn",
+			}
+		},
+		closed: {
+			height: "0",
+			transition: {
+				duration: 0
+			}
+
+		},
+	};
 
 	return (
 		<div className={ styles.collapsible }>
 			<div
 				className={ classnames( styles.header, open ? styles.open : styles.closed ) }
-				onClick={ () => onToggle() }
+				onClick={ () => {
+					onToggle()
+				} }
 				title={ title }
 				onMouseOver={ () => onMouseOver && onMouseOver() }
 				onMouseOut={ () => onMouseOut && onMouseOut() }

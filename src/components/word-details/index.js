@@ -16,7 +16,15 @@ const WordDetails = () => {
 		<div className={ styles.wordDetails }>
 			{ words.map( ( word, index ) => {
 				return (
-					<WordBlock { ...word } key={ index } highlight={ ! focus || focus && focus === word.data.lemma } setFocus={ setFocus } />
+					<WordBlock
+						key={ index }
+						highlight={ ! focus || focus && focus === word.data.lemma }
+						setFocus={ setFocus }
+						data={ word.data }
+						visible={ word.visible }
+						results={ word.results }
+						id={ word.id } // ID is needed when we call toggleListItemVisible
+					/>
 				);
 			} ) }
 			<CombinedResults type="word" />

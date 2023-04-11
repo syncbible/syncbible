@@ -64,8 +64,17 @@ const WordBlock = ( props ) => {
 		>
 			{ highlight && <style>{ getHighlight( lemma, strongsDictionaryWithFamilies ) }</style> }
 			<div ref={ wordBlockRef }>
-				<div className={ classnames( styles.wordBlock, visible ? styles.visible : styles.hidden ) }>
-					<WordBlockDetails morphologyProp={ morphology } strongsNumber={ lemma } version={ version } word={ props } />
+				<div className={ styles.wordBlock }>
+					<WordBlockDetails
+						morphologyProp={ morphology }
+						strongsNumber={ lemma }
+						version={ version }
+						resultsFromProps={ props.results }
+						current={ props.current }
+						id={ props.id }
+						loading={ props.loading }
+						data={ props.data }
+					/>
 				</div>
 			</div>
 		</Collapsible>
