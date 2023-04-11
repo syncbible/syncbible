@@ -27,8 +27,6 @@ const ExpandedSearchResults = ( { reference } ) => {
         compareMode ? styles.compareMode : styles.smallSidebar,
     );
 
-    console.log( 'expanded search results');
-
     return (
         <div className={ className }>
             <Verse reference={ adjustedReference } index={ adjustedReference.verse } version={ interfaceLanguage } />
