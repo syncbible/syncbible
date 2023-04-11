@@ -36,18 +36,16 @@ const list = ( state = initialState, action ) => {
 		case 'REMOVE_TYPE_FROM_LIST':
 			return [
 				...state.filter( item => item.listType !== action.listType )
-			]
+			];
+
 		case 'TOGGLE_LIST_ITEM_VISIBLE':
-			return [
-				...state.map( ( item ) => {
-					if ( item.id === action.item.id ) {
-						item.visible = ! item.visible;
-					} else if ( action.item.listType === item.listType ) {
-						//item.visible = false;
-					}
-					return item;
-				} )
-			]
+			const key = state.findIndex( ( item ) => {
+				return item.id === action.item.id;
+			} );
+
+			state[ key ].visible = ! state[ key ].visible;
+			return [ ...state ];
+
 		case 'ADD_SEARCH_RESULTS':
 			return state.map( item => {
 				if ( isEqual( action.terms, item.data ) ) {
