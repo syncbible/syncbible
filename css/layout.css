@@ -189,8 +189,8 @@ body {
 }
 
 .single {
-  margin: 0 -1px;
-  padding: 0 1px;
+  margin: 0 -3px;
+  padding: 0 3px;
 }
 
 .single:hover {
