@@ -1,25 +1,26 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
 
 const initialState = {
-	fontSize: "100%",
-	fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", Arial, Helvetica, sans-serif;',
-	highlightWordsWith: "same",
-	referencePicker: "select",
+	fontSize: '100%',
+	fontFamily:
+		'-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", Arial, Helvetica, sans-serif;',
+	highlightWordsWith: 'same',
+	referencePicker: 'select',
 	inSync: true,
 	expandedSearchResults: false,
 	highlightSearchResults: false,
 	interfaceLanguage: 'KJV',
-	type: "SETTINGS_CHANGE",
+	type: 'SETTINGS_CHANGE',
 	darkMode: null,
 	compareMode: false,
 	targetColumn: 0,
-}
+};
 
-export default ( state = initialState, action ) => {
+export default (state = initialState, action) => {
 	let settings;
-	switch ( action.type ) {
+	switch (action.type) {
 		case 'SETTINGS_CHANGE':
-			state = Object.assign( {}, state, action );
+			state = Object.assign({}, state, action);
 			break;
 
 		case LOCATION_CHANGE:
@@ -32,4 +33,4 @@ export default ( state = initialState, action ) => {
 
 	javascripture.state.settings = state;
 	return state;
-}
+};

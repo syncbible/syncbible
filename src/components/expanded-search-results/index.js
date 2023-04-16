@@ -7,24 +7,20 @@ import classnames from 'classnames';
 import Verse from '../reference/verse';
 import styles from './styles.scss';
 
-const ExpandedSearchResults = ({ reference }) => {
-	if (!reference) {
+const ExpandedSearchResults = ({ book, chapter, verse }) => {
+	if (!book || !chapter || !verse) {
 		return null;
 	}
 
 	const { compareMode, expandedSearchResults, interfaceLanguage } =
 		useSelector((state) => {
-			return {
-				compareMode: state.settings.compareMode,
-				expandedSearchResults: state.settings.expandedSearchResults,
-				interfaceLanguage: state.settings.interfaceLanguage,
-			};
+			return state.settings;
 		});
 
 	const adjustedReference = {
-		book: reference.book,
-		chapter: reference.chapter - 1,
-		verse: reference.verse - 1,
+		book: book,
+		chapter: chapter - 1,
+		verse: verse - 1,
 	};
 	const className = classnames(
 		styles.verse,
