@@ -5,6 +5,10 @@ const userInterface = (state = {}, action) => {
 			delete dataForId.clickedWord;
 			delete dataForId.morphology;
 			const id = JSON.stringify(dataForId);
+			// Close all other lists.
+			Object.keys(state).forEach((key) => {
+				state[key] = false;
+			});
 			state[id] = true;
 			return { ...state };
 
