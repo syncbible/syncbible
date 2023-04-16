@@ -211,3 +211,20 @@ label.has-placeholder {
 a.word-block-details__find-all-uses {
 	text-decoration: underline !important;
 }
+
+.expanded-search-results-verse {
+	display: none;
+  font-size: 12px;
+}
+
+.compare-mode .expanded-search-results-verse {
+	border-bottom: 1px solid var(--color);
+	margin-bottom: 1em;
+	padding-bottom: 1em;
+  font-size: inherit;
+}
+
+.expanded-search-results .expanded-search-results-verse {
+  display: block;
+  margin-bottom: 1em;
+}

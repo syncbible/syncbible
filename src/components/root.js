@@ -32,6 +32,9 @@ const Root = ({ highlightedWord }) => {
 	const reference = useSelector((state) => state.reference);
 	const darkMode = useSelector((state) => state.settings.darkMode);
 	const compareMode = useSelector((state) => state.settings.compareMode);
+	const expandedSearchResults = useSelector(
+		(state) => state.settings.expandedSearchResults
+	);
 	const getBodyStyles = () => {
 		const fontFamily = useSelector((state) => state.settings.fontFamily);
 		const fontSize = useSelector((state) => state.settings.fontSize);
@@ -53,7 +56,13 @@ const Root = ({ highlightedWord }) => {
 	}, []);
 
 	return (
-		<div className={rootClasses(darkMode)}>
+		<div
+			className={rootClasses(
+				darkMode,
+				compareMode,
+				expandedSearchResults
+			)}
+		>
 			<div className={styles.root}>
 				{reference.length > 0 && <Trays />}
 

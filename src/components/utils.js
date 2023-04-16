@@ -1,10 +1,12 @@
 import classnames from 'classnames';
 import { indexOf } from 'lodash';
 
-export function rootClasses(darkMode) {
+export function rootClasses(darkMode, compareMode, expandedSearchResults) {
 	return classnames('root', {
 		'dark-mode-on': darkMode === true,
 		'dark-mode-off': darkMode === false,
+		'compare-mode': compareMode === true,
+		'expanded-search-results': expandedSearchResults === true,
 	});
 }
 
