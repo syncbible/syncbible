@@ -28,13 +28,13 @@ const InlineResultsToggle = () => {
 				<UnfoldLess />
 			</a>
 		);
-	} else {
-		return (
-			<a className={styles.foundInExtra} onClick={expandSearchResults}>
-				<UnfoldMore />
-			</a>
-		);
 	}
+
+	return (
+		<a className={styles.foundInExtra} onClick={expandSearchResults}>
+			<UnfoldMore />
+		</a>
+	);
 };
 
 export default React.memo(InlineResultsToggle);
