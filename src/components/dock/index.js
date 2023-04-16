@@ -39,12 +39,14 @@ const Dock = () => {
 					<VersionSelect onChange={onSelectVerion} large={true} />
 				)}
 				{reference.map((reference, index) => {
+					const version = reference.version
+						? reference.version
+						: 'KJV';
 					return (
 						<Navigation
 							key={index}
-							reference={reference}
+							version={version}
 							index={index}
-							last={index + 1 === numberOfColumns}
 						/>
 					);
 				})}

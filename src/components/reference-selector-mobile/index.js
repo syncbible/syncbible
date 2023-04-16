@@ -9,15 +9,12 @@ import {
 	closeReferenceSelectorMobile,
 	toggleReferenceSelectorMobile,
 	referenceSelectorMobileSetBook,
-	setReference,
-	setScrollChapter,
 } from '../../actions';
 import ArrowBackIcon from '../svg/arrow-back';
 import styles from './style.scss';
 
 const ReferenceSelectorMobile = ({ index, version }) => {
 	const dispatch = useDispatch();
-	const inSync = useSelector((state) => state.settings.inSync);
 	const open = useSelector(
 		(state) => state.referenceSelectorMobile[index].open
 	);
@@ -27,7 +24,6 @@ const ReferenceSelectorMobile = ({ index, version }) => {
 	const bookName = useSelector(
 		(state) => state.referenceSelectorMobile[index].bookName
 	);
-	const stateReference = useSelector((state) => state.reference);
 
 	const toggleList = () => {
 		dispatch(toggleReferenceSelectorMobile(index));
