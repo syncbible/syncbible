@@ -1,5 +1,5 @@
 // External
-import React, { useState } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,7 +8,6 @@ import { activateSearchSelect, selectWord, updateData } from '../../actions';
 import { getFamily } from '../../lib/word';
 import morphology from '../../lib/morphology';
 import { getLiteralConsistentTranslation } from '../utils.js';
-import verse from './verse';
 
 const WordSingleComponent = (props) => {
 	// wordText is the word to display, usually the same as word unless this is LC.

@@ -1,6 +1,6 @@
 // External
 import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // Internal
 import { goToReferenceAction } from '../../actions';

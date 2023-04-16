@@ -1,7 +1,7 @@
 // External dependencies
 import classnames from 'classnames';
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import styles from './styles.scss';
 import { selectWord } from '../../actions';

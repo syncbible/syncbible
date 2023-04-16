@@ -6,10 +6,6 @@ import { useSelector } from 'react-redux';
 import WordSingle from './word-single.js';
 import { getLiteralConsistentTranslation } from '../utils.js';
 
-function startingPunctuation(word) {
-	return word.indexOf('(') === 0;
-}
-
 function startsWithPunctuation(word) {
 	return (
 		word.indexOf('.') === 0 ||

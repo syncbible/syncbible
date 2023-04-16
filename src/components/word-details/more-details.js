@@ -1,14 +1,12 @@
 // External dependencies
 import map from 'lodash/map';
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
 
 // Internal dependencies
 import KJVDef from './kjv-def';
 import morphology from '../../lib/morphology';
 import stripPointing from '../../lib/strip-pointing.js';
-import styles from './styles.scss';
 import { getFamily } from '../../lib/word';
 import WordBlockLink from './word-block-link';
 
@@ -19,7 +17,6 @@ const MoreDetails = ({ morphologyProp, strongsNumber, version }) => {
 	const strongsWithFamilies = useSelector(
 		(state) => state.data.strongsObjectWithFamilies
 	);
-	const [showDetails, setShowDetails] = useState(false);
 
 	const getBranchesData = () => {
 		return (

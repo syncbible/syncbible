@@ -2,7 +2,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import mousetrap from 'mousetrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { push } from 'connected-react-router';
 
 // Internal dependencies
 import {

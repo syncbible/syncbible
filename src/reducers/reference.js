@@ -1,5 +1,4 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
-import { REHYDRATE } from 'redux-persist/lib/constants';
 
 import { getReferenceText, getReferenceFromHash } from '../lib/reference.js';
 

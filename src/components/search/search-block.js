@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 
 // Internal dependencies
 import SearchLink from '../search-link';
-import { getReferenceFromSearchResult } from '../../lib/reference.js';
 import styles from './styles.scss';
 import InlineResultsToggle from '../inline-results-toggle';
 

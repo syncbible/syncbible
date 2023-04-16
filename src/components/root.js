@@ -1,7 +1,6 @@
 // External
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classnames from 'classnames';
 
 // Internal
 import Dock from './dock';

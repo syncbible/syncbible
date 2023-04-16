@@ -1,7 +1,5 @@
-import clone from 'lodash/clone';
 import findIndex from 'lodash/findIndex';
 import isEqual from 'lodash/isEqual';
-import isMatch from 'lodash/isMatch';
 
 const searchTerms = (state = [], action) => {
 	let newState, getCurrentVersePosition, reference;

@@ -1,16 +1,8 @@
 // External dependencies
-import React, { useState } from 'react';
-import { groupBy, orderBy } from 'lodash';
-import { useSelector, useDispatch } from 'react-redux';
-import classnames from 'classnames';
+import React from 'react';
 
 // Internal dependencies.
-import { goToReferenceAction } from '../../actions';
 import styles from './styles.scss';
-import {
-	getReferenceFromSearchResult,
-	getGroupedResults,
-} from '../../lib/reference';
 import SortGroupResults from '../sort-group-results';
 
 const SearchStats = ({ results, data }) => {

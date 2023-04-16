@@ -17,7 +17,6 @@ import VersionSelect from '../version-select';
 const Dock = () => {
 	const dispatch = useDispatch();
 	const reference = useSelector((state) => state.reference);
-	const numberOfColumns = reference.length;
 	const sidebarOpen = useSelector((state) => state.sidebar);
 	const className = classnames(
 		styles.dock,

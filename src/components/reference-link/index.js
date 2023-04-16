@@ -1,7 +1,6 @@
 // External dependencies
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { push } from 'connected-react-router';
 
 // Internal
 import { goToReferenceHelper } from '../../lib/reference.js';

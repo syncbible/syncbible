@@ -1,20 +1,12 @@
 // External dependencies
-import React, { useState } from 'react';
-import { groupBy, orderBy } from 'lodash';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import classnames from 'classnames';
 
 // Internal dependencies.
-import { goToReferenceAction } from '../../actions';
 import styles from './styles.scss';
-import {
-	getReferenceFromSearchResult,
-	getGroupedResults,
-} from '../../lib/reference';
 import SortGroupResults from '../sort-group-results';
 
 const WordStats = ({ strongsNumber, version }) => {
-	const dispatch = useDispatch();
 	const list = useSelector((state) => state.list);
 	const wordForResults = list.find(
 		({ listType, data }) =>

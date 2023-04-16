@@ -1,4 +1,4 @@
-import _, { countBy } from 'lodash';
+import _ from 'lodash';
 import { uniq, forEach, groupBy, orderBy } from 'lodash';
 
 export const createReferenceLink = (reference) => {

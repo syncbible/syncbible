@@ -1,5 +1,4 @@
 import classnames from 'classnames';
-import { indexOf } from 'lodash';
 
 export function rootClasses(darkMode, compareMode, expandedSearchResults) {
 	return classnames('root', {
