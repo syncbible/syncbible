@@ -1,0 +1,12 @@
+.search-link {
+	cursor: pointer;
+	margin: 0 -0.7em;
+	padding: 0 0.7em;
+}
+
+.active-reference {
+	background: var(--active);
+	a {
+		color: var(--color);
+	}
+}

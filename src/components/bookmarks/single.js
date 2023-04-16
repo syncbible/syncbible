@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeFromList, toggleListItemVisible } from '../../actions';
 import Collapsible from '../collapsible';
 import ReferenceLink from '../reference-link';
-import SearchLink from '../search/search-link';
+import SearchLink from '../search-link';
 import InlineResultsToggle from '../inline-results-toggle';
 
 const Single = ({ bookmark, index }) => {

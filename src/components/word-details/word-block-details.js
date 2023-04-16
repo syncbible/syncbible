@@ -7,7 +7,7 @@ import Translate from '../svg/translate';
 import Search from '../svg/search';
 import Stats from '../svg/stats';
 import styles from './styles.scss';
-import SearchLink from '../search/search-link';
+import SearchLink from '../search-link';
 import InlineResultsToggle from '../inline-results-toggle';
 import { searchForWord } from '../../actions';
 import MoreDetails from './more-details';
