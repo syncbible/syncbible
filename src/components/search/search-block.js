@@ -76,10 +76,7 @@ const SearchBlock = (props) => {
 	}
 
 	return (
-		<div
-			className={visible ? styles.open : styles.hidden}
-			dir={bible.isRtlVersion(interfaceLanguage) ? 'rtl' : 'ltr'}
-		>
+		<div dir={bible.isRtlVersion(interfaceLanguage) ? 'rtl' : 'ltr'}>
 			<InlineResultsToggle />
 			<ol className={styles.results}>{renderedResults}</ol>
 		</div>

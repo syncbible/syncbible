@@ -15,6 +15,7 @@ const SearchResults = () => {
 	const dispatch = useDispatch();
 	const [activeTab, setActiveTab] = useState('search');
 	const list = useSelector((state) => state.list);
+	const userInterface = useSelector((state) => state.userInterface);
 	const searchTerms = list.filter(({ listType }) => listType === 'search');
 	const termTitle = ({
 		clusivity,
@@ -71,7 +72,7 @@ const SearchResults = () => {
 				title={termTitle(searchTerm.data)}
 				key={index}
 				header={header}
-				open={searchTerm.visible}
+				open={userInterface[searchTerm.id]}
 				textToCopy={textToCopy}
 				onToggle={() => dispatch(toggleListItemVisible(searchTerm))}
 				onRemove={() => dispatch(removeFromList(searchTerm))}
