@@ -6,36 +6,42 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './styles.scss';
 import { selectWord } from '../../actions';
 
-const WordBlockLink = ( { strongsNumber, version } ) => {
+const WordBlockLink = ({ strongsNumber, version }) => {
 	const dispatch = useDispatch();
 
-	const getClassName = ( strongsNumber ) => {
-		return classnames( strongsNumber, styles.wordTree )
+	const getClassName = (strongsNumber) => {
+		return classnames(strongsNumber, styles.wordTree);
 	};
 
-	const highlight = ( strongsNumber ) => {
-		window.updateAppComponent( 'highlightedWord', strongsNumber );
+	const highlight = (strongsNumber) => {
+		window.updateAppComponent('highlightedWord', strongsNumber);
 	};
 
 	const unHighlight = () => {
-		window.updateAppComponent( 'highlightedWord', null );
+		window.updateAppComponent('highlightedWord', null);
 	};
 
-	const searchForWord = ( strongsNumber ) => {
-		dispatch( selectWord( {
-			lemma: strongsNumber,
-			version,
-		} ) );
+	const searchForWord = (strongsNumber) => {
+		dispatch(
+			selectWord({
+				lemma: strongsNumber,
+				version,
+			})
+		);
 	};
 
 	return (
-		<span><a className={ getClassName( strongsNumber ) }
-			onClick={ () => searchForWord( strongsNumber ) }
-			onMouseOver={ () => highlight( strongsNumber ) }
-			onMouseOut={ unHighlight }>
-			{ strongsNumber }
-		</a> </span>
-	)
+		<span>
+			<a
+				className={getClassName(strongsNumber)}
+				onClick={() => searchForWord(strongsNumber)}
+				onMouseOver={() => highlight(strongsNumber)}
+				onMouseOut={unHighlight}
+			>
+				{strongsNumber}
+			</a>{' '}
+		</span>
+	);
 };
 
-export default React.memo( WordBlockLink );
+export default React.memo(WordBlockLink);

@@ -13,43 +13,65 @@ javascripture.state = {};
 
 const SettingsTray = () => {
 	const dispatch = useDispatch();
-	const settings = useSelector( state => state.settings );
-	const reference = useSelector( state => state.reference );
+	const settings = useSelector((state) => state.settings);
+	const reference = useSelector((state) => state.reference);
 
 	// remove this line
 	javascripture.state.settings = settings;
 
-	const changeSetting = ( event ) => {
-		dispatch( settingsChange( event.target.name, event.target.value ) );
+	const changeSetting = (event) => {
+		dispatch(settingsChange(event.target.name, event.target.value));
 		event.target.blur();
 	};
 
-	const changeCheckboxSetting = ( event ) => {
-		dispatch( settingsChange( event.target.name, event.target.checked ) );
+	const changeCheckboxSetting = (event) => {
+		dispatch(settingsChange(event.target.name, event.target.checked));
 		event.target.blur();
 	};
 
 	return (
-		<div id="settingsPanel" className={ styles.helpPanel }>
+		<div id="settingsPanel" className={styles.helpPanel}>
 			<div className="content">
 				<div className="content-padding">
 					<form>
 						<ul>
-							<li className={ styles.settingsLi }>
+							<li className={styles.settingsLi}>
 								<label>Fonts:</label>
-								<select value={ settings.fontFamily } name="fontFamily" onChange={ changeSetting }>
-									<option value='-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", Arial, Helvetica, sans-serif !important;'>System</option>
-									<option value="'Bookman Old Style' !important">Bookman</option>
-									<option value="'Courier New', Courier !important">Courier</option>
-									<option value="Georgia !important">Georgia</option>
-									<option value="'Lucida Sans Unicode', 'Lucida Grande' !important">Lucida</option>
-									<option value="'Times New Roman', Times !important">Times</option>
-									<option value="Verdana, Geneva !important">Verdana</option>
+								<select
+									value={settings.fontFamily}
+									name="fontFamily"
+									onChange={changeSetting}
+								>
+									<option value='-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", Arial, Helvetica, sans-serif !important;'>
+										System
+									</option>
+									<option value="'Bookman Old Style' !important">
+										Bookman
+									</option>
+									<option value="'Courier New', Courier !important">
+										Courier
+									</option>
+									<option value="Georgia !important">
+										Georgia
+									</option>
+									<option value="'Lucida Sans Unicode', 'Lucida Grande' !important">
+										Lucida
+									</option>
+									<option value="'Times New Roman', Times !important">
+										Times
+									</option>
+									<option value="Verdana, Geneva !important">
+										Verdana
+									</option>
 								</select>
 							</li>
-							<li className={ styles.settingsLi }>
+							<li className={styles.settingsLi}>
 								<label>Font size:</label>
-								<select value={ settings.fontSize } name="fontSize" onChange={ changeSetting }>
+								<select
+									value={settings.fontSize}
+									name="fontSize"
+									onChange={changeSetting}
+								>
 									<option value="80%">80%</option>
 									<option value="90%">90%</option>
 									<option value="100%">100%</option>
@@ -65,81 +87,135 @@ const SettingsTray = () => {
 									<option value="200%">200%</option>
 								</select>
 							</li>
-							<li className={ styles.settingsLi }>
+							<li className={styles.settingsLi}>
 								<label>Highlight words with:</label>
-								<select value={ settings.highlightWordsWith } id="highlightWordsWith" name="highlightWordsWith" onChange={ changeSetting } >
-									<option value="same">Same Strongs num</option>
+								<select
+									value={settings.highlightWordsWith}
+									id="highlightWordsWith"
+									name="highlightWordsWith"
+									onChange={changeSetting}
+								>
+									<option value="same">
+										Same Strongs num
+									</option>
 									<option value="family">Same family</option>
 								</select>
 							</li>
-							<li className={ styles.settingsLi }>
+							<li className={styles.settingsLi}>
 								<label>Target column:</label>
-								<select value={ settings.targetColumn } id="targetColumn" name="targetColumn" onChange={ changeSetting } >
-									{ reference.map( ( singleReference, key ) => {
-										return <option value={ key } key={ key }>{ key + 1 }</option>
-									} ) }
+								<select
+									value={settings.targetColumn}
+									id="targetColumn"
+									name="targetColumn"
+									onChange={changeSetting}
+								>
+									{reference.map((singleReference, key) => {
+										return (
+											<option value={key} key={key}>
+												{key + 1}
+											</option>
+										);
+									})}
 								</select>
 							</li>
 
-							<li className={ styles.settingsLi }>
+							<li className={styles.settingsLi}>
 								<label>
-									<input type="checkbox" name="expandedSearchResults" checked={ settings.expandedSearchResults } onChange={ changeCheckboxSetting } /> Show expanded search results
+									<input
+										type="checkbox"
+										name="expandedSearchResults"
+										checked={settings.expandedSearchResults}
+										onChange={changeCheckboxSetting}
+									/>{' '}
+									Show expanded search results
 								</label>
 							</li>
-							<li className={ styles.settingsLi }>
+							<li className={styles.settingsLi}>
 								<label>
-									<input type="checkbox" name="darkMode" checked={ settings.darkMode } onChange={ changeCheckboxSetting } /> Dark Mode
+									<input
+										type="checkbox"
+										name="darkMode"
+										checked={settings.darkMode}
+										onChange={changeCheckboxSetting}
+									/>{' '}
+									Dark Mode
 								</label>
 							</li>
-							<li className={ styles.settingsLi }>
+							<li className={styles.settingsLi}>
 								<label>
-									<input type="checkbox" name="compareMode" checked={ settings.compareMode } onChange={ changeCheckboxSetting } /> Compare Mode
+									<input
+										type="checkbox"
+										name="compareMode"
+										checked={settings.compareMode}
+										onChange={changeCheckboxSetting}
+									/>{' '}
+									Compare Mode
 								</label>
 							</li>
-							<li className={ styles.settingsLi }>
+							<li className={styles.settingsLi}>
 								<label>
-									<input type="checkbox" name="highlightSearchResults" checked={ settings.highlightSearchResults } onChange={ changeCheckboxSetting } /> Highlight all words in a verse when hovering the search results
+									<input
+										type="checkbox"
+										name="highlightSearchResults"
+										checked={
+											settings.highlightSearchResults
+										}
+										onChange={changeCheckboxSetting}
+									/>{' '}
+									Highlight all words in a verse when hovering
+									the search results
 								</label>
 							</li>
-							<li className={ styles.settingsLi }>
+							<li className={styles.settingsLi}>
 								<label>Interface language:</label>
-								<VersionSelect value={ settings.interfaceLanguage } name="interfaceLanguage" onChange={ changeSetting } />
+								<VersionSelect
+									value={settings.interfaceLanguage}
+									name="interfaceLanguage"
+									onChange={changeSetting}
+								/>
 							</li>
 						</ul>
 					</form>
-					<button onClick={ async ()=>{
-						const appState = await getStore();
-						const element = document.createElement("a");
-						const file = new Blob( [ JSON.stringify( appState ) ], {type: 'text/plain'});
-						element.href = URL.createObjectURL(file);
-						element.download = "sync-bible-settings.json";
-						document.body.appendChild(element); // Required for this to work in FireFox
-						element.click();
-					}}>
+					<button
+						onClick={async () => {
+							const appState = await getStore();
+							const element = document.createElement('a');
+							const file = new Blob([JSON.stringify(appState)], {
+								type: 'text/plain',
+							});
+							element.href = URL.createObjectURL(file);
+							element.download = 'sync-bible-settings.json';
+							document.body.appendChild(element); // Required for this to work in FireFox
+							element.click();
+						}}
+					>
 						Download settings
 					</button>
-					<label className={ styles.uploadSettings }>
+					<label className={styles.uploadSettings}>
 						Upload settings
-						<input type="file" name="files" onChange={ ( event ) => {
-							event.preventDefault();
-							let files = event.target.files; // FileList object
+						<input
+							type="file"
+							name="files"
+							onChange={(event) => {
+								event.preventDefault();
+								let files = event.target.files; // FileList object
 
-							// use the 1st file from the list
-							const settingsFile = files[0];
+								// use the 1st file from the list
+								const settingsFile = files[0];
 
-							let reader = new FileReader();
+								let reader = new FileReader();
 
-							// Closure to capture the file information.
-							reader.onload = (function(theFile) {
-								return async function(e) {
-									await loadStore( e.target.result );
-								};
-							})( settingsFile );
+								// Closure to capture the file information.
+								reader.onload = (function (theFile) {
+									return async function (e) {
+										await loadStore(e.target.result);
+									};
+								})(settingsFile);
 
-							// Read in the image file as a data URL.
-							reader.readAsText( settingsFile );
-						}
-						} />
+								// Read in the image file as a data URL.
+								reader.readAsText(settingsFile);
+							}}
+						/>
 					</label>
 				</div>
 			</div>
@@ -147,4 +223,4 @@ const SettingsTray = () => {
 	);
 };
 
-export default React.memo( SettingsTray );
+export default React.memo(SettingsTray);

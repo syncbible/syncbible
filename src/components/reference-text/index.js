@@ -1,18 +1,20 @@
 // External
-import React from 'react'
+import React from 'react';
 import { useSelector } from 'react-redux';
 
-const ReferenceText = ( { reference } ) => {
-	const interfaceLanguage = useSelector( state => state.settings.interfaceLanguage );
-	let text = bible.getTranslatedBookName( reference.book, interfaceLanguage );
-	if ( reference.chapter ) {
-		text +=  ' ' + reference.chapter;
+const ReferenceText = ({ reference }) => {
+	const interfaceLanguage = useSelector(
+		(state) => state.settings.interfaceLanguage
+	);
+	let text = bible.getTranslatedBookName(reference.book, interfaceLanguage);
+	if (reference.chapter) {
+		text += ' ' + reference.chapter;
 	}
 
-	if ( reference.verse ) {
+	if (reference.verse) {
 		text += ':' + reference.verse;
 	}
 	return text;
 };
 
-export default React.memo( ReferenceText );
+export default React.memo(ReferenceText);

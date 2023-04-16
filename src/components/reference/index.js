@@ -9,172 +9,214 @@ import { setScrollChapter } from '../../actions';
 import Chapter from './chapter';
 import styles from './styles.scss';
 
-let oldHeight = 0, scroller = null, isScrolling = false;
+let oldHeight = 0,
+	scroller = null,
+	isScrolling = false;
 
-const ReferenceComponent = ( props ) => {
-	const [ references, setReferences ] = useState( {} );
-	const reference = useSelector( state => state.reference );
+const ReferenceComponent = (props) => {
+	const [references, setReferences] = useState({});
+	const reference = useSelector((state) => state.reference);
 	const referenceWindow = useRef();
-	const inSync = useSelector( state => state.settings.inSync );
+	const inSync = useSelector((state) => state.settings.inSync);
 	const dispatch = useDispatch();
 
-	useEffect( () => {
-		setReferences( getReferences( props ) );
-	}, [ props ] );
+	useEffect(() => {
+		setReferences(getReferences(props));
+	}, [props]);
 
-	useLayoutEffect( () => {
-		console && console.log( new Date() - timer );
+	useLayoutEffect(() => {
+		console && console.log(new Date() - timer);
 
-		if ( typeof ga !== 'undefined' ) {
+		if (typeof ga !== 'undefined') {
 			ga('send', {
 				hitType: 'event',
 				eventCategory: 'Reference',
 				eventAction: 'change',
-				eventLabel: new Date() - timer
-			} );
+				eventLabel: new Date() - timer,
+			});
 		}
-	}, [ references.book, references.chapter ] );
+	}, [references.book, references.chapter]);
 
-	useEffect( () => {
-		if( references.loadingPrev && referenceWindow.current ) {
+	useEffect(() => {
+		if (references.loadingPrev && referenceWindow.current) {
 			const newHeight = referenceWindow.current.scrollHeight;
 			document.body.style.overflow = '';
 
-			if ( referenceWindow.current.scrollTop === 0 ) {
-				referenceWindow.current.scrollBy( 0, newHeight - oldHeight );
+			if (referenceWindow.current.scrollTop === 0) {
+				referenceWindow.current.scrollBy(0, newHeight - oldHeight);
 			}
 		}
-	} );
+	});
 
 	const handleScroll = () => {
-		const debouncedScroll = ( callback ) => {
-			return setTimeout( callback, 250 );
+		const debouncedScroll = (callback) => {
+			return setTimeout(callback, 250);
 		};
 
-		if ( ! scroller ) {
+		if (!scroller) {
 			isScrolling = true;
 		}
-		clearTimeout( scroller );
-		scroller = debouncedScroll( () => {
+		clearTimeout(scroller);
+		scroller = debouncedScroll(() => {
 			isScrolling = false;
 
-			if ( referenceWindow.current.scrollTop < 500 ) {
+			if (referenceWindow.current.scrollTop < 500) {
 				addPreviousChapter();
 			}
 
-			if ( referenceWindow.current.scrollHeight - referenceWindow.current.scrollTop - document.documentElement.clientHeight < 1000 ) {
+			if (
+				referenceWindow.current.scrollHeight -
+					referenceWindow.current.scrollTop -
+					document.documentElement.clientHeight <
+				1000
+			) {
 				addNextChapter();
 			}
-		} );
+		});
 	};
 
-	const handleWaypointEnter = ( event, book, chapter ) => {
-		if ( event.previousPosition === 'above' ) {
-			const currentChapter = bible.parseReference( book + ' ' + chapter );
+	const handleWaypointEnter = (event, book, chapter) => {
+		if (event.previousPosition === 'above') {
+			const currentChapter = bible.parseReference(book + ' ' + chapter);
 			const prevChapter = currentChapter.prevChapter();
-			if ( prevChapter ) {
-				dispatch( setScrollChapter( prevChapter.bookName, prevChapter.chapter1, props.index ) );
+			if (prevChapter) {
+				dispatch(
+					setScrollChapter(
+						prevChapter.bookName,
+						prevChapter.chapter1,
+						props.index
+					)
+				);
 			}
 		}
 	};
 
-	const handleWaypointLeave = ( event, book, chapter ) => {
-		if ( event.currentPosition === 'above' ) {
-			dispatch( setScrollChapter( book, chapter, props.index ) );
+	const handleWaypointLeave = (event, book, chapter) => {
+		if (event.currentPosition === 'above') {
+			dispatch(setScrollChapter(book, chapter, props.index));
 		}
 	};
 
 	const addNextChapter = () => {
 		var localReferences = references.references.slice(),
-			lastReference = localReferences[ localReferences.length - 1 ],
-			currentReference = bible.parseReference( lastReference.bookName + ' ' + lastReference.chapter1 );
+			lastReference = localReferences[localReferences.length - 1],
+			currentReference = bible.parseReference(
+				lastReference.bookName + ' ' + lastReference.chapter1
+			);
 
 		const nextChapter = currentReference.nextChapter(),
-			nextChapterAlreadyLoaded = nextChapter && find( localReferences, function ( reference ) {
-				return reference.bookID === nextChapter.bookID && reference.chapter1 === nextChapter.chapter1;
-			} );
-		if ( nextChapter && ! nextChapterAlreadyLoaded ) {
-			localReferences.push( nextChapter );
+			nextChapterAlreadyLoaded =
+				nextChapter &&
+				find(localReferences, function (reference) {
+					return (
+						reference.bookID === nextChapter.bookID &&
+						reference.chapter1 === nextChapter.chapter1
+					);
+				});
+		if (nextChapter && !nextChapterAlreadyLoaded) {
+			localReferences.push(nextChapter);
 		}
 
-		setReferences( {
+		setReferences({
 			book: references.book,
 			chapter: references.chapter,
 			references: localReferences,
 			loadingPrev: false,
-		} );
+		});
 	};
 
 	const addPreviousChapter = () => {
 		document.body.style.overflow = 'hidden';
 
 		var localReferences = references.references.slice(),
-			firstReference = localReferences[ 0 ],
-			currentReference = bible.parseReference( firstReference.bookName + ' ' + firstReference.chapter1 );
+			firstReference = localReferences[0],
+			currentReference = bible.parseReference(
+				firstReference.bookName + ' ' + firstReference.chapter1
+			);
 
 		const prevChapter = currentReference.prevChapter(),
-			prevChapterAlreadyLoaded = prevChapter && find( localReferences, function ( reference ) {
-				return reference.bookID === prevChapter.bookID && reference.chapter1 === prevChapter.chapter1;
-			} );
+			prevChapterAlreadyLoaded =
+				prevChapter &&
+				find(localReferences, function (reference) {
+					return (
+						reference.bookID === prevChapter.bookID &&
+						reference.chapter1 === prevChapter.chapter1
+					);
+				});
 
-		if ( prevChapter && ! prevChapterAlreadyLoaded ) {
-			localReferences.unshift( prevChapter );
+		if (prevChapter && !prevChapterAlreadyLoaded) {
+			localReferences.unshift(prevChapter);
 		}
 
 		oldHeight = referenceWindow.current.scrollHeight;
 
-		setReferences( {
+		setReferences({
 			book: references.book,
 			chapter: references.chapter,
 			references: localReferences,
 			loadingPrev: true,
-		} );
+		});
 	};
 
-	const getReferences = ( nextProps ) => {
-		if ( ! nextProps.reference || ! nextProps.reference.book ) {
-			return null
+	const getReferences = (nextProps) => {
+		if (!nextProps.reference || !nextProps.reference.book) {
+			return null;
 		}
 
 		const book = nextProps.reference.book,
 			chapter = nextProps.reference.chapter,
 			references = [],
 			loadingPrev = false,
-			prevChapterData = bible.parseReference( book + ' ' + chapter ).prevChapter(),
-			nextChapterData = bible.parseReference( book + ' ' + chapter ).nextChapter();
+			prevChapterData = bible
+				.parseReference(book + ' ' + chapter)
+				.prevChapter(),
+			nextChapterData = bible
+				.parseReference(book + ' ' + chapter)
+				.nextChapter();
 
-		if ( prevChapterData ) {
-			references.push( Object.assign( {}, prevChapterData ) );
+		if (prevChapterData) {
+			references.push(Object.assign({}, prevChapterData));
 		}
-		references.push( Object.assign( {}, bible.parseReference( book + ' ' + chapter ) ) );
+		references.push(
+			Object.assign({}, bible.parseReference(book + ' ' + chapter))
+		);
 
-		if ( nextChapterData ) {
-			references.push( Object.assign( {}, nextChapterData ) );
+		if (nextChapterData) {
+			references.push(Object.assign({}, nextChapterData));
 		}
 
 		return { book, chapter, references, loadingPrev };
 	};
 
-	if ( ! references || ! references.book ) {
+	if (!references || !references.book) {
 		return null;
 	}
 
-	const classname = classnames( styles.reference, inSync ? null : styles.isNotSync );
+	const classname = classnames(
+		styles.reference,
+		inSync ? null : styles.isNotSync
+	);
 	const currentBook = references.book;
 	const currentChapter = references.chapter;
 
 	const referenceHasEndVerse = () => {
-		return reference.filter( singleReference => singleReference.endVerse ).length > 0;
-	}
-
-	if ( referenceHasEndVerse() ) {
 		return (
-			<div className={ classname }>
-				<div className={ styles.referenceInner } key={ currentBook + currentBook }>
+			reference.filter((singleReference) => singleReference.endVerse)
+				.length > 0
+		);
+	};
+
+	if (referenceHasEndVerse()) {
+		return (
+			<div className={classname}>
+				<div
+					className={styles.referenceInner}
+					key={currentBook + currentBook}
+				>
 					<Chapter
-						book={ currentBook }
-						chapter={ currentChapter }
-						index={ props.index }
+						book={currentBook}
+						chapter={currentChapter}
+						index={props.index}
 					/>
 				</div>
 			</div>
@@ -182,28 +224,42 @@ const ReferenceComponent = ( props ) => {
 	}
 
 	return (
-		<div id={ 'referenceWindow' + props.index } className={ classname } key={ currentBook + '-' + currentChapter } ref={ referenceWindow } onScroll={ handleScroll }>
-			{ references.references && references.references.map( ( referencesItem ) => {
-				const book = bible.getBook( referencesItem.bookID );
-				const chapter = referencesItem.chapter1;
+		<div
+			id={'referenceWindow' + props.index}
+			className={classname}
+			key={currentBook + '-' + currentChapter}
+			ref={referenceWindow}
+			onScroll={handleScroll}
+		>
+			{references.references &&
+				references.references.map((referencesItem) => {
+					const book = bible.getBook(referencesItem.bookID);
+					const chapter = referencesItem.chapter1;
 
-				return (
-					<div className={ styles.referenceInner } key={ book + chapter }>
-						<Waypoint
-							onEnter={ ( event ) => handleWaypointEnter( event, book, chapter ) }
-							onLeave={ ( event ) => handleWaypointLeave( event, book, chapter ) }
-							topOffset={ 0 } // This is the height of the dock
-						/>
-						<Chapter
-							book={ book }
-							chapter={ chapter }
-							index={ props.index }
-						/>
-					</div>
-				);
-			} ) }
+					return (
+						<div
+							className={styles.referenceInner}
+							key={book + chapter}
+						>
+							<Waypoint
+								onEnter={(event) =>
+									handleWaypointEnter(event, book, chapter)
+								}
+								onLeave={(event) =>
+									handleWaypointLeave(event, book, chapter)
+								}
+								topOffset={0} // This is the height of the dock
+							/>
+							<Chapter
+								book={book}
+								chapter={chapter}
+								index={props.index}
+							/>
+						</div>
+					);
+				})}
 		</div>
 	);
 };
 
-export default React.memo( ReferenceComponent );
+export default React.memo(ReferenceComponent);

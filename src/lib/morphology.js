@@ -23,34 +23,34 @@ const morphologyDictionary = {
 		TH8691: 'Hithpiel Future',
 		TH8693: 'Hithpiel Participle',
 		TH8710: 'Hithpiel Infinitive',
-		TH8800: 'Hithpiel Preterite'
-	}
+		TH8800: 'Hithpiel Preterite',
+	},
 };
 
-export default function (morph, includeLinks, lemma ) {
+export default function (morph, includeLinks, lemma) {
 	if (includeLinks === undefined) {
 		includeLinks = 'noLinks';
 	}
 	var language = 'greek';
-	if ( lemma.substring( 0, 1 ) === "H" || lemma === '' ) {
+	if (lemma.substring(0, 1) === 'H' || lemma === '') {
 		language = 'hebrew';
 	}
 	var markup = '';
-	if ( morph ) {
+	if (morph) {
 		//hebrew
 		if (morphologyDictionary.hebrew[morph] !== undefined) {
 			markup += morphologyDictionary.hebrew[morph];
 		} else {
-			if ( 'hebrew' === language ) {
+			if ('hebrew' === language) {
 				const morphParseObject = new MorphParse();
-				if ( 'undefined' !== typeof morphParseObject.Parse( morph ) ) {
-					markup += morphParseObject.Parse( morph );
+				if ('undefined' !== typeof morphParseObject.Parse(morph)) {
+					markup += morphParseObject.Parse(morph);
 				}
 			} else {
 				//greek
-				markup += parseGreekMorph( morph );
+				markup += parseGreekMorph(morph);
 			}
 		}
 	}
 	return markup;
-};
+}

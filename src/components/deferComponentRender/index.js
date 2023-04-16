@@ -14,12 +14,16 @@ export default function deferComponentRender(WrappedComponent) {
 
 		componentDidMount() {
 			window.requestAnimationFrame(() => {
-				window.requestAnimationFrame(() => this.setState({ shouldRender: true }));
+				window.requestAnimationFrame(() =>
+					this.setState({ shouldRender: true })
+				);
 			});
 		}
 
 		render() {
-			return this.state.shouldRender ? <WrappedComponent {...this.props} /> : null;
+			return this.state.shouldRender ? (
+				<WrappedComponent {...this.props} />
+			) : null;
 		}
 	}
 

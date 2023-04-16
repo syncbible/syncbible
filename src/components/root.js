@@ -15,26 +15,26 @@ import {
 	closeReferenceSelectorMobile,
 	fetchCrossReferences,
 	fetchStrongsDictonary,
-	fetchStrongsDictonaryWithFamilies
-} from '../actions'
+	fetchStrongsDictonaryWithFamilies,
+} from '../actions';
 import { rootClasses } from './utils';
 
-const Root = ( { highlightedWord } ) => {
+const Root = ({ highlightedWord }) => {
 	const dispatch = useDispatch();
 
 	// Fetch the other data we need
 	// Don't store it in the global state as that is cached in local storage
 	// and we don't want to fill up local storage with immutable data.
-	dispatch( fetchCrossReferences() );
-	dispatch( fetchStrongsDictonary() );
-	dispatch( fetchStrongsDictonaryWithFamilies() );
+	dispatch(fetchCrossReferences());
+	dispatch(fetchStrongsDictonary());
+	dispatch(fetchStrongsDictonaryWithFamilies());
 
-	const reference = useSelector( state => state.reference );
-	const darkMode = useSelector( state => state.settings.darkMode );
-	const compareMode = useSelector( state => state.settings.compareMode );
+	const reference = useSelector((state) => state.reference);
+	const darkMode = useSelector((state) => state.settings.darkMode);
+	const compareMode = useSelector((state) => state.settings.compareMode);
 	const getBodyStyles = () => {
-		const fontFamily = useSelector( state => state.settings.fontFamily );
-		const fontSize = useSelector( state => state.settings.fontSize );
+		const fontFamily = useSelector((state) => state.settings.fontFamily);
+		const fontSize = useSelector((state) => state.settings.fontSize);
 
 		var bodyStyles = 'body, .root { ';
 		bodyStyles += 'font-family: ' + fontFamily + ';';
@@ -43,37 +43,35 @@ const Root = ( { highlightedWord } ) => {
 		return bodyStyles;
 	};
 	const clearReferenceSelector = () => {
-		dispatch( closeReferenceSelectorMobile() )
+		dispatch(closeReferenceSelectorMobile());
 	};
 
-	useEffect( () => {
+	useEffect(() => {
 		// show the fallback errors which are hidden initially.
 		// this does mean that if this component has an error then nothing will load.
-		window.errors.style.display = "block";
-	}, [] )
+		window.errors.style.display = 'block';
+	}, []);
 
 	return (
-		<div className={ rootClasses( darkMode ) }>
-			<div className={ styles.root }>
-				{ reference.length > 0 && (
-					<Trays />
-				) }
+		<div className={rootClasses(darkMode)}>
+			<div className={styles.root}>
+				{reference.length > 0 && <Trays />}
 
-				<style>{ getBodyStyles() }</style>
+				<style>{getBodyStyles()}</style>
 				<KeyboardShortcuts />
-				<WordHighlight word={ highlightedWord } />
-				{ compareMode ? null : (
+				<WordHighlight word={highlightedWord} />
+				{compareMode ? null : (
 					<>
 						<Dock />
-						<div onClick={ clearReferenceSelector }>
+						<div onClick={clearReferenceSelector}>
 							<ReferenceWrapper />
 						</div>
 					</>
-				) }
+				)}
 				<InitialView />
 			</div>
 		</div>
 	);
 };
 
-export default React.memo( Root );
+export default React.memo(Root);

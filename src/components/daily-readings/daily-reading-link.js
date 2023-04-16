@@ -6,15 +6,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { goToReferenceAction } from '../../actions';
 import { goToReferenceHelper } from '../../lib/reference';
 
-const DailyReadingLink = ( { book, chapter, verses } ) => {
-	const stateReference = useSelector( state => state.reference );
-	const settings = useSelector( state => state.settings );
+const DailyReadingLink = ({ book, chapter, verses }) => {
+	const stateReference = useSelector((state) => state.reference);
+	const settings = useSelector((state) => state.settings);
 	const dispatch = useDispatch();
 
 	let referenceString = book + ' ' + chapter;
 	const reference = { book, chapter };
 
-	if ( verses ) {
+	if (verses) {
 		const versesArray = verses.split('-');
 		reference.verse = versesArray[0];
 		// Don't add an end verse as this will limit the verses output.
@@ -24,19 +24,27 @@ const DailyReadingLink = ( { book, chapter, verses } ) => {
 		reference.verse = 1;
 	}
 
-	const newHash = '/#' + goToReferenceHelper( stateReference, reference, settings.targetColumn, settings.inSync );
+	const newHash =
+		'/#' +
+		goToReferenceHelper(
+			stateReference,
+			reference,
+			settings.targetColumn,
+			settings.inSync
+		);
 
 	return (
-		<a href={ newHash } onClick={ ( event ) => {
-			event.stopPropagation();
-			event.preventDefault();
-			dispatch( goToReferenceAction( reference ) );
-		} }>
-			{ referenceString }
+		<a
+			href={newHash}
+			onClick={(event) => {
+				event.stopPropagation();
+				event.preventDefault();
+				dispatch(goToReferenceAction(reference));
+			}}
+		>
+			{referenceString}
 		</a>
 	);
 };
 
-
-
-export default React.memo( DailyReadingLink );
+export default React.memo(DailyReadingLink);

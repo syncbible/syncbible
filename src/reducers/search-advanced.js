@@ -1,5 +1,5 @@
-const searchAdvanced = ( state = false, action ) => {
-	switch ( action.type ) {
+const searchAdvanced = (state = false, action) => {
+	switch (action.type) {
 		case 'OPEN_ADVANCED_SEARCH':
 			return true;
 
@@ -9,6 +9,6 @@ const searchAdvanced = ( state = false, action ) => {
 		default:
 			return state;
 	}
-}
+};
 
 export default searchAdvanced;

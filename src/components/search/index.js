@@ -6,15 +6,14 @@ import SearchForm from './search-form';
 import SearchResults from './search-results';
 import CombinedResults from '../word-details/combined';
 
-const Search = ( { isActive } ) => {
+const Search = ({ isActive }) => {
 	return (
 		<>
-			<SearchForm isActive={ isActive } />
+			<SearchForm isActive={isActive} />
 			<SearchResults />
 			<CombinedResults type="search" />
 		</>
 	);
 };
 
-
-export default React.memo( Search );
+export default React.memo(Search);

@@ -9,16 +9,22 @@ import Single from './single';
 import styles from './styles.scss';
 
 const BookMarks = () => {
-	const list = useSelector( state => state.list );
-	const bookmarks = list.filter( ( { listType } ) => listType === 'bookmark' );
+	const list = useSelector((state) => state.list);
+	const bookmarks = list.filter(({ listType }) => listType === 'bookmark');
 
 	return (
 		<>
-			{ bookmarks.length === 0 && ( <p className={ styles.description }>Click the <Bookmark /> to bookmark a verse.</p> ) }
-			{ bookmarks.map( ( bookmark, key ) => <Single bookmark={ bookmark } key={ key } index={ key } /> ) }
+			{bookmarks.length === 0 && (
+				<p className={styles.description}>
+					Click the <Bookmark /> to bookmark a verse.
+				</p>
+			)}
+			{bookmarks.map((bookmark, key) => (
+				<Single bookmark={bookmark} key={key} index={key} />
+			))}
 			<CombinedResults type="bookmark" />
 		</>
-	)
+	);
 };
 
-export default React.memo( BookMarks );
+export default React.memo(BookMarks);
