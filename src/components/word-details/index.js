@@ -26,6 +26,7 @@ const WordDetails = () => {
 						data={word.data}
 						visible={userInterface[word.id]}
 						results={word.results}
+						loading={word.loading}
 						id={word.id} // ID is needed when we call toggleListItemVisible
 					/>
 				);

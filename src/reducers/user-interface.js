@@ -8,6 +8,10 @@ const userInterface = (state = {}, action) => {
 			state[id] = true;
 			return { ...state };
 
+		case 'REMOVE_FROM_LIST':
+			delete state[action.item.id];
+			return { ...state };
+
 		case 'TOGGLE_LIST_ITEM_VISIBLE':
 			state[action.item.id] = !state[action.item.id];
 			return { ...state };
