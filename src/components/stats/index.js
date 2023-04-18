@@ -1,5 +1,5 @@
 // External dependencies
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classnames from 'classnames';
 
@@ -29,7 +29,11 @@ const Rare = () => {
 	);
 	const isActiveTray = useSelector((state) => state.trays === 'stats');
 	const reference = useSelector((state) => state.referenceInfo.reference);
-	const common = useSelector((state) => calculateCommonWords(state));
+	const data = useSelector((state) => state.data);
+	const common = useMemo(
+		() => calculateCommonWords(reference, data),
+		[reference, data]
+	);
 
 	useEffect(() => {
 		if (isActiveTray) {

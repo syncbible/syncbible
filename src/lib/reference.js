@@ -204,10 +204,7 @@ export const calculateRareWords = ({
 	);
 };
 
-export const calculateCommonWords = ({
-	referenceInfo: { reference },
-	data,
-}) => {
+export const calculateCommonWords = (reference, data) => {
 	if (!reference) {
 		return null;
 	}
