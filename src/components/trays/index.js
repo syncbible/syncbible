@@ -148,7 +148,7 @@ const Trays = () => {
 							boxShadow: 'none',
 							boxSizing: 'border-box',
 							color: 'var(--color)',
-							width: drawerWidth,
+							width: compareMode ? '100%' : drawerWidth,
 						},
 						'& .MuiBackdrop-root': {
 							display: 'none',
