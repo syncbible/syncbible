@@ -21,7 +21,7 @@ const Navigation = ({ index, version }) => {
 
 	return (
 		<div className={styles.navigation} dir={isRTL ? 'rtl' : 'ltr'}>
-			<ReferenceSelectorMobile index={index} />
+			<ReferenceSelectorMobile index={index} version={version} />
 			<ReferenceInput version={version} index={index} />
 			<VersionSelect
 				name={index}
