@@ -177,17 +177,40 @@ export const addWord = ( word ) => {
 		dispatch( addToList( word ) );
 
 		const state = getState();
-		const strongsObjectWithFamilies = state.data.strongsObjectWithFamilies;
 		const versionData = state.data[ word.data.version ];
-		const uses = strongsObjectWithFamilies[ word.data.lemma ].count;
+		const results = state.data.searchResults;
 
-		if ( uses < 100 ) {
-			dispatch( {
-				terms: word.data,
-				results: getResultsForWord( versionData, word.data.lemma ),
-				type: 'ADD_SEARCH_RESULTS',
-			} );
+		let searchResults;
+		if ( results && results[ word.data.lemma ] ) {
+			// Get the results from cache
+			searchResults = results[ word.data.lemma ]
+				.map( ( result ) => {
+					const resultArray = result.split( '.' );
+					const bookCode = resultArray[ 0 ];
+					const bookId = bible.getBookId( bookCode );
+					const bookName = bible.getBook( bookId );
+					const chapterNumber = parseInt( resultArray[ 1 ] ) + 1;
+					const verseNumber = parseInt( resultArray[ 2 ] ) + 1;
+					return {
+						reference:
+							bookName +
+							'.' +
+							resultArray[ 1 ] +
+							'.' +
+							resultArray[ 2 ],
+					};
+				} )
+				.sort( sortReferences );
+		} else {
+			// For words with more than 3000 uses we don't have the results cached
+			searchResults = getResultsForWord( versionData, word.data.lemma );
 		}
+
+		dispatch( {
+			terms: word.data,
+			results: searchResults,
+			type: 'ADD_SEARCH_RESULTS',
+		} );
 	};
 };
 
@@ -448,6 +471,28 @@ export const fetchData = ( key ) => {
 				caches.open( cache ).then( function ( cache ) {
 					return cache.addAll( [ '/bibles/' + key + '.json' ] );
 				} );
+			}
+		);
+	};
+};
+
+export const fetchSearchResults = () => {
+	return function ( dispatch, getState ) {
+		const { data } = getState();
+		if ( data.crossReferences ) {
+			return;
+		}
+
+		return xhr(
+			{
+				method: 'get',
+				uri: '/data/searchResults.json',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			},
+			function ( error, response, body ) {
+				dispatch( receiveData( 'searchResults', JSON.parse( body ) ) );
 			}
 		);
 	};

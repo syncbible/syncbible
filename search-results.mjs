@@ -87,7 +87,7 @@ const bookNames = [
 	[ 'Ecclesiastes', 'Eccl', 'Ecc', 'Ec' ],
 	[ 'Song of Solomon', 'Song', 'Song of Songs', 'Songs', 'SOS', 'SS' ],
 	[ 'Isaiah', 'Isa', 'Is' ],
-	[ 'Jeremiah', 'Jer', 'Je' ],
+	[ 'Jeremiah', 'Jer', 'Jr' ],
 	[ 'Lamentations', 'Lam', 'La' ],
 	[ 'Ezekiel', 'Ezek', 'Eze', 'Ez' ],
 	[ 'Daniel', 'Dan', 'Da' ],
@@ -118,7 +118,7 @@ const bookNames = [
 		'1Co',
 		'I Cor',
 		'I Co',
-		'1r',
+		'1a',
 	],
 	[
 		'II Corinthians',
@@ -129,7 +129,7 @@ const bookNames = [
 		'2Co',
 		'II Cor',
 		'II Co',
-		'2r',
+		'2a',
 	],
 	[ 'Galatians', 'Gal', 'Ga' ],
 	[ 'Ephesians', 'Eph', 'Ep' ],
@@ -192,7 +192,7 @@ const bookNames = [
 	[ 'Titus', 'Tit', 'Ti' ],
 	[ 'Philemon', 'Phile', 'Philm', 'Phlm', 'Pn' ],
 	[ 'Hebrews', 'Heb', 'He' ],
-	[ 'James', 'Jas', 'Jam', 'Ja' ],
+	[ 'James', 'Jas', 'Jam', 'Jm' ],
 	[ 'I Peter', '1Pet', '1 Peter', '1 Pet', '1Pe', 'I Pet', 'I Pe', '1P' ],
 	[ 'II Peter', '2Pet', '2 Peter', '2 Pet', '2Pe', 'II Pet', 'II Pe', '2P' ],
 	[
@@ -243,9 +243,9 @@ const bookNames = [
 	const words = {};
 
 	Object.keys( srcBooks ).forEach( async ( bookName ) => {
-		srcBooks[ bookName ].forEach( async ( chapter, chapterNumber ) => {
-			chapter.forEach( async ( verse, verseNumber ) => {
-				verse.forEach( async ( wordString, wordIndex ) => {
+		srcBooks[ bookName ].forEach( async ( chapter ) => {
+			chapter.forEach( async ( verse ) => {
+				verse.forEach( async ( wordString ) => {
 					wordString[ 1 ]
 						.split( '/' )
 						.forEach( async ( strongsNumber ) => {
@@ -259,28 +259,34 @@ const bookNames = [
 	const strongsNumbers = Object.keys( words ).sort();
 
 	strongsNumbers.forEach( async ( strongsNumberToFind ) => {
-		Object.keys( srcBooks ).forEach( async ( bookName, bookIndex ) => {
-			const shortBookName =
-				bookNames[ bookIndex ][ bookNames[ bookIndex ].length - 1 ];
-			srcBooks[ bookName ].forEach( async ( chapter, chapterNumber ) => {
-				chapter.forEach( async ( verse, verseNumber ) => {
-					verse.forEach( async ( wordString, wordIndex ) => {
-						wordString[ 1 ]
-							.split( '/' )
-							.forEach( async ( strongsNumber ) => {
-								if ( strongsNumberToFind === strongsNumber ) {
-									words[ strongsNumber ].push(
-										shortBookName +
-											'.' +
-											chapterNumber +
-											'.' +
-											verseNumber
-									);
-								}
-							} );
+		Object.keys( srcBooks ).forEach( async ( bookNameInLoop ) => {
+			const bookArray = bookNames.filter( ( bookNameArray ) => {
+				return bookNameArray.indexOf( bookNameInLoop ) === 0;
+			} )[ 0 ];
+			const shortBookName = bookArray[ bookArray.length - 1 ];
+			srcBooks[ bookNameInLoop ].forEach(
+				async ( chapter, chapterNumber ) => {
+					chapter.forEach( async ( verse, verseNumber ) => {
+						verse.forEach( async ( wordString, wordIndex ) => {
+							wordString[ 1 ]
+								.split( '/' )
+								.forEach( async ( strongsNumber ) => {
+									if (
+										strongsNumberToFind === strongsNumber
+									) {
+										words[ strongsNumberToFind ].push(
+											shortBookName +
+												'.' +
+												( chapterNumber + 1 ) +
+												'.' +
+												( verseNumber + 1 )
+										);
+									}
+								} );
+						} );
 					} );
-				} );
-			} );
+				}
+			);
 		} );
 	} );
 
