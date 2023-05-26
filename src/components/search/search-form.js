@@ -41,7 +41,11 @@ const SearchForm = ( { isActive } ) => {
 	const submit = ( event ) => {
 		event.preventDefault();
 		const terms = searchForm;
-		dispatch( addSearch( terms, 'search' ) );
+		if ( isSimpleLemmaSearch( terms ) ) {
+			dispatch( selectWord( terms ) );
+		} else {
+			dispatch( addSearch( terms, 'search' ) );
+		}
 		//dispatch( clearSearchForm() );
 	};
 	const reset = ( event ) => {

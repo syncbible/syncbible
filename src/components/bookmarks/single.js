@@ -68,6 +68,27 @@ const Single = ( { bookmark, index } ) => {
 		);
 	};
 
+	/*
+	if ( data.searchResults && data.searchResults[ word.data.lemma ] ) {
+		// Get the results from cache
+		const searchResults = results[ word.data.lemma ]
+			.map( ( result ) => {
+				const resultArray = result.split( '.' );
+				const bookCode = resultArray[ 0 ];
+				const bookId = bible.getBookId( bookCode );
+				const bookName = bible.getBook( bookId );
+				return {
+					reference:
+						bookName +
+						'.' +
+						resultArray[ 1 ] +
+						'.' +
+						resultArray[ 2 ],
+				};
+			} )
+			.sort( sortReferences );
+	}*/
+
 	return (
 		<Collapsible
 			key={ index }

@@ -170,8 +170,6 @@ const getResultsForWord = ( versionData, strongsNumber ) => {
 
 export const addWord = ( word ) => {
 	return function ( dispatch, getState ) {
-		// Override the version as we are sticking to original
-		word.data.version = 'original';
 		// Send data to our worker.
 		dispatch( addToList( word ) );
 	};
@@ -182,36 +180,11 @@ export const addSearchResults = ( word ) => {
 		word.data.clusivity = 'exclusive';
 		word.data.range = 'verse';
 		const state = getState();
-		const versionData = state.data[ 'original' ]; // These results are limited to original
-		const results = state.data.searchResults;
-
-		let searchResults;
-		if ( results && results[ word.data.lemma ] ) {
-			// Get the results from cache
-			searchResults = results[ word.data.lemma ]
-				.map( ( result ) => {
-					const resultArray = result.split( '.' );
-					const bookCode = resultArray[ 0 ];
-					const bookId = bible.getBookId( bookCode );
-					const bookName = bible.getBook( bookId );
-					return {
-						reference:
-							bookName +
-							'.' +
-							resultArray[ 1 ] +
-							'.' +
-							resultArray[ 2 ],
-					};
-				} )
-				.sort( sortReferences );
-		} else {
-			// For words with more than 3000 uses we don't have the results cached
-			searchResults = getResultsForWord( versionData, word.data.lemma );
-		}
+		const versionData = state.data[ word.data.version ];
 
 		dispatch( {
 			terms: word.data,
-			results: searchResults,
+			results: getResultsForWord( versionData, word.data.lemma ),
 			type: 'ADD_SEARCH_RESULTS',
 		} );
 	};
