@@ -23,13 +23,9 @@ const SortGroupResults = ( {
 	const dispatch = useDispatch();
 	const [ group, setGroup ] = useState( initialGroup );
 	const [ sort, setSort ] = useState( initialSort );
-	const { interfaceLanguage } = useSelector( ( state ) => {
-		return {
-			compareMode: state.settings.compareMode,
-			expandedSearchResults: state.settings.expandedSearchResults,
-			interfaceLanguage: state.settings.interfaceLanguage,
-		};
-	} );
+	const interfaceLanguage = useSelector(
+		( state ) => state.settings.interfaceLanguage
+	);
 
 	const groupSelector = (
 		<div>
