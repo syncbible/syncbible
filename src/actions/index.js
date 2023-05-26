@@ -18,15 +18,15 @@ import {
 import { isValidWord } from '../lib/word.js';
 import reference from '../reducers/reference.js';
 
-export const goToReferenceAction = (reference, targetColumn) => {
-	return function (dispatch, getState) {
+export const goToReferenceAction = ( reference, targetColumn ) => {
+	return function ( dispatch, getState ) {
 		const state = getState();
 
 		// Preserve the old version.
-		const version = state.reference[0].version;
+		const version = state.reference[ 0 ].version;
 		reference.version = version;
 
-		if (typeof targetColumn === 'undefined') {
+		if ( typeof targetColumn === 'undefined' ) {
 			targetColumn = state.settings.targetColumn;
 		}
 
@@ -36,52 +36,52 @@ export const goToReferenceAction = (reference, targetColumn) => {
 			targetColumn,
 			state.settings.inSync
 		);
-		dispatch(push('/#' + newHash));
+		dispatch( push( '/#' + newHash ) );
 	};
 };
 
 export const syncReferences = () => {
-	return function (dispatch, getState) {
+	return function ( dispatch, getState ) {
 		const state = getState();
-		const newHash = getSyncReference(state.reference);
-		dispatch(push('/#' + newHash));
-		dispatch(settingsChange('inSync', true));
+		const newHash = getSyncReference( state.reference );
+		dispatch( push( '/#' + newHash ) );
+		dispatch( settingsChange( 'inSync', true ) );
 	};
 };
 
 export const unSyncReferences = () => {
-	return function (dispatch, getState) {
+	return function ( dispatch, getState ) {
 		const state = getState();
-		const newHash = getUnSyncReference(state.reference);
-		dispatch(push('/#' + newHash));
-		dispatch(settingsChange('inSync', false));
+		const newHash = getUnSyncReference( state.reference );
+		dispatch( push( '/#' + newHash ) );
+		dispatch( settingsChange( 'inSync', false ) );
 	};
 };
 
-export const addColumnAction = (version = '') => {
-	return function (dispatch, getState) {
+export const addColumnAction = ( version = '' ) => {
+	return function ( dispatch, getState ) {
 		const state = getState();
-		const newHash = addColumnHelper(state.reference, version);
-		dispatch(push('/#' + newHash));
+		const newHash = addColumnHelper( state.reference, version );
+		dispatch( push( '/#' + newHash ) );
 	};
 };
 
 export const deleteColumnAction = () => {
-	return function (dispatch, getState) {
+	return function ( dispatch, getState ) {
 		const state = getState();
-		const newHash = deleteColumnHelper(state.reference);
-		dispatch(push('/#' + newHash));
+		const newHash = deleteColumnHelper( state.reference );
+		dispatch( push( '/#' + newHash ) );
 	};
 };
 
-export const setTrayVisibilityFilter = (filter) => {
+export const setTrayVisibilityFilter = ( filter ) => {
 	return {
 		type: 'SET_TRAY_VISIBILITY_FILTER',
 		filter,
 	};
 };
 
-export const setScrollChapter = (book, chapter, index) => {
+export const setScrollChapter = ( book, chapter, index ) => {
 	return {
 		book,
 		chapter,
@@ -90,24 +90,24 @@ export const setScrollChapter = (book, chapter, index) => {
 	};
 };
 
-export const settingsChange = (settingName, settingValue) => {
+export const settingsChange = ( settingName, settingValue ) => {
 	var returnValue = {
 		type: 'SETTINGS_CHANGE',
 	};
-	returnValue[settingName] = settingValue;
+	returnValue[ settingName ] = settingValue;
 
 	return returnValue;
 };
 
-export const showCrossReferences = (reference) => {
+export const showCrossReferences = ( reference ) => {
 	return {
 		reference,
 		type: 'SHOW_CROSS_REFERENCES',
 	};
 };
 
-export const findSimilarReferences = (reference, listItem) => {
-	return function (dispatch, getState) {
+export const findSimilarReferences = ( reference, listItem ) => {
+	return function ( dispatch, getState ) {
 		const searchParameters = {
 			clusivity: 'inclusive',
 			version: 'original',
@@ -119,76 +119,79 @@ export const findSimilarReferences = (reference, listItem) => {
 		};
 
 		// Send data to our worker.
-		postMessageToWorker('search', searchParameters, getState());
+		postMessageToWorker( 'search', searchParameters, getState() );
 
-		dispatch({
+		dispatch( {
 			reference,
 			type: 'FIND_SIMILAR_REFERENCES',
-		});
+		} );
 	};
 };
 
-function postMessageToWorker(task, parameters, state) {
-	let data = state.data[parameters.version];
-	if (parameters.version === 'LC') {
-		data = state.data['original'];
+function postMessageToWorker( task, parameters, state ) {
+	let data = state.data[ parameters.version ];
+	if ( parameters.version === 'LC' ) {
+		data = state.data[ 'original' ];
 	}
-	worker.postMessage({
+	worker.postMessage( {
 		task,
 		parameters,
 		data,
-	});
+	} );
 }
 
-const getResultsForWord = (versionData, strongsNumber) => {
+const getResultsForWord = ( versionData, strongsNumber ) => {
 	const resultData = [];
-	Object.keys(versionData).forEach((book) =>
-		versionData[book].forEach((chapter, chapterNumber) =>
-			chapter.forEach((verse, verseNumber) =>
-				verse.forEach((word) => {
-					const lemmaArray = word[1] && word[1].split(/ |\//); // should also split by &.
-					if (lemmaArray && lemmaArray.indexOf(strongsNumber) > -1) {
-						resultData.push({
+	Object.keys( versionData ).forEach( ( book ) =>
+		versionData[ book ].forEach( ( chapter, chapterNumber ) =>
+			chapter.forEach( ( verse, verseNumber ) =>
+				verse.forEach( ( word ) => {
+					const lemmaArray = word[ 1 ] && word[ 1 ].split( / |\// ); // should also split by &.
+					if (
+						lemmaArray &&
+						lemmaArray.indexOf( strongsNumber ) > -1
+					) {
+						resultData.push( {
 							reference:
 								book +
 								'.' +
-								(chapterNumber + 1) +
+								( chapterNumber + 1 ) +
 								'.' +
-								(verseNumber + 1),
+								( verseNumber + 1 ),
 							word,
-						});
+						} );
 					}
-				})
+				} )
 			)
 		)
 	);
-	return resultData.sort(sortReferences);
+	return resultData.sort( sortReferences );
 };
 
-export const addWord = (word) => {
-	return function (dispatch, getState) {
+export const addWord = ( word ) => {
+	return function ( dispatch, getState ) {
 		word.data.clusivity = 'exclusive';
 		word.data.range = 'verse';
 
 		// Send data to our worker.
-		dispatch(addToList(word));
+		dispatch( addToList( word ) );
 
 		const state = getState();
 		const strongsObjectWithFamilies = state.data.strongsObjectWithFamilies;
-		const versionData = state.data[word.data.version];
-		const uses = strongsObjectWithFamilies[word.data.lemma].count;
+		const versionData = state.data[ word.data.version ];
+		const uses = strongsObjectWithFamilies[ word.data.lemma ].count;
 
-		if (uses < 100) {
-			dispatch({
+		if ( uses < 100 ) {
+			dispatch( {
 				terms: word.data,
-				results: getResultsForWord(versionData, word.data.lemma),
+				results: getResultsForWord( versionData, word.data.lemma ),
 				type: 'ADD_SEARCH_RESULTS',
-			});
+			} );
 		}
 	};
 };
 
-export const removeWord = (strongsNumber) => {
+export const removeWord = ( strongsNumber ) => {
 	return {
 		strongsNumber,
 		type: 'REMOVE_WORD',
@@ -201,7 +204,7 @@ export const clearAll = () => {
 	};
 };
 
-export const toggleWord = (strongsNumber) => {
+export const toggleWord = ( strongsNumber ) => {
 	return {
 		strongsNumber,
 		type: 'TOGGLE_WORD',
@@ -220,58 +223,58 @@ export const closeAdvancedSearch = () => {
 	};
 };
 
-export const addSearch = (terms, target) => {
-	return function (dispatch, getState) {
+export const addSearch = ( terms, target ) => {
+	return function ( dispatch, getState ) {
 		// Send data to our worker.
-		postMessageToWorker(target, terms, getState());
+		postMessageToWorker( target, terms, getState() );
 
 		const searchItem = {
 			listType: 'search',
 			data: terms,
 			visible: true,
 		};
-		dispatch(addToList(searchItem));
+		dispatch( addToList( searchItem ) );
 	};
 };
 
-export const searchForWord = (parameters) => {
-	return function (dispatch, getState) {
-		dispatch(wordResultsLoading(parameters));
+export const searchForWord = ( parameters ) => {
+	return function ( dispatch, getState ) {
+		dispatch( wordResultsLoading( parameters ) );
 
 		// Send data to our worker.
-		postMessageToWorker('word', parameters, getState());
+		postMessageToWorker( 'word', parameters, getState() );
 	};
 };
 
-export const wordResultsLoading = (terms) => {
+export const wordResultsLoading = ( terms ) => {
 	return {
 		terms,
 		type: 'WORD_RESULTS_LOADING',
 	};
 };
 
-export const removeSearch = (terms) => {
+export const removeSearch = ( terms ) => {
 	return {
 		terms,
 		type: 'REMOVE_SEARCH',
 	};
 };
 
-export const toggleSearch = (terms) => {
+export const toggleSearch = ( terms ) => {
 	return {
 		terms,
 		type: 'TOGGLE_SEARCH',
 	};
 };
 
-export const clearSearch = (terms) => {
+export const clearSearch = ( terms ) => {
 	return {
 		terms,
 		type: 'CLEAR_SEARCH',
 	};
 };
 
-export const setCurrentVerse = (terms, index) => {
+export const setCurrentVerse = ( terms, index ) => {
 	return {
 		index,
 		terms,
@@ -291,19 +294,19 @@ export const goToPreviousCurrentVerse = () => {
 	};
 };
 
-export const changeVersion = (index, version) => {
-	return function (dispatch, getState) {
+export const changeVersion = ( index, version ) => {
+	return function ( dispatch, getState ) {
 		const state = getState();
 		const newHash = getNewVersionHash(
 			state.reference,
-			parseInt(index),
+			parseInt( index ),
 			version
 		);
-		dispatch(push('/#' + newHash));
+		dispatch( push( '/#' + newHash ) );
 	};
 };
 
-export const setReference = (reference, index) => {
+export const setReference = ( reference, index ) => {
 	return {
 		reference,
 		index,
@@ -311,7 +314,11 @@ export const setReference = (reference, index) => {
 	};
 };
 
-export const referenceSelectorMobileSetBook = (bookName, bookIndex, index) => {
+export const referenceSelectorMobileSetBook = (
+	bookName,
+	bookIndex,
+	index
+) => {
 	return {
 		bookName,
 		bookIndex,
@@ -320,28 +327,28 @@ export const referenceSelectorMobileSetBook = (bookName, bookIndex, index) => {
 	};
 };
 
-export const closeReferenceSelectorMobile = (index) => {
+export const closeReferenceSelectorMobile = ( index ) => {
 	return {
 		index,
 		type: 'CLOSE_REFERENCE_SELECTOR_MOBILE',
 	};
 };
 
-export const toggleReferenceSelectorMobile = (index) => {
+export const toggleReferenceSelectorMobile = ( index ) => {
 	return {
 		index,
 		type: 'TOGGLE_REFERENCE_SELECTOR_MOBILE',
 	};
 };
 
-export const openReferenceSelectorMobile = (index) => {
+export const openReferenceSelectorMobile = ( index ) => {
 	return {
 		index,
 		type: 'OPEN_REFERENCE_SELECTOR_MOBILE',
 	};
 };
 
-export const activateSearchSelect = (target) => {
+export const activateSearchSelect = ( target ) => {
 	return {
 		target,
 		type: 'ACTIVATE_SEARCH_SELECT',
@@ -354,7 +361,7 @@ export const deactivateSearchSelect = () => {
 	};
 };
 
-export const updateSearchForm = (name, value) => {
+export const updateSearchForm = ( name, value ) => {
 	return {
 		name,
 		value,
@@ -362,7 +369,7 @@ export const updateSearchForm = (name, value) => {
 	};
 };
 
-export const appendToSearchForm = (name, value) => {
+export const appendToSearchForm = ( name, value ) => {
 	return {
 		name,
 		value,
@@ -376,14 +383,14 @@ export const clearSearchForm = () => {
 	};
 };
 
-function requestData(key) {
+function requestData( key ) {
 	return {
 		type: 'REQUEST_DATA',
 		key,
 	};
 }
 
-export function receiveData(key, data) {
+export function receiveData( key, data ) {
 	return {
 		type: 'RECEIVE_DATA',
 		key,
@@ -391,17 +398,17 @@ export function receiveData(key, data) {
 	};
 }
 
-export const fetchData = (key) => {
-	return function (dispatch, getState) {
+export const fetchData = ( key ) => {
+	return function ( dispatch, getState ) {
 		const { data } = getState(); // check that the data isn't already in state
-		if (data[key]) {
+		if ( data[ key ] ) {
 			return;
 		}
 
-		dispatch(requestData(key));
+		dispatch( requestData( key ) );
 
 		// If we load NMV_strongs, we need to load the translation data as well.
-		if (key === 'NMV_strongs') {
+		if ( key === 'NMV_strongs' ) {
 			xhr(
 				{
 					method: 'get',
@@ -410,13 +417,15 @@ export const fetchData = (key) => {
 						'Content-Type': 'application/json',
 					},
 				},
-				function (error, response, body) {
-					const parsedData = JSON.parse(body);
-					dispatch(receiveData('farsiTranslations', parsedData));
+				function ( error, response, body ) {
+					const parsedData = JSON.parse( body );
+					dispatch( receiveData( 'farsiTranslations', parsedData ) );
 
-					caches.open(cache).then(function (cache) {
-						return cache.addAll(['/data/farsi-translations.json']);
-					});
+					caches.open( cache ).then( function ( cache ) {
+						return cache.addAll( [
+							'/data/farsi-translations.json',
+						] );
+					} );
 				}
 			);
 		}
@@ -429,25 +438,25 @@ export const fetchData = (key) => {
 					'Content-Type': 'application/json',
 				},
 			},
-			function (error, response, body) {
-				const parsedData = JSON.parse(body);
-				if (parsedData.books) {
-					dispatch(receiveData(key, parsedData.books));
+			function ( error, response, body ) {
+				const parsedData = JSON.parse( body );
+				if ( parsedData.books ) {
+					dispatch( receiveData( key, parsedData.books ) );
 				} else {
-					dispatch(receiveData(key, parsedData));
+					dispatch( receiveData( key, parsedData ) );
 				}
-				caches.open(cache).then(function (cache) {
-					return cache.addAll(['/bibles/' + key + '.json']);
-				});
+				caches.open( cache ).then( function ( cache ) {
+					return cache.addAll( [ '/bibles/' + key + '.json' ] );
+				} );
 			}
 		);
 	};
 };
 
 export const fetchCrossReferences = () => {
-	return function (dispatch, getState) {
+	return function ( dispatch, getState ) {
 		const { data } = getState();
-		if (data.crossReferences) {
+		if ( data.crossReferences ) {
 			return;
 		}
 
@@ -459,17 +468,19 @@ export const fetchCrossReferences = () => {
 					'Content-Type': 'application/json',
 				},
 			},
-			function (error, response, body) {
-				dispatch(receiveData('crossReferences', JSON.parse(body)));
+			function ( error, response, body ) {
+				dispatch(
+					receiveData( 'crossReferences', JSON.parse( body ) )
+				);
 			}
 		);
 	};
 };
 
 export const fetchStrongsDictonary = () => {
-	return function (dispatch, getState) {
+	return function ( dispatch, getState ) {
 		const { data } = getState();
-		if (data.strongsDictionary) {
+		if ( data.strongsDictionary ) {
 			return;
 		}
 
@@ -482,17 +493,19 @@ export const fetchStrongsDictonary = () => {
 					'Content-Type': 'application/json',
 				},
 			},
-			function (error, response, body) {
-				dispatch(receiveData('strongsDictionary', JSON.parse(body)));
+			function ( error, response, body ) {
+				dispatch(
+					receiveData( 'strongsDictionary', JSON.parse( body ) )
+				);
 			}
 		);
 	};
 };
 
 export const fetchStrongsDictonaryWithFamilies = () => {
-	return function (dispatch, getState) {
+	return function ( dispatch, getState ) {
 		const { data } = getState();
-		if (data.strongsObjectWithFamilies) {
+		if ( data.strongsObjectWithFamilies ) {
 			return;
 		}
 
@@ -505,30 +518,33 @@ export const fetchStrongsDictonaryWithFamilies = () => {
 					'Content-Type': 'application/json',
 				},
 			},
-			function (error, response, body) {
+			function ( error, response, body ) {
 				dispatch(
-					receiveData('strongsObjectWithFamilies', JSON.parse(body))
+					receiveData(
+						'strongsObjectWithFamilies',
+						JSON.parse( body )
+					)
 				);
 			}
 		);
 	};
 };
 
-export const setReferenceInfo = (reference) => {
+export const setReferenceInfo = ( reference ) => {
 	return {
 		type: 'SET_REFERENCE_INFO',
 		reference: reference,
 	};
 };
 
-export const setReferenceInfoCompareWith = (referenceToCompareWith) => {
+export const setReferenceInfoCompareWith = ( referenceToCompareWith ) => {
 	return {
 		type: 'SET_REFERENCE_INFO_COMPARE_WITH',
 		referenceToCompareWith: referenceToCompareWith,
 	};
 };
 
-export const setReferenceInfoLimit = (limit) => {
+export const setReferenceInfoLimit = ( limit ) => {
 	return {
 		type: 'SET_REFERENCE_INFO_LIMIT',
 		limit,
@@ -553,44 +569,46 @@ export const toggleSidebar = () => {
 	};
 };
 
-export const selectWord = (props) => {
+export const selectWord = ( props ) => {
 	const { word, lemma, morph, version } = props;
 
-	return function (dispatch, getState) {
+	return function ( dispatch, getState ) {
 		const searchSelect = getState().searchSelect;
 		const data = getState().data;
-		if (searchSelect) {
+		if ( searchSelect ) {
 			// If there's a book then this is a reference.
-			if (searchSelect.book) {
+			if ( searchSelect.book ) {
 				// Get the reference.
 				const { book, chapter, verse, index } = searchSelect;
 
 				// Update the data in memory.
 				const currentWord =
-					data['NMV_strongs'][book][chapter][verse][index];
-				data['NMV_strongs'][book][chapter][verse][index] = [
-					currentWord[0],
+					data[ 'NMV_strongs' ][ book ][ chapter ][ verse ][ index ];
+				data[ 'NMV_strongs' ][ book ][ chapter ][ verse ][ index ] = [
+					currentWord[ 0 ],
 					lemma,
 				];
 
 				// Push the update to the store.
-				dispatch(receiveData('NMV_strongs', data['NMV_strongs']));
+				dispatch( receiveData( 'NMV_strongs', data[ 'NMV_strongs' ] ) );
 			} else {
-				dispatch(appendToSearchForm(searchSelect, props[searchSelect]));
-				dispatch(updateSearchForm('version', version));
+				dispatch(
+					appendToSearchForm( searchSelect, props[ searchSelect ] )
+				);
+				dispatch( updateSearchForm( 'version', version ) );
 			}
-			dispatch(deactivateSearchSelect());
+			dispatch( deactivateSearchSelect() );
 		} else {
-			dispatch(setTrayVisibilityFilter('word'));
+			dispatch( setTrayVisibilityFilter( 'word' ) );
 
 			lemma &&
-				lemma.split(/[\&\s]/).map((strongsNumber) => {
-					if (!isValidWord(strongsNumber)) {
+				lemma.split( /[\&\s]/ ).map( ( strongsNumber ) => {
+					if ( ! isValidWord( strongsNumber ) ) {
 						return;
 					}
 
 					dispatch(
-						addWord({
+						addWord( {
 							listType: 'word',
 							data: {
 								lemma: strongsNumber,
@@ -599,45 +617,45 @@ export const selectWord = (props) => {
 								clickedWord: word,
 							},
 							visible: true,
-						})
+						} )
 					);
-				});
+				} );
 		}
 	};
 };
 
-export const addToList = (item) => {
+export const addToList = ( item ) => {
 	return {
 		type: 'ADD_TO_LIST',
 		item: item,
 	};
 };
 
-export const removeFromList = (item) => {
-	return function (dispatch) {
-		dispatch(removeSearch(item));
-		dispatch({
+export const removeFromList = ( item ) => {
+	return function ( dispatch ) {
+		dispatch( removeSearch( item ) );
+		dispatch( {
 			type: 'REMOVE_FROM_LIST',
 			item: item,
-		});
+		} );
 	};
 };
 
-export const removeTypeFromList = (listType) => {
+export const removeTypeFromList = ( listType ) => {
 	return {
 		type: 'REMOVE_TYPE_FROM_LIST',
 		listType: listType,
 	};
 };
 
-export const toggleListItemVisible = (item) => {
+export const toggleListItemVisible = ( item ) => {
 	return {
 		type: 'TOGGLE_LIST_ITEM_VISIBLE',
 		item: item,
 	};
 };
 
-export const setCurrentListResult = (id, index) => {
+export const setCurrentListResult = ( id, index ) => {
 	return {
 		id,
 		index,
@@ -645,7 +663,7 @@ export const setCurrentListResult = (id, index) => {
 	};
 };
 
-export const updateData = ({ version, word, lemma, morph, translation }) => {
+export const updateData = ( { version, word, lemma, morph, translation } ) => {
 	return {
 		type: 'UPDATE_DATA',
 		version,
