@@ -34,7 +34,9 @@ const WordBlockDetails = ( {
 	const searchResultsData = useSelector(
 		( state ) => state.data.searchResults
 	);
-	const searchResults = searchResultsData[ word.data.lemma ];
+	const searchResults = searchResultsData
+		? searchResultsData[ word.data.lemma ]
+		: undefined;
 	const [ activeTab, setActiveTab ] = useState( 'search' );
 
 	const shouldDisplayResults = () => {
@@ -42,13 +44,19 @@ const WordBlockDetails = ( {
 	};
 
 	useEffect( () => {
-		if ( shouldDisplayResults() ) {
+		if ( ! resultsFromProps && shouldDisplayResults() ) {
 			// Pause to render the list before we load the results
 			setTimeout( () => {
 				dispatch( addSearchResults( word ) );
 			}, 100 );
 		}
-	} );
+	}, [
+		resultsFromProps,
+		shouldDisplayResults,
+		dispatch,
+		addSearchResults,
+		word,
+	] );
 
 	let resultsData = resultsFromProps;
 	const results =

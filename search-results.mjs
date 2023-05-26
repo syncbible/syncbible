@@ -78,7 +78,7 @@ const bookNames = [
 		'II Ch',
 		'2C',
 	],
-	[ 'Ezra', 'Ezra', 'Ezr', 'Ez' ],
+	[ 'Ezra', 'Ezra', 'Ezr', 'Ea' ],
 	[ 'Nehemiah', 'Neh', 'Ne' ],
 	[ 'Esther', 'Esth', 'Est', 'Es' ],
 	[ 'Job', 'Job', 'Jb' ],

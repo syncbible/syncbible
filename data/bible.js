@@ -15,7 +15,7 @@ bible.Data.books = [
 ['II Kings','2Kgs','2 Kings','2 Kin','2Kin','2 Ki','2Ki','II Kin','II Ki','2K'],
 ['I Chronicles','1Chr','1 Chronicles','1 Chr','1 Ch','1Ch','I Chr','I Ch','1C'],
 ['II Chronicles','2Chr','2 Chronicles','2 Chr','2 Ch','2Ch','II Chr','II Ch','2C'],
-['Ezra','Ezra','Ezr','Ez'],
+['Ezra','Ezra','Ezr','Ea'],
 ['Nehemiah','Neh','Ne'],
 ['Esther','Esth','Est','Es'],
 ['Job','Job','Jb'],
