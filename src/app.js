@@ -24,55 +24,61 @@ import Root from './components/root';
 
 const config = {
 	key: 'primary',
-	storage: storage('syncbible'),
-	blacklist: ['data'],
+	storage: storage( 'syncbible' ),
+	blacklist: [ 'data' ],
 };
 
 const history = createBrowserHistory();
 
-const persistedReducer = persistCombineReducers(config, rootReducer(history));
+const persistedReducer = persistCombineReducers(
+	config,
+	rootReducer( history )
+);
 
 const composeEnhancers =
 	typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-		? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-				stateSanitizer: (state) => {
-					if (!state.data) return state;
+		? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__( {
+				stateSanitizer: ( state ) => {
+					if ( ! state.data ) return state;
 					const data = {};
-					Object.keys(state.data).forEach((key) => {
-						data[key] = { __TRUNCATED: true };
-					});
+					Object.keys( state.data ).forEach( ( key ) => {
+						data[ key ] = { __TRUNCATED: true };
+					} );
 					return {
 						...state,
 						data,
 					};
 				},
-		  })
+		  } )
 		: compose;
 
 let store = createStore(
 	persistedReducer,
-	composeEnhancers(applyMiddleware(routerMiddleware(history), thunk))
+	composeEnhancers( applyMiddleware( routerMiddleware( history ), thunk ) )
 );
 
-let persistor = persistStore(store);
+let persistor = persistStore( store );
 
 const App = () => {
-	const [highlightedWord, setHightlightedWord] = useState('');
+	const [ highlightedWord, setHightlightedWord ] = useState( '' );
 	// Make this available externally.
-	window.updateAppComponent = (key, value) => {
-		setHightlightedWord(value);
+	window.updateAppComponent = ( key, value ) => {
+		setHightlightedWord( value );
 	};
 
 	return (
-		<Provider store={store} context={ReactReduxContext}>
-			<PersistGate loading={null} persistor={persistor}>
-				<ConnectedRouter history={history} context={ReactReduxContext}>
+		<Provider store={ store } context={ ReactReduxContext }>
+			<PersistGate loading={ null } persistor={ persistor }>
+				<ConnectedRouter
+					history={ history }
+					context={ ReactReduxContext }
+				>
 					<HashRouter>
 						<Route
 							path="/"
-							render={() => (
-								<Root highlightedWord={highlightedWord} />
-							)}
+							render={ () => (
+								<Root highlightedWord={ highlightedWord } />
+							) }
 						/>
 					</HashRouter>
 				</ConnectedRouter>
@@ -84,39 +90,41 @@ const App = () => {
 export default App;
 
 export async function getStore() {
-	return getStoredState(config);
+	return getStoredState( config );
 }
 
 // From https://stackoverflow.com/questions/52465891/how-to-save-redux-store-as-a-downloaded-file-and-then-load-it-back.
-const loadState = (state) => {
+const loadState = ( state ) => {
 	store = createStore(
 		persistedReducer,
 		state,
-		composeEnhancers(applyMiddleware(routerMiddleware(history), thunk))
+		composeEnhancers(
+			applyMiddleware( routerMiddleware( history ), thunk )
+		)
 	);
-	persistor = persistStore(store);
+	persistor = persistStore( store );
 };
 
-export async function loadStore(json) {
-	return new Promise((resolve, reject) => {
+export async function loadStore( json ) {
+	return new Promise( ( resolve, reject ) => {
 		let state;
 
 		try {
-			state = JSON.parse(json);
-		} catch (err) {
-			return reject(err);
+			state = JSON.parse( json );
+		} catch ( err ) {
+			return reject( err );
 		}
 
-		if (!persistor) {
-			return resolve(loadState(state));
+		if ( ! persistor ) {
+			return resolve( loadState( state ) );
 		}
 		persistor
 			.purge()
-			.then(() => {
-				return resolve(loadState(state));
-			})
-			.catch(() => {
-				return resolve(loadState(state));
-			});
-	});
+			.then( () => {
+				return resolve( loadState( state ) );
+			} )
+			.catch( () => {
+				return resolve( loadState( state ) );
+			} );
+	} );
 }

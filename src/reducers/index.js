@@ -20,9 +20,9 @@ import sidebar from './sidebar';
 import similarReferences from './similar-references';
 import referenceInfo from './reference-info';
 
-export default (history) => {
+export default ( history ) => {
 	return {
-		router: connectRouter(history),
+		router: connectRouter( history ),
 		crossReferences,
 		currentReference,
 		data,

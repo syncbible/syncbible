@@ -13,63 +13,67 @@ import {
 } from '../../actions/index.js';
 import styles from './styles.scss';
 
-const Footer = ({ trays }) => {
-	const compareMode = useSelector((state) => state.settings.compareMode);
+const Footer = ( { trays } ) => {
+	const compareMode = useSelector( ( state ) => state.settings.compareMode );
 
 	const dispatch = useDispatch();
 
 	return (
-		<div className={styles.footer}>
+		<div className={ styles.footer }>
 			<div
-				className={classnames(
+				className={ classnames(
 					styles.logoOuter,
 					compareMode ? styles.isCompareMode : null
-				)}
+				) }
 			>
-				<div className={styles.logoInner}>
-					<div className={styles.logo}>
+				<div className={ styles.logoInner }>
+					<div className={ styles.logo }>
 						<button
-							className={classnames(
+							className={ classnames(
 								'no-hover',
 								styles.syncButton
-							)}
-							onClick={() => {
-								dispatch(settingsChange('compareMode', true));
-								dispatch(openSidebar());
-							}}
+							) }
+							onClick={ () => {
+								dispatch(
+									settingsChange( 'compareMode', true )
+								);
+								dispatch( openSidebar() );
+							} }
 						>
 							<SyncBible />
 						</button>
 					</div>
-					<div className={styles.logoFlipped}>
+					<div className={ styles.logoFlipped }>
 						<button
-							className={classnames(
+							className={ classnames(
 								'no-hover',
 								styles.syncButton
-							)}
-							onClick={() => {
-								dispatch(settingsChange('compareMode', false));
-							}}
+							) }
+							onClick={ () => {
+								dispatch(
+									settingsChange( 'compareMode', false )
+								);
+							} }
 						>
 							<SyncBible />
 						</button>
 					</div>
 				</div>
 			</div>
-			{trays.map((tray) => {
+			{ trays.map( ( tray ) => {
 				return (
 					<TrayFilter
-						trays={trays}
-						key={tray.id}
-						title={tray.text}
-						filter={tray.id}
+						trays={ trays }
+						key={ tray.id }
+						title={ tray.text }
+						filter={ tray.id }
 					>
-						{tray.icon}
+						{ tray.icon }
 					</TrayFilter>
 				);
-			})}
+			} ) }
 		</div>
 	);
 };
 
-export default React.memo(Footer);
+export default React.memo( Footer );

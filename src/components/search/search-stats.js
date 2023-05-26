@@ -5,22 +5,22 @@ import React from 'react';
 import styles from './styles.scss';
 import SortGroupResults from '../sort-group-results';
 
-const SearchStats = ({ results, data }) => {
-	if (!results) {
+const SearchStats = ( { results, data } ) => {
+	if ( ! results ) {
 		return <p>Stats will appear when you have searched for the word.</p>;
 	}
 
 	return (
-		<div className={styles.wordStats}>
-			<h2>Stats for {data.version}</h2>
+		<div className={ styles.wordStats }>
+			<h2>Stats for { data.version }</h2>
 			<SortGroupResults
-				results={results}
+				results={ results }
 				initialGroup="book"
 				initialSort="reference"
-				supportsWord={false}
+				supportsWord={ false }
 			/>
 		</div>
 	);
 };
 
-export default React.memo(SearchStats);
+export default React.memo( SearchStats );

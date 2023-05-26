@@ -1,5 +1,5 @@
-const currentReference = (state = {}, action) => {
-	switch (action.type) {
+const currentReference = ( state = {}, action ) => {
+	switch ( action.type ) {
 		case 'SET_CURRENT_VERSE':
 			return {
 				terms: action.terms,
@@ -7,14 +7,14 @@ const currentReference = (state = {}, action) => {
 			};
 
 		case 'GO_TO_NEXT_CURRENT_VERSE':
-			return Object.assign({}, state, {
+			return Object.assign( {}, state, {
 				activeReference: state.activeReference + 1,
-			});
+			} );
 
 		case 'GO_TO_PREVIOUS_CURRENT_VERSE':
-			return Object.assign({}, state, {
+			return Object.assign( {}, state, {
 				activeReference: state.activeReference - 1,
-			});
+			} );
 
 		case 'CLEAR_ALL':
 			return [];

@@ -6,14 +6,17 @@ import { useDispatch } from 'react-redux';
 import { removeColumn } from '../../actions';
 import RemoveSvg from '../svg/remove';
 
-const RemoveColumnButton = ({ index }) => {
+const RemoveColumnButton = ( { index } ) => {
 	const dispatch = useDispatch();
 
 	return (
-		<button type="button" onClick={() => dispatch(removeColumn(index))}>
+		<button
+			type="button"
+			onClick={ () => dispatch( removeColumn( index ) ) }
+		>
 			<RemoveSvg />
 		</button>
 	);
 };
 
-export default React.memo(RemoveColumnButton);
+export default React.memo( RemoveColumnButton );

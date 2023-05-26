@@ -1,17 +1,17 @@
 import { getFamily } from '../lib/word';
 import tinycolor from 'tinycolor2';
 
-function getStrongsColor(lemma) {
-	var strongsInt = parseInt(lemma);
-	if (isNaN(strongsInt)) {
+function getStrongsColor( lemma ) {
+	var strongsInt = parseInt( lemma );
+	if ( isNaN( strongsInt ) ) {
 		var hue = 0,
 			staturation = '0%',
 			lightness = '50%';
 	} else {
 		var theSizeOfAColorSegment = 360 / 8000,
-			hue = Math.floor(strongsInt * theSizeOfAColorSegment),
-			staturation = (strongsInt % 80) + 10 + '%',
-			lightness = (strongsInt % 10) * 4 + 30 + '%';
+			hue = Math.floor( strongsInt * theSizeOfAColorSegment ),
+			staturation = ( strongsInt % 80 ) + 10 + '%',
+			lightness = ( strongsInt % 10 ) * 4 + 30 + '%';
 	}
 	return 'hsl(' + hue + ',' + staturation + ',' + lightness + ')';
 }
@@ -24,9 +24,9 @@ function getStrongsColorWithSettings(
 	var hightlightFamilies = highlightWordsWith === 'family',
 		classInt;
 
-	if (hightlightFamilies) {
+	if ( hightlightFamilies ) {
 		classInt = parseFloat(
-			getFamily(strongsNumber, strongsObjectWithFamilies).substring(
+			getFamily( strongsNumber, strongsObjectWithFamilies ).substring(
 				1,
 				strongsNumber.length
 			),
@@ -34,12 +34,12 @@ function getStrongsColorWithSettings(
 		);
 	} else {
 		classInt = parseInt(
-			strongsNumber.substring(1, strongsNumber.length),
+			strongsNumber.substring( 1, strongsNumber.length ),
 			10
 		);
 	}
 
-	return getStrongsColor(classInt);
+	return getStrongsColor( classInt );
 }
 
 function getClassNameWithSettings(
@@ -47,8 +47,10 @@ function getClassNameWithSettings(
 	highlightWordsWith,
 	strongsObjectWithFamilies
 ) {
-	if (highlightWordsWith === 'family') {
-		return getFamily(strongsNumber, strongsObjectWithFamilies) + '-family';
+	if ( highlightWordsWith === 'family' ) {
+		return (
+			getFamily( strongsNumber, strongsObjectWithFamilies ) + '-family'
+		);
 	} else {
 		return strongsNumber;
 	}
@@ -70,8 +72,8 @@ function getHighlight(
 		strongsObjectWithFamilies
 	);
 	let color = '#000';
-	var aTinyColor = tinycolor(newColor);
-	if (aTinyColor.isDark()) {
+	var aTinyColor = tinycolor( newColor );
+	if ( aTinyColor.isDark() ) {
 		color = '#fff';
 	}
 

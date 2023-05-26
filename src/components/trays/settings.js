@@ -13,34 +13,34 @@ javascripture.state = {};
 
 const SettingsTray = () => {
 	const dispatch = useDispatch();
-	const settings = useSelector((state) => state.settings);
-	const reference = useSelector((state) => state.reference);
+	const settings = useSelector( ( state ) => state.settings );
+	const reference = useSelector( ( state ) => state.reference );
 
 	// remove this line
 	javascripture.state.settings = settings;
 
-	const changeSetting = (event) => {
-		dispatch(settingsChange(event.target.name, event.target.value));
+	const changeSetting = ( event ) => {
+		dispatch( settingsChange( event.target.name, event.target.value ) );
 		event.target.blur();
 	};
 
-	const changeCheckboxSetting = (event) => {
-		dispatch(settingsChange(event.target.name, event.target.checked));
+	const changeCheckboxSetting = ( event ) => {
+		dispatch( settingsChange( event.target.name, event.target.checked ) );
 		event.target.blur();
 	};
 
 	return (
-		<div id="settingsPanel" className={styles.helpPanel}>
+		<div id="settingsPanel" className={ styles.helpPanel }>
 			<div className="content">
 				<div className="content-padding">
 					<form>
 						<ul>
-							<li className={styles.settingsLi}>
+							<li className={ styles.settingsLi }>
 								<label>Fonts:</label>
 								<select
-									value={settings.fontFamily}
+									value={ settings.fontFamily }
 									name="fontFamily"
-									onChange={changeSetting}
+									onChange={ changeSetting }
 								>
 									<option value='-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", Arial, Helvetica, sans-serif !important;'>
 										System
@@ -65,12 +65,12 @@ const SettingsTray = () => {
 									</option>
 								</select>
 							</li>
-							<li className={styles.settingsLi}>
+							<li className={ styles.settingsLi }>
 								<label>Font size:</label>
 								<select
-									value={settings.fontSize}
+									value={ settings.fontSize }
 									name="fontSize"
-									onChange={changeSetting}
+									onChange={ changeSetting }
 								>
 									<option value="80%">80%</option>
 									<option value="90%">90%</option>
@@ -87,13 +87,13 @@ const SettingsTray = () => {
 									<option value="200%">200%</option>
 								</select>
 							</li>
-							<li className={styles.settingsLi}>
+							<li className={ styles.settingsLi }>
 								<label>Highlight words with:</label>
 								<select
-									value={settings.highlightWordsWith}
+									value={ settings.highlightWordsWith }
 									id="highlightWordsWith"
 									name="highlightWordsWith"
-									onChange={changeSetting}
+									onChange={ changeSetting }
 								>
 									<option value="same">
 										Same Strongs num
@@ -101,58 +101,65 @@ const SettingsTray = () => {
 									<option value="family">Same family</option>
 								</select>
 							</li>
-							<li className={styles.settingsLi}>
+							<li className={ styles.settingsLi }>
 								<label>Target column:</label>
 								<select
-									value={settings.targetColumn}
+									value={ settings.targetColumn }
 									id="targetColumn"
 									name="targetColumn"
-									onChange={changeSetting}
+									onChange={ changeSetting }
 								>
-									{reference.map((singleReference, key) => {
-										return (
-											<option value={key} key={key}>
-												{key + 1}
-											</option>
-										);
-									})}
+									{ reference.map(
+										( singleReference, key ) => {
+											return (
+												<option
+													value={ key }
+													key={ key }
+												>
+													{ key + 1 }
+												</option>
+											);
+										}
+									) }
 								</select>
 							</li>
 
-							<li className={styles.settingsLi}>
+							<li className={ styles.settingsLi }>
 								<label>
 									<input
 										type="checkbox"
 										name="expandedSearchResults"
-										checked={settings.expandedSearchResults}
-										onChange={changeCheckboxSetting}
-									/>{' '}
+										checked={
+											settings.expandedSearchResults
+										}
+										onChange={ changeCheckboxSetting }
+									/>{ ' ' }
 									Show expanded search results
 								</label>
 							</li>
-							<li className={styles.settingsLi}>
+							<li className={ styles.settingsLi }>
 								<label>
 									<input
 										type="checkbox"
 										name="darkMode"
-										checked={settings.darkMode}
-										onChange={changeCheckboxSetting}
-									/>{' '}
+										checked={ settings.darkMode }
+										onChange={ changeCheckboxSetting }
+									/>{ ' ' }
 									Dark Mode
 								</label>
 							</li>
-							<li className={styles.settingsLi}>
+							<li className={ styles.settingsLi }>
 								<label>
 									<input
 										type="checkbox"
 										name="compareMode"
-										checked={settings.compareMode}
-										onChange={changeCheckboxSetting}
-									/>{' '}
+										checked={ settings.compareMode }
+										onChange={ changeCheckboxSetting }
+									/>{ ' ' }
 									Compare Mode
 								</label>
 							</li>
-							<li className={styles.settingsLi}>
+							<li className={ styles.settingsLi }>
 								<label>
 									<input
 										type="checkbox"
@@ -160,61 +167,64 @@ const SettingsTray = () => {
 										checked={
 											settings.highlightSearchResults
 										}
-										onChange={changeCheckboxSetting}
-									/>{' '}
+										onChange={ changeCheckboxSetting }
+									/>{ ' ' }
 									Highlight all words in a verse when hovering
 									the search results
 								</label>
 							</li>
-							<li className={styles.settingsLi}>
+							<li className={ styles.settingsLi }>
 								<label>Interface language:</label>
 								<VersionSelect
-									value={settings.interfaceLanguage}
+									value={ settings.interfaceLanguage }
 									name="interfaceLanguage"
-									onChange={changeSetting}
+									onChange={ changeSetting }
 								/>
 							</li>
 						</ul>
 					</form>
 					<button
-						onClick={async () => {
+						onClick={ async () => {
 							const appState = await getStore();
-							const element = document.createElement('a');
-							const file = new Blob([JSON.stringify(appState)], {
-								type: 'text/plain',
-							});
-							element.href = URL.createObjectURL(file);
+							const element = document.createElement( 'a' );
+							const file = new Blob(
+								[ JSON.stringify( appState ) ],
+								{
+									type: 'text/plain',
+								}
+							);
+							element.href = URL.createObjectURL( file );
 							element.download = 'sync-bible-settings.json';
-							document.body.appendChild(element); // Required for this to work in FireFox
+							document.body.appendChild( element ); // Required for this to work in FireFox
 							element.click();
-						}}
+						} }
 					>
 						Download settings
 					</button>
-					<label className={styles.uploadSettings}>
+					<label className={ styles.uploadSettings }>
 						Upload settings
 						<input
 							type="file"
 							name="files"
-							onChange={(event) => {
+							onChange={ ( event ) => {
 								event.preventDefault();
 								let files = event.target.files; // FileList object
 
 								// use the 1st file from the list
-								const settingsFile = files[0];
+								const settingsFile = files[ 0 ];
 
 								let reader = new FileReader();
 
 								// Closure to capture the file information.
-								reader.onload = (function (theFile) {
-									return async function (e) {
-										await loadStore(e.target.result);
+								reader.onload = ( function ( theFile ) {
+									return async function ( e ) {
+										await loadStore( e.target.result );
 									};
-								})(settingsFile);
+								} )( settingsFile );
 
 								// Read in the image file as a data URL.
-								reader.readAsText(settingsFile);
-							}}
+								reader.readAsText( settingsFile );
+							} }
 						/>
 					</label>
 				</div>
@@ -223,4 +233,4 @@ const SettingsTray = () => {
 	);
 };
 
-export default React.memo(SettingsTray);
+export default React.memo( SettingsTray );

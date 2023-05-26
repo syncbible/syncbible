@@ -13,7 +13,7 @@ import { searchForWord } from '../../actions';
 import MoreDetails from './more-details';
 import WordStats from './word-stats';
 
-const WordBlockDetails = ({
+const WordBlockDetails = ( {
 	morphologyProp,
 	strongsNumber,
 	version,
@@ -22,75 +22,75 @@ const WordBlockDetails = ({
 	id,
 	loading,
 	data,
-}) => {
+} ) => {
 	const dispatch = useDispatch();
 	const interfaceLanguage = useSelector(
-		(state) => state.settings.interfaceLanguage
+		( state ) => state.settings.interfaceLanguage
 	);
 	const strongsWithFamilies = useSelector(
-		(state) => state.data.strongsObjectWithFamilies
+		( state ) => state.data.strongsObjectWithFamilies
 	);
-	const [activeTab, setActiveTab] = useState('search');
+	const [ activeTab, setActiveTab ] = useState( 'search' );
 
 	let resultsData = resultsFromProps;
 	const results =
 		resultsData &&
-		Array.isArray(resultsData) &&
-		resultsData.map(({ reference }, index) => {
+		Array.isArray( resultsData ) &&
+		resultsData.map( ( { reference }, index ) => {
 			const isActive =
 				typeof current !== 'undefined' && current === index;
 			return (
 				<SearchLink
-					key={index}
-					index={index}
-					referenceString={reference}
-					wordId={id}
-					isActive={isActive}
+					key={ index }
+					index={ index }
+					referenceString={ reference }
+					wordId={ id }
+					isActive={ isActive }
 				/>
 			);
-		});
+		} );
 
 	function getResultsDisplay() {
 		let numberOfUses =
 			strongsWithFamilies &&
-			strongsWithFamilies[strongsNumber] &&
-			'~' + strongsWithFamilies[strongsNumber].count;
-		if (results && results.length > 0) {
+			strongsWithFamilies[ strongsNumber ] &&
+			'~' + strongsWithFamilies[ strongsNumber ].count;
+		if ( results && results.length > 0 ) {
 			numberOfUses = results.length;
 		}
 		const useString = numberOfUses === 1 ? 'use' : 'uses';
 		const resultString = numberOfUses === 1 ? 'result' : 'results';
-		if (results) {
+		if ( results ) {
 			return (
 				<>
-					Found {numberOfUses} {useString} in {version}:{' '}
+					Found { numberOfUses } { useString } in { version }:{ ' ' }
 					<InlineResultsToggle />
 					<ol
-						className={styles.results}
+						className={ styles.results }
 						dir={
-							bible.isRtlVersion(interfaceLanguage)
+							bible.isRtlVersion( interfaceLanguage )
 								? 'rtl'
 								: 'ltr'
 						}
 					>
-						{results}
+						{ results }
 					</ol>
 				</>
 			);
 		}
 
-		if (loading) {
+		if ( loading ) {
 			return (
 				<p>
-					Loading {numberOfUses} search {resultString}...
+					Loading { numberOfUses } search { resultString }...
 				</p>
 			);
 		}
 
 		if (
 			strongsWithFamilies &&
-			strongsWithFamilies[strongsNumber] &&
-			strongsWithFamilies[strongsNumber].count < 100
+			strongsWithFamilies[ strongsNumber ] &&
+			strongsWithFamilies[ strongsNumber ].count < 100
 		) {
 			return <p>Searching...</p>;
 		}
@@ -100,65 +100,68 @@ const WordBlockDetails = ({
 				<a
 					href="#"
 					className="word-block-details__find-all-uses"
-					onClick={(event) => {
+					onClick={ ( event ) => {
 						event.preventDefault();
-						dispatch(searchForWord(data));
-					}}
+						dispatch( searchForWord( data ) );
+					} }
 				>
-					Find {numberOfUses} {useString}{' '}
-					{numberOfUses > 1000 && <span>(slow!)</span>}
+					Find { numberOfUses } { useString }{ ' ' }
+					{ numberOfUses > 1000 && <span>(slow!)</span> }
 				</a>
 			</p>
 		);
 	}
 
 	const getActiveTab = () => {
-		if (activeTab === 'search') {
+		if ( activeTab === 'search' ) {
 			return getResultsDisplay();
 		}
 
-		if (activeTab === 'more') {
+		if ( activeTab === 'more' ) {
 			return (
 				<MoreDetails
-					morphologyProp={morphologyProp}
-					strongsNumber={strongsNumber}
-					version={version}
+					morphologyProp={ morphologyProp }
+					strongsNumber={ strongsNumber }
+					version={ version }
 				/>
 			);
 		}
 
-		if (activeTab === 'stats') {
+		if ( activeTab === 'stats' ) {
 			return (
-				<WordStats strongsNumber={strongsNumber} version={version} />
+				<WordStats
+					strongsNumber={ strongsNumber }
+					version={ version }
+				/>
 			);
 		}
 	};
 
 	return (
 		<>
-			<div className={styles.tabs}>
+			<div className={ styles.tabs }>
 				<a
-					className={activeTab === 'search' ? styles.active : ''}
-					onClick={() => setActiveTab('search')}
+					className={ activeTab === 'search' ? styles.active : '' }
+					onClick={ () => setActiveTab( 'search' ) }
 				>
 					<Search />
 				</a>
 				<a
-					className={activeTab === 'more' ? styles.active : ''}
-					onClick={() => setActiveTab('more')}
+					className={ activeTab === 'more' ? styles.active : '' }
+					onClick={ () => setActiveTab( 'more' ) }
 				>
 					<Translate />
 				</a>
 				<a
-					className={activeTab === 'stats' ? styles.active : ''}
-					onClick={() => setActiveTab('stats')}
+					className={ activeTab === 'stats' ? styles.active : '' }
+					onClick={ () => setActiveTab( 'stats' ) }
 				>
 					<Stats />
 				</a>
 			</div>
-			<div className={styles.wordBlockDetails}>{getActiveTab()}</div>
+			<div className={ styles.wordBlockDetails }>{ getActiveTab() }</div>
 		</>
 	);
 };
 
-export default React.memo(WordBlockDetails);
+export default React.memo( WordBlockDetails );

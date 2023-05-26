@@ -16,43 +16,43 @@ import VersionSelect from '../version-select';
 
 const Dock = () => {
 	const dispatch = useDispatch();
-	const reference = useSelector((state) => state.reference);
-	const sidebarOpen = useSelector((state) => state.sidebar);
+	const reference = useSelector( ( state ) => state.reference );
+	const sidebarOpen = useSelector( ( state ) => state.sidebar );
 	const className = classnames(
 		styles.dock,
 		sidebarOpen ? styles.dockWithSidebarOpen : null,
 		reference.length ? null : styles.noReference
 	);
-	const onSelectVerion = (event) => {
+	const onSelectVerion = ( event ) => {
 		const version = event.target.value;
-		dispatch(addColumnAction(version));
-		dispatch(updateSearchForm('version', version));
-		dispatch(settingsChange('interfaceLanguage', version));
+		dispatch( addColumnAction( version ) );
+		dispatch( updateSearchForm( 'version', version ) );
+		dispatch( settingsChange( 'interfaceLanguage', version ) );
 		event.target.blur();
 	};
 
 	return (
-		<div className={className}>
-			<div className={styles.dockVersionSelectors}>
-				{reference.length === 0 && (
-					<VersionSelect onChange={onSelectVerion} large={true} />
-				)}
-				{reference.map((reference, index) => {
+		<div className={ className }>
+			<div className={ styles.dockVersionSelectors }>
+				{ reference.length === 0 && (
+					<VersionSelect onChange={ onSelectVerion } large={ true } />
+				) }
+				{ reference.map( ( reference, index ) => {
 					const version = reference.version
 						? reference.version
 						: 'KJV';
 					return (
 						<Navigation
-							key={index}
-							version={version}
-							index={index}
+							key={ index }
+							version={ version }
+							index={ index }
 						/>
 					);
-				})}
-				{reference.length > 0 && <Controls />}
+				} ) }
+				{ reference.length > 0 && <Controls /> }
 			</div>
 		</div>
 	);
 };
 
-export default React.memo(Dock);
+export default React.memo( Dock );

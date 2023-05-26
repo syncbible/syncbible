@@ -10,26 +10,26 @@ import styles from './styles.scss';
 import ReferenceText from '../reference-text';
 import { getReferenceFromSearchResult } from '../../lib/reference';
 
-const SearchLink = ({
+const SearchLink = ( {
 	referenceString,
 	index,
 	count,
 	wordId,
 	isActive,
 	referenceToDisplay,
-}) => {
+} ) => {
 	// State constants
-	const settings = useSelector((state) => state.settings);
+	const settings = useSelector( ( state ) => state.settings );
 	const highlightSearchResults = settings && settings.highlightSearchResults;
 	const interfaceLanguage = settings && settings.interfaceLanguage;
 
-	const reference = getReferenceFromSearchResult(referenceString);
-	if (!reference) {
+	const reference = getReferenceFromSearchResult( referenceString );
+	if ( ! reference ) {
 		return null;
 	}
 
-	if (!referenceToDisplay) {
-		referenceToDisplay = <ReferenceText reference={reference} />;
+	if ( ! referenceToDisplay ) {
+		referenceToDisplay = <ReferenceText reference={ reference } />;
 	}
 
 	const dispatch = useDispatch();
@@ -40,50 +40,53 @@ const SearchLink = ({
 		isActive ? styles.activeReference : null
 	);
 	const highlightWords = () => {
-		if (!highlightSearchResults) {
+		if ( ! highlightSearchResults ) {
 			return;
 		}
 
-		const verseData = getVerseData(reference, interfaceLanguage);
-		const strongsNumbers = verseData.map((word) => {
-			return word[1];
-		});
+		const verseData = getVerseData( reference, interfaceLanguage );
+		const strongsNumbers = verseData.map( ( word ) => {
+			return word[ 1 ];
+		} );
 
-		window.updateAppComponent('highlightedWord', strongsNumbers.join(' '));
+		window.updateAppComponent(
+			'highlightedWord',
+			strongsNumbers.join( ' ' )
+		);
 	};
 	const unHighlightWords = () => {
-		if (!highlightSearchResults) {
+		if ( ! highlightSearchResults ) {
 			return;
 		}
 
-		window.updateAppComponent('highlightedWord', null);
+		window.updateAppComponent( 'highlightedWord', null );
 	};
 
 	return (
-		<li className={className}>
+		<li className={ className }>
 			<a
-				className={styles.searchLink}
-				onClick={(event) => {
-					if (wordId) {
-						dispatch(setCurrentListResult(wordId, index));
+				className={ styles.searchLink }
+				onClick={ ( event ) => {
+					if ( wordId ) {
+						dispatch( setCurrentListResult( wordId, index ) );
 					}
 					event.stopPropagation();
 					event.preventDefault();
-					dispatch(goToReferenceAction(reference));
-				}}
-				onMouseOver={highlightWords}
-				onMouseOut={unHighlightWords}
+					dispatch( goToReferenceAction( reference ) );
+				} }
+				onMouseOver={ highlightWords }
+				onMouseOut={ unHighlightWords }
 			>
-				{index + 1}. {referenceToDisplay}
-				{count && ' (' + count + ')'}
+				{ index + 1 }. { referenceToDisplay }
+				{ count && ' (' + count + ')' }
 			</a>
 			<ExpandedSearchResults
-				book={reference.book}
-				chapter={reference.chapter}
-				verse={reference.verse}
+				book={ reference.book }
+				chapter={ reference.chapter }
+				verse={ reference.verse }
 			/>
 		</li>
 	);
 };
 
-export default React.memo(SearchLink);
+export default React.memo( SearchLink );

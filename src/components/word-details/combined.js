@@ -9,36 +9,38 @@ import JoinFull from '../svg/join-full';
 import SortGroupResults from '../sort-group-results';
 import { getCombinedResults } from '../../lib/reference';
 
-const CombinedResults = ({ type }) => {
+const CombinedResults = ( { type } ) => {
 	const dispatch = useDispatch();
-	const [open, setOpen] = useState(false);
-	const list = useSelector((state) => state.list);
-	const words = list.filter(({ listType }) => listType === type);
-	const results = words.map(({ results }) => {
+	const [ open, setOpen ] = useState( false );
+	const list = useSelector( ( state ) => state.list );
+	const words = list.filter( ( { listType } ) => listType === type );
+	const results = words.map( ( { results } ) => {
 		return results;
-	});
+	} );
 	const combinedResults = useMemo(
-		() => getCombinedResults(results),
-		[results]
+		() => getCombinedResults( results ),
+		[ results ]
 	);
 
-	if (words.length < 2) {
+	if ( words.length < 2 ) {
 		return null;
 	}
 
 	return (
 		<Collapsible
-			open={open}
-			onToggle={() => setOpen(!open)}
+			open={ open }
+			onToggle={ () => setOpen( ! open ) }
 			className="collapse"
 			header={
 				<div>
-					Combined{' '}
+					Combined{ ' ' }
 					<a
-						onClick={(event) => {
+						onClick={ ( event ) => {
 							event.stopPropagation();
-							dispatch(setTrayVisibilityFilter('combinedall'));
-						}}
+							dispatch(
+								setTrayVisibilityFilter( 'combinedall' )
+							);
+						} }
 					>
 						<JoinFull />
 					</a>
@@ -46,13 +48,13 @@ const CombinedResults = ({ type }) => {
 			}
 		>
 			<SortGroupResults
-				results={combinedResults}
+				results={ combinedResults }
 				initialGroup="verse"
 				initialSort="desc"
-				allowPreview={true}
+				allowPreview={ true }
 			/>
 		</Collapsible>
 	);
 };
 
-export default React.memo(CombinedResults);
+export default React.memo( CombinedResults );

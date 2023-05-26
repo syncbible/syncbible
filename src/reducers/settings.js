@@ -16,11 +16,10 @@ const initialState = {
 	targetColumn: 0,
 };
 
-export default (state = initialState, action) => {
-	let settings;
-	switch (action.type) {
+export default ( state = initialState, action ) => {
+	switch ( action.type ) {
 		case 'SETTINGS_CHANGE':
-			state = Object.assign({}, state, action);
+			state = Object.assign( {}, state, action );
 			break;
 
 		case LOCATION_CHANGE:

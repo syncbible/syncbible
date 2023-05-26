@@ -7,27 +7,30 @@ import Download from '../svg/download';
 import styles from './styles.scss';
 
 const HelpTray = () => {
-	const data = useSelector((state) => state.data);
+	const data = useSelector( ( state ) => state.data );
 
 	const clear = () => {
-		indexedDB.deleteDatabase('syncbible');
+		indexedDB.deleteDatabase( 'syncbible' );
 		window.location.href = '/';
 	};
 
-	const exportFile = (fileName) => {
-		const element = document.createElement('a');
-		const file = new Blob([JSON.stringify(data[fileName], null, '\t')], {
-			type: 'text/plain',
-		});
-		element.href = URL.createObjectURL(file);
+	const exportFile = ( fileName ) => {
+		const element = document.createElement( 'a' );
+		const file = new Blob(
+			[ JSON.stringify( data[ fileName ], null, '\t' ) ],
+			{
+				type: 'text/plain',
+			}
+		);
+		element.href = URL.createObjectURL( file );
 		element.download = fileName + '.json';
-		document.body.appendChild(element); // Required for this to work in FireFox
+		document.body.appendChild( element ); // Required for this to work in FireFox
 		element.click();
 	};
 
 	return (
 		<div>
-			<div id="helpPanel" className={styles.helpPanel}>
+			<div id="helpPanel" className={ styles.helpPanel }>
 				<div className="content">
 					<div className="content-padding">
 						<p>
@@ -66,30 +69,30 @@ const HelpTray = () => {
 					<br />
 					<a href="https://github.com/openscriptures/morphhb">
 						Hebrew
-					</a>{' '}
-					|{' '}
+					</a>{ ' ' }
+					|{ ' ' }
 					<a href="https://github.com/morphgnt/tischendorf">Greek</a>
 				</p>
-				<p className={styles.inline}>
+				<p className={ styles.inline }>
 					<a href="https://github.com/javascripture/javascripture/blob/gh-pages/data/literalConsistent.js">
 						Literal consistent
-					</a>{' '}
+					</a>{ ' ' }
 					<a
-						className={styles.export}
+						className={ styles.export }
 						title="Export"
-						onClick={() => exportFile('LC')}
+						onClick={ () => exportFile( 'LC' ) }
 					>
 						<Download />
 					</a>
 				</p>
-				<p className={styles.inline}>
+				<p className={ styles.inline }>
 					<a href="https://github.com/syncbible/syncbible/blob/trunk/bibles/NMV_strongs.js">
 						NMV_strongs
-					</a>{' '}
+					</a>{ ' ' }
 					<a
-						className={styles.export}
+						className={ styles.export }
 						title="Export"
-						onClick={() => exportFile('NMV_strongs')}
+						onClick={ () => exportFile( 'NMV_strongs' ) }
 					>
 						<Download />
 					</a>
@@ -103,7 +106,7 @@ const HelpTray = () => {
 					<a href="https://www.dropbox.com/s/7e05iklpkrtn46n/Genesis%20-%20Jeremiah.pdf?dl=0">
 						Mark's Hebrew Literal
 					</a>
-					.<br />{' '}
+					.<br />{ ' ' }
 					<a href="https://www.dropbox.com/s/lrhzis4d9532gf4/Introduction.pdf?dl=0">
 						Please read the introduction
 					</a>
@@ -111,13 +114,13 @@ const HelpTray = () => {
 				</p>
 				<p>
 					<br />
-					Version:{' '}
-					{typeof javascripture.sw !== 'undefined'
+					Version:{ ' ' }
+					{ typeof javascripture.sw !== 'undefined'
 						? javascripture.sw
-						: null}
+						: null }
 				</p>
 				<p>
-					<a href="#" onClick={clear}>
+					<a href="#" onClick={ clear }>
 						Clear settings and start over
 					</a>
 				</p>
@@ -131,4 +134,4 @@ const HelpTray = () => {
 	);
 };
 
-export default React.memo(HelpTray);
+export default React.memo( HelpTray );

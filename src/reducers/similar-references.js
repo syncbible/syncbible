@@ -1,5 +1,5 @@
-export default (state = [], action) => {
-	switch (action.type) {
+export default ( state = [], action ) => {
+	switch ( action.type ) {
 		case 'FIND_SIMILAR_REFERENCES':
 			return action.reference;
 

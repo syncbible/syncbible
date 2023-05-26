@@ -1,7 +1,7 @@
-const copyToClipboardHelper = (textToCopy) => {
+const copyToClipboardHelper = ( textToCopy ) => {
 	let finalText = textToCopy;
 
-	if (textToCopy.current) {
+	if ( textToCopy.current ) {
 		const parentElement = textToCopy.current.parentElement;
 		const savedDisplay = parentElement.style.display;
 		parentElement.style.display = 'block';
@@ -13,11 +13,11 @@ const copyToClipboardHelper = (textToCopy) => {
 		parentElement.style.display = savedDisplay;
 	}
 
-	const textarea = document.createElement('textarea');
+	const textarea = document.createElement( 'textarea' );
 	textarea.value = finalText;
-	document.body.appendChild(textarea);
+	document.body.appendChild( textarea );
 	textarea.select();
-	document.execCommand('copy');
+	document.execCommand( 'copy' );
 	textarea.remove();
 };
 

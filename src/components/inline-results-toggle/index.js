@@ -11,30 +11,33 @@ import styles from './styles.scss';
 const InlineResultsToggle = () => {
 	const dispatch = useDispatch();
 	const expandedSearchResults = useSelector(
-		(state) => state.settings.expandedSearchResults
+		( state ) => state.settings.expandedSearchResults
 	);
 
 	const expandSearchResults = () => {
-		dispatch(settingsChange('expandedSearchResults', true));
+		dispatch( settingsChange( 'expandedSearchResults', true ) );
 	};
 
 	const collapseSearchResults = () => {
-		dispatch(settingsChange('expandedSearchResults', false));
+		dispatch( settingsChange( 'expandedSearchResults', false ) );
 	};
 
-	if (expandedSearchResults) {
+	if ( expandedSearchResults ) {
 		return (
-			<a className={styles.foundInExtra} onClick={collapseSearchResults}>
+			<a
+				className={ styles.foundInExtra }
+				onClick={ collapseSearchResults }
+			>
 				<UnfoldLess />
 			</a>
 		);
 	}
 
 	return (
-		<a className={styles.foundInExtra} onClick={expandSearchResults}>
+		<a className={ styles.foundInExtra } onClick={ expandSearchResults }>
 			<UnfoldMore />
 		</a>
 	);
 };
 
-export default React.memo(InlineResultsToggle);
+export default React.memo( InlineResultsToggle );

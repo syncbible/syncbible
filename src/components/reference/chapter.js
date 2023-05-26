@@ -11,36 +11,28 @@ import styles from './styles.scss';
 import { mapVersionToData, areReferencesInSync } from '../../lib/reference';
 import copyToClipboardHelper from '../../lib/copy-to-clipboard-helper';
 
-function usePrevious(value) {
-	const ref = useRef();
-	useEffect(() => {
-		ref.current = value;
-	});
-	return ref.current;
-}
-
-function getLanguageFromVersion(version, book) {
-	if (version === 'original') {
-		if (bible.Data.otBooks.indexOf(book) > -1) {
+function getLanguageFromVersion( version, book ) {
+	if ( version === 'original' ) {
+		if ( bible.Data.otBooks.indexOf( book ) > -1 ) {
 			return 'hbo';
 		}
 
 		return 'grc';
 	}
-	return bible.Data.supportedVersions[version].language;
+	return bible.Data.supportedVersions[ version ].language;
 }
 
-const Chapter = ({ book, chapter, index }) => {
-	const reference = useSelector((state) => state.reference);
-	const currentReference = reference[index];
+const Chapter = ( { book, chapter, index } ) => {
+	const reference = useSelector( ( state ) => state.reference );
+	const currentReference = reference[ index ];
 	const startVerse = currentReference.verse;
 	const endVerse = currentReference.endVerse;
 
-	const bookId = bible.getBookId(book + ' ' + chapter);
-	const numberOfVerses = bible.Data.verses[bookId - 1][chapter - 1];
+	const bookId = bible.getBookId( book + ' ' + chapter );
+	const numberOfVerses = bible.Data.verses[ bookId - 1 ][ chapter - 1 ];
 	const verseMap = [];
-	for (let number = 0; number < numberOfVerses; number++) {
-		verseMap.push(number);
+	for ( let number = 0; number < numberOfVerses; number++ ) {
+		verseMap.push( number );
 	}
 
 	const dispatch = useDispatch();
@@ -49,36 +41,36 @@ const Chapter = ({ book, chapter, index }) => {
 	const currentRef = useRef();
 
 	// probably move this to the parent
-	useEffect(() => {
-		reference.forEach(({ book, version }) => {
-			dispatch(fetchData(mapVersionToData(book, version)));
-			if (version === 'LC') {
+	useEffect( () => {
+		reference.forEach( ( { book, version } ) => {
+			dispatch( fetchData( mapVersionToData( book, version ) ) );
+			if ( version === 'LC' ) {
 				// This is needed as LC is mapped to original. It needs both data sources to work.
-				dispatch(fetchData('LC'));
+				dispatch( fetchData( 'LC' ) );
 			}
-		});
-	}, [reference]);
+		} );
+	}, [ reference ] );
 
-	useEffect(() => {
+	useEffect( () => {
 		scrollToCurrentChapter();
 	}, [
 		currentReference.book,
 		currentReference.chapter,
 		currentReference.verse,
-	]);
+	] );
 
 	const scrollToCurrentChapter = () => {
-		const currrentChapter = ReactDOM.findDOMNode(currentRef.current);
+		const currrentChapter = ReactDOM.findDOMNode( currentRef.current );
 		const referenceWindow = document.getElementById(
 			'referenceWindow' + index
 		);
-		if (currrentChapter && referenceWindow) {
+		if ( currrentChapter && referenceWindow ) {
 			currrentChapter.scrollIntoView();
-			referenceWindow.scrollBy(0, 0);
+			referenceWindow.scrollBy( 0, 0 );
 		}
 	};
 
-	const isCurrentRef = (verseNumber) =>
+	const isCurrentRef = ( verseNumber ) =>
 		currentReference &&
 		currentReference.book === book &&
 		currentReference.chapter === chapter &&
@@ -86,117 +78,117 @@ const Chapter = ({ book, chapter, index }) => {
 			? currentRef
 			: null;
 
-	const textToCopyRef = createRef(book + chapter + version + index);
-	const [textToCopyText, setTextToCopyText] = useState('');
+	const textToCopyRef = createRef( book + chapter + version + index );
+	const [ textToCopyText, setTextToCopyText ] = useState( '' );
 
-	const customClickHandler = (version) => {
-		setTextToCopyText(getDifferentVerses(version));
+	const customClickHandler = ( version ) => {
+		setTextToCopyText( getDifferentVerses( version ) );
 	};
-	useEffect(() => {
-		copyToClipboardHelper(textToCopyRef);
-	}, [textToCopyText]);
+	useEffect( () => {
+		copyToClipboardHelper( textToCopyRef );
+	}, [ textToCopyText ] );
 
 	const getSyncVerses = () => {
 		const title = (
-			<div className={styles.chapterColumn}>
-				{reference.map(({ version }, index) => {
+			<div className={ styles.chapterColumn }>
+				{ reference.map( ( { version }, index ) => {
 					return (
-						<Fragment key={index}>
+						<Fragment key={ index }>
 							<Title
-								book={book}
-								chapter={chapter}
-								version={version}
-								key={index}
-								customClickHandler={customClickHandler}
+								book={ book }
+								chapter={ chapter }
+								version={ version }
+								key={ index }
+								customClickHandler={ customClickHandler }
 							/>
 						</Fragment>
 					);
-				})}
+				} ) }
 			</div>
 		);
 
 		return (
 			<div>
-				{title}
-				{verseMap.map((verse, verseNumber) => {
-					if (endVerse && startVerse) {
-						if (verseNumber + 1 < startVerse) {
+				{ title }
+				{ verseMap.map( ( verse, verseNumber ) => {
+					if ( endVerse && startVerse ) {
+						if ( verseNumber + 1 < startVerse ) {
 							return;
 						}
-						if (verseNumber >= endVerse) {
+						if ( verseNumber >= endVerse ) {
 							return;
 						}
 					}
 
 					return (
 						<div
-							className={styles.singleReference}
-							key={verseNumber}
-							ref={isCurrentRef(verseNumber)}
+							className={ styles.singleReference }
+							key={ verseNumber }
+							ref={ isCurrentRef( verseNumber ) }
 						>
-							{reference.map(({ version }, index) => {
+							{ reference.map( ( { version }, index ) => {
 								return (
 									<VerseWrapper
-										lang={getLanguageFromVersion(
+										lang={ getLanguageFromVersion(
 											version,
 											book
-										)}
-										book={book}
-										version={version}
-										chapter={chapter}
-										verse={verseNumber + 1}
+										) }
+										book={ book }
+										version={ version }
+										chapter={ chapter }
+										verse={ verseNumber + 1 }
 										key={
 											'versewrapper' + index + verseNumber
 										}
 										isCurrentRef={
-											!!isCurrentRef(verseNumber)
+											!! isCurrentRef( verseNumber )
 										}
 									/>
 								);
-							})}
+							} ) }
 						</div>
 					);
-				})}
+				} ) }
 			</div>
 		);
 	};
 
-	const getDifferentVerses = (version) => {
+	const getDifferentVerses = ( version ) => {
 		return (
 			<div>
 				<Title
-					book={book}
-					chapter={chapter}
-					version={version}
-					customClickHandler={customClickHandler}
+					book={ book }
+					chapter={ chapter }
+					version={ version }
+					customClickHandler={ customClickHandler }
 				/>
-				{verseMap.map((verse, verseNumber) => {
-					if (endVerse && startVerse) {
-						if (verseNumber + 1 < startVerse) {
+				{ verseMap.map( ( verse, verseNumber ) => {
+					if ( endVerse && startVerse ) {
+						if ( verseNumber + 1 < startVerse ) {
 							return;
 						}
-						if (verseNumber >= endVerse) {
+						if ( verseNumber >= endVerse ) {
 							return;
 						}
 					}
 
 					return (
 						<div
-							className={styles.singleReference}
-							key={verseNumber}
-							ref={isCurrentRef(verseNumber)}
+							className={ styles.singleReference }
+							key={ verseNumber }
+							ref={ isCurrentRef( verseNumber ) }
 						>
 							<VerseWrapper
-								lang={getLanguageFromVersion(version, book)}
-								book={book}
-								version={version}
-								chapter={chapter}
-								verse={verseNumber + 1}
-								isCurrentRef={isCurrentRef(verseNumber)}
+								lang={ getLanguageFromVersion( version, book ) }
+								book={ book }
+								version={ version }
+								chapter={ chapter }
+								verse={ verseNumber + 1 }
+								isCurrentRef={ isCurrentRef( verseNumber ) }
 							/>
 						</div>
 					);
-				})}
+				} ) }
 			</div>
 		);
 	};
@@ -204,16 +196,16 @@ const Chapter = ({ book, chapter, index }) => {
 	const version = currentReference.version;
 
 	return (
-		<div className={styles.chapter}>
-			{/*This outputs an extra div for copying*/}
-			<div className={styles.invisible} ref={textToCopyRef}>
-				{textToCopyText}
+		<div className={ styles.chapter }>
+			{ /*This outputs an extra div for copying*/ }
+			<div className={ styles.invisible } ref={ textToCopyRef }>
+				{ textToCopyText }
 			</div>
-			{areReferencesInSync(reference)
+			{ areReferencesInSync( reference )
 				? getSyncVerses()
-				: getDifferentVerses(version)}
+				: getDifferentVerses( version ) }
 		</div>
 	);
 };
 
-export default React.memo(Chapter);
+export default React.memo( Chapter );

@@ -13,11 +13,13 @@ import { removeFromList, toggleListItemVisible } from '../../actions';
 
 const SearchResults = () => {
 	const dispatch = useDispatch();
-	const [activeTab, setActiveTab] = useState('search');
-	const list = useSelector((state) => state.list);
-	const userInterface = useSelector((state) => state.userInterface);
-	const searchTerms = list.filter(({ listType }) => listType === 'search');
-	const termTitle = ({
+	const [ activeTab, setActiveTab ] = useState( 'search' );
+	const list = useSelector( ( state ) => state.list );
+	const userInterface = useSelector( ( state ) => state.userInterface );
+	const searchTerms = list.filter(
+		( { listType } ) => listType === 'search'
+	);
+	const termTitle = ( {
 		clusivity,
 		version,
 		lemma,
@@ -25,7 +27,7 @@ const SearchResults = () => {
 		range,
 		strict,
 		word,
-	}) => {
+	} ) => {
 		return (
 			'word: ' +
 			word +
@@ -43,9 +45,9 @@ const SearchResults = () => {
 			strict
 		);
 	};
-	const textToCopy = useRef(null);
+	const textToCopy = useRef( null );
 
-	return searchTerms.map((searchTerm, index) => {
+	return searchTerms.map( ( searchTerm, index ) => {
 		const header =
 			searchTerm.data.word +
 			' ' +
@@ -54,48 +56,52 @@ const SearchResults = () => {
 			searchTerm.data.morph;
 
 		const getActiveTab = () => {
-			if (activeTab === 'search') {
+			if ( activeTab === 'search' ) {
 				return (
-					<div ref={textToCopy}>
-						<SearchBlock {...searchTerm} />
+					<div ref={ textToCopy }>
+						<SearchBlock { ...searchTerm } />
 					</div>
 				);
 			}
 
-			if (activeTab === 'stats') {
-				return <SearchStats {...searchTerm} />;
+			if ( activeTab === 'stats' ) {
+				return <SearchStats { ...searchTerm } />;
 			}
 		};
 
 		return (
 			<Collapsible
-				title={termTitle(searchTerm.data)}
-				key={index}
-				header={header}
-				open={userInterface[searchTerm.id]}
-				textToCopy={textToCopy}
-				onToggle={() => dispatch(toggleListItemVisible(searchTerm))}
-				onRemove={() => dispatch(removeFromList(searchTerm))}
+				title={ termTitle( searchTerm.data ) }
+				key={ index }
+				header={ header }
+				open={ userInterface[ searchTerm.id ] }
+				textToCopy={ textToCopy }
+				onToggle={ () =>
+					dispatch( toggleListItemVisible( searchTerm ) )
+				}
+				onRemove={ () => dispatch( removeFromList( searchTerm ) ) }
 			>
-				<div className={styles.tabs}>
+				<div className={ styles.tabs }>
 					<a
-						className={activeTab === 'search' ? styles.active : ''}
-						onClick={() => setActiveTab('search')}
+						className={
+							activeTab === 'search' ? styles.active : ''
+						}
+						onClick={ () => setActiveTab( 'search' ) }
 					>
 						<Search />
 					</a>
 					<a
-						className={activeTab === 'stats' ? styles.active : ''}
-						onClick={() => setActiveTab('stats')}
+						className={ activeTab === 'stats' ? styles.active : '' }
+						onClick={ () => setActiveTab( 'stats' ) }
 					>
 						<Stats />
 					</a>
 				</div>
 
-				{getActiveTab()}
+				{ getActiveTab() }
 			</Collapsible>
 		);
-	});
+	} );
 };
 
-export default React.memo(SearchResults);
+export default React.memo( SearchResults );

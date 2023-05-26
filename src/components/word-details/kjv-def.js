@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { addSearch, setTrayVisibilityFilter } from '../../actions';
 import styles from './styles.scss';
 
-const KJVDef = ({ word, strongsNumber }) => {
+const KJVDef = ( { word, strongsNumber } ) => {
 	const dispatch = useDispatch();
 	const searchWord = () => {
 		const searchParameters = {
@@ -19,15 +19,15 @@ const KJVDef = ({ word, strongsNumber }) => {
 			morph: '',
 		};
 
-		dispatch(addSearch(searchParameters, 'search'));
-		dispatch(setTrayVisibilityFilter('search'));
+		dispatch( addSearch( searchParameters, 'search' ) );
+		dispatch( setTrayVisibilityFilter( 'search' ) );
 	};
 
 	return (
-		<span className={styles.fakeLink} onClick={searchWord}>
-			{word}
+		<span className={ styles.fakeLink } onClick={ searchWord }>
+			{ word }
 		</span>
 	);
 };
 
-export default React.memo(KJVDef);
+export default React.memo( KJVDef );

@@ -11,16 +11,16 @@ import styles from './styles.scss';
 import WordBlockDetails from './word-block-details';
 import { removeFromList, toggleListItemVisible } from '../../actions';
 
-const WordBlock = (props) => {
+const WordBlock = ( props ) => {
 	const { data, visible, highlight, setFocus } = props;
 	const { clickedWord, morphology, lemma, version } = data;
 	const strongsDictionary = useSelector(
-		(state) => state.data.strongsDictionary
+		( state ) => state.data.strongsDictionary
 	);
 	const strongsDictionaryWithFamilies = useSelector(
-		(state) => state.data.strongsDictionaryWithFamilies
+		( state ) => state.data.strongsDictionaryWithFamilies
 	);
-	const wordBlockRef = useRef(null);
+	const wordBlockRef = useRef( null );
 	const getSearchParameters = () => {
 		return {
 			clusivity: 'exclusive',
@@ -31,11 +31,11 @@ const WordBlock = (props) => {
 		};
 	};
 
-	const getClassName = (rootNumber) => {
-		return classnames(rootNumber, styles.wordTree, styles.wordListHeader);
+	const getClassName = ( rootNumber ) => {
+		return classnames( rootNumber, styles.wordTree, styles.wordListHeader );
 	};
 
-	const termTitle = ({ clusivity, version, lemma, range, clickedWord }) => {
+	const termTitle = ( { clusivity, version, lemma, range, clickedWord } ) => {
 		return (
 			'strongs number: ' +
 			lemma +
@@ -50,48 +50,48 @@ const WordBlock = (props) => {
 		);
 	};
 
-	const wordDetail = strongsDictionary && strongsDictionary[lemma];
+	const wordDetail = strongsDictionary && strongsDictionary[ lemma ];
 
 	const dispatch = useDispatch();
 
 	const header = (
 		<span>
-			<span className={styles.strongsNumberTitle}>{lemma}</span>
-			{wordDetail && stripPointing(wordDetail.lemma)}
+			<span className={ styles.strongsNumberTitle }>{ lemma }</span>
+			{ wordDetail && stripPointing( wordDetail.lemma ) }
 		</span>
 	);
 
 	return (
 		<Collapsible
-			title={termTitle(getSearchParameters())}
-			header={header}
-			open={visible}
-			onToggle={() => dispatch(toggleListItemVisible(props))}
-			className={getClassName(lemma)}
-			textToCopy={wordBlockRef}
-			onRemove={() => {
-				setFocus(null);
-				dispatch(removeFromList(props));
-			}}
-			onMouseOver={() => setFocus(lemma)}
-			onMouseOut={() => setFocus(null)}
+			title={ termTitle( getSearchParameters() ) }
+			header={ header }
+			open={ visible }
+			onToggle={ () => dispatch( toggleListItemVisible( props ) ) }
+			className={ getClassName( lemma ) }
+			textToCopy={ wordBlockRef }
+			onRemove={ () => {
+				setFocus( null );
+				dispatch( removeFromList( props ) );
+			} }
+			onMouseOver={ () => setFocus( lemma ) }
+			onMouseOut={ () => setFocus( null ) }
 		>
-			{highlight && (
+			{ highlight && (
 				<style>
-					{getHighlight(lemma, strongsDictionaryWithFamilies)}
+					{ getHighlight( lemma, strongsDictionaryWithFamilies ) }
 				</style>
-			)}
-			<div ref={wordBlockRef}>
-				<div className={styles.wordBlock}>
+			) }
+			<div ref={ wordBlockRef }>
+				<div className={ styles.wordBlock }>
 					<WordBlockDetails
-						morphologyProp={morphology}
-						strongsNumber={lemma}
-						version={version}
-						resultsFromProps={props.results}
-						current={props.current}
-						id={props.id}
-						loading={props.loading}
-						data={props.data}
+						morphologyProp={ morphology }
+						strongsNumber={ lemma }
+						version={ version }
+						resultsFromProps={ props.results }
+						current={ props.current }
+						id={ props.id }
+						loading={ props.loading }
+						data={ props.data }
 					/>
 				</div>
 			</div>
@@ -99,4 +99,4 @@ const WordBlock = (props) => {
 	);
 };
 
-export default React.memo(WordBlock);
+export default React.memo( WordBlock );

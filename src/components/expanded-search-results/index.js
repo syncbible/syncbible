@@ -5,14 +5,14 @@ import { useSelector } from 'react-redux';
 // Internal dependencies.
 import Verse from '../reference/verse';
 
-const ExpandedSearchResults = ({ book, chapter, verse }) => {
-	if (!book || !chapter || !verse) {
+const ExpandedSearchResults = ( { book, chapter, verse } ) => {
+	if ( ! book || ! chapter || ! verse ) {
 		return null;
 	}
 
-	const interfaceLanguage = useSelector((state) => {
+	const interfaceLanguage = useSelector( ( state ) => {
 		return state.settings.interfaceLanguage;
-	});
+	} );
 
 	const adjustedReference = {
 		book: book,
@@ -23,12 +23,12 @@ const ExpandedSearchResults = ({ book, chapter, verse }) => {
 	return (
 		<div className="expanded-search-results-verse">
 			<Verse
-				reference={adjustedReference}
-				index={adjustedReference.verse}
-				version={interfaceLanguage}
+				reference={ adjustedReference }
+				index={ adjustedReference.verse }
+				version={ interfaceLanguage }
 			/>
 		</div>
 	);
 };
 
-export default React.memo(ExpandedSearchResults);
+export default React.memo( ExpandedSearchResults );

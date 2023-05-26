@@ -20,100 +20,102 @@ import {
 import { getBooks, getCompareChapters } from '../../lib/select-helpers';
 import styles from './styles.scss';
 
-const Compare = (props) => {
+const Compare = ( props ) => {
 	const dispatch = useDispatch();
 	const isOriginalLoaded = useSelector(
-		(state) => 'undefined' !== typeof state.data.original
+		( state ) => 'undefined' !== typeof state.data.original
 	);
-	const isActiveTray = useSelector((state) => state.trays === 'reference');
-	const reference = useSelector((state) => state.referenceInfo.reference);
+	const isActiveTray = useSelector(
+		( state ) => state.trays === 'reference'
+	);
+	const reference = useSelector( ( state ) => state.referenceInfo.reference );
 	const referenceToCompareWith = useSelector(
-		(state) => state.referenceInfo.referenceToCompareWith
+		( state ) => state.referenceInfo.referenceToCompareWith
 	);
-	const overlap = useSelector((state) => compareTwoReferences(state));
-	const limit = useSelector((state) => state.referenceInfo.limit);
-	const data = useSelector((state) => state.data);
+	const overlap = useSelector( ( state ) => compareTwoReferences( state ) );
+	const limit = useSelector( ( state ) => state.referenceInfo.limit );
+	const data = useSelector( ( state ) => state.data );
 	const addAllWords = () => {
-		overlap.forEach((lemma) => addWord(lemma));
+		overlap.forEach( ( lemma ) => addWord( lemma ) );
 	};
-	const addWord = (lemma) => {
-		dispatch(setTrayVisibilityFilter('word'));
+	const addWord = ( lemma ) => {
+		dispatch( setTrayVisibilityFilter( 'word' ) );
 		dispatch(
-			selectWord({
+			selectWord( {
 				lemma,
 				version: 'original',
-			})
+			} )
 		);
 	};
 
-	useEffect(() => {
-		if (isActiveTray) {
-			dispatch(fetchData('original'));
+	useEffect( () => {
+		if ( isActiveTray ) {
+			dispatch( fetchData( 'original' ) );
 		}
-	}, [isActiveTray]);
+	}, [ isActiveTray ] );
 
 	const getOverlap = () => {
-		if (!overlap) {
+		if ( ! overlap ) {
 			return;
 		}
 
-		if (overlap.length === 0) {
+		if ( overlap.length === 0 ) {
 			return 'No connections found';
 		}
 
-		const overlapMarkup = overlap.map((lemma) => (
-			<div key={lemma}>{getWord(lemma)}</div>
-		));
+		const overlapMarkup = overlap.map( ( lemma ) => (
+			<div key={ lemma }>{ getWord( lemma ) }</div>
+		) );
 
 		return (
 			<div>
-				<span>Connections ({overlap.length}):</span>
-				{overlapMarkup}
+				<span>Connections ({ overlap.length }):</span>
+				{ overlapMarkup }
 			</div>
 		);
 	};
 
-	const bookChange = (event) => {
+	const bookChange = ( event ) => {
 		dispatch(
-			setReferenceInfoCompareWith({
+			setReferenceInfoCompareWith( {
 				book: event.target.value,
 				chapter: 1,
 				verse: 'all',
-			})
+			} )
 		);
 	};
 
-	const chapterChange = (event) => {
+	const chapterChange = ( event ) => {
 		dispatch(
-			setReferenceInfoCompareWith({
+			setReferenceInfoCompareWith( {
 				...referenceToCompareWith,
 				chapter: event.target.value,
 				verse: 'all',
-			})
+			} )
 		);
 	};
 
-	const verseChange = (event) => {
+	const verseChange = ( event ) => {
 		dispatch(
-			setReferenceInfoCompareWith({
+			setReferenceInfoCompareWith( {
 				...referenceToCompareWith,
 				verse: event.target.value,
-			})
+			} )
 		);
 	};
 
-	const getVerses = (reference) => {
-		if (reference && reference.book && reference.chapter) {
-			const bookNumber = bible.getBookId(reference.book);
+	const getVerses = ( reference ) => {
+		if ( reference && reference.book && reference.chapter ) {
+			const bookNumber = bible.getBookId( reference.book );
 			const numberOfVerses =
-				bible.Data.verses[bookNumber - 1][reference.chapter - 1];
+				bible.Data.verses[ bookNumber - 1 ][ reference.chapter - 1 ];
 			const verses = [];
-			for (var i = 0; i < numberOfVerses; i++) {
-				verses.push(i);
+			for ( var i = 0; i < numberOfVerses; i++ ) {
+				verses.push( i );
 			}
-			const versesJSX = verses.map((key) => {
-				return <option key={key}>{key + 1}</option>;
-			});
+			const versesJSX = verses.map( ( key ) => {
+				return <option key={ key }>{ key + 1 }</option>;
+			} );
 			versesJSX.unshift(
 				<option key="all" value="all">
 					All
@@ -125,54 +127,57 @@ const Compare = (props) => {
 		return <option>-</option>;
 	};
 
-	const getWord = (lemma) => {
+	const getWord = ( lemma ) => {
 		return (
 			<div
-				key={lemma}
-				className={lemma}
-				onMouseEnter={() => {
-					window.updateAppComponent('highlightedWord', lemma);
-				}}
-				onClick={() => {
-					dispatch(selectWord({ lemma, version: 'original' }));
-				}}
+				key={ lemma }
+				className={ lemma }
+				onMouseEnter={ () => {
+					window.updateAppComponent( 'highlightedWord', lemma );
+				} }
+				onClick={ () => {
+					dispatch( selectWord( { lemma, version: 'original' } ) );
+				} }
 			>
-				{lemma} - {javascripture.data.strongsDictionary[lemma].lemma} -{' '}
-				{javascripture.data.strongsDictionary[lemma].translit}
+				{ lemma } -{ ' ' }
+				{ javascripture.data.strongsDictionary[ lemma ].lemma } -{ ' ' }
+				{ javascripture.data.strongsDictionary[ lemma ].translit }
 			</div>
 		);
 	};
 
-	const changeLimit = (event) =>
-		dispatch(setReferenceInfoLimit(event.target.value));
+	const changeLimit = ( event ) =>
+		dispatch( setReferenceInfoLimit( event.target.value ) );
 
-	const compareBookChange = (event) => {
+	const compareBookChange = ( event ) => {
 		dispatch(
-			setReferenceInfo({
+			setReferenceInfo( {
 				book: event.target.value,
 				chapter: 1,
 				verse: 'all',
-			})
+			} )
 		);
 	};
 
-	const compareChapterChange = (event) => {
+	const compareChapterChange = ( event ) => {
 		dispatch(
-			setReferenceInfo({
+			setReferenceInfo( {
 				...reference,
 				chapter: event.target.value,
 				verse: 'all',
-			})
+			} )
 		);
 	};
 
-	const compareVerseChange = (event) => {
-		dispatch(setReferenceInfo({ ...reference, verse: event.target.value }));
+	const compareVerseChange = ( event ) => {
+		dispatch(
+			setReferenceInfo( { ...reference, verse: event.target.value } )
+		);
 	};
 
-	if (!isOriginalLoaded) {
+	if ( ! isOriginalLoaded ) {
 		return (
-			<div className={styles.compare}>
+			<div className={ styles.compare }>
 				<p>Loading original texts...</p>
 			</div>
 		);
@@ -203,91 +208,91 @@ const Compare = (props) => {
 
 	return (
 		<>
-			<div className={styles.statsReferenceWrapper}>
-				<div className={styles.statsReference}>
+			<div className={ styles.statsReferenceWrapper }>
+				<div className={ styles.statsReference }>
 					<select
-						className={styles.compareWithBook}
+						className={ styles.compareWithBook }
 						name="compareWithBook"
-						onChange={compareBookChange}
-						value={reference ? reference.book : ''}
+						onChange={ compareBookChange }
+						value={ reference ? reference.book : '' }
 					>
-						{getBooks()}
+						{ getBooks() }
 					</select>
 					<select
 						name="compareWithChapter"
-						onChange={compareChapterChange}
-						value={reference ? reference.chapter : ''}
+						onChange={ compareChapterChange }
+						value={ reference ? reference.chapter : '' }
 					>
-						{getCompareChapters(reference)}
+						{ getCompareChapters( reference ) }
 					</select>
 					<select
 						name="compareWithVerses"
-						onChange={compareVerseChange}
-						value={reference ? reference.verse : ''}
+						onChange={ compareVerseChange }
+						value={ reference ? reference.verse : '' }
 					>
-						{getVerses(reference)}
+						{ getVerses( reference ) }
 					</select>
 				</div>
 			</div>
-			<h3 className={styles.h3}>compare with</h3>
-			<div className={styles.statsReferenceWrapper}>
-				<div className={styles.statsReference}>
+			<h3 className={ styles.h3 }>compare with</h3>
+			<div className={ styles.statsReferenceWrapper }>
+				<div className={ styles.statsReference }>
 					<select
-						className={styles.compareWithBook}
+						className={ styles.compareWithBook }
 						name="book"
-						onChange={bookChange}
+						onChange={ bookChange }
 						value={
 							referenceToCompareWith
 								? referenceToCompareWith.book
 								: ''
 						}
 					>
-						{getBooks()}
+						{ getBooks() }
 					</select>
 					<select
 						name="chapter"
-						onChange={chapterChange}
+						onChange={ chapterChange }
 						value={
 							referenceToCompareWith
 								? referenceToCompareWith.chapter
 								: ''
 						}
 					>
-						{getCompareChapters(referenceToCompareWith)}
+						{ getCompareChapters( referenceToCompareWith ) }
 					</select>
 					<select
 						name="verses"
-						onChange={verseChange}
+						onChange={ verseChange }
 						value={
 							referenceToCompareWith
 								? referenceToCompareWith.verse
 								: ''
 						}
 					>
-						{getVerses(referenceToCompareWith)}
+						{ getVerses( referenceToCompareWith ) }
 					</select>
 				</div>
 			</div>
-			<div className={styles.statsDescription}>
-				Word with less than{' '}
+			<div className={ styles.statsDescription }>
+				Word with less than{ ' ' }
 				<input
 					type="number"
 					name="limit"
-					value={limit}
-					onChange={changeLimit}
-					className={styles.limit}
-				/>{' '}
+					value={ limit }
+					onChange={ changeLimit }
+					className={ styles.limit }
+				/>{ ' ' }
 				uses.
 			</div>
-			<div className={styles.statsResults}>{getOverlap()}</div>
-			<div className={styles.chapterTray}>
-				{overlap && overlap.length > 0 && (
-					<button onClick={addAllWords}>Select all words</button>
-				)}
+			<div className={ styles.statsResults }>{ getOverlap() }</div>
+			<div className={ styles.chapterTray }>
+				{ overlap && overlap.length > 0 && (
+					<button onClick={ addAllWords }>Select all words</button>
+				) }
 			</div>
-			<div>{allChapters}</div>
+			<div>{ allChapters }</div>
 		</>
 	);
 };
 
-export default React.memo(Compare);
+export default React.memo( Compare );

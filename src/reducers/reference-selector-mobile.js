@@ -20,78 +20,78 @@ const openState = {
 	bookName: null,
 };
 
-const referenceSelectorMobile = (state = initialState, action) => {
-	switch (action.type) {
+const referenceSelectorMobile = ( state = initialState, action ) => {
+	switch ( action.type ) {
 		case LOCATION_CHANGE:
 			const hash = action.payload.location.hash;
-			const reference = getReferenceFromHash(hash);
+			const reference = getReferenceFromHash( hash );
 			if (
-				!reference ||
-				!window.location.hash ||
+				! reference ||
+				! window.location.hash ||
 				'#/' === window.location.hash
 			) {
 				return state;
 			}
 
-			return reference.map(() => ({
+			return reference.map( () => ( {
 				open: false,
 				bookIndex: null,
 				bookName: null,
-			}));
+			} ) );
 
 		case 'SET_REFERENCE':
 		case 'CLOSE_REFERENCE_SELECTOR_MOBILE':
-			return state.map(() => {
+			return state.map( () => {
 				return {
 					open: false,
 					bookIndex: null,
 					bookName: null,
 				};
-			});
+			} );
 
 		case 'TOGGLE_REFERENCE_SELECTOR_MOBILE':
-			const newState = state.map(() => {
+			const newState = state.map( () => {
 				return {
 					open: false,
 					bookIndex: null,
 					bookName: null,
 				};
-			});
+			} );
 
-			newState[action.index].open = !state[action.index].open;
+			newState[ action.index ].open = ! state[ action.index ].open;
 			return newState;
 
 		case 'OPEN_REFERENCE_SELECTOR_MOBILE':
-			const newState2 = state.map(() => {
+			const newState2 = state.map( () => {
 				return {
 					open: false,
 					bookIndex: null,
 					bookName: null,
 				};
-			});
+			} );
 
-			newState2[action.index].open = true;
+			newState2[ action.index ].open = true;
 			return newState2;
 
 		case 'REFERENCE_SELECTOR_MOBILE_SET_BOOK':
-			const setBookState = [...state];
-			setBookState[action.index].bookName = action.bookName;
-			setBookState[action.index].bookIndex = action.bookIndex;
+			const setBookState = [ ...state ];
+			setBookState[ action.index ].bookName = action.bookName;
+			setBookState[ action.index ].bookIndex = action.bookIndex;
 
 			return setBookState;
 
 		case 'ADD_COLUMN':
-			const addedState = [...state];
-			addedState.push({
+			const addedState = [ ...state ];
+			addedState.push( {
 				open: false,
 				bookIndex: null,
 				bookName: null,
-			});
+			} );
 			return addedState;
 
 		case 'REMOVE_COLUMN':
-			const removedState = [...state];
-			removedState.splice(action.index, 1);
+			const removedState = [ ...state ];
+			removedState.splice( action.index, 1 );
 			return removedState;
 
 		default:

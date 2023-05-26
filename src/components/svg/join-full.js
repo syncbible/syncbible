@@ -1,7 +1,7 @@
 // External dependencies
 import React from 'react';
 
-const JoinFull = ({ fill }) => (
+const JoinFull = ( { fill } ) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		height="24px"

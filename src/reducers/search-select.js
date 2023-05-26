@@ -1,5 +1,5 @@
-const searchSelect = (state = null, action) => {
-	switch (action.type) {
+const searchSelect = ( state = null, action ) => {
+	switch ( action.type ) {
 		case 'ACTIVATE_SEARCH_SELECT':
 			return action.target;
 

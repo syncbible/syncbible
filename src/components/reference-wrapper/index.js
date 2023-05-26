@@ -9,29 +9,31 @@ import styles from './style.scss';
 import { areReferencesInSync } from '../../lib/reference';
 
 const ReferenceWrapper = () => {
-	const reference = useSelector((state) => state.reference);
-	const inSync = areReferencesInSync(reference);
-	const searchSelect = useSelector((state) => state.searchSelect);
-	const sidebarOpen = useSelector((state) => state.sidebar);
+	const reference = useSelector( ( state ) => state.reference );
+	const inSync = areReferencesInSync( reference );
+	const searchSelect = useSelector( ( state ) => state.searchSelect );
+	const sidebarOpen = useSelector( ( state ) => state.sidebar );
 
 	let references;
 
-	if (reference.length === 0) {
+	if ( reference.length === 0 ) {
 		return null;
 	}
 
-	if (inSync) {
-		references = <ReferenceComponent reference={reference[0]} index={0} />;
+	if ( inSync ) {
+		references = (
+			<ReferenceComponent reference={ reference[ 0 ] } index={ 0 } />
+		);
 	} else {
-		references = reference.map((singleReference, index) => {
+		references = reference.map( ( singleReference, index ) => {
 			return (
 				<ReferenceComponent
-					reference={singleReference}
-					key={index}
-					index={index}
+					reference={ singleReference }
+					key={ index }
+					index={ index }
 				/>
 			);
-		});
+		} );
 	}
 
 	const className = classnames(
@@ -40,10 +42,10 @@ const ReferenceWrapper = () => {
 		searchSelect ? 'search-select' : null
 	);
 	return (
-		<div className={className}>
-			<div className={styles.referenceWrapperInner}>{references}</div>
+		<div className={ className }>
+			<div className={ styles.referenceWrapperInner }>{ references }</div>
 		</div>
 	);
 };
 
-export default React.memo(ReferenceWrapper);
+export default React.memo( ReferenceWrapper );

@@ -1,5 +1,5 @@
-const trays = (state = 'goto', action) => {
-	switch (action.type) {
+const trays = ( state = 'goto', action ) => {
+	switch ( action.type ) {
 		case 'SET_TRAY_VISIBILITY_FILTER':
 			return action.filter;
 

@@ -1,15 +1,15 @@
 import findIndex from 'lodash/findIndex';
 
-const wordDetails = (state = [], action) => {
+const wordDetails = ( state = [], action ) => {
 	let newState;
 
-	switch (action.type) {
+	switch ( action.type ) {
 		case 'ADD_WORD':
 			const wordPosition = findIndex(
 				state,
-				(word) => word.strongsNumber === action.strongsNumber
+				( word ) => word.strongsNumber === action.strongsNumber
 			);
-			newState = state.map((word) => {
+			newState = state.map( ( word ) => {
 				return {
 					strongsNumber: word.strongsNumber,
 					subdue: word.subdue,
@@ -18,10 +18,10 @@ const wordDetails = (state = [], action) => {
 					version: word.version,
 					clickedWord: word.clickedWord,
 				};
-			});
+			} );
 
-			if (wordPosition > -1) {
-				newState[wordPosition] = {
+			if ( wordPosition > -1 ) {
+				newState[ wordPosition ] = {
 					strongsNumber: action.strongsNumber,
 					subdue: action.subdue,
 					open: action.open,
@@ -48,19 +48,19 @@ const wordDetails = (state = [], action) => {
 		case 'TOGGLE_WORD':
 			const toggleWordPosition = findIndex(
 				state,
-				(word) => word.strongsNumber === action.strongsNumber
+				( word ) => word.strongsNumber === action.strongsNumber
 			);
-			if (toggleWordPosition > -1) {
+			if ( toggleWordPosition > -1 ) {
 				// This should always be the case
-				newState = [...state];
+				newState = [ ...state ];
 
-				newState[toggleWordPosition] = {
-					strongsNumber: state[toggleWordPosition].strongsNumber,
-					subdue: state[toggleWordPosition].subdue,
-					open: !state[toggleWordPosition].open,
-					morphology: state[toggleWordPosition].morphology,
-					version: state[toggleWordPosition].version,
-					clickedWord: state[toggleWordPosition].clickedWord,
+				newState[ toggleWordPosition ] = {
+					strongsNumber: state[ toggleWordPosition ].strongsNumber,
+					subdue: state[ toggleWordPosition ].subdue,
+					open: ! state[ toggleWordPosition ].open,
+					morphology: state[ toggleWordPosition ].morphology,
+					version: state[ toggleWordPosition ].version,
+					clickedWord: state[ toggleWordPosition ].clickedWord,
 				};
 
 				return newState;
@@ -69,9 +69,9 @@ const wordDetails = (state = [], action) => {
 			return state;
 
 		case 'REMOVE_WORD':
-			return state.filter((word) => {
+			return state.filter( ( word ) => {
 				return word.strongsNumber !== action.strongsNumber;
-			});
+			} );
 
 		case 'CLEAR_ALL':
 			return [];

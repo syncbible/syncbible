@@ -12,73 +12,73 @@ import {
 // Internal dependencies
 import styles from './styles.scss';
 
-const getBookFromState = (reference, scrollChapter) => {
-	if (scrollChapter && scrollChapter.book) {
+const getBookFromState = ( reference, scrollChapter ) => {
+	if ( scrollChapter && scrollChapter.book ) {
 		return scrollChapter.book;
 	} else {
-		if (reference) {
+		if ( reference ) {
 			return reference.book;
 		}
 	}
 };
-const getReferenceValue = (reference, scrollChapter, version) => {
+const getReferenceValue = ( reference, scrollChapter, version ) => {
 	const chapter =
 		scrollChapter && scrollChapter.chapter
 			? scrollChapter.chapter
 			: reference.chapter;
-	const book = getBookFromState(reference, scrollChapter);
-	const tranlatedBook = bible.getTranslatedBookName(book, version);
+	const book = getBookFromState( reference, scrollChapter );
+	const tranlatedBook = bible.getTranslatedBookName( book, version );
 	return tranlatedBook + ' ' + chapter;
 };
 
-const ReferenceInput = ({ index, last }) => {
+const ReferenceInput = ( { index, last } ) => {
 	const dispatch = useDispatch();
-	const inSync = useSelector((state) => state.settings.inSync);
+	const inSync = useSelector( ( state ) => state.settings.inSync );
 	const localIndex = inSync ? 0 : index;
-	const reference = useSelector((state) => state.reference);
+	const reference = useSelector( ( state ) => state.reference );
 	const scrollChapter = useSelector(
-		(state) => state.scrollChapter[localIndex]
+		( state ) => state.scrollChapter[ localIndex ]
 	);
-	const version = reference[index].version;
+	const version = reference[ index ].version;
 	const referenceValue = getReferenceValue(
-		reference[localIndex],
+		reference[ localIndex ],
 		scrollChapter,
 		version
 	);
-	const [localReference, setLocalReference] = useState(referenceValue);
+	const [ localReference, setLocalReference ] = useState( referenceValue );
 	const referenceInputField = useRef();
 
-	const change = (event) => {
-		setLocalReference(event.target.value);
+	const change = ( event ) => {
+		setLocalReference( event.target.value );
 	};
 
-	const goToReferenceField = (event) => {
+	const goToReferenceField = ( event ) => {
 		event.preventDefault();
 		referenceInputField.current.focus();
 		referenceInputField.current.selectionStart =
 			referenceInputField.current.selectionEnd = 0;
-		setLocalReference(event.key);
+		setLocalReference( event.key );
 	};
 
 	const getLocalReferenceObject = () => {
-		const newLocalReference = bible.parseReference(localReference);
+		const newLocalReference = bible.parseReference( localReference );
 		newLocalReference.book =
-			bible.Data.books[newLocalReference.bookID - 1][0];
+			bible.Data.books[ newLocalReference.bookID - 1 ][ 0 ];
 		return newLocalReference;
 	};
 
-	const goToReference = (event) => {
+	const goToReference = ( event ) => {
 		event.preventDefault();
-		dispatch(goToReferenceAction(getLocalReferenceObject(), index));
+		dispatch( goToReferenceAction( getLocalReferenceObject(), index ) );
 		referenceInputField.current.blur();
 	};
 
-	useEffect(() => {
-		setLocalReference(referenceValue);
-	}, [reference, scrollChapter, inSync]);
+	useEffect( () => {
+		setLocalReference( referenceValue );
+	}, [ reference, scrollChapter, inSync ] );
 
-	useEffect(() => {
-		if (index === 0) {
+	useEffect( () => {
+		if ( index === 0 ) {
 			mousetrap.bind(
 				[
 					'a',
@@ -111,7 +111,7 @@ const ReferenceInput = ({ index, last }) => {
 				goToReferenceField
 			);
 		}
-		if (index === 1) {
+		if ( index === 1 ) {
 			mousetrap.bind(
 				[
 					'A',
@@ -144,32 +144,32 @@ const ReferenceInput = ({ index, last }) => {
 				goToReferenceField
 			);
 		}
-	});
+	} );
 
 	const focus = () => {
-		dispatch(openReferenceSelectorMobile(index));
+		dispatch( openReferenceSelectorMobile( index ) );
 	};
 
 	return (
-		<div className={styles.versionSelectorFlexible}>
+		<div className={ styles.versionSelectorFlexible }>
 			<form
-				onSubmit={goToReference}
-				className={styles.versionSelectorInput}
+				onSubmit={ goToReference }
+				className={ styles.versionSelectorInput }
 			>
 				<input
 					type="text"
 					id="goToReference"
 					name="reference"
 					placeholder="Type a reference"
-					className={styles.input}
-					value={localReference}
-					onChange={change}
-					ref={referenceInputField}
-					onFocus={focus}
+					className={ styles.input }
+					value={ localReference }
+					onChange={ change }
+					ref={ referenceInputField }
+					onFocus={ focus }
 				/>
 			</form>
 		</div>
 	);
 };
 
-export default React.memo(ReferenceInput);
+export default React.memo( ReferenceInput );

@@ -1,7 +1,7 @@
 // External dependencies
 import React from 'react';
 
-const Close = ({ fill }) => (
+const Close = ( { fill } ) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		width="24"

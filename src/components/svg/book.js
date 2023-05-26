@@ -1,7 +1,7 @@
 // External dependencies
 import React from 'react';
 
-const Book = ({ fill }) => (
+const Book = ( { fill } ) => (
 	<svg
 		version="1.1"
 		x="0px"

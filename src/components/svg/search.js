@@ -1,7 +1,7 @@
 // External dependencies
 import React from 'react';
 
-const Search = ({ fill }) => (
+const Search = ( { fill } ) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		width="24"
