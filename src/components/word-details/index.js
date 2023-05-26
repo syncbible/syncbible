@@ -18,6 +18,7 @@ const WordDetails = () => {
 			{ words.map( ( word, index ) => {
 				return (
 					<WordBlock
+						word={ word }
 						key={ index }
 						highlight={
 							! focus || ( focus && focus === word.data.lemma )

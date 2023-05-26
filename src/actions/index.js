@@ -170,14 +170,19 @@ const getResultsForWord = ( versionData, strongsNumber ) => {
 
 export const addWord = ( word ) => {
 	return function ( dispatch, getState ) {
-		word.data.clusivity = 'exclusive';
-		word.data.range = 'verse';
-
+		// Override the version as we are sticking to original
+		word.data.version = 'original';
 		// Send data to our worker.
 		dispatch( addToList( word ) );
+	};
+};
 
+export const addSearchResults = ( word ) => {
+	return function ( dispatch, getState ) {
+		word.data.clusivity = 'exclusive';
+		word.data.range = 'verse';
 		const state = getState();
-		const versionData = state.data[ word.data.version ];
+		const versionData = state.data[ 'original' ]; // These results are limited to original
 		const results = state.data.searchResults;
 
 		let searchResults;
@@ -189,8 +194,6 @@ export const addWord = ( word ) => {
 					const bookCode = resultArray[ 0 ];
 					const bookId = bible.getBookId( bookCode );
 					const bookName = bible.getBook( bookId );
-					const chapterNumber = parseInt( resultArray[ 1 ] ) + 1;
-					const verseNumber = parseInt( resultArray[ 2 ] ) + 1;
 					return {
 						reference:
 							bookName +

@@ -1,5 +1,5 @@
 // External dependencies
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
@@ -9,7 +9,7 @@ import Stats from '../svg/stats';
 import styles from './styles.scss';
 import SearchLink from '../search-link';
 import InlineResultsToggle from '../inline-results-toggle';
-import { searchForWord } from '../../actions';
+import { searchForWord, addSearchResults } from '../../actions';
 import MoreDetails from './more-details';
 import WordStats from './word-stats';
 
@@ -22,6 +22,7 @@ const WordBlockDetails = ( {
 	id,
 	loading,
 	data,
+	word,
 } ) => {
 	const dispatch = useDispatch();
 	const interfaceLanguage = useSelector(
@@ -30,7 +31,24 @@ const WordBlockDetails = ( {
 	const strongsWithFamilies = useSelector(
 		( state ) => state.data.strongsObjectWithFamilies
 	);
+	const searchResultsData = useSelector(
+		( state ) => state.data.searchResults
+	);
+	const searchResults = searchResultsData[ word.data.lemma ];
 	const [ activeTab, setActiveTab ] = useState( 'search' );
+
+	const shouldDisplayResults = () => {
+		return searchResults && searchResults.length < 1000;
+	};
+
+	useEffect( () => {
+		if ( shouldDisplayResults() ) {
+			// Pause to render the list before we load the results
+			setTimeout( () => {
+				dispatch( addSearchResults( word ) );
+			}, 100 );
+		}
+	} );
 
 	let resultsData = resultsFromProps;
 	const results =
@@ -87,16 +105,8 @@ const WordBlockDetails = ( {
 			);
 		}
 
-		if (
-			strongsWithFamilies &&
-			strongsWithFamilies[ strongsNumber ] &&
-			strongsWithFamilies[ strongsNumber ].count < 100
-		) {
-			return <p>Searching...</p>;
-		}
-
-		return (
-			<p>
+		if ( ! shouldDisplayResults() ) {
+			return (
 				<a
 					href="#"
 					className="word-block-details__find-all-uses"
@@ -105,9 +115,15 @@ const WordBlockDetails = ( {
 						dispatch( searchForWord( data ) );
 					} }
 				>
-					Find { numberOfUses } { useString }{ ' ' }
-					{ numberOfUses > 1000 && <span>(slow!)</span> }
+					Find { numberOfUses } { useString }
+					{ ' (slow!)' }
 				</a>
+			);
+		}
+
+		return (
+			<p>
+				Loading { numberOfUses } { useString }...
 			</p>
 		);
 	}

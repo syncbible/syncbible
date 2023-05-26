@@ -12,7 +12,7 @@ import WordBlockDetails from './word-block-details';
 import { removeFromList, toggleListItemVisible } from '../../actions';
 
 const WordBlock = ( props ) => {
-	const { data, visible, highlight, setFocus } = props;
+	const { data, visible, highlight, setFocus, word } = props;
 	const { clickedWord, morphology, lemma, version } = data;
 	const strongsDictionary = useSelector(
 		( state ) => state.data.strongsDictionary
@@ -84,6 +84,7 @@ const WordBlock = ( props ) => {
 			<div ref={ wordBlockRef }>
 				<div className={ styles.wordBlock }>
 					<WordBlockDetails
+						word={ word }
 						morphologyProp={ morphology }
 						strongsNumber={ lemma }
 						version={ version }
