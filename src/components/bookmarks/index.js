@@ -1,18 +1,26 @@
 // External dependencies
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
+import { fetchSearchResults, fetchData } from '../../actions/index.js';
 import Bookmark from '../svg/bookmark.js';
 import CombinedResults from '../word-details/combined.js';
 import Single from './single';
 import styles from './styles.scss';
 
 const BookMarks = () => {
+	const dispatch = useDispatch();
 	const list = useSelector( ( state ) => state.list );
 	const bookmarks = list.filter(
 		( { listType } ) => listType === 'bookmark'
 	);
+
+	if ( bookmarks.length > 0 ) {
+		// Get the data for extra stuff in single.
+		dispatch( fetchSearchResults() );
+		dispatch( fetchData( 'original' ) );
+	}
 
 	return (
 		<>

@@ -120,8 +120,12 @@ const Trays = () => {
 	const iOS =
 		typeof navigator !== 'undefined' &&
 		/iPad|iPhone|iPod/.test( navigator.userAgent );
-	const { darkMode, compareMode, expandedSearchResults } = useSelector(
-		( state ) => state.settings
+
+	// If you combine these they stop working.
+	const darkMode = useSelector( ( state ) => state.settings.darkMode );
+	const compareMode = useSelector( ( state ) => state.settings.compareMode );
+	const expandedSearchResults = useSelector(
+		( state ) => state.settings.expandedSearchResults
 	);
 
 	if ( interfaceLanguage ) {

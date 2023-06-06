@@ -13,7 +13,6 @@ import styles from './root.scss';
 import {
 	closeReferenceSelectorMobile,
 	fetchCrossReferences,
-	fetchSearchResults,
 	fetchStrongsDictonary,
 	fetchStrongsDictonaryWithFamilies,
 } from '../actions';
@@ -57,28 +56,25 @@ const Root = ( { highlightedWord } ) => {
 		window.errors.style.display = 'block';
 	}, [] );
 
+	const classes = rootClasses( darkMode, compareMode, expandedSearchResults );
+	const referenceComponent = ! compareMode && (
+		<>
+			<Dock />
+			<div onClick={ clearReferenceSelector }>
+				<ReferenceWrapper />
+			</div>
+		</>
+	);
+
 	return (
-		<div
-			className={ rootClasses(
-				darkMode,
-				compareMode,
-				expandedSearchResults
-			) }
-		>
+		<div className={ classes }>
 			<div className={ styles.root }>
 				{ reference.length > 0 && <Trays /> }
 
 				<style>{ getBodyStyles() }</style>
 				<KeyboardShortcuts />
 				<WordHighlight word={ highlightedWord } />
-				{ compareMode ? null : (
-					<>
-						<Dock />
-						<div onClick={ clearReferenceSelector }>
-							<ReferenceWrapper />
-						</div>
-					</>
-				) }
+				{ referenceComponent }
 				<InitialView />
 			</div>
 		</div>

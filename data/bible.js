@@ -65,7 +65,7 @@ bible.Data.books = [
 ['I John','1John','1 John','1 Jn','1Jn','1 Jo','1Jo','I Jo','I Jn','1J'],
 ['II John','2John','2 John','2 Jn','2Jn','2 Jo','2Jo','II Jo','II Jn','2J'],
 ['III John','3John','3 John','3 Jn','3Jn','3 Jo','3Jo','III Jo','III Jn','3J'],
-['Jude','Jude','Je'],
+['Jude','Jude','Jd'],
 ['Revelation of John','Rev','Revelation','Apocalypse','Re']
 ];
 //TODO - use the arrays above

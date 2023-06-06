@@ -31,16 +31,15 @@ const WordBlockDetails = ( {
 	const strongsWithFamilies = useSelector(
 		( state ) => state.data.strongsObjectWithFamilies
 	);
-	const searchResultsData = useSelector(
-		( state ) => state.data.searchResults
-	);
-	const searchResults = searchResultsData
-		? searchResultsData[ word.data.lemma ]
-		: undefined;
 	const [ activeTab, setActiveTab ] = useState( 'search' );
 
+	let numberOfUses =
+		strongsWithFamilies &&
+		strongsWithFamilies[ strongsNumber ] &&
+		strongsWithFamilies[ strongsNumber ].count;
+
 	const shouldDisplayResults = () => {
-		return searchResults && searchResults.length < 1000;
+		return numberOfUses < 1000;
 	};
 
 	useEffect( () => {
@@ -77,10 +76,6 @@ const WordBlockDetails = ( {
 		} );
 
 	function getResultsDisplay() {
-		let numberOfUses =
-			strongsWithFamilies &&
-			strongsWithFamilies[ strongsNumber ] &&
-			'~' + strongsWithFamilies[ strongsNumber ].count;
 		if ( results && results.length > 0 ) {
 			numberOfUses = results.length;
 		}
@@ -124,7 +119,7 @@ const WordBlockDetails = ( {
 					} }
 				>
 					Find { numberOfUses } { useString }
-					{ ' (slow!)' }
+					{ numberOfUses > 1000 && ' (slow!)' }
 				</a>
 			);
 		}
