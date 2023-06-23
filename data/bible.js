@@ -26,7 +26,7 @@ bible.Data.books = [
 ['Isaiah','Isa','Is'],
 ['Jeremiah','Jer','Jr'],
 ['Lamentations','Lam','La'],
-['Ezekiel','Ezek','Eze','Ez'],
+['Ezekiel','Ezek','Eze','El'],
 ['Daniel','Dan','Da'],
 ['Hosea','Hos','Ho'],
 ['Joel','Joel','Jl'],
