@@ -14,7 +14,11 @@ import {
 import styles from './styles.scss';
 
 const Footer = ( { trays } ) => {
-	const compareMode = useSelector( ( state ) => state.settings.compareMode );
+	const { compareMode } = useSelector( ( state ) => {
+		return {
+			compareMode: state.settings.compareMode,
+		};
+	} );
 
 	const dispatch = useDispatch();
 

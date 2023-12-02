@@ -1,5 +1,8 @@
 ## Todo
 
+Lev 24:16
+
+-   Ex 3:14 in ESV
 -   explain why combined doesn't show until you do a search
 -   combined when sorted - books out of order for the 1 result case
 -   copy multiple verses / both versions

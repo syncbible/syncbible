@@ -1,5 +1,9 @@
 .combined-all {
 	padding: .5rem;
 	width: 100%;
-}
 
+	svg {
+		fill: var(--color);
+		width: 30px;
+	}
+}
