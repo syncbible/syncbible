@@ -15,18 +15,21 @@ const WordSingleComponent = ( props ) => {
 	const lemmaArray = lemma ? lemma.split( /[\&\s]/ ) : []; // Split by space or &.
 
 	const dispatch = useDispatch();
-	const data = useSelector( ( state ) => state.data );
-	const literalConsistentTranslation = useSelector( ( state ) => {
-		if ( version === 'LC' || version === 'original' ) {
-			return getLiteralConsistentTranslation(
+	const {
+		farsiTranslations,
+		literalConsistentTranslation,
+		strongsObjectWithFamilies,
+	} = useSelector( ( state ) => {
+		return {
+			farsiTranslations: state.data.farsiTranslations,
+			literalConsistentTranslation: getLiteralConsistentTranslation(
 				state.data.LC,
 				word,
 				lemma,
 				morph
-			);
-		} else {
-			return '';
-		}
+			),
+			strongsObjectWithFamilies: state.data.strongsObjectWithFamilies,
+		};
 	} );
 
 	const clearHighlightWord = () => {
@@ -64,13 +67,14 @@ const WordSingleComponent = ( props ) => {
 		// Check the translations have loaded.
 		if (
 			version === 'NMV_strongs' &&
-			data.farsiTranslations &&
-			data.farsiTranslations[ word ]
+			farsiTranslations &&
+			farsiTranslations[ word ]
 		) {
-			const farsiTranslations = data.farsiTranslations[ word ];
-			titleText += '  |  ' + farsiTranslations.translation;
+			titleText += '  |  ' + farsiTranslations[ word ].translation;
 
-			const listOfTranslations = parseTranslations( farsiTranslations );
+			const listOfTranslations = parseTranslations(
+				farsiTranslations[ word ]
+			);
 			if ( listOfTranslations.length > 0 ) {
 				titleText += '  |  ' + listOfTranslations;
 			}
@@ -83,9 +87,6 @@ const WordSingleComponent = ( props ) => {
 		let family = null;
 
 		if ( lemmaArray.length > 0 ) {
-			const strongsObjectWithFamilies = useSelector(
-				( state ) => state.data.strongsObjectWithFamilies
-			);
 			family = lemmaArray.map(
 				( oneLemma ) =>
 					getFamily( oneLemma, strongsObjectWithFamilies ) + '-family'
