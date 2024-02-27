@@ -14,15 +14,20 @@ const WordSingleComponent = ( props ) => {
 	const { lemma, morph, version, word, wordText, reference, index } = props;
 	const lemmaArray = lemma ? lemma.split( /[\&\s]/ ) : []; // Split by space or &.
 
-	const { book, chapter, verse } = reference;
 	const dispatch = useDispatch();
 	const data = useSelector( ( state ) => state.data );
-	let literalConsistentTranslation;
-	if ( version === 'LC' || version === 'original' ) {
-		literalConsistentTranslation = useSelector( ( state ) =>
-			getLiteralConsistentTranslation( state.data.LC, word, lemma, morph )
-		);
-	}
+	const literalConsistentTranslation = useSelector( ( state ) => {
+		if ( version === 'LC' || version === 'original' ) {
+			return getLiteralConsistentTranslation(
+				state.data.LC,
+				word,
+				lemma,
+				morph
+			);
+		} else {
+			return '';
+		}
+	} );
 
 	const clearHighlightWord = () => {
 		window.updateAppComponent( 'highlightedWord', '' );

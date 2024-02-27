@@ -1,5 +1,10 @@
 ## Todo
 
+-   collapse all button
+-   hover verse and highlight all words
+-   surface shared words between all found verses
+-   most similar verse
+
 Lev 24:16
 
 -   Ex 3:14 in ESV

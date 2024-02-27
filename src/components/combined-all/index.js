@@ -11,7 +11,6 @@ import SyncBible from '../svg/syncbible.js';
 
 const CombinedAll = () => {
 	const { compareMode, list } = useSelector( ( state ) => {
-		console.log( state );
 		return {
 			list: state.list,
 			compareMode: state.settings.compareMode,
