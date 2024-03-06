@@ -11,7 +11,7 @@ import {
 	settingsChange,
 	activateSearchSelect,
 	updateSearchForm,
-	clearSearchForm,
+	clearSearch,
 	fetchData,
 	selectWord,
 } from '../../actions';
@@ -50,7 +50,7 @@ const SearchForm = ( { isActive } ) => {
 	};
 	const reset = ( event ) => {
 		event.preventDefault();
-		dispatch( clearSearchForm() );
+		dispatch( clearSearch() );
 	};
 	const isSubmitButtonDisabled = () => {
 		const versionData = data[ searchForm.version ];
@@ -209,15 +209,6 @@ const SearchForm = ( { isActive } ) => {
 								name="strict"
 								onChange={ toggle }
 								value={ searchForm.strict }
-							/>
-						</fieldset>
-						<fieldset>
-							<label>Show the verse for context:</label>{ ' ' }
-							<input
-								type="checkbox"
-								name="expandedSearchResults"
-								checked={ settings.expandedSearchResults }
-								onChange={ changeExpandedResultsSetting }
 							/>
 						</fieldset>
 					</motion.div>

@@ -30,6 +30,9 @@ const searchForm = ( state = initialState, action ) => {
 		case 'CLEAR_SEARCH_FORM':
 			return { ...initialState };
 
+		case 'CLEAR_SEARCH':
+			return { ...initialState, version: state.version };
+
 		default:
 			return state;
 	}
