@@ -1,5 +1,6 @@
 ## Todo
 
+-   replace חׇpointing
 -   collapse all button
 -   hover verse and highlight all words
 -   surface shared words between all found verses
