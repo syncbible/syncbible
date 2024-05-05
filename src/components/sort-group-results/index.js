@@ -144,8 +144,6 @@ const SortGroupResults = ( {
 		[ results, group, sort, interfaceLanguage ]
 	);
 
-	console.log( 'selectedResults', selectedResults );
-
 	return (
 		<div className={ styles.sortGroupResults }>
 			<fieldset>
