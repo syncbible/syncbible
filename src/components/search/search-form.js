@@ -1,5 +1,5 @@
 // External dependencies
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 
@@ -84,10 +84,13 @@ const SearchForm = ( { isActive } ) => {
 	const change = ( event ) => {
 		dispatch( updateSearchForm( event.target.name, event.target.value ) );
 	};
-	const selectChange = ( event ) => {
-		change( event );
-		dispatch( fetchData( event.target.value ) );
-	};
+	const selectChange = useCallback(
+		( event ) => {
+			change( event );
+			dispatch( fetchData( event.target.value ) );
+		},
+		[ change, fetchData ]
+	);
 	const pickerButton = ( mode ) => {
 		return (
 			<button

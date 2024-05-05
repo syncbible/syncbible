@@ -1,5 +1,5 @@
 // External dependencies
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
@@ -19,10 +19,13 @@ const SettingsTray = () => {
 	// remove this line
 	javascripture.state.settings = settings;
 
-	const changeSetting = ( event ) => {
-		dispatch( settingsChange( event.target.name, event.target.value ) );
-		event.target.blur();
-	};
+	const changeSetting = useCallback(
+		( event ) => {
+			dispatch( settingsChange( event.target.name, event.target.value ) );
+			event.target.blur();
+		},
+		[ settingsChange ]
+	);
 
 	const changeCheckboxSetting = ( event ) => {
 		dispatch( settingsChange( event.target.name, event.target.checked ) );

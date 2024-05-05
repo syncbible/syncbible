@@ -1,5 +1,5 @@
 // External
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classnames from 'classnames';
 
@@ -23,13 +23,16 @@ const Dock = () => {
 		sidebarOpen ? styles.dockWithSidebarOpen : null,
 		reference.length ? null : styles.noReference
 	);
-	const onSelectVerion = ( event ) => {
-		const version = event.target.value;
-		dispatch( addColumnAction( version ) );
-		dispatch( updateSearchForm( 'version', version ) );
-		dispatch( settingsChange( 'interfaceLanguage', version ) );
-		event.target.blur();
-	};
+	const onSelectVerion = useCallback(
+		( event ) => {
+			const version = event.target.value;
+			dispatch( addColumnAction( version ) );
+			dispatch( updateSearchForm( 'version', version ) );
+			dispatch( settingsChange( 'interfaceLanguage', version ) );
+			event.target.blur();
+		},
+		[ addColumnAction, updateSearchForm, settingsChange ]
+	);
 
 	return (
 		<div className={ className }>
