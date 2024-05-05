@@ -84,17 +84,17 @@ const WordSingleComponent = ( props ) => {
 	};
 
 	const getClassName = () => {
-		let family = null;
+		// Do this firstfor speed.
+		if ( lemma === 'added' ) {
+			return classnames( 'single', lemma );
+		}
 
+		let family = null;
 		if ( lemmaArray.length > 0 ) {
 			family = lemmaArray.map(
 				( oneLemma ) =>
 					getFamily( oneLemma, strongsObjectWithFamilies ) + '-family'
 			);
-		}
-
-		if ( lemma === 'added' ) {
-			return classnames( 'single', lemma );
 		}
 
 		return classnames( 'single', lemmaArray, family );
