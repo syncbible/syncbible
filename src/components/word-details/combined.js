@@ -7,25 +7,17 @@ import { setTrayVisibilityFilter } from '../../actions';
 import Collapsible from '../collapsible';
 import JoinFull from '../svg/join-full';
 import SortGroupResults from '../sort-group-results';
-import { getCombinedResults } from '../../lib/reference';
 
 const CombinedResults = ( { type } ) => {
 	const dispatch = useDispatch();
 	const [ open, setOpen ] = useState( false );
-	const { results, words } = useSelector( ( state ) => {
+	const { words } = useSelector( ( state ) => {
 		const _words = state.list.filter(
 			( { listType } ) => listType === type
 		);
-		const _results = _words.map( ( { results } ) => {
-			return results;
-		} );
 
-		return { results: _results, words: _words };
+		return { words: _words };
 	} );
-	const combinedResults = useMemo(
-		() => getCombinedResults( results ),
-		[ results ]
-	);
 
 	if ( words.length < 2 ) {
 		return null;
@@ -53,7 +45,7 @@ const CombinedResults = ( { type } ) => {
 			}
 		>
 			<SortGroupResults
-				results={ combinedResults }
+				type={ type }
 				initialGroup="verse"
 				initialSort="desc"
 				allowPreview={ true }

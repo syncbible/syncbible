@@ -11,9 +11,10 @@ import {
 	getGroupedResults,
 } from '../../lib/reference';
 import ExpandedSearchResults from '../expanded-search-results';
+import { getCombinedResults } from '../../lib/reference';
 
 const SortGroupResults = ( {
-	results,
+	type,
 	strongsNumber,
 	initialGroup,
 	initialSort,
@@ -25,6 +26,22 @@ const SortGroupResults = ( {
 	const [ sort, setSort ] = useState( initialSort );
 	const interfaceLanguage = useSelector(
 		( state ) => state.settings.interfaceLanguage
+	);
+
+	const { results } = useSelector( ( state ) => {
+		const _words = state.list.filter(
+			( { listType } ) => listType === type
+		);
+		const _results = _words.map( ( { results } ) => {
+			return results;
+		} );
+
+		return { results: _results };
+	} );
+
+	const combinedResults = useMemo(
+		() => getCombinedResults( results ),
+		[ results ]
 	);
 
 	const groupSelector = (
@@ -59,7 +76,7 @@ const SortGroupResults = ( {
 		</div>
 	);
 
-	if ( ! results ) {
+	if ( ! combinedResults ) {
 		return null;
 	}
 
@@ -90,8 +107,14 @@ const SortGroupResults = ( {
 	};
 
 	const selectedResults = useMemo(
-		() => getGroupedResults( results, group, sort, interfaceLanguage ),
-		[ results, group, sort, interfaceLanguage ]
+		() =>
+			getGroupedResults(
+				combinedResults,
+				group,
+				sort,
+				interfaceLanguage
+			),
+		[ combinedResults, group, sort, interfaceLanguage ]
 	);
 
 	const getReference = ( result ) => {
@@ -124,7 +147,9 @@ const SortGroupResults = ( {
 					? getLabel( selectedResults[ result ][ 0 ] )
 					: result;
 				const percent = Math.round(
-					( selectedResults[ result ].length / results.length ) * 100
+					( selectedResults[ result ].length /
+						combinedResults.length ) *
+						100
 				);
 				const reference = getReference( selectedResults[ result ] );
 				return (

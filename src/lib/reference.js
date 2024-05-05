@@ -481,6 +481,7 @@ export const getGroupedResults = (
 		}
 		return reference;
 	} );
+
 	if ( selectedGroup === 'book' ) {
 		resultsToDisplay = groupBy( resultsArray, function ( item ) {
 			if ( Array.isArray( item ) ) {
