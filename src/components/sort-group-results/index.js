@@ -9,9 +9,9 @@ import styles from './styles.scss';
 import {
 	getReferenceFromSearchResult,
 	getGroupedResults,
+	getCombinedResults,
 } from '../../lib/reference';
 import ExpandedSearchResults from '../expanded-search-results';
-import { getCombinedResults } from '../../lib/reference';
 import InlineResultsToggle from '../inline-results-toggle';
 
 const SortGroupResults = ( {
@@ -30,33 +30,68 @@ const SortGroupResults = ( {
 		( state ) => state.settings.interfaceLanguage
 	);
 
-	const { results } = useSelector( ( state ) => {
-		let _list = state.list;
+	const { results, resultsGrouped, selectedResults, selectedResultsGrouped } =
+		useSelector( ( state ) => {
+			let _list = state.list;
 
-		// This case is just for a single word.
-		if ( type && strongsNumber && version ) {
-			_list = state.list.find(
-				( { listType, data } ) =>
-					listType === 'word' &&
-					data.lemma === strongsNumber &&
-					data.version === version
+			// This case is just for a single word.
+			if ( type && strongsNumber && version ) {
+				_list = state.list.find(
+					( { listType, data } ) =>
+						listType === 'word' &&
+						data.lemma === strongsNumber &&
+						data.version === version
+				);
+				const groupedResults = getGroupedResults(
+					_list.results,
+					group,
+					sort,
+					interfaceLanguage
+				);
+				return {
+					results: _list.results,
+					resultsGrouped: _list.results,
+					selectedResults: groupedResults,
+					selectedResultsGrouped: groupedResults,
+				};
+			} else if ( type ) {
+				// This for for all results of a certain type, e.g. word.
+				_list = state.list.filter(
+					( { listType } ) => listType === type
+				);
+			}
+
+			const _results = _list.map( ( { results } ) => {
+				return results;
+			} );
+
+			const _combinedResults = getCombinedResults( _results );
+			const _combinedResultsGrouped = getCombinedResults(
+				_results,
+				group
 			);
+
+			// results are all the results to do things like percentages
+			// resultsGrouped are grouped by the selected group.
+			// This is necessary because otherwise if a passage contains lots of instances of the same word it would be counted as significant by getGroupedResults
+			// Instead we have to combined the results by group before grouping them again.
 			return {
-				results: _list.results,
+				results: _combinedResults,
+				resultsGrouped: _combinedResultsGrouped,
+				selectedResults: getGroupedResults(
+					_combinedResults,
+					group,
+					sort,
+					interfaceLanguage
+				),
+				selectedResultsGrouped: getGroupedResults(
+					_combinedResultsGrouped,
+					group,
+					sort,
+					interfaceLanguage
+				),
 			};
-		} else if ( type ) {
-			// This for for all results of a certain type, e.g. word.
-			_list = state.list.filter( ( { listType } ) => listType === type );
-		}
-
-		const _results = _list.map( ( { results } ) => {
-			return results;
 		} );
-
-		const combinedResults = getCombinedResults( _results );
-
-		return { results: combinedResults };
-	} );
 
 	const groupSelector = (
 		<div>
@@ -90,7 +125,7 @@ const SortGroupResults = ( {
 		</div>
 	);
 
-	if ( ! results ) {
+	if ( ! resultsGrouped ) {
 		return null;
 	}
 
@@ -130,19 +165,14 @@ const SortGroupResults = ( {
 				referenceString =
 					reference[ 0 ] +
 					'.' +
-					reference[ 1 ] +
+					( reference[ 1 ] || 1 ) +
 					'.' +
-					reference[ 2 ];
+					( reference[ 2 ] || 1 );
 			}
 		}
 
 		return getReferenceFromSearchResult( referenceString );
 	};
-
-	const selectedResults = useMemo(
-		() => getGroupedResults( results, group, sort, interfaceLanguage ),
-		[ results, group, sort, interfaceLanguage ]
-	);
 
 	return (
 		<div className={ styles.sortGroupResults }>
@@ -151,16 +181,18 @@ const SortGroupResults = ( {
 				{ sortSelector }
 			</fieldset>
 
-			{ results.length > 0 && <InlineResultsToggle /> }
+			{ resultsGrouped.length > 0 && <InlineResultsToggle /> }
 
-			{ Object.keys( selectedResults ).map( ( result, index ) => {
-				const label = Array.isArray( selectedResults )
-					? getLabel( selectedResults[ result ][ 0 ] )
+			{ Object.keys( selectedResultsGrouped ).map( ( result, index ) => {
+				const label = Array.isArray( selectedResultsGrouped )
+					? getLabel( selectedResultsGrouped[ result ][ 0 ] )
 					: result;
 				const percent = Math.round(
 					( selectedResults[ result ].length / results.length ) * 100
 				);
-				const reference = getReference( selectedResults[ result ] );
+				const reference = getReference(
+					selectedResultsGrouped[ result ]
+				);
 				return (
 					<div key={ index } className={ styles.sortGroupResult }>
 						<span

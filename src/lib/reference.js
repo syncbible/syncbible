@@ -445,11 +445,20 @@ export const getCombinedResults = ( list, group ) => {
 	return sortedResults;
 };*/
 
-export function getCombinedResults( listResults ) {
+export function getCombinedResults( listResults, group ) {
 	let combinedResults = [];
 	listResults.forEach( ( results ) => {
 		const resultsArray =
-			results && results.map( ( { reference } ) => reference );
+			results &&
+			results.map( ( { reference } ) => {
+				const referenceArray = reference.split( '.' );
+				if ( group === 'book' ) {
+					return referenceArray[ 0 ];
+				} else if ( group === 'chapter' ) {
+					return referenceArray[ 0 ] + '.' + referenceArray[ 1 ];
+				}
+				return reference;
+			} );
 		// Make these results unique.
 		const uniqueResults = [ ...new Set( resultsArray ) ];
 		combinedResults = combinedResults.concat( uniqueResults );
