@@ -12,10 +12,15 @@ import { getCombinedResults } from '../../lib/reference';
 const CombinedResults = ( { type } ) => {
 	const dispatch = useDispatch();
 	const [ open, setOpen ] = useState( false );
-	const list = useSelector( ( state ) => state.list );
-	const words = list.filter( ( { listType } ) => listType === type );
-	const results = words.map( ( { results } ) => {
-		return results;
+	const { results, words } = useSelector( ( state ) => {
+		const _words = state.list.filter(
+			( { listType } ) => listType === type
+		);
+		const _results = _words.map( ( { results } ) => {
+			return results;
+		} );
+
+		return { results: _results, words: _words };
 	} );
 	const combinedResults = useMemo(
 		() => getCombinedResults( results ),
