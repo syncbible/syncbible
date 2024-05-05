@@ -75,6 +75,8 @@ const SortGroupResults = ( {
 			// resultsGrouped are grouped by the selected group.
 			// This is necessary because otherwise if a passage contains lots of instances of the same word it would be counted as significant by getGroupedResults
 			// Instead we have to combined the results by group before grouping them again.
+
+			// TODO - calling this twice seens very inefficient.
 			return {
 				results: _combinedResults,
 				resultsGrouped: _combinedResultsGrouped,

@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import styles from './styles.scss';
 import CombinedResults from './combined';
 import WordBlock from './word-block';
+import ListHeader from '../list-header';
 
 const WordDetails = () => {
 	const list = useSelector( ( state ) => state.list );
@@ -15,6 +16,7 @@ const WordDetails = () => {
 
 	return words && words.length ? (
 		<div className={ styles.wordDetails }>
+			<ListHeader tray="word" />
 			{ words.map( ( word, index ) => {
 				return (
 					<WordBlock

@@ -20,6 +20,12 @@ const userInterface = ( state = {}, action ) => {
 			state[ action.item.id ] = ! state[ action.item.id ];
 			return { ...state };
 
+		case 'CLOSE_ALL_LIST_ITEMS':
+			Object.keys( state ).forEach( ( key ) => {
+				state[ key ] = false;
+			} );
+			return { ...state };
+
 		default:
 			return state;
 	}

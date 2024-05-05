@@ -676,6 +676,12 @@ export const toggleListItemVisible = ( item ) => {
 	};
 };
 
+export const closeAllListItems = () => {
+	return {
+		type: 'CLOSE_ALL_LIST_ITEMS',
+	};
+};
+
 export const setCurrentListResult = ( id, index ) => {
 	return {
 		id,

@@ -3,11 +3,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
-import { fetchData, settingsChange } from '../../actions';
+import { fetchData, settingsChange, toggleSidebar } from '../../actions';
 import styles from './styles.scss';
 import { mapVersionToData } from '../../lib/reference';
 import VersionSelect from '../version-select';
-import Clear from '../clear';
+import Close from '../svg/close.js';
 
 const SidebarControls = ( { trays } ) => {
 	const dispatch = useDispatch();
@@ -51,7 +51,14 @@ const SidebarControls = ( { trays } ) => {
 				/>
 
 				<span className={ styles.sidebarControlsRight }>
-					<Clear selectedTrayId={ selectedTray && selectedTray.id } />
+					<button
+						className={ styles.sidebarButton }
+						onClick={ () => {
+							dispatch( toggleSidebar() );
+						} }
+					>
+						<Close />
+					</button>
 				</span>
 			</span>
 		</div>

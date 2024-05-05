@@ -202,3 +202,9 @@
 .inline a {
 	vertical-align: top;
 }
+
+.sidebarButton {
+	background: var(--background-ui);
+	border: none;
+	width: $dock-height;
+}

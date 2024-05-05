@@ -8,6 +8,7 @@ import Bookmark from '../svg/bookmark.js';
 import CombinedResults from '../word-details/combined.js';
 import Single from './single';
 import styles from './styles.scss';
+import ListHeader from '../list-header/index.js';
 
 const BookMarks = () => {
 	const dispatch = useDispatch();
@@ -24,6 +25,7 @@ const BookMarks = () => {
 
 	return (
 		<>
+			<ListHeader tray="bookmarks" />
 			{ bookmarks.length === 0 && (
 				<p className={ styles.description }>
 					Click the <Bookmark /> to bookmark a verse.
