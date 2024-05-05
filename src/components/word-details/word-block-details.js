@@ -147,11 +147,16 @@ const WordBlockDetails = ( {
 		}
 
 		if ( activeTab === 'stats' ) {
+			if ( results ) {
+				return (
+					<WordStats
+						strongsNumber={ strongsNumber }
+						version={ version }
+					/>
+				);
+			}
 			return (
-				<WordStats
-					strongsNumber={ strongsNumber }
-					version={ version }
-				/>
+				<p>Stats will appear when you have searched for the word.</p>
 			);
 		}
 	};

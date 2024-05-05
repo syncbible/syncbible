@@ -1,36 +1,25 @@
 // External dependencies
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 // Internal dependencies
-import InlineResultsToggle from '../inline-results-toggle';
 import styles from './styles.scss';
 import SortGroupResults from '../sort-group-results/index.js';
-import { getCombinedResults } from '../../lib/reference';
 import SyncBible from '../svg/syncbible.js';
 
 const CombinedAll = () => {
-	const { compareMode, list } = useSelector( ( state ) => {
+	const { compareMode } = useSelector( ( state ) => {
 		return {
-			list: state.list,
 			compareMode: state.settings.compareMode,
 		};
 	} );
-	const results = list.map( ( { results } ) => {
-		return results;
-	} );
-	const combinedResults = useMemo(
-		() => getCombinedResults( results ),
-		[ results ]
-	);
+
 	if ( compareMode ) {
 		return (
 			<div className={ styles.combinedAll }>
 				<p>A combination of all the references in the other panels.</p>
-				{ combinedResults.length > 0 && <InlineResultsToggle /> }
 				<div className={ styles.results }>
 					<SortGroupResults
-						results={ combinedResults }
 						initialGroup="verse"
 						initialSort="reference"
 						allowPreview={ true }

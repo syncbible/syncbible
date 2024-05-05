@@ -1,5 +1,7 @@
 a.found-in-extra {
 	cursor: pointer;
 	float: right;
+	position: relative;
 	text-decoration: none;
+	z-index: 9;
 }

@@ -12,9 +12,11 @@ import {
 } from '../../lib/reference';
 import ExpandedSearchResults from '../expanded-search-results';
 import { getCombinedResults } from '../../lib/reference';
+import InlineResultsToggle from '../inline-results-toggle';
 
 const SortGroupResults = ( {
-	type,
+	type = null,
+	version,
 	strongsNumber,
 	initialGroup,
 	initialSort,
@@ -29,20 +31,32 @@ const SortGroupResults = ( {
 	);
 
 	const { results } = useSelector( ( state ) => {
-		const _words = state.list.filter(
-			( { listType } ) => listType === type
-		);
-		const _results = _words.map( ( { results } ) => {
+		let _list = state.list;
+
+		// This case is just for a single word.
+		if ( type && strongsNumber && version ) {
+			_list = state.list.find(
+				( { listType, data } ) =>
+					listType === 'word' &&
+					data.lemma === strongsNumber &&
+					data.version === version
+			);
+			return {
+				results: _list.results,
+			};
+		} else if ( type ) {
+			// This for for all results of a certain type, e.g. word.
+			_list = state.list.filter( ( { listType } ) => listType === type );
+		}
+
+		const _results = _list.map( ( { results } ) => {
 			return results;
 		} );
 
-		return { results: _results };
-	} );
+		const combinedResults = getCombinedResults( _results );
 
-	const combinedResults = useMemo(
-		() => getCombinedResults( results ),
-		[ results ]
-	);
+		return { results: combinedResults };
+	} );
 
 	const groupSelector = (
 		<div>
@@ -76,7 +90,7 @@ const SortGroupResults = ( {
 		</div>
 	);
 
-	if ( ! combinedResults ) {
+	if ( ! results ) {
 		return null;
 	}
 
@@ -106,17 +120,6 @@ const SortGroupResults = ( {
 		return result;
 	};
 
-	const selectedResults = useMemo(
-		() =>
-			getGroupedResults(
-				combinedResults,
-				group,
-				sort,
-				interfaceLanguage
-			),
-		[ combinedResults, group, sort, interfaceLanguage ]
-	);
-
 	const getReference = ( result ) => {
 		let referenceString;
 		if ( group === 'word' || group === 'morph' ) {
@@ -136,20 +139,28 @@ const SortGroupResults = ( {
 		return getReferenceFromSearchResult( referenceString );
 	};
 
+	const selectedResults = useMemo(
+		() => getGroupedResults( results, group, sort, interfaceLanguage ),
+		[ results, group, sort, interfaceLanguage ]
+	);
+
+	console.log( 'selectedResults', selectedResults );
+
 	return (
 		<div className={ styles.sortGroupResults }>
 			<fieldset>
 				{ groupSelector }
 				{ sortSelector }
 			</fieldset>
+
+			{ results.length > 0 && <InlineResultsToggle /> }
+
 			{ Object.keys( selectedResults ).map( ( result, index ) => {
 				const label = Array.isArray( selectedResults )
 					? getLabel( selectedResults[ result ][ 0 ] )
 					: result;
 				const percent = Math.round(
-					( selectedResults[ result ].length /
-						combinedResults.length ) *
-						100
+					( selectedResults[ result ].length / results.length ) * 100
 				);
 				const reference = getReference( selectedResults[ result ] );
 				return (
