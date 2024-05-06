@@ -13,8 +13,12 @@ javascripture.state = {};
 
 const SettingsTray = () => {
 	const dispatch = useDispatch();
-	const settings = useSelector( ( state ) => state.settings );
-	const reference = useSelector( ( state ) => state.reference );
+	const { settings, reference } = useSelector( ( state ) => {
+		return {
+			settings: state.settings,
+			reference: state.reference,
+		};
+	} );
 
 	// remove this line
 	javascripture.state.settings = settings;
