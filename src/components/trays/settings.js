@@ -9,19 +9,39 @@ import styles from './styles.scss';
 import { getStore, loadStore } from '../../app';
 
 // set up global - to be deleted
-javascripture.state = {};
+//javascripture.state = {};
 
 const SettingsTray = () => {
+	console.log( 'rerender settings' );
 	const dispatch = useDispatch();
-	const { settings, reference } = useSelector( ( state ) => {
+	const {
+		fontFamily,
+		fontSize,
+		highlightWordsWith,
+		targetColumn,
+		expandedSearchResults,
+		darkMode,
+		compareMode,
+		highlightSearchResults,
+		interfaceLanguage,
+		targetReferenceArray,
+	} = useSelector( ( state ) => {
 		return {
-			settings: state.settings,
-			reference: state.reference,
+			fontFamily: state.settings.fontFamily,
+			fontSize: state.settings.fontSize,
+			highlightWordsWith: state.settings.highlightWordsWith,
+			targetColumn: state.settings.targetColumn,
+			expandedSearchResults: state.settings.expandedSearchResults,
+			darkMode: state.settings.darkMode,
+			compareMode: state.settings.compareMode,
+			highlightSearchResults: state.settings.highlightSearchResults,
+			interfaceLanguage: state.settings.interfaceLanguage,
+			targetReferenceArray: [ ...Array( state.reference.length ).keys() ],
 		};
 	} );
 
 	// remove this line
-	javascripture.state.settings = settings;
+	//javascripture.state.settings = settings;
 
 	const changeSetting = useCallback(
 		( event ) => {
@@ -45,7 +65,7 @@ const SettingsTray = () => {
 							<li className={ styles.settingsLi }>
 								<label>Fonts:</label>
 								<select
-									value={ settings.fontFamily }
+									value={ fontFamily }
 									name="fontFamily"
 									onChange={ changeSetting }
 								>
@@ -75,7 +95,7 @@ const SettingsTray = () => {
 							<li className={ styles.settingsLi }>
 								<label>Font size:</label>
 								<select
-									value={ settings.fontSize }
+									value={ fontSize }
 									name="fontSize"
 									onChange={ changeSetting }
 								>
@@ -97,7 +117,7 @@ const SettingsTray = () => {
 							<li className={ styles.settingsLi }>
 								<label>Highlight words with:</label>
 								<select
-									value={ settings.highlightWordsWith }
+									value={ highlightWordsWith }
 									id="highlightWordsWith"
 									name="highlightWordsWith"
 									onChange={ changeSetting }
@@ -111,12 +131,12 @@ const SettingsTray = () => {
 							<li className={ styles.settingsLi }>
 								<label>Target column:</label>
 								<select
-									value={ settings.targetColumn }
+									value={ targetColumn }
 									id="targetColumn"
 									name="targetColumn"
 									onChange={ changeSetting }
 								>
-									{ reference.map(
+									{ targetReferenceArray.map(
 										( singleReference, key ) => {
 											return (
 												<option
@@ -136,9 +156,7 @@ const SettingsTray = () => {
 									<input
 										type="checkbox"
 										name="expandedSearchResults"
-										checked={
-											settings.expandedSearchResults
-										}
+										checked={ expandedSearchResults }
 										onChange={ changeCheckboxSetting }
 									/>{ ' ' }
 									Show expanded search results
@@ -149,7 +167,7 @@ const SettingsTray = () => {
 									<input
 										type="checkbox"
 										name="darkMode"
-										checked={ settings.darkMode }
+										checked={ darkMode }
 										onChange={ changeCheckboxSetting }
 									/>{ ' ' }
 									Dark Mode
@@ -160,7 +178,7 @@ const SettingsTray = () => {
 									<input
 										type="checkbox"
 										name="compareMode"
-										checked={ settings.compareMode }
+										checked={ compareMode }
 										onChange={ changeCheckboxSetting }
 									/>{ ' ' }
 									Compare Mode
@@ -171,9 +189,7 @@ const SettingsTray = () => {
 									<input
 										type="checkbox"
 										name="highlightSearchResults"
-										checked={
-											settings.highlightSearchResults
-										}
+										checked={ highlightSearchResults }
 										onChange={ changeCheckboxSetting }
 									/>{ ' ' }
 									Highlight all words in a verse when hovering
@@ -183,7 +199,7 @@ const SettingsTray = () => {
 							<li className={ styles.settingsLi }>
 								<label>Interface language:</label>
 								<VersionSelect
-									value={ settings.interfaceLanguage }
+									value={ interfaceLanguage }
 									name="interfaceLanguage"
 									onChange={ changeSetting }
 								/>

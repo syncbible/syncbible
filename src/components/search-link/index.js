@@ -68,7 +68,7 @@ const SearchLink = ( {
 				className={ styles.searchLink }
 				onClick={ ( event ) => {
 					if ( wordId ) {
-						dispatch( setCurrentListResult( wordId, index ) );
+						//dispatch( setCurrentListResult( wordId, index ) );
 					}
 					event.stopPropagation();
 					event.preventDefault();
