@@ -30,8 +30,8 @@ const SortGroupResults = ( {
 		( state ) => state.settings.interfaceLanguage
 	);
 
-	const { results, resultsGrouped, selectedResults, selectedResultsGrouped } =
-		useSelector( ( state ) => {
+	const { results, selectedResults, selectedResultsGrouped } = useSelector(
+		( state ) => {
 			let _list = state.list;
 
 			// This case is just for a single word.
@@ -50,7 +50,6 @@ const SortGroupResults = ( {
 				);
 				return {
 					results: _list.results,
-					resultsGrouped: _list.results,
 					selectedResults: groupedResults,
 					selectedResultsGrouped: groupedResults,
 				};
@@ -79,7 +78,6 @@ const SortGroupResults = ( {
 			// TODO - calling this twice seens very inefficient.
 			return {
 				results: _combinedResults,
-				resultsGrouped: _combinedResultsGrouped,
 				selectedResults: getGroupedResults(
 					_combinedResults,
 					group,
@@ -93,7 +91,8 @@ const SortGroupResults = ( {
 					interfaceLanguage
 				),
 			};
-		} );
+		}
+	);
 
 	const groupSelector = (
 		<div>
@@ -127,7 +126,7 @@ const SortGroupResults = ( {
 		</div>
 	);
 
-	if ( ! resultsGrouped ) {
+	if ( ! selectedResults ) {
 		return null;
 	}
 
@@ -183,7 +182,9 @@ const SortGroupResults = ( {
 				{ sortSelector }
 			</fieldset>
 
-			{ resultsGrouped.length > 0 && <InlineResultsToggle /> }
+			{ selectedResults.length > 0 && group === 'verse' && (
+				<InlineResultsToggle />
+			) }
 
 			{ Object.keys( selectedResultsGrouped ).map( ( result, index ) => {
 				const label = Array.isArray( selectedResultsGrouped )
