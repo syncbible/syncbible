@@ -14,6 +14,34 @@ import {
 import ExpandedSearchResults from '../expanded-search-results';
 import InlineResultsToggle from '../inline-results-toggle';
 
+function getReferenceStringByGroup( reference, group ) {
+	if ( group === 'word' || group === 'morph' ) {
+		return reference.word[ 0 ];
+	}
+
+	if ( group === 'book' ) {
+		return reference[ 0 ];
+	}
+	if ( group === 'chapter' ) {
+		return reference[ 0 ] + '.' + reference[ 1 ];
+	}
+
+	return reference.join( '.' );
+}
+
+function getCountedResults( results, group ) {
+	const countedResults = {};
+	results.forEach( ( resultArray ) => {
+		const referenceString = getReferenceStringByGroup(
+			resultArray[ 0 ],
+			group
+		);
+
+		countedResults[ referenceString ] = resultArray.length;
+	} );
+	return countedResults;
+}
+
 const SortGroupResults = ( {
 	type = null,
 	version,
@@ -26,12 +54,11 @@ const SortGroupResults = ( {
 	const dispatch = useDispatch();
 	const [ group, setGroup ] = useState( initialGroup );
 	const [ sort, setSort ] = useState( initialSort );
-	const interfaceLanguage = useSelector(
-		( state ) => state.settings.interfaceLanguage
-	);
 
-	const { results, selectedResults, selectedResultsGrouped } = useSelector(
-		( state ) => {
+	const { totalResultsCount, countedResults, selectedResultsGrouped } =
+		useSelector( ( state ) => {
+			// TODO - move translated book name higher.
+			const interfaceLanguage = state.settings.interfaceLanguage;
 			let _list = state.list;
 
 			// This case is just for a single word.
@@ -49,8 +76,8 @@ const SortGroupResults = ( {
 					interfaceLanguage
 				);
 				return {
-					results: _list.results,
-					selectedResults: groupedResults,
+					totalResultsCount: _list.results.length,
+					countedResults: getCountedResults( groupedResults, group ),
 					selectedResultsGrouped: groupedResults,
 				};
 			} else if ( type ) {
@@ -70,20 +97,21 @@ const SortGroupResults = ( {
 				group
 			);
 
+			// TODO - calling this twice seens very inefficient.
+			const selectedResults = getGroupedResults(
+				_combinedResults,
+				group,
+				sort,
+				interfaceLanguage
+			);
+
 			// results are all the results to do things like percentages
 			// resultsGrouped are grouped by the selected group.
 			// This is necessary because otherwise if a passage contains lots of instances of the same word it would be counted as significant by getGroupedResults
 			// Instead we have to combined the results by group before grouping them again.
-
-			// TODO - calling this twice seens very inefficient.
 			return {
-				results: _combinedResults,
-				selectedResults: getGroupedResults(
-					_combinedResults,
-					group,
-					sort,
-					interfaceLanguage
-				),
+				totalResultsCount: _combinedResults.length,
+				countedResults: getCountedResults( selectedResults, group ),
 				selectedResultsGrouped: getGroupedResults(
 					_combinedResultsGrouped,
 					group,
@@ -91,8 +119,7 @@ const SortGroupResults = ( {
 					interfaceLanguage
 				),
 			};
-		}
-	);
+		} );
 
 	const groupSelector = (
 		<div>
@@ -126,7 +153,7 @@ const SortGroupResults = ( {
 		</div>
 	);
 
-	if ( ! selectedResults ) {
+	if ( ! selectedResultsGrouped ) {
 		return null;
 	}
 
@@ -182,22 +209,37 @@ const SortGroupResults = ( {
 				{ sortSelector }
 			</fieldset>
 
-			{ selectedResults.length > 0 && group === 'verse' && (
+			{ selectedResultsGrouped.length > 0 && group === 'verse' && (
 				<InlineResultsToggle />
 			) }
 
 			{ Object.keys( selectedResultsGrouped ).map( ( result, index ) => {
+				const referenceString = getReferenceStringByGroup(
+					selectedResultsGrouped[ result ][ 0 ],
+					group
+				);
 				const label = Array.isArray( selectedResultsGrouped )
 					? getLabel( selectedResultsGrouped[ result ][ 0 ] )
 					: result;
 				const percent = Math.round(
-					( selectedResults[ result ].length / results.length ) * 100
+					( countedResults[ referenceString ] / totalResultsCount ) *
+						100
 				);
 				const reference = getReference(
 					selectedResultsGrouped[ result ]
 				);
+
+				const title =
+					selectedResultsGrouped[ result ].length +
+					' of type / ' +
+					countedResults[ referenceString ] +
+					'  total';
 				return (
-					<div key={ index } className={ styles.sortGroupResult }>
+					<div
+						key={ index }
+						className={ styles.sortGroupResult }
+						title={ title }
+					>
 						<span
 							className={ classnames(
 								styles.sortGroupResultCount,
@@ -217,8 +259,7 @@ const SortGroupResults = ( {
 						>
 							{ label }{ ' ' }
 							<span className={ styles.sortGroupResultNumber }>
-								({ selectedResults[ result ].length }
-								{ percent > 1 && ' - ' + percent + '%' })
+								{ percent > 1 && ' - ' + percent + '%' }
 							</span>
 						</a>
 						{ allowPreview && group === 'verse' && (
