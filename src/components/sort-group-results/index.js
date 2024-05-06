@@ -259,7 +259,8 @@ const SortGroupResults = ( {
 						>
 							{ label }{ ' ' }
 							<span className={ styles.sortGroupResultNumber }>
-								{ percent > 1 && ' - ' + percent + '%' }
+								({ countedResults[ referenceString ] }
+								{ percent > 1 && ' - ' + percent + '%' })
 							</span>
 						</a>
 						{ allowPreview && group === 'verse' && (
