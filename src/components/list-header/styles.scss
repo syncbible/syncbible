@@ -1,0 +1,23 @@
+@import '../dimensions';
+.list-header {
+    background: var(--background-ui);
+    box-shadow:  0 0 5px var(--shadow);
+    display: flex;
+    justify-content: flex-end;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+}
+
+.list-header button {
+    background: var(--background-ui);
+    border: none;
+    cursor: pointer;
+    width: calc( $dock-height / 2 );
+
+    &[aria-disabled] {
+        fill: red;
+        opacity: .5;
+    }
+}
