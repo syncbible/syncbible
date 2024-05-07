@@ -1,7 +1,7 @@
 // External
 import React from 'react';
 import classnames from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 // Internal
 import { activateSearchSelect, selectWord, updateData } from '../../actions';
@@ -10,6 +10,7 @@ import morphology from '../../lib/morphology';
 import { getLiteralConsistentTranslation } from '../utils.js';
 
 const WordSingleComponent = ( props ) => {
+	console.log( 'render WordSingleComponent' );
 	// wordText is the word to display, usually the same as word unless this is LC.
 	const { lemma, morph, version, word, wordText, reference, index } = props;
 	const lemmaArray = lemma ? lemma.split( /[\&\s]/ ) : []; // Split by space or &.
@@ -30,7 +31,7 @@ const WordSingleComponent = ( props ) => {
 			),
 			strongsObjectWithFamilies: state.data.strongsObjectWithFamilies,
 		};
-	} );
+	}, shallowEqual );
 
 	const clearHighlightWord = () => {
 		window.updateAppComponent( 'highlightedWord', '' );
