@@ -10,7 +10,6 @@ import morphology from '../../lib/morphology';
 import { getLiteralConsistentTranslation } from '../utils.js';
 
 const WordSingleComponent = ( props ) => {
-	console.log( 'render WordSingleComponent' );
 	// wordText is the word to display, usually the same as word unless this is LC.
 	const { lemma, morph, version, word, wordText, reference, index } = props;
 	const lemmaArray = lemma ? lemma.split( /[\&\s]/ ) : []; // Split by space or &.
