@@ -1,6 +1,6 @@
 // External dependencies
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 // Internal dependencies
 import { settingsChange } from '../../actions';
@@ -8,11 +8,7 @@ import VersionSelect from '../version-select';
 import styles from './styles.scss';
 import { getStore, loadStore } from '../../app';
 
-// set up global - to be deleted
-//javascripture.state = {};
-
 const SettingsTray = () => {
-	console.log( 'rerender settings' );
 	const dispatch = useDispatch();
 	const {
 		fontFamily,
@@ -24,7 +20,7 @@ const SettingsTray = () => {
 		compareMode,
 		highlightSearchResults,
 		interfaceLanguage,
-		targetReferenceArray,
+		referenceCount,
 	} = useSelector( ( state ) => {
 		return {
 			fontFamily: state.settings.fontFamily,
@@ -36,12 +32,11 @@ const SettingsTray = () => {
 			compareMode: state.settings.compareMode,
 			highlightSearchResults: state.settings.highlightSearchResults,
 			interfaceLanguage: state.settings.interfaceLanguage,
-			targetReferenceArray: [ ...Array( state.reference.length ).keys() ],
+			referenceCount: state.reference.length,
 		};
-	} );
+	}, shallowEqual );
 
-	// remove this line
-	//javascripture.state.settings = settings;
+	const targetReferenceArray = [ ...Array( referenceCount ).keys() ];
 
 	const changeSetting = useCallback(
 		( event ) => {
