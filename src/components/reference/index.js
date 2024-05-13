@@ -14,6 +14,7 @@ let oldHeight = 0,
 	isScrolling = false;
 
 const ReferenceComponent = ( props ) => {
+	// We use a local component state to handle scrolling
 	const [ references, setReferences ] = useState( {} );
 	const referenceWindow = useRef();
 	const inSync = useSelector( ( state ) => state.settings.inSync );
@@ -97,7 +98,7 @@ const ReferenceComponent = ( props ) => {
 	};
 
 	const addNextChapter = () => {
-		var localReferences = references.references.slice(),
+		const localReferences = references.references.slice(),
 			lastReference = localReferences[ localReferences.length - 1 ],
 			currentReference = bible.parseReference(
 				lastReference.bookName + ' ' + lastReference.chapter1
@@ -127,7 +128,7 @@ const ReferenceComponent = ( props ) => {
 	const addPreviousChapter = () => {
 		document.body.style.overflow = 'hidden';
 
-		var localReferences = references.references.slice(),
+		const localReferences = references.references.slice(),
 			firstReference = localReferences[ 0 ],
 			currentReference = bible.parseReference(
 				firstReference.bookName + ' ' + firstReference.chapter1
