@@ -73,13 +73,17 @@ const Chapter = ( { book, chapter, index } ) => {
 		}
 	};
 
-	const isCurrentRef = ( verseNumber ) =>
-		currentReference &&
-		currentReference.book === book &&
-		currentReference.chapter === chapter &&
-		currentReference.verse === verseNumber + 1
+	const isCurrentRef = ( verseNumber ) => {
+		if ( verseNumber === null ) {
+			return false;
+		}
+		return currentReference &&
+			currentReference.book === book &&
+			currentReference.chapter === chapter &&
+			currentReference.verse === verseNumber + 1
 			? currentRef
 			: null;
+	};
 
 	const textToCopyRef = createRef( book + chapter + version + index );
 	const [ textToCopyText, setTextToCopyText ] = useState( '' );
@@ -146,6 +150,10 @@ const Chapter = ( { book, chapter, index } ) => {
 										index,
 									};
 								}
+								const newVerseNumber =
+									parsedReference.verseNumber !== null
+										? parsedReference.verseNumber + 1
+										: null;
 								return (
 									<VerseWrapper
 										lang={ getLanguageFromVersion(
@@ -155,18 +163,14 @@ const Chapter = ( { book, chapter, index } ) => {
 										book={ parsedReference.book }
 										version={ version }
 										chapter={ parsedReference.chapter }
-										verse={
-											parsedReference.verseNumber + 1
-										}
+										verse={ newVerseNumber }
 										key={
 											'versewrapper' +
 											index +
-											parsedReference.verseNumber
+											newVerseNumber
 										}
 										isCurrentRef={
-											!! isCurrentRef(
-												parsedReference.verseNumber
-											)
+											!! isCurrentRef( newVerseNumber )
 										}
 									/>
 								);
