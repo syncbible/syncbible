@@ -10,14 +10,13 @@ import UnfoldLess from '../svg/unfold-less';
 
 const ListHeader = ( { tray } ) => {
 	const dispatch = useDispatch();
-	const { openListItems } = useSelector( ( state ) => {
+	const openListItems = useSelector( ( state ) => {
 		// Are there any open list items?
-		return {
-			openListItems:
-				Object.keys( state.userInterface ).filter(
-					( item ) => state.userInterface[ item ]
-				).length > 0,
-		};
+		return (
+			Object.keys( state.userInterface ).filter(
+				( item ) => state.userInterface[ item ]
+			).length > 0
+		);
 	} );
 
 	return (

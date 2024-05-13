@@ -16,7 +16,7 @@ import styles from './style.scss';
 const Controls = () => {
 	const dispatch = useDispatch();
 	const inSync = useSelector( ( state ) => state.settings.inSync );
-	const reference = useSelector( ( state ) => state.reference );
+	const referenceLength = useSelector( ( state ) => state.reference.length );
 	const change = ( event ) => {
 		if ( event.target.value === 'add' ) {
 			dispatch( addColumnAction() );
@@ -39,7 +39,7 @@ const Controls = () => {
 	};
 	const [ value, setValue ] = useState( '' );
 
-	if ( reference.length > 1 ) {
+	if ( referenceLength > 1 ) {
 		return (
 			<div className={ styles.controls }>
 				<button className={ styles.menu }>
@@ -65,7 +65,7 @@ const Controls = () => {
 		);
 	}
 
-	if ( reference.length === 1 ) {
+	if ( referenceLength === 1 ) {
 		return (
 			<div className={ styles.controls }>
 				<button

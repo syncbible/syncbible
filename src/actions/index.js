@@ -40,6 +40,22 @@ export const goToReferenceAction = ( reference, targetColumn ) => {
 	};
 };
 
+export const goToChapterAction = ( chapterToGoTo ) => {
+	return function ( dispatch, getState ) {
+		const state = getState();
+		const bookId = bible.getBookId( state.reference[ 0 ].book );
+		const reference = { ...state.reference[ 0 ] };
+		reference.verse = 1;
+		if ( bible.Data.verses[ bookId - 1 ][ chapterToGoTo - 1 ] ) {
+			reference.chapter = chapterToGoTo;
+		} else {
+			// Go to the last chapter.
+			reference.chapter = bible.Data.verses[ bookId - 1 ].length;
+		}
+		dispatch( goToReferenceAction( reference ) );
+	};
+};
+
 export const syncReferences = () => {
 	return function ( dispatch, getState ) {
 		const state = getState();

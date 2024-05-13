@@ -18,7 +18,6 @@ const SearchLink = ( {
 	isActive,
 	referenceToDisplay,
 } ) => {
-	console.log( 'render Searching' );
 	// State constants
 	const highlightSearchResults = useSelector(
 		( state ) => state.settingshighlightSearchResults
