@@ -22,6 +22,11 @@ const scrollChapter = ( state = initialState, action ) => {
 			newState[ index ] = { book, chapter };
 			return newState;
 
+		case 'SET_SCROLL_CHAPTER_SYNCED':
+			return state.map( () => {
+				return { book: action.book, chapter: action.chapter };
+			} );
+
 		case 'REMOVE_COLUMN':
 			const removedState = [ ...state ];
 			removedState.splice( action.index, 1 );

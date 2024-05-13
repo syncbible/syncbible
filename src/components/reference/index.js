@@ -5,10 +5,14 @@ import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal
-import { setScrollChapter } from '../../actions';
+import { setScrollChapter, setScrollChapterSynced } from '../../actions';
 import Chapter from './chapter';
 import styles from './styles.scss';
-import { getNextChapter, getPreviousChapter } from '../../lib/reference';
+import {
+	getNextChapter,
+	getPreviousChapter,
+	areReferencesInSync,
+} from '../../lib/reference';
 
 let oldHeight = 0,
 	scroller = null,
@@ -41,6 +45,8 @@ const getReferencesFromProps = ( nextProps ) => {
 const ReferenceComponent = ( props ) => {
 	// We use a local component state to handle scrolling
 	const [ references, setReferences ] = useState( {} );
+	const stateReference = useSelector( ( state ) => state.reference );
+	const stateReferencesInSync = areReferencesInSync( stateReference );
 	const referenceWindow = useRef();
 	const inSync = useSelector( ( state ) => state.settings.inSync );
 	const dispatch = useDispatch();
@@ -104,20 +110,33 @@ const ReferenceComponent = ( props ) => {
 		if ( event.previousPosition === 'above' ) {
 			const prevChapter = getPreviousChapter( { book, chapter } );
 			if ( prevChapter ) {
-				dispatch(
-					setScrollChapter(
-						prevChapter.book,
-						prevChapter.chapter,
-						props.index
-					)
-				);
+				if ( stateReferencesInSync ) {
+					dispatch(
+						setScrollChapterSynced(
+							prevChapter.book,
+							prevChapter.chapter
+						)
+					);
+				} else {
+					dispatch(
+						setScrollChapter(
+							prevChapter.book,
+							prevChapter.chapter,
+							props.index
+						)
+					);
+				}
 			}
 		}
 	};
 
 	const handleWaypointLeave = ( event, book, chapter ) => {
 		if ( event.currentPosition === 'above' ) {
-			dispatch( setScrollChapter( book, chapter, props.index ) );
+			if ( stateReferencesInSync ) {
+				dispatch( setScrollChapterSynced( book, chapter ) );
+			} else {
+				dispatch( setScrollChapter( book, chapter, props.index ) );
+			}
 		}
 	};
 
@@ -228,7 +247,6 @@ const ReferenceComponent = ( props ) => {
 								onLeave={ ( event ) =>
 									handleWaypointLeave( event, book, chapter )
 								}
-								topOffset={ 0 } // This is the height of the dock
 							/>
 							<Chapter
 								book={ book }

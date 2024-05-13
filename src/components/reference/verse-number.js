@@ -32,6 +32,7 @@ const VerseNumber = ( { book, chapter, verse } ) => {
 		<span
 			className={ classnames( styles.verseNumber ) }
 			onClick={ addBookmarkAction }
+			title={ book + ' ' + chapter + ':' + verse }
 		>
 			<span>{ verse }</span>
 			<span className={ styles.verseNumberIcon }>

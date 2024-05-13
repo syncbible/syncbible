@@ -96,7 +96,9 @@ const Chapter = ( { book, chapter, index } ) => {
 	}, [ textToCopyText ] );
 
 	const getSyncVerses = () => {
-		const title = (
+		let parsedReference;
+		let harmonised = false;
+		const title = book !== 'Harmony' && (
 			<div className={ styles.chapterColumn }>
 				{ reference.map( ( { version }, index ) => {
 					return (
@@ -134,8 +136,8 @@ const Chapter = ( { book, chapter, index } ) => {
 							ref={ isCurrentRef( verseNumber ) }
 						>
 							{ reference.map( ( { version }, index ) => {
-								let parsedReference;
 								if ( book === 'Harmony' ) {
+									harmonised = true;
 									parsedReference = getHarmonisedReference( {
 										book,
 										chapter,
@@ -172,6 +174,8 @@ const Chapter = ( { book, chapter, index } ) => {
 										isCurrentRef={
 											!! isCurrentRef( newVerseNumber )
 										}
+										index={ index }
+										harmonised={ harmonised }
 									/>
 								);
 							} ) }
@@ -214,6 +218,7 @@ const Chapter = ( { book, chapter, index } ) => {
 								chapter={ chapter }
 								verse={ verseNumber + 1 }
 								isCurrentRef={ isCurrentRef( verseNumber ) }
+								index={ index }
 							/>
 						</div>
 					);

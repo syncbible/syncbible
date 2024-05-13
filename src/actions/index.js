@@ -106,6 +106,14 @@ export const setScrollChapter = ( book, chapter, index ) => {
 	};
 };
 
+export function setScrollChapterSynced( book, chapter ) {
+	return {
+		book,
+		chapter,
+		type: 'SET_SCROLL_CHAPTER_SYNCED',
+	};
+}
+
 export const settingsChange = ( settingName, settingValue ) => {
 	var returnValue = {
 		type: 'SETTINGS_CHANGE',
