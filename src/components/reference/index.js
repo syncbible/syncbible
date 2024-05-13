@@ -13,6 +13,36 @@ let oldHeight = 0,
 	scroller = null,
 	isScrolling = false;
 
+const getReferencesFromProps = ( nextProps ) => {
+	if ( ! nextProps.reference || ! nextProps.reference.book ) {
+		return null;
+	}
+
+	const book = nextProps.reference.book,
+		chapter = nextProps.reference.chapter,
+		references = [],
+		loadingPrev = false,
+		prevChapterData = bible
+			.parseReference( book + ' ' + chapter )
+			.prevChapter(),
+		nextChapterData = bible
+			.parseReference( book + ' ' + chapter )
+			.nextChapter();
+
+	if ( prevChapterData ) {
+		references.push( Object.assign( {}, prevChapterData ) );
+	}
+	references.push(
+		Object.assign( {}, bible.parseReference( book + ' ' + chapter ) )
+	);
+
+	if ( nextChapterData ) {
+		references.push( Object.assign( {}, nextChapterData ) );
+	}
+
+	return { book, chapter, references, loadingPrev };
+};
+
 const ReferenceComponent = ( props ) => {
 	// We use a local component state to handle scrolling
 	const [ references, setReferences ] = useState( {} );
@@ -21,7 +51,7 @@ const ReferenceComponent = ( props ) => {
 	const dispatch = useDispatch();
 
 	useEffect( () => {
-		setReferences( getReferences( props ) );
+		setReferences( getReferencesFromProps( props ) );
 	}, [ props ] );
 
 	useLayoutEffect( () => {
@@ -156,36 +186,6 @@ const ReferenceComponent = ( props ) => {
 			references: localReferences,
 			loadingPrev: true,
 		} );
-	};
-
-	const getReferences = ( nextProps ) => {
-		if ( ! nextProps.reference || ! nextProps.reference.book ) {
-			return null;
-		}
-
-		const book = nextProps.reference.book,
-			chapter = nextProps.reference.chapter,
-			references = [],
-			loadingPrev = false,
-			prevChapterData = bible
-				.parseReference( book + ' ' + chapter )
-				.prevChapter(),
-			nextChapterData = bible
-				.parseReference( book + ' ' + chapter )
-				.nextChapter();
-
-		if ( prevChapterData ) {
-			references.push( Object.assign( {}, prevChapterData ) );
-		}
-		references.push(
-			Object.assign( {}, bible.parseReference( book + ' ' + chapter ) )
-		);
-
-		if ( nextChapterData ) {
-			references.push( Object.assign( {}, nextChapterData ) );
-		}
-
-		return { book, chapter, references, loadingPrev };
 	};
 
 	if ( ! references || ! references.book ) {
