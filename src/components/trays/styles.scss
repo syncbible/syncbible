@@ -205,6 +205,8 @@
 
 .sidebarButton {
 	background: var(--background-ui);
-	border: none;
+	border-bottom: none;
+	border-left: none;
+	border-top: none;
 	width: $dock-height;
 }
