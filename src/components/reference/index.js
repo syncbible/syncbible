@@ -102,13 +102,12 @@ const ReferenceComponent = ( props ) => {
 
 	const handleWaypointEnter = ( event, book, chapter ) => {
 		if ( event.previousPosition === 'above' ) {
-			const currentChapter = bible.parseReference( book + ' ' + chapter );
-			const prevChapter = currentChapter.prevChapter();
+			const prevChapter = getPreviousChapter( { book, chapter } );
 			if ( prevChapter ) {
 				dispatch(
 					setScrollChapter(
 						prevChapter.book,
-						prevChapter.chapter1,
+						prevChapter.chapter,
 						props.index
 					)
 				);

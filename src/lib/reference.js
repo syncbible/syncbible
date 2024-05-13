@@ -307,6 +307,10 @@ export const areReferencesInSync = ( stateReference ) => {
 };
 
 export function getPreviousChapter( { book, chapter } ) {
+	if ( book === 'Harmony' ) {
+		return null;
+	}
+
 	let bookId = bible.getBookId( book + ' ' + chapter );
 	if ( chapter == 1 && bookId > 1 ) {
 		bookId--;
@@ -321,6 +325,9 @@ export function getPreviousChapter( { book, chapter } ) {
 	return { book: newBookName, chapter };
 }
 export function getNextChapter( { book, chapter } ) {
+	if ( book === 'Harmony' ) {
+		return null;
+	}
 	let bookId = bible.getBookId( book + ' ' + chapter );
 	if ( chapter < bible.Data.verses[ bookId - 1 ].length ) {
 		chapter++;
@@ -333,6 +340,30 @@ export function getNextChapter( { book, chapter } ) {
 
 	const newBookName = bible.getBook( bookId );
 	return { book: newBookName, chapter };
+}
+
+export function getNumberOfVerses( { book, chapter } ) {
+	if ( book === 'Harmony' ) {
+		return harmonised.length;
+	}
+	const bookId = bible.getBookId( book + ' ' + chapter );
+	return bible.Data.verses[ bookId - 1 ][ chapter - 1 ];
+}
+
+export function getHarmonisedReference( {
+	book,
+	chapter,
+	verseNumber,
+	index,
+} ) {
+	const harmonisedReference = harmonised[ verseNumber ][ index ];
+	const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
+	return {
+		book: books[ index ],
+		chapter: harmonisedReference[ 0 ],
+		verseNumber: harmonisedReference[ 1 ] - 1,
+		index,
+	};
 }
 
 export const goToReferenceHelper = (

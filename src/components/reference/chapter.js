@@ -8,7 +8,12 @@ import { fetchData } from '../../actions';
 import Title from './title';
 import VerseWrapper from './verse-wrapper';
 import styles from './styles.scss';
-import { mapVersionToData, areReferencesInSync } from '../../lib/reference';
+import {
+	mapVersionToData,
+	areReferencesInSync,
+	getNumberOfVerses,
+	getHarmonisedReference,
+} from '../../lib/reference';
 import copyToClipboardHelper from '../../lib/copy-to-clipboard-helper';
 
 function getLanguageFromVersion( version, book ) {
@@ -27,9 +32,7 @@ const Chapter = ( { book, chapter, index } ) => {
 	const currentReference = reference[ index ];
 	const startVerse = currentReference.verse;
 	const endVerse = currentReference.endVerse;
-
-	const bookId = bible.getBookId( book + ' ' + chapter );
-	const numberOfVerses = bible.Data.verses[ bookId - 1 ][ chapter - 1 ];
+	const numberOfVerses = getNumberOfVerses( { book, chapter } );
 	const verseMap = [];
 	for ( let number = 0; number < numberOfVerses; number++ ) {
 		verseMap.push( number );
@@ -127,21 +130,43 @@ const Chapter = ( { book, chapter, index } ) => {
 							ref={ isCurrentRef( verseNumber ) }
 						>
 							{ reference.map( ( { version }, index ) => {
+								let parsedReference;
+								if ( book === 'Harmony' ) {
+									parsedReference = getHarmonisedReference( {
+										book,
+										chapter,
+										verseNumber,
+										index,
+									} );
+								} else {
+									parsedReference = {
+										book,
+										chapter,
+										verseNumber,
+										index,
+									};
+								}
 								return (
 									<VerseWrapper
 										lang={ getLanguageFromVersion(
 											version,
 											book
 										) }
-										book={ book }
+										book={ parsedReference.book }
 										version={ version }
-										chapter={ chapter }
-										verse={ verseNumber + 1 }
+										chapter={ parsedReference.chapter }
+										verse={
+											parsedReference.verseNumber + 1
+										}
 										key={
-											'versewrapper' + index + verseNumber
+											'versewrapper' +
+											index +
+											parsedReference.verseNumber
 										}
 										isCurrentRef={
-											!! isCurrentRef( verseNumber )
+											!! isCurrentRef(
+												parsedReference.verseNumber
+											)
 										}
 									/>
 								);

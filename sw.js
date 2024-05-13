@@ -22,6 +22,7 @@ self.addEventListener( 'install', function ( e ) {
 				'data/searchResults.json',
 				'data/crossReferences.json',
 				'data/cdrplan.min.js',
+				'data/harmonised.js',
 
 				//api - so that search works offline?
 				'api/searchApi.js',
