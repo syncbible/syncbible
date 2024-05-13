@@ -42,6 +42,7 @@ function getCountedResults( results, group ) {
 	return countedResults;
 }
 
+let totalResultsCount, countedResults, selectedResultsGrouped;
 const SortGroupResults = ( {
 	type = null,
 	version,
@@ -55,71 +56,97 @@ const SortGroupResults = ( {
 	const [ group, setGroup ] = useState( initialGroup );
 	const [ sort, setSort ] = useState( initialSort );
 
-	const { totalResultsCount, countedResults, selectedResultsGrouped } =
-		useSelector( ( state ) => {
-			// TODO - move translated book name higher.
-			const interfaceLanguage = state.settings.interfaceLanguage;
-			let _list = state.list;
+	const interfaceLanguage = useSelector(
+		( state ) => state.settings.interfaceLanguage
+	);
+	const _list = useSelector( ( state ) => {
+		if ( type && strongsNumber && version ) {
+			return state.list.find(
+				( { listType, data } ) =>
+					listType === 'word' &&
+					data.lemma === strongsNumber &&
+					data.version === version
+			);
+		} else if ( type ) {
+			// This for for all results of a certain type, e.g. word.
+			return state.list.filter( ( { listType } ) => listType === type );
+		}
+		return state.list;
+	}, shallowEqual );
 
-			// This case is just for a single word.
-			if ( type && strongsNumber && version ) {
-				_list = state.list.find(
-					( { listType, data } ) =>
-						listType === 'word' &&
-						data.lemma === strongsNumber &&
-						data.version === version
-				);
-				const groupedResults = getGroupedResults(
+	if ( type && strongsNumber && version ) {
+		const groupedResults = useMemo(
+			() =>
+				getGroupedResults(
 					_list.results,
 					group,
 					sort,
 					interfaceLanguage
-				);
-				return {
-					totalResultsCount: _list.results.length,
-					countedResults: getCountedResults( groupedResults, group ),
-					selectedResultsGrouped: groupedResults,
-				};
-			} else if ( type ) {
-				// This for for all results of a certain type, e.g. word.
-				_list = state.list.filter(
-					( { listType } ) => listType === type
-				);
-			}
+				),
+			getGroupedResults,
+			_list,
+			group,
+			sort,
+			interfaceLanguage
+		);
+		totalResultsCount = _list.results.length;
+		countedResults = useMemo(
+			() => getCountedResults( groupedResults, group ),
+			[ getCountedResults, groupedResults, group ]
+		);
+		selectedResultsGrouped = groupedResults;
+	} else {
+		const _results = _list.map( ( { results } ) => {
+			return results;
+		} );
 
-			const _results = _list.map( ( { results } ) => {
-				return results;
-			} );
+		const _combinedResults = useMemo(
+			() => getCombinedResults( _results ),
+			[ getCombinedResults, _results ]
+		);
+		const _combinedResultsGrouped = useMemo(
+			() => getCombinedResults( _results, group ),
+			[ getCombinedResults, _results, group ]
+		);
 
-			const _combinedResults = getCombinedResults( _results );
-			const _combinedResultsGrouped = getCombinedResults(
-				_results,
-				group
-			);
-
-			// TODO - calling this twice seens very inefficient.
-			const selectedResults = getGroupedResults(
+		// TODO - calling this twice seens very inefficient.
+		const selectedResults = useMemo(
+			() =>
+				getGroupedResults(
+					_combinedResults,
+					group,
+					sort,
+					interfaceLanguage
+				),
+			[
+				getGroupedResults,
 				_combinedResults,
 				group,
 				sort,
-				interfaceLanguage
-			);
+				interfaceLanguage,
+			]
+		);
 
-			// results are all the results to do things like percentages
-			// resultsGrouped are grouped by the selected group.
-			// This is necessary because otherwise if a passage contains lots of instances of the same word it would be counted as significant by getGroupedResults
-			// Instead we have to combined the results by group before grouping them again.
-			return {
-				totalResultsCount: _combinedResults.length,
-				countedResults: getCountedResults( selectedResults, group ),
-				selectedResultsGrouped: getGroupedResults(
+		// results are all the results to do things like percentages
+		// resultsGrouped are grouped by the selected group.
+		// This is necessary because otherwise if a passage contains lots of instances of the same word it would be counted as significant by getGroupedResults
+		// Instead we have to combined the results by group before grouping them again.
+		totalResultsCount = _combinedResults.length;
+		countedResults = useMemo(
+			() => getCountedResults( selectedResults, group ),
+			[ getCountedResults, selectedResults, group ]
+		);
+		selectedResultsGrouped = useMemo(
+			() =>
+				getGroupedResults(
 					_combinedResultsGrouped,
 					group,
 					sort,
 					interfaceLanguage
 				),
-			};
-		}, shallowEqual );
+			[ _combinedResultsGrouped, group, sort, interfaceLanguage ]
+		);
+	}
 
 	const groupSelector = (
 		<div>
