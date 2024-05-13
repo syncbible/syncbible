@@ -42,8 +42,8 @@
 
 	@media ( min-width: 960px ) {
 		left: 0;
-		margin-left: 320px;
-		width: calc( 100% - 320px );
+		margin-left: $sidebar-width;
+		width: calc( 100% - $sidebar-width );
 	}
 }
 

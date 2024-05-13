@@ -2,7 +2,7 @@
 @import '../dimensions.scss';
 
 .collapsible {
-	max-width: calc( 320px - $dock-height ); // For the full screen view
+	max-width: calc( $sidebar-width - $dock-height ); // For the full screen view
 	width: 100%;
 
 	a {

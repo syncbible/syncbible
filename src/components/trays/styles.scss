@@ -17,8 +17,8 @@
 }
 
 .isReferenceMode {
-	left: calc( -320px - $dock-height );
-	width: calc( 320px - $dock-height );
+	left: calc( 0px - $sidebar-width - $dock-height );
+	width: calc( $sidebar-width - $dock-height );
 
 	&.sidebarOpen {
 		left: $dock-height;

@@ -116,7 +116,7 @@ const Trays = () => {
 	);
 	const sidebarOpen = useSelector( ( state ) => state.sidebar );
 	const drawerBleeding = 10; // Might be too small.
-	const drawerWidth = compareMode ? '100vw' : 320;
+	const drawerWidth = compareMode ? '100vw' : 350;
 	const iOS =
 		typeof navigator !== 'undefined' &&
 		/iPad|iPhone|iPod/.test( navigator.userAgent );
