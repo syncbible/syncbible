@@ -15,7 +15,6 @@ let oldHeight = 0,
 
 const ReferenceComponent = ( props ) => {
 	const [ references, setReferences ] = useState( {} );
-	const reference = useSelector( ( state ) => state.reference );
 	const referenceWindow = useRef();
 	const inSync = useSelector( ( state ) => state.settings.inSync );
 	const dispatch = useDispatch();
@@ -200,10 +199,7 @@ const ReferenceComponent = ( props ) => {
 	const currentChapter = references.chapter;
 
 	const referenceHasEndVerse = () => {
-		return (
-			reference.filter( ( singleReference ) => singleReference.endVerse )
-				.length > 0
-		);
+		return props.reference.endVerse;
 	};
 
 	if ( referenceHasEndVerse() ) {
