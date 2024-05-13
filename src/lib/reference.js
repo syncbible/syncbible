@@ -360,8 +360,10 @@ export function getHarmonisedReference( {
 	const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
 	return {
 		book: books[ index ],
-		chapter: harmonisedReference[ 0 ],
-		verseNumber: harmonisedReference[ 1 ] - 1,
+		chapter: harmonisedReference[ 0 ] ?? null,
+		verseNumber: harmonisedReference[ 1 ]
+			? harmonisedReference[ 1 ] - 1
+			: null,
 		index,
 	};
 }
