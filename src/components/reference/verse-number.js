@@ -9,7 +9,7 @@ import styles from './styles.scss';
 import Bookmark from '../svg/bookmark';
 import { getCrossReferences } from '../../lib/cross-references';
 
-const VerseNumber = React.memo( ( { book, chapter, verse, isCurrentRef } ) => {
+const VerseNumber = ( { book, chapter, verse } ) => {
 	const dispatch = useDispatch();
 	const data = useSelector( ( state ) => state.data );
 
@@ -39,6 +39,6 @@ const VerseNumber = React.memo( ( { book, chapter, verse, isCurrentRef } ) => {
 			</span>
 		</span>
 	);
-} );
+};
 
-export default VerseNumber;
+export default React.memo( VerseNumber );

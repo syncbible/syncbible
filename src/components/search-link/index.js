@@ -18,10 +18,14 @@ const SearchLink = ( {
 	isActive,
 	referenceToDisplay,
 } ) => {
+	console.log( 'render Searching' );
 	// State constants
-	const settings = useSelector( ( state ) => state.settings );
-	const highlightSearchResults = settings && settings.highlightSearchResults;
-	const interfaceLanguage = settings && settings.interfaceLanguage;
+	const highlightSearchResults = useSelector(
+		( state ) => state.settingshighlightSearchResults
+	);
+	const interfaceLanguage = useSelector(
+		( state ) => state.interfaceLanguage
+	);
 
 	const reference = getReferenceFromSearchResult( referenceString );
 	if ( ! reference ) {
