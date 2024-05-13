@@ -1,6 +1,6 @@
 // External
 import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import classnames from 'classnames';
 
 // Internal
@@ -16,12 +16,19 @@ import VersionSelect from '../version-select';
 
 const Dock = () => {
 	const dispatch = useDispatch();
-	const reference = useSelector( ( state ) => state.reference );
+	const versionArray = useSelector(
+		( state ) =>
+			state.reference.map(
+				( reference, index ) => reference.version ?? 'KJV'
+			),
+		shallowEqual
+	);
+	const showControls = useSelector( ( state ) => state.reference.length > 0 );
 	const sidebarOpen = useSelector( ( state ) => state.sidebar );
 	const className = classnames(
 		styles.dock,
 		sidebarOpen ? styles.dockWithSidebarOpen : null,
-		reference.length ? null : styles.noReference
+		showControls ? null : styles.noReference
 	);
 	const onSelectVerion = useCallback(
 		( event ) => {
@@ -37,22 +44,17 @@ const Dock = () => {
 	return (
 		<div className={ className }>
 			<div className={ styles.dockVersionSelectors }>
-				{ reference.length === 0 && (
+				{ ! showControls && (
 					<VersionSelect onChange={ onSelectVerion } large={ true } />
 				) }
-				{ reference.map( ( reference, index ) => {
-					const version = reference.version
-						? reference.version
-						: 'KJV';
-					return (
-						<Navigation
-							key={ index }
-							version={ version }
-							index={ index }
-						/>
-					);
-				} ) }
-				{ reference.length > 0 && <Controls /> }
+				{ versionArray.map( ( version, index ) => (
+					<Navigation
+						key={ index }
+						version={ version }
+						index={ index }
+					/>
+				) ) }
+				{ showControls && <Controls /> }
 			</div>
 		</div>
 	);
