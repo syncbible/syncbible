@@ -306,6 +306,35 @@ export const areReferencesInSync = ( stateReference ) => {
 	return inSync;
 };
 
+export function getPreviousChapter( { book, chapter } ) {
+	let bookId = bible.getBookId( book + ' ' + chapter );
+	if ( chapter == 1 && bookId > 1 ) {
+		bookId--;
+		chapter = bible.Data.verses[ bookId - 1 ].length;
+	} else if ( chapter === 1 && bookId === 1 ) {
+		return null;
+	} else {
+		chapter--;
+	}
+
+	const newBookName = bible.getBook( bookId );
+	return { book: newBookName, chapter };
+}
+export function getNextChapter( { book, chapter } ) {
+	let bookId = bible.getBookId( book + ' ' + chapter );
+	if ( chapter < bible.Data.verses[ bookId - 1 ].length ) {
+		chapter++;
+	} else if ( bookId < bible.Data.books.length ) {
+		bookId++;
+		chapter = 1;
+	} else {
+		return null;
+	}
+
+	const newBookName = bible.getBook( bookId );
+	return { book: newBookName, chapter };
+}
+
 export const goToReferenceHelper = (
 	stateReference,
 	newReference,

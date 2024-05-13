@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setScrollChapter } from '../../actions';
 import Chapter from './chapter';
 import styles from './styles.scss';
+import { getNextChapter, getPreviousChapter } from '../../lib/reference';
 
 let oldHeight = 0,
 	scroller = null,
@@ -18,26 +19,20 @@ const getReferencesFromProps = ( nextProps ) => {
 		return null;
 	}
 
-	const book = nextProps.reference.book,
-		chapter = nextProps.reference.chapter,
-		references = [],
-		loadingPrev = false,
-		prevChapterData = bible
-			.parseReference( book + ' ' + chapter )
-			.prevChapter(),
-		nextChapterData = bible
-			.parseReference( book + ' ' + chapter )
-			.nextChapter();
+	const book = nextProps.reference.book;
+	const chapter = nextProps.reference.chapter;
+	const references = [];
+	const loadingPrev = false;
+	const prevChapter = getPreviousChapter( { book, chapter } );
+	const nextChapter = getNextChapter( { book, chapter } );
 
-	if ( prevChapterData ) {
-		references.push( Object.assign( {}, prevChapterData ) );
+	if ( prevChapter ) {
+		references.push( prevChapter );
 	}
-	references.push(
-		Object.assign( {}, bible.parseReference( book + ' ' + chapter ) )
-	);
+	references.push( { book, chapter } );
 
-	if ( nextChapterData ) {
-		references.push( Object.assign( {}, nextChapterData ) );
+	if ( nextChapter ) {
+		references.push( nextChapter );
 	}
 
 	return { book, chapter, references, loadingPrev };
@@ -112,7 +107,7 @@ const ReferenceComponent = ( props ) => {
 			if ( prevChapter ) {
 				dispatch(
 					setScrollChapter(
-						prevChapter.bookName,
+						prevChapter.book,
 						prevChapter.chapter1,
 						props.index
 					)
@@ -129,12 +124,8 @@ const ReferenceComponent = ( props ) => {
 
 	const addNextChapter = () => {
 		const localReferences = references.references.slice();
-		const lastReference = localReferences[ localReferences.length - 1 ],
-			currentReference = bible.parseReference(
-				lastReference.bookName + ' ' + lastReference.chapter1
-			);
-
-		const nextChapter = currentReference.nextChapter();
+		const lastReference = localReferences[ localReferences.length - 1 ];
+		const nextChapter = getNextChapter( lastReference );
 		const nextChapterAlreadyLoaded =
 			nextChapter &&
 			find( localReferences, function ( reference ) {
@@ -159,18 +150,14 @@ const ReferenceComponent = ( props ) => {
 		document.body.style.overflow = 'hidden';
 
 		const localReferences = references.references.slice();
-		const firstReference = localReferences[ 0 ],
-			currentReference = bible.parseReference(
-				firstReference.bookName + ' ' + firstReference.chapter1
-			);
-
-		const prevChapter = currentReference.prevChapter();
+		const firstReference = localReferences[ 0 ];
+		const prevChapter = getPreviousChapter( firstReference );
 		const prevChapterAlreadyLoaded =
 			prevChapter &&
 			find( localReferences, function ( reference ) {
 				return (
-					reference.bookID === prevChapter.bookID &&
-					reference.chapter1 === prevChapter.chapter1
+					reference.book === prevChapter.book &&
+					reference.chapter === prevChapter.chapter
 				);
 			} );
 
@@ -229,15 +216,12 @@ const ReferenceComponent = ( props ) => {
 			onScroll={ handleScroll }
 		>
 			{ references.references &&
-				references.references.map( ( referencesItem ) => {
-					const book = bible.getBook( referencesItem.bookID );
-					const chapter = referencesItem.chapter1;
+				references.references.map( ( referencesItem, key ) => {
+					const book = referencesItem.book;
+					const chapter = referencesItem.chapter;
 
 					return (
-						<div
-							className={ styles.referenceInner }
-							key={ book + chapter }
-						>
+						<div className={ styles.referenceInner } key={ key }>
 							<Waypoint
 								onEnter={ ( event ) =>
 									handleWaypointEnter( event, book, chapter )
