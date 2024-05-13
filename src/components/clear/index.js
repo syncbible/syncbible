@@ -20,14 +20,14 @@ const Clear = ( { selectedTrayId } ) => {
 	);
 
 	if (
-		selectedTrayId !== 'bookmarks' &&
+		selectedTrayId !== 'bookmark' &&
 		selectedTrayId !== 'word' &&
 		selectedTrayId !== 'search'
 	) {
 		return null;
 	}
 
-	if ( selectedTrayId === 'bookmarks' && bookmarks.length === 0 ) {
+	if ( selectedTrayId === 'bookmark' && bookmarks.length === 0 ) {
 		return null;
 	}
 
@@ -41,7 +41,7 @@ const Clear = ( { selectedTrayId } ) => {
 
 	const clearTray = ( event ) => {
 		event.preventDefault();
-		if ( selectedTrayId === 'bookmarks' ) {
+		if ( selectedTrayId === 'bookmark' ) {
 			dispatch( removeTypeFromList( 'bookmark' ) );
 		}
 

@@ -14,7 +14,7 @@ const VerseNumber = ( { book, chapter, verse } ) => {
 	const data = useSelector( ( state ) => state.data );
 
 	const addBookmarkAction = () => {
-		dispatch( setTrayVisibilityFilter( 'bookmarks' ) );
+		dispatch( setTrayVisibilityFilter( 'bookmark' ) );
 		dispatch(
 			addToList( {
 				listType: 'bookmark',

@@ -13,9 +13,10 @@
 
 .list-header button {
     background: var(--background-ui);
-    border: none;
+    border-top: none;
+    border-bottom: none;
     cursor: pointer;
-    width: calc( $dock-height / 2 );
+    width: $dock-height;
 
     &[aria-disabled] {
         fill: red;

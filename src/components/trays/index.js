@@ -60,7 +60,7 @@ const trays = [
 	},
 	{
 		visible: false,
-		id: 'bookmarks',
+		id: 'bookmark',
 		text: 'Bookmarks',
 		component: BookMarks,
 		icon: <BookmarksSvg />,

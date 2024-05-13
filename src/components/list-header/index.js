@@ -18,10 +18,11 @@ const ListHeader = ( { tray } ) => {
 			).length > 0
 		);
 	} );
+
 	const listItemsOfType = useSelector( ( state ) => {
 		return (
 			state.list.filter( ( listItem ) => listItem.listType === tray )
-				.length > 0
+				.length > 1
 		);
 	} );
 
