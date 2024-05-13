@@ -98,21 +98,21 @@ const ReferenceComponent = ( props ) => {
 	};
 
 	const addNextChapter = () => {
-		const localReferences = references.references.slice(),
-			lastReference = localReferences[ localReferences.length - 1 ],
+		const localReferences = references.references.slice();
+		const lastReference = localReferences[ localReferences.length - 1 ],
 			currentReference = bible.parseReference(
 				lastReference.bookName + ' ' + lastReference.chapter1
 			);
 
-		const nextChapter = currentReference.nextChapter(),
-			nextChapterAlreadyLoaded =
-				nextChapter &&
-				find( localReferences, function ( reference ) {
-					return (
-						reference.bookID === nextChapter.bookID &&
-						reference.chapter1 === nextChapter.chapter1
-					);
-				} );
+		const nextChapter = currentReference.nextChapter();
+		const nextChapterAlreadyLoaded =
+			nextChapter &&
+			find( localReferences, function ( reference ) {
+				return (
+					reference.bookID === nextChapter.bookID &&
+					reference.chapter1 === nextChapter.chapter1
+				);
+			} );
 		if ( nextChapter && ! nextChapterAlreadyLoaded ) {
 			localReferences.push( nextChapter );
 		}
@@ -128,21 +128,21 @@ const ReferenceComponent = ( props ) => {
 	const addPreviousChapter = () => {
 		document.body.style.overflow = 'hidden';
 
-		const localReferences = references.references.slice(),
-			firstReference = localReferences[ 0 ],
+		const localReferences = references.references.slice();
+		const firstReference = localReferences[ 0 ],
 			currentReference = bible.parseReference(
 				firstReference.bookName + ' ' + firstReference.chapter1
 			);
 
-		const prevChapter = currentReference.prevChapter(),
-			prevChapterAlreadyLoaded =
-				prevChapter &&
-				find( localReferences, function ( reference ) {
-					return (
-						reference.bookID === prevChapter.bookID &&
-						reference.chapter1 === prevChapter.chapter1
-					);
-				} );
+		const prevChapter = currentReference.prevChapter();
+		const prevChapterAlreadyLoaded =
+			prevChapter &&
+			find( localReferences, function ( reference ) {
+				return (
+					reference.bookID === prevChapter.bookID &&
+					reference.chapter1 === prevChapter.chapter1
+				);
+			} );
 
 		if ( prevChapter && ! prevChapterAlreadyLoaded ) {
 			localReferences.unshift( prevChapter );
