@@ -24,19 +24,19 @@ const Clear = ( { selectedTrayId } ) => {
 		selectedTrayId !== 'word' &&
 		selectedTrayId !== 'search'
 	) {
-		return <span className={ styles.button }>&nbsp;</span>;
+		return null;
 	}
 
 	if ( selectedTrayId === 'bookmarks' && bookmarks.length === 0 ) {
-		return <span className={ styles.button }>&nbsp;</span>;
+		return null;
 	}
 
 	if ( selectedTrayId === 'word' && words.length === 0 ) {
-		return <span className={ styles.button }>&nbsp;</span>;
+		return null;
 	}
 
 	if ( selectedTrayId === 'search' && searchTerms.length === 0 ) {
-		return <span className={ styles.button }>&nbsp;</span>;
+		return null;
 	}
 
 	const clearTray = ( event ) => {

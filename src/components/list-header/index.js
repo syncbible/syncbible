@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { closeAllListItems } from '../../actions';
 import styles from './styles.scss';
 import Clear from '../clear';
-import UnfoldLess from '../svg/unfold-less';
+import UnfoldLessDouble from '../svg/unfold-less-double';
 
 const ListHeader = ( { tray } ) => {
 	const dispatch = useDispatch();
@@ -18,6 +18,16 @@ const ListHeader = ( { tray } ) => {
 			).length > 0
 		);
 	} );
+	const listItemsOfType = useSelector( ( state ) => {
+		return (
+			state.list.filter( ( listItem ) => listItem.listType === tray )
+				.length > 0
+		);
+	} );
+
+	if ( ! listItemsOfType ) {
+		return null;
+	}
 
 	return (
 		<div className={ styles.listHeader }>
@@ -26,8 +36,9 @@ const ListHeader = ( { tray } ) => {
 					onClick={ () => {
 						dispatch( closeAllListItems() );
 					} }
+					title="Close all"
 				>
-					<UnfoldLess />
+					<UnfoldLessDouble />
 				</button>
 			) }
 			<Clear selectedTrayId={ tray } />

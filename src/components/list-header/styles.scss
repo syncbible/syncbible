@@ -3,6 +3,7 @@
     background: var(--background-ui);
     box-shadow:  0 0 5px var(--shadow);
     display: flex;
+    height: $dock-height;
     justify-content: flex-end;
     position: sticky;
     top: 0;
