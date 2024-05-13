@@ -1,6 +1,6 @@
 // External dependencies
 import React, { useState, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import classnames from 'classnames';
 
 // Internal dependencies.
@@ -119,7 +119,7 @@ const SortGroupResults = ( {
 					interfaceLanguage
 				),
 			};
-		} );
+		}, shallowEqual );
 
 	const groupSelector = (
 		<div>
