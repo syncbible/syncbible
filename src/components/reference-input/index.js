@@ -23,9 +23,7 @@ const getBookFromState = ( reference, scrollChapter ) => {
 };
 const getReferenceValue = ( reference, scrollChapter, version ) => {
 	const chapter =
-		scrollChapter && scrollChapter.chapter
-			? scrollChapter.chapter
-			: reference.chapter;
+		scrollChapter && scrollChapter?.chapter ? scrollChapter.chapter : '';
 	const book = getBookFromState( reference, scrollChapter );
 	const tranlatedBook = bible.getTranslatedBookName( book, version );
 	if ( ! tranlatedBook ) {

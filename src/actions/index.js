@@ -14,9 +14,9 @@ import {
 	getUnSyncReference,
 	getNewVersionHash,
 	sortReferences,
+	getHarmonisedVerses,
 } from '../lib/reference.js';
 import { isValidWord } from '../lib/word.js';
-import reference from '../reducers/reference.js';
 
 export const goToReferenceAction = ( reference, targetColumn ) => {
 	return function ( dispatch, getState ) {
@@ -103,6 +103,20 @@ export const setScrollChapter = ( book, chapter, index ) => {
 		chapter,
 		index,
 		type: 'SET_SCROLL_CHAPTER',
+	};
+};
+
+export const setScrollChapterHarmonised = ( chapter, verseNumber ) => {
+	const harmonisedChapters = getHarmonisedVerses( { chapter, verseNumber } );
+	const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
+	return {
+		type: 'SET_ALL_SCROLL_CHAPTERS',
+		chapters: harmonisedChapters.map( ( reference, index ) => {
+			return {
+				book: books[ index ],
+				chapter: reference[ 0 ],
+			};
+		} ),
 	};
 };
 

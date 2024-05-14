@@ -33,15 +33,11 @@ const VerseWrapper = ( {
 	verse,
 	isCurrentRef,
 	lang,
-	index,
-	harmonised,
 } ) => {
 	const verseWrapperRef = useRef( null );
 	const reference = { book, chapter: chapter - 1, verse: verse - 1 };
 
-	const dispatch = useDispatch();
-
-	const verseWrapped = (
+	return (
 		<div
 			lang={ lang }
 			className={ classnames(
@@ -72,40 +68,6 @@ const VerseWrapper = ( {
 			</div>
 		</div>
 	);
-
-	{
-		return harmonised ? (
-			<Waypoint
-				topOffset={ 0 }
-				onEnter={ ( event ) => {
-					if ( event.previousPosition === 'below' ) {
-						if ( chapter ) {
-							dispatch(
-								setScrollChapter( book, chapter, index )
-							);
-						} else {
-							dispatch( setScrollChapter( null, null, index ) );
-						}
-					}
-				} }
-				onLeave={ ( event ) => {
-					if ( event.currentPosition === 'above' ) {
-						if ( chapter ) {
-							dispatch(
-								setScrollChapter( book, chapter, index )
-							);
-						} else {
-							dispatch( setScrollChapter( null, null, index ) );
-						}
-					}
-				} }
-			>
-				{ verseWrapped }
-			</Waypoint>
-		) : (
-			verseWrapped
-		);
-	}
 };
 
 export default React.memo( VerseWrapper );

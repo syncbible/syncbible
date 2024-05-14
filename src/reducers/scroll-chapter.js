@@ -32,6 +32,9 @@ const scrollChapter = ( state = initialState, action ) => {
 			removedState.splice( action.index, 1 );
 			return removedState;
 
+		case 'SET_ALL_SCROLL_CHAPTERS':
+			return action.chapters.map( ( reference ) => reference );
+
 		default:
 			return state;
 	}

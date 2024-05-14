@@ -1,10 +1,11 @@
 // External
 import React, { createRef, useEffect, useRef, Fragment, useState } from 'react';
+import { Waypoint } from 'react-waypoint';
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal
-import { fetchData } from '../../actions';
+import { fetchData, setScrollChapterHarmonised } from '../../actions';
 import Title from './title';
 import VerseWrapper from './verse-wrapper';
 import styles from './styles.scss';
@@ -97,7 +98,6 @@ const Chapter = ( { book, chapter, index } ) => {
 
 	const getSyncVerses = () => {
 		let parsedReference;
-		let harmonised = false;
 		const title = book !== 'Harmony' && (
 			<div className={ styles.chapterColumn }>
 				{ reference.map( ( { version }, index ) => {
@@ -135,9 +135,39 @@ const Chapter = ( { book, chapter, index } ) => {
 							key={ verseNumber }
 							ref={ isCurrentRef( verseNumber ) }
 						>
+							{ book === 'Harmony' && (
+								<Waypoint
+									topOffset={ 0 }
+									onEnter={ ( { previousPosition } ) => {
+										if ( previousPosition === 'above' ) {
+											dispatch(
+												setScrollChapterHarmonised(
+													chapter,
+													verseNumber
+												)
+											);
+										}
+									} }
+									onLeave={ ( { currentPosition } ) => {
+										if ( currentPosition === 'above' ) {
+											dispatch(
+												setScrollChapterHarmonised(
+													chapter,
+													verseNumber
+												)
+											);
+										}
+									} }
+								>
+									<span
+										style={ {
+											height: '1px',
+										} }
+									/>
+								</Waypoint>
+							) }
 							{ reference.map( ( { version }, index ) => {
 								if ( book === 'Harmony' ) {
-									harmonised = true;
 									parsedReference = getHarmonisedReference( {
 										book,
 										chapter,
@@ -174,8 +204,6 @@ const Chapter = ( { book, chapter, index } ) => {
 										isCurrentRef={
 											!! isCurrentRef( newVerseNumber )
 										}
-										index={ index }
-										harmonised={ harmonised }
 									/>
 								);
 							} ) }
@@ -218,7 +246,6 @@ const Chapter = ( { book, chapter, index } ) => {
 								chapter={ chapter }
 								verse={ verseNumber + 1 }
 								isCurrentRef={ isCurrentRef( verseNumber ) }
-								index={ index }
 							/>
 						</div>
 					);

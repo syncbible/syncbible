@@ -375,6 +375,10 @@ export function getHarmonisedReference( {
 	};
 }
 
+export function getHarmonisedVerses( { chapter, verseNumber } ) {
+	return harmonised[ chapter - 1 ][ verseNumber ];
+}
+
 export const goToReferenceHelper = (
 	stateReference,
 	newReference,
