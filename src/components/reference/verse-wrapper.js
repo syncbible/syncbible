@@ -41,7 +41,7 @@ const VerseWrapper = ( {
 
 	const dispatch = useDispatch();
 
-	return (
+	const verseWrapped = (
 		<div
 			lang={ lang }
 			className={ classnames(
@@ -51,37 +51,6 @@ const VerseWrapper = ( {
 			dir={ bible.isRtlVersion( version, book ) ? 'rtl' : 'ltr' }
 			ref={ verseWrapperRef }
 		>
-			{ harmonised && (
-				<Waypoint
-					topOffset={ 0 }
-					onEnter={ ( event ) => {
-						if ( event.previousPosition === 'below' ) {
-							if ( chapter ) {
-								dispatch(
-									setScrollChapter( book, chapter, index )
-								);
-							} else {
-								dispatch(
-									setScrollChapter( null, null, index )
-								);
-							}
-						}
-					} }
-					onLeave={ ( event ) => {
-						if ( event.currentPosition === 'above' ) {
-							if ( chapter ) {
-								dispatch(
-									setScrollChapter( book, chapter, index )
-								);
-							} else {
-								dispatch(
-									setScrollChapter( null, null, index )
-								);
-							}
-						}
-					} }
-				/>
-			) }
 			{ chapter && verse && (
 				<div className={ styles.helpers }>
 					<VerseNumber
@@ -103,6 +72,40 @@ const VerseWrapper = ( {
 			</div>
 		</div>
 	);
+
+	{
+		return harmonised ? (
+			<Waypoint
+				topOffset={ 0 }
+				onEnter={ ( event ) => {
+					if ( event.previousPosition === 'below' ) {
+						if ( chapter ) {
+							dispatch(
+								setScrollChapter( book, chapter, index )
+							);
+						} else {
+							dispatch( setScrollChapter( null, null, index ) );
+						}
+					}
+				} }
+				onLeave={ ( event ) => {
+					if ( event.currentPosition === 'above' ) {
+						if ( chapter ) {
+							dispatch(
+								setScrollChapter( book, chapter, index )
+							);
+						} else {
+							dispatch( setScrollChapter( null, null, index ) );
+						}
+					}
+				} }
+			>
+				{ verseWrapped }
+			</Waypoint>
+		) : (
+			verseWrapped
+		);
+	}
 };
 
 export default React.memo( VerseWrapper );
