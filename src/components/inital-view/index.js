@@ -53,7 +53,9 @@ const InitialView = () => {
 				<p>
 					There is also an old version available in case this one is
 					broken:{ ' ' }
-					<a href="https://javascripture.org">javascripture.org</a>
+					<a href="https://javascripture.github.io/javascripture">
+						javascripture
+					</a>
 				</p>
 			</div>
 		</div>
