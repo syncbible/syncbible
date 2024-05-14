@@ -308,7 +308,10 @@ export const areReferencesInSync = ( stateReference ) => {
 
 export function getPreviousChapter( { book, chapter } ) {
 	if ( book === 'Harmony' ) {
-		return null;
+		if ( chapter === 1 ) {
+			return null;
+		}
+		return { book, chapter: chapter - 1 };
 	}
 
 	let bookId = bible.getBookId( book + ' ' + chapter );
@@ -326,7 +329,10 @@ export function getPreviousChapter( { book, chapter } ) {
 }
 export function getNextChapter( { book, chapter } ) {
 	if ( book === 'Harmony' ) {
-		return null;
+		if ( chapter === harmonised.length ) {
+			return null;
+		}
+		return { book, chapter: chapter + 1 };
 	}
 	let bookId = bible.getBookId( book + ' ' + chapter );
 	if ( chapter < bible.Data.verses[ bookId - 1 ].length ) {
