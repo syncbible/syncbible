@@ -344,7 +344,7 @@ export function getNextChapter( { book, chapter } ) {
 
 export function getNumberOfVerses( { book, chapter } ) {
 	if ( book === 'Harmony' ) {
-		return harmonised.length;
+		return harmonised[ chapter - 1 ].length;
 	}
 	const bookId = bible.getBookId( book + ' ' + chapter );
 	return bible.Data.verses[ bookId - 1 ][ chapter - 1 ];
@@ -356,7 +356,8 @@ export function getHarmonisedReference( {
 	verseNumber,
 	index,
 } ) {
-	const harmonisedReference = harmonised[ verseNumber ][ index ];
+	const harmonisedReference =
+		harmonised[ chapter - 1 ][ verseNumber ][ index ];
 	const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
 	return {
 		book: books[ index ],
