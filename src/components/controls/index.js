@@ -8,6 +8,7 @@ import {
 	deleteColumnAction,
 	syncReferences,
 	unSyncReferences,
+	harmoniseAction,
 } from '../../actions';
 import Add from '../svg/add.js';
 import Menu from '../svg/menu.js';
@@ -32,6 +33,10 @@ const Controls = () => {
 
 		if ( event.target.value === 'unsync' ) {
 			dispatch( unSyncReferences() );
+		}
+
+		if ( event.target.value === 'harmonise' ) {
+			dispatch( harmoniseAction() );
 		}
 
 		setValue( '' );
@@ -60,6 +65,7 @@ const Controls = () => {
 					) : (
 						<option value="sync">Sync references</option>
 					) }
+					<option value="harmonise">Harmonise</option>
 				</select>
 			</div>
 		);

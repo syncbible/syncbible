@@ -82,6 +82,24 @@ export const addColumnAction = ( version = '' ) => {
 	};
 };
 
+export const harmoniseAction = () => {
+	return function ( dispatch, getState ) {
+		const state = getState();
+		const versions = state.reference.map( ( { version } ) => version );
+		const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
+		const referenceArray = books.map( ( book, index ) => {
+			return {
+				book: 'Harmony',
+				chapter: 1,
+				verse: 1,
+				version: versions[ index ] ?? versions[ 0 ],
+			};
+		} );
+
+		dispatch( push( '/#' + getNewVersionHash( referenceArray ) ) );
+	};
+};
+
 export const deleteColumnAction = () => {
 	return function ( dispatch, getState ) {
 		const state = getState();

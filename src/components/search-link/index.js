@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
-import { setCurrentListResult, goToReferenceAction } from '../../actions';
+import { goToReferenceAction } from '../../actions';
 import ExpandedSearchResults from '../expanded-search-results';
 import styles from './styles.scss';
 import ReferenceText from '../reference-text';
