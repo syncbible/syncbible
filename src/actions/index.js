@@ -15,6 +15,7 @@ import {
 	getNewVersionHash,
 	sortReferences,
 	getHarmonisedVerses,
+	findHarmonisedReference,
 } from '../lib/reference.js';
 import { isValidWord } from '../lib/word.js';
 
@@ -28,6 +29,13 @@ export const goToReferenceAction = ( reference, targetColumn ) => {
 
 		if ( typeof targetColumn === 'undefined' ) {
 			targetColumn = state.settings.targetColumn;
+		}
+
+		// Harmonise reference if that setting is on.
+		const inSync = state.settings.inSync;
+
+		if ( inSync === 'harmonised' ) {
+			reference = findHarmonisedReference( reference );
 		}
 
 		const newHash = goToReferenceHelper(
@@ -85,18 +93,30 @@ export const addColumnAction = ( version = '' ) => {
 export const harmoniseAction = () => {
 	return function ( dispatch, getState ) {
 		const state = getState();
-		const versions = state.reference.map( ( { version } ) => version );
 		const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
+		const bookToHarmonise = books.indexOf( state.reference[ 0 ].book );
+		let harmonisedReference = {
+			book: 'Harmony',
+			chapter: 1,
+			verse: 1,
+		};
+		if ( bookToHarmonise > -1 ) {
+			harmonisedReference = findHarmonisedReference(
+				state.reference[ 0 ]
+			);
+		}
+
+		const versions = state.reference.map( ( { version } ) => version );
 		const referenceArray = books.map( ( book, index ) => {
 			return {
-				book: 'Harmony',
-				chapter: 1,
-				verse: 1,
+				...harmonisedReference,
 				version: versions[ index ] ?? versions[ 0 ],
 			};
 		} );
 
-		dispatch( push( '/#' + getNewVersionHash( referenceArray ) ) );
+		dispatch( settingsChange( 'inSync', 'harmonised' ) );
+		const newHash = getNewVersionHash( referenceArray );
+		dispatch( push( '/#' + newHash ) );
 	};
 };
 

@@ -419,17 +419,57 @@ export const getSyncReference = ( stateReference ) => {
 			version: reference.version,
 		};
 
+		if ( stateReference[ 0 ].book === 'Harmony' ) {
+			// Replace with getReferenceFromHarmony.
+			newSyncedReference = {
+				...newSyncedReference,
+				...getReferenceFromHarmony( stateReference[ 0 ] ),
+			};
+		}
+
 		if ( stateReference[ 0 ].endVerse ) {
 			newSyncedReference.endVerse = stateReference[ 0 ].endVerse;
 		}
 
 		return newSyncedReference;
 	} );
+
 	return getHashFromStateReference( syncedReference );
 };
 
+function getReferenceFromHarmony( { chapter, verse, version } ) {
+	const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
+	const harmonisedVerses = getHarmonisedVerses( {
+		chapter: chapter,
+		verseNumber: verse + 1,
+	} );
+	const harmonisedReference = harmonisedVerses
+		.filter(
+			( singleharmonisedReference ) =>
+				singleharmonisedReference.length > 0
+		)
+		.map( ( singleharmonisedReference, index ) => {
+			return {
+				book: books[ index ],
+				chapter: singleharmonisedReference[ 0 ],
+				verse: singleharmonisedReference[ 1 ],
+			};
+		} );
+	return {
+		...harmonisedReference[ 0 ],
+		version,
+	};
+}
+
 export const getUnSyncReference = ( stateReference ) => {
 	const unSyncedReference = stateReference.map( ( reference, index ) => {
+		if ( index === 0 && reference.book === 'Harmony' ) {
+			console.log(
+				'verse from harmony',
+				getReferenceFromHarmony( reference )
+			);
+			return getReferenceFromHarmony( reference );
+		}
 		if ( index > 0 ) {
 			return getRandomReference( reference.version );
 		}
@@ -617,3 +657,30 @@ export const getGroupedResults = (
 		return orderBy( resultsToDisplay, [ sortByReference ] );
 	}
 };
+
+export function findHarmonisedReference( { book, chapter, verse, version } ) {
+	const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
+	const bookIndex = books.indexOf( book );
+	if ( bookIndex === -1 ) {
+		return { book, chapter, verse, version };
+	}
+
+	let harmonisedVerse;
+	const harmonisedChapter = harmonised.findIndex( ( harmonisedChapter ) => {
+		harmonisedVerse = harmonisedChapter.findIndex( ( harmonisedArray ) => {
+			return (
+				harmonisedArray[ bookIndex ][ 0 ] === parseInt( chapter ) &&
+				harmonisedArray[ bookIndex ][ 1 ] === parseInt( verse )
+			);
+		} );
+
+		return harmonisedVerse > -1;
+	} );
+
+	return {
+		book: 'Harmony',
+		chapter: harmonisedChapter + 1,
+		verse: harmonisedVerse + 1,
+		version,
+	};
+}

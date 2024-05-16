@@ -35,7 +35,7 @@ const Controls = () => {
 			dispatch( unSyncReferences() );
 		}
 
-		if ( event.target.value === 'harmonise' ) {
+		if ( event.target.value === 'harmonised' ) {
 			dispatch( harmoniseAction() );
 		}
 
@@ -60,12 +60,15 @@ const Controls = () => {
 					</option>
 					<option value="add">Add a column</option>
 					<option value="delete">Delete column</option>
-					{ inSync ? (
-						<option value="unsync">Un-sync references</option>
-					) : (
+					{ inSync !== true && (
 						<option value="sync">Sync references</option>
 					) }
-					<option value="harmonise">Harmonise</option>
+					{ inSync !== false && (
+						<option value="unsync">Un-sync references</option>
+					) }
+					{ inSync !== 'harmonised' && (
+						<option value="harmonised">Harmonise</option>
+					) }
 				</select>
 			</div>
 		);
