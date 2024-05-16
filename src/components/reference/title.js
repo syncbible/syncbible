@@ -7,7 +7,7 @@ import { setTrayVisibilityFilter, setReferenceInfo } from '../../actions';
 import CopyToClipboard from '../copy-to-clipboard';
 import styles from './styles.scss';
 
-const Title = ( { book, chapter, version, customClickHandler } ) => {
+const Title = ( { book, chapter, verse, version, customClickHandler } ) => {
 	const dispatch = useDispatch();
 
 	const tranlatedBook = bible.getTranslatedBookName( book, version );
@@ -15,6 +15,7 @@ const Title = ( { book, chapter, version, customClickHandler } ) => {
 		dispatch( setTrayVisibilityFilter( 'stats' ) );
 		dispatch( setReferenceInfo( { book, chapter } ) );
 	};
+
 	const titleText = chapter && `${ tranlatedBook } ${ chapter }​`;
 
 	// There is a zero width character at the end of the title

@@ -113,6 +113,7 @@ const Chapter = ( { book, chapter, index } ) => {
 							<Title
 								book={ parsedReference.book }
 								chapter={ parsedReference.chapter }
+								verse={ parsedReference.verseNumber }
 								version={ version }
 								key={ index }
 								customClickHandler={ customClickHandler }
