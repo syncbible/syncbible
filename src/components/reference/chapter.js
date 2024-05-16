@@ -98,14 +98,21 @@ const Chapter = ( { book, chapter, index } ) => {
 
 	const getSyncVerses = () => {
 		let parsedReference;
-		const title = book !== 'Harmony' && (
+		const title = (
 			<div className={ styles.chapterColumn }>
 				{ reference.map( ( { version }, index ) => {
+					const parsedReference = getHarmonisedReference( {
+						book,
+						chapter,
+						verseNumber: 1, //TODO
+						index,
+					} );
+
 					return (
 						<Fragment key={ index }>
 							<Title
-								book={ book }
-								chapter={ chapter }
+								book={ parsedReference.book }
+								chapter={ parsedReference.chapter }
 								version={ version }
 								key={ index }
 								customClickHandler={ customClickHandler }
