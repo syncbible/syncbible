@@ -101,12 +101,15 @@ const Chapter = ( { book, chapter, index } ) => {
 		const title = (
 			<div className={ styles.chapterColumn }>
 				{ reference.map( ( { version }, index ) => {
-					const parsedReference = getHarmonisedReference( {
-						book,
-						chapter,
-						verseNumber: 1, //TODO
-						index,
-					} );
+					parsedReference = reference[ index ];
+					if ( parsedReference.book === 'Harmony' ) {
+						parsedReference = getHarmonisedReference( {
+							book,
+							chapter,
+							verseNumber: 1, //TODO
+							index,
+						} );
+					}
 
 					return (
 						<Fragment key={ index }>
