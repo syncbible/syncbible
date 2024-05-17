@@ -25,11 +25,6 @@ const WordComponent = ( { word, version, prevWord, reference, index } ) => {
 
 	const [ wordValue, lemma, morph ] = word;
 
-	// Having this earlier helps speed.
-	if ( startsWithPunctuation( wordValue ) ) {
-		return wordString;
-	}
-
 	const lemmaArray =
 		lemma && typeof lemma === 'string' ? lemma.split( '/' ) : null;
 	const morphArray =
@@ -112,6 +107,11 @@ const WordComponent = ( { word, version, prevWord, reference, index } ) => {
 				/>
 			);
 		} );
+
+	// Having this earlier helps speed.
+	if ( startsWithPunctuation( wordValue ) ) {
+		return wordString;
+	}
 
 	return <React.Fragment key={ word }> { wordString }</React.Fragment>;
 };

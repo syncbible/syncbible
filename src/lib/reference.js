@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { uniq, forEach, groupBy, orderBy } from 'lodash';
+import verse from '../components/reference/verse';
 
 export const createReferenceLink = ( reference ) => {
 	let newReference =
@@ -420,17 +421,20 @@ export const getSyncReference = ( stateReference ) => {
 		};
 
 		if ( stateReference[ 0 ].book === 'Harmony' ) {
-			// Replace with getReferenceFromHarmony.
+			const harmonisedReference = getReferenceFromHarmony(
+				stateReference[ 0 ]
+			);
 			newSyncedReference = {
 				...newSyncedReference,
-				...getReferenceFromHarmony( stateReference[ 0 ] ),
+				...harmonisedReference,
+				verse: harmonisedReference.verse - 1,
+				version: reference.version,
 			};
 		}
 
 		if ( stateReference[ 0 ].endVerse ) {
 			newSyncedReference.endVerse = stateReference[ 0 ].endVerse;
 		}
-
 		return newSyncedReference;
 	} );
 
@@ -441,7 +445,7 @@ function getReferenceFromHarmony( { chapter, verse, version } ) {
 	const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
 	const harmonisedVerses = getHarmonisedVerses( {
 		chapter: chapter,
-		verseNumber: verse + 1,
+		verseNumber: verse,
 	} );
 	const harmonisedReference = harmonisedVerses
 		.filter(
@@ -455,6 +459,7 @@ function getReferenceFromHarmony( { chapter, verse, version } ) {
 				verse: singleharmonisedReference[ 1 ],
 			};
 		} );
+
 	return {
 		...harmonisedReference[ 0 ],
 		version,
@@ -464,10 +469,6 @@ function getReferenceFromHarmony( { chapter, verse, version } ) {
 export const getUnSyncReference = ( stateReference ) => {
 	const unSyncedReference = stateReference.map( ( reference, index ) => {
 		if ( index === 0 && reference.book === 'Harmony' ) {
-			console.log(
-				'verse from harmony',
-				getReferenceFromHarmony( reference )
-			);
 			return getReferenceFromHarmony( reference );
 		}
 		if ( index > 0 ) {
