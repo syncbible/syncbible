@@ -72,7 +72,7 @@ const SortGroupResults = ( {
 			return state.list.filter( ( { listType } ) => listType === type );
 		}
 		return state.list;
-	}, shallowEqual );
+	} );
 
 	if ( type && strongsNumber && version ) {
 		const groupedResults = useMemo(
@@ -144,7 +144,13 @@ const SortGroupResults = ( {
 					sort,
 					interfaceLanguage
 				),
-			[ _combinedResultsGrouped, group, sort, interfaceLanguage ]
+			[
+				getGroupedResults,
+				_combinedResultsGrouped,
+				group,
+				sort,
+				interfaceLanguage,
+			]
 		);
 	}
 
