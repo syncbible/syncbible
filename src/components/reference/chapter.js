@@ -107,7 +107,7 @@ const Chapter = ( { book, chapter, index } ) => {
 						const parsedReference = getHarmonisedReference( {
 							book,
 							chapter,
-							verseNumber: 1, //TODO
+							verseNumber: 0, //TODO
 							index,
 						} );
 						newBook = parsedReference.book;
