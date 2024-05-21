@@ -7,8 +7,6 @@ import { goToReferenceAction } from '../../actions';
 import { goToReferenceHelper } from '../../lib/reference';
 
 const DailyReadingLink = ( { book, chapter, verses } ) => {
-	const stateReference = useSelector( ( state ) => state.reference );
-	const settings = useSelector( ( state ) => state.settings );
 	const dispatch = useDispatch();
 
 	let referenceString = book + ' ' + chapter;
@@ -24,18 +22,8 @@ const DailyReadingLink = ( { book, chapter, verses } ) => {
 		reference.verse = 1;
 	}
 
-	const newHash =
-		'/#' +
-		goToReferenceHelper(
-			stateReference,
-			reference,
-			settings.targetColumn,
-			settings.inSync
-		);
-
 	return (
 		<a
-			href={ newHash }
 			onClick={ ( event ) => {
 				event.stopPropagation();
 				event.preventDefault();

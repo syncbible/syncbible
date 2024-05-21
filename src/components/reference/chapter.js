@@ -1,14 +1,20 @@
 // External
 import React, { createRef, useEffect, useRef, Fragment, useState } from 'react';
+import { Waypoint } from 'react-waypoint';
 import ReactDOM from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal
-import { fetchData } from '../../actions';
+import { fetchData, setScrollChapterHarmonised } from '../../actions';
 import Title from './title';
 import VerseWrapper from './verse-wrapper';
 import styles from './styles.scss';
-import { mapVersionToData, areReferencesInSync } from '../../lib/reference';
+import {
+	mapVersionToData,
+	areReferencesInSync,
+	getNumberOfVerses,
+	getHarmonisedReference,
+} from '../../lib/reference';
 import copyToClipboardHelper from '../../lib/copy-to-clipboard-helper';
 
 function getLanguageFromVersion( version, book ) {
@@ -27,9 +33,7 @@ const Chapter = ( { book, chapter, index } ) => {
 	const currentReference = reference[ index ];
 	const startVerse = currentReference.verse;
 	const endVerse = currentReference.endVerse;
-
-	const bookId = bible.getBookId( book + ' ' + chapter );
-	const numberOfVerses = bible.Data.verses[ bookId - 1 ][ chapter - 1 ];
+	const numberOfVerses = getNumberOfVerses( { book, chapter } );
 	const verseMap = [];
 	for ( let number = 0; number < numberOfVerses; number++ ) {
 		verseMap.push( number );
@@ -70,13 +74,17 @@ const Chapter = ( { book, chapter, index } ) => {
 		}
 	};
 
-	const isCurrentRef = ( verseNumber ) =>
-		currentReference &&
-		currentReference.book === book &&
-		currentReference.chapter === chapter &&
-		currentReference.verse === verseNumber + 1
+	const isCurrentRef = ( verseNumber ) => {
+		if ( verseNumber === null ) {
+			return false;
+		}
+		return currentReference &&
+			currentReference.book === book &&
+			currentReference.chapter === chapter &&
+			currentReference.verse === verseNumber + 1
 			? currentRef
 			: null;
+	};
 
 	const textToCopyRef = createRef( book + chapter + version + index );
 	const [ textToCopyText, setTextToCopyText ] = useState( '' );
@@ -89,14 +97,28 @@ const Chapter = ( { book, chapter, index } ) => {
 	}, [ textToCopyText ] );
 
 	const getSyncVerses = () => {
+		let parsedReference;
 		const title = (
 			<div className={ styles.chapterColumn }>
 				{ reference.map( ( { version }, index ) => {
+					let newBook = book,
+						newChapter = chapter;
+					if ( reference[ index ].book === 'Harmony' ) {
+						const parsedReference = getHarmonisedReference( {
+							book,
+							chapter,
+							verseNumber: 0, //TODO
+							index,
+						} );
+						newBook = parsedReference.book;
+						newChapter = parsedReference.chapter;
+					}
+
 					return (
 						<Fragment key={ index }>
 							<Title
-								book={ book }
-								chapter={ chapter }
+								book={ newBook }
+								chapter={ newChapter }
 								version={ version }
 								key={ index }
 								customClickHandler={ customClickHandler }
@@ -126,22 +148,74 @@ const Chapter = ( { book, chapter, index } ) => {
 							key={ verseNumber }
 							ref={ isCurrentRef( verseNumber ) }
 						>
+							{ book === 'Harmony' && (
+								<Waypoint
+									topOffset={ 0 }
+									onEnter={ ( { previousPosition } ) => {
+										if ( previousPosition === 'above' ) {
+											dispatch(
+												setScrollChapterHarmonised(
+													chapter,
+													verseNumber
+												)
+											);
+										}
+									} }
+									onLeave={ ( { currentPosition } ) => {
+										if ( currentPosition === 'above' ) {
+											dispatch(
+												setScrollChapterHarmonised(
+													chapter,
+													verseNumber
+												)
+											);
+										}
+									} }
+								>
+									<span
+										style={ {
+											height: '1px',
+										} }
+									/>
+								</Waypoint>
+							) }
 							{ reference.map( ( { version }, index ) => {
+								if ( book === 'Harmony' ) {
+									parsedReference = getHarmonisedReference( {
+										book,
+										chapter,
+										verseNumber,
+										index,
+									} );
+								} else {
+									parsedReference = {
+										book,
+										chapter,
+										verseNumber,
+										index,
+									};
+								}
+								const newVerseNumber =
+									parsedReference.verseNumber !== null
+										? parsedReference.verseNumber + 1
+										: null;
 								return (
 									<VerseWrapper
 										lang={ getLanguageFromVersion(
 											version,
 											book
 										) }
-										book={ book }
+										book={ parsedReference.book }
 										version={ version }
-										chapter={ chapter }
-										verse={ verseNumber + 1 }
+										chapter={ parsedReference.chapter }
+										verse={ newVerseNumber }
 										key={
-											'versewrapper' + index + verseNumber
+											'versewrapper' +
+											index +
+											newVerseNumber
 										}
 										isCurrentRef={
-											!! isCurrentRef( verseNumber )
+											!! isCurrentRef( newVerseNumber )
 										}
 									/>
 								);

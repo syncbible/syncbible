@@ -1,15 +1,5 @@
 @import '../dimensions';
 
-.button {
-	border-left: none;
-	border-right: none;
-	display: inline-block;
-	width: $dock-height;
-}
-
-.clear {
-	background: var(--background-ui);
+button.clear {
 	border: none;
-	cursor: pointer;
-	width: $dock-height;
 }

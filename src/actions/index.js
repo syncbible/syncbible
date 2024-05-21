@@ -1,4 +1,4 @@
-var cache = 'syncbible.23.0.1709768393';
+var cache = 'syncbible.23.0.1715985588';
 
 // External dependencies.
 import xhr from 'xhr';
@@ -14,9 +14,10 @@ import {
 	getUnSyncReference,
 	getNewVersionHash,
 	sortReferences,
+	getHarmonisedVerses,
+	findHarmonisedReference,
 } from '../lib/reference.js';
 import { isValidWord } from '../lib/word.js';
-import reference from '../reducers/reference.js';
 
 export const goToReferenceAction = ( reference, targetColumn ) => {
 	return function ( dispatch, getState ) {
@@ -30,6 +31,13 @@ export const goToReferenceAction = ( reference, targetColumn ) => {
 			targetColumn = state.settings.targetColumn;
 		}
 
+		// Harmonise reference if that setting is on.
+		const inSync = state.settings.inSync;
+
+		if ( inSync === 'harmonised' ) {
+			reference = findHarmonisedReference( reference );
+		}
+
 		const newHash = goToReferenceHelper(
 			state.reference,
 			reference,
@@ -37,6 +45,22 @@ export const goToReferenceAction = ( reference, targetColumn ) => {
 			state.settings.inSync
 		);
 		dispatch( push( '/#' + newHash ) );
+	};
+};
+
+export const goToChapterAction = ( chapterToGoTo ) => {
+	return function ( dispatch, getState ) {
+		const state = getState();
+		const bookId = bible.getBookId( state.reference[ 0 ].book );
+		const reference = { ...state.reference[ 0 ] };
+		reference.verse = 1;
+		if ( bible.Data.verses[ bookId - 1 ][ chapterToGoTo - 1 ] ) {
+			reference.chapter = chapterToGoTo;
+		} else {
+			// Go to the last chapter.
+			reference.chapter = bible.Data.verses[ bookId - 1 ].length;
+		}
+		dispatch( goToReferenceAction( reference ) );
 	};
 };
 
@@ -66,6 +90,36 @@ export const addColumnAction = ( version = '' ) => {
 	};
 };
 
+export const harmoniseAction = () => {
+	return function ( dispatch, getState ) {
+		const state = getState();
+		const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
+		const bookToHarmonise = books.indexOf( state.reference[ 0 ].book );
+		let harmonisedReference = {
+			book: 'Harmony',
+			chapter: 1,
+			verse: 1,
+		};
+		if ( bookToHarmonise > -1 ) {
+			harmonisedReference = findHarmonisedReference(
+				state.reference[ 0 ]
+			);
+		}
+
+		const versions = state.reference.map( ( { version } ) => version );
+		const referenceArray = books.map( ( book, index ) => {
+			return {
+				...harmonisedReference,
+				version: versions[ index ] ?? versions[ 0 ],
+			};
+		} );
+
+		dispatch( settingsChange( 'inSync', 'harmonised' ) );
+		const newHash = getNewVersionHash( referenceArray );
+		dispatch( push( '/#' + newHash ) );
+	};
+};
+
 export const deleteColumnAction = () => {
 	return function ( dispatch, getState ) {
 		const state = getState();
@@ -89,6 +143,28 @@ export const setScrollChapter = ( book, chapter, index ) => {
 		type: 'SET_SCROLL_CHAPTER',
 	};
 };
+
+export const setScrollChapterHarmonised = ( chapter, verseNumber ) => {
+	const harmonisedChapters = getHarmonisedVerses( { chapter, verseNumber } );
+	const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
+	return {
+		type: 'SET_ALL_SCROLL_CHAPTERS',
+		chapters: harmonisedChapters.map( ( reference, index ) => {
+			return {
+				book: books[ index ],
+				chapter: reference[ 0 ],
+			};
+		} ),
+	};
+};
+
+export function setScrollChapterSynced( book, chapter ) {
+	return {
+		book,
+		chapter,
+		type: 'SET_SCROLL_CHAPTER_SYNCED',
+	};
+}
 
 export const settingsChange = ( settingName, settingValue ) => {
 	var returnValue = {
@@ -673,6 +749,12 @@ export const toggleListItemVisible = ( item ) => {
 	return {
 		type: 'TOGGLE_LIST_ITEM_VISIBLE',
 		item: item,
+	};
+};
+
+export const closeAllListItems = () => {
+	return {
+		type: 'CLOSE_ALL_LIST_ITEMS',
 	};
 };
 

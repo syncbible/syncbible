@@ -8,6 +8,7 @@ import {
 	deleteColumnAction,
 	syncReferences,
 	unSyncReferences,
+	harmoniseAction,
 } from '../../actions';
 import Add from '../svg/add.js';
 import Menu from '../svg/menu.js';
@@ -16,7 +17,7 @@ import styles from './style.scss';
 const Controls = () => {
 	const dispatch = useDispatch();
 	const inSync = useSelector( ( state ) => state.settings.inSync );
-	const reference = useSelector( ( state ) => state.reference );
+	const referenceLength = useSelector( ( state ) => state.reference.length );
 	const change = ( event ) => {
 		if ( event.target.value === 'add' ) {
 			dispatch( addColumnAction() );
@@ -34,12 +35,16 @@ const Controls = () => {
 			dispatch( unSyncReferences() );
 		}
 
+		if ( event.target.value === 'harmonised' ) {
+			dispatch( harmoniseAction() );
+		}
+
 		setValue( '' );
 		event.target.blur();
 	};
 	const [ value, setValue ] = useState( '' );
 
-	if ( reference.length > 1 ) {
+	if ( referenceLength > 1 ) {
 		return (
 			<div className={ styles.controls }>
 				<button className={ styles.menu }>
@@ -55,17 +60,21 @@ const Controls = () => {
 					</option>
 					<option value="add">Add a column</option>
 					<option value="delete">Delete column</option>
-					{ inSync ? (
-						<option value="unsync">Un-sync references</option>
-					) : (
+					{ inSync !== true && (
 						<option value="sync">Sync references</option>
+					) }
+					{ inSync !== false && (
+						<option value="unsync">Un-sync references</option>
+					) }
+					{ inSync !== 'harmonised' && (
+						<option value="harmonised">Harmonise</option>
 					) }
 				</select>
 			</div>
 		);
 	}
 
-	if ( reference.length === 1 ) {
+	if ( referenceLength === 1 ) {
 		return (
 			<div className={ styles.controls }>
 				<button

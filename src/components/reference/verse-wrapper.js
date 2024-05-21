@@ -1,8 +1,11 @@
 // External
 import React, { useRef } from 'react';
 import classnames from 'classnames';
+import { Waypoint } from 'react-waypoint';
+import { useDispatch } from 'react-redux';
 
 // Internal
+import { setScrollChapter } from '../../actions';
 import CopyToClipboard from '../copy-to-clipboard';
 import Verse from './verse';
 import VerseNumber from './verse-number';
@@ -44,20 +47,22 @@ const VerseWrapper = ( {
 			dir={ bible.isRtlVersion( version, book ) ? 'rtl' : 'ltr' }
 			ref={ verseWrapperRef }
 		>
-			<div className={ styles.helpers }>
-				<VerseNumber
-					book={ book }
-					chapter={ chapter }
-					verse={ verse }
-					isCurrentRef={ isCurrentRef }
-				/>
-				<span className={ styles.hidden }>
-					<CopyToClipboard
-						fill={ '#999' }
-						textToCopy={ verseWrapperRef }
+			{ chapter && verse && (
+				<div className={ styles.helpers }>
+					<VerseNumber
+						book={ book }
+						chapter={ chapter }
+						verse={ verse }
+						isCurrentRef={ isCurrentRef }
 					/>
-				</span>
-			</div>
+					<span className={ styles.hidden }>
+						<CopyToClipboard
+							fill={ '#999' }
+							textToCopy={ verseWrapperRef }
+						/>
+					</span>
+				</div>
+			) }
 			<div className={ getClassName( book, version ) }>
 				<Verse reference={ reference } version={ version } />
 			</div>

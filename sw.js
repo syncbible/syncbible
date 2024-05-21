@@ -1,4 +1,4 @@
-var cache = 'syncbible.23.0.1709768393';
+var cache = 'syncbible.23.0.1715985588';
 
 self.addEventListener( 'install', function ( e ) {
 	e.waitUntil(
@@ -22,6 +22,7 @@ self.addEventListener( 'install', function ( e ) {
 				'data/searchResults.json',
 				'data/crossReferences.json',
 				'data/cdrplan.min.js',
+				'data/harmonised.js',
 
 				//api - so that search works offline?
 				'api/searchApi.js',

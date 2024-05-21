@@ -23,25 +23,24 @@ const getBookFromState = ( reference, scrollChapter ) => {
 };
 const getReferenceValue = ( reference, scrollChapter, version ) => {
 	const chapter =
-		scrollChapter && scrollChapter.chapter
-			? scrollChapter.chapter
-			: reference.chapter;
+		scrollChapter && scrollChapter?.chapter ? scrollChapter.chapter : '';
 	const book = getBookFromState( reference, scrollChapter );
 	const tranlatedBook = bible.getTranslatedBookName( book, version );
+	if ( ! tranlatedBook ) {
+		return ' ';
+	}
 	return tranlatedBook + ' ' + chapter;
 };
 
-const ReferenceInput = ( { index, last } ) => {
+const ReferenceInput = ( { index } ) => {
 	const dispatch = useDispatch();
-	const inSync = useSelector( ( state ) => state.settings.inSync );
-	const localIndex = inSync ? 0 : index;
 	const reference = useSelector( ( state ) => state.reference );
 	const scrollChapter = useSelector(
-		( state ) => state.scrollChapter[ localIndex ]
+		( state ) => state.scrollChapter[ index ]
 	);
 	const version = reference[ index ].version;
 	const referenceValue = getReferenceValue(
-		reference[ localIndex ],
+		reference[ index ],
 		scrollChapter,
 		version
 	);
@@ -75,7 +74,7 @@ const ReferenceInput = ( { index, last } ) => {
 
 	useEffect( () => {
 		setLocalReference( referenceValue );
-	}, [ reference, scrollChapter, inSync ] );
+	}, [ setLocalReference, referenceValue ] );
 
 	useEffect( () => {
 		if ( index === 0 ) {

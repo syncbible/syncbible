@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
-import { fetchSearchResults, fetchData } from '../../actions/index.js';
+//import { fetchSearchResults, fetchData } from '../../actions/index.js';
 import Bookmark from '../svg/bookmark.js';
 import CombinedResults from '../word-details/combined.js';
 import Single from './single';
@@ -18,8 +18,9 @@ const BookMarks = () => {
 
 	if ( bookmarks.length > 0 ) {
 		// Get the data for extra stuff in single.
-		dispatch( fetchSearchResults() );
-		dispatch( fetchData( 'original' ) );
+		// not used right now
+		//dispatch( fetchSearchResults() );
+		//dispatch( fetchData( 'original' ) );
 	}
 
 	return (

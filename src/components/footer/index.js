@@ -6,18 +6,12 @@ import classnames from 'classnames';
 // Internal dependencies
 import SyncBible from '../svg/syncbible.js';
 import TrayFilter from '../../components/trays/filter.js';
-import {
-	closeSidebar,
-	settingsChange,
-	openSidebar,
-} from '../../actions/index.js';
+import { settingsChange, openSidebar } from '../../actions/index.js';
 import styles from './styles.scss';
 
 const Footer = ( { trays } ) => {
-	const { compareMode } = useSelector( ( state ) => {
-		return {
-			compareMode: state.settings.compareMode,
-		};
+	const compareMode = useSelector( ( state ) => {
+		return state.settings.compareMode;
 	} );
 
 	const dispatch = useDispatch();

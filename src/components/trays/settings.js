@@ -1,6 +1,6 @@
 // External dependencies
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 // Internal dependencies
 import { settingsChange } from '../../actions';
@@ -8,21 +8,43 @@ import VersionSelect from '../version-select';
 import styles from './styles.scss';
 import { getStore, loadStore } from '../../app';
 
-// set up global - to be deleted
-javascripture.state = {};
-
 const SettingsTray = () => {
 	const dispatch = useDispatch();
-	const settings = useSelector( ( state ) => state.settings );
-	const reference = useSelector( ( state ) => state.reference );
+	const {
+		fontFamily,
+		fontSize,
+		highlightWordsWith,
+		targetColumn,
+		expandedSearchResults,
+		darkMode,
+		compareMode,
+		highlightSearchResults,
+		interfaceLanguage,
+		referenceCount,
+	} = useSelector( ( state ) => {
+		return {
+			fontFamily: state.settings.fontFamily,
+			fontSize: state.settings.fontSize,
+			highlightWordsWith: state.settings.highlightWordsWith,
+			targetColumn: state.settings.targetColumn,
+			expandedSearchResults: state.settings.expandedSearchResults,
+			darkMode: state.settings.darkMode,
+			compareMode: state.settings.compareMode,
+			highlightSearchResults: state.settings.highlightSearchResults,
+			interfaceLanguage: state.settings.interfaceLanguage,
+			referenceCount: state.reference.length,
+		};
+	}, shallowEqual );
 
-	// remove this line
-	javascripture.state.settings = settings;
+	const targetReferenceArray = [ ...Array( referenceCount ).keys() ];
 
-	const changeSetting = ( event ) => {
-		dispatch( settingsChange( event.target.name, event.target.value ) );
-		event.target.blur();
-	};
+	const changeSetting = useCallback(
+		( event ) => {
+			dispatch( settingsChange( event.target.name, event.target.value ) );
+			event.target.blur();
+		},
+		[ settingsChange ]
+	);
 
 	const changeCheckboxSetting = ( event ) => {
 		dispatch( settingsChange( event.target.name, event.target.checked ) );
@@ -38,7 +60,7 @@ const SettingsTray = () => {
 							<li className={ styles.settingsLi }>
 								<label>Fonts:</label>
 								<select
-									value={ settings.fontFamily }
+									value={ fontFamily }
 									name="fontFamily"
 									onChange={ changeSetting }
 								>
@@ -68,7 +90,7 @@ const SettingsTray = () => {
 							<li className={ styles.settingsLi }>
 								<label>Font size:</label>
 								<select
-									value={ settings.fontSize }
+									value={ fontSize }
 									name="fontSize"
 									onChange={ changeSetting }
 								>
@@ -90,7 +112,7 @@ const SettingsTray = () => {
 							<li className={ styles.settingsLi }>
 								<label>Highlight words with:</label>
 								<select
-									value={ settings.highlightWordsWith }
+									value={ highlightWordsWith }
 									id="highlightWordsWith"
 									name="highlightWordsWith"
 									onChange={ changeSetting }
@@ -104,12 +126,12 @@ const SettingsTray = () => {
 							<li className={ styles.settingsLi }>
 								<label>Target column:</label>
 								<select
-									value={ settings.targetColumn }
+									value={ targetColumn }
 									id="targetColumn"
 									name="targetColumn"
 									onChange={ changeSetting }
 								>
-									{ reference.map(
+									{ targetReferenceArray.map(
 										( singleReference, key ) => {
 											return (
 												<option
@@ -129,9 +151,7 @@ const SettingsTray = () => {
 									<input
 										type="checkbox"
 										name="expandedSearchResults"
-										checked={
-											settings.expandedSearchResults
-										}
+										checked={ expandedSearchResults }
 										onChange={ changeCheckboxSetting }
 									/>{ ' ' }
 									Show expanded search results
@@ -142,7 +162,7 @@ const SettingsTray = () => {
 									<input
 										type="checkbox"
 										name="darkMode"
-										checked={ settings.darkMode }
+										checked={ darkMode }
 										onChange={ changeCheckboxSetting }
 									/>{ ' ' }
 									Dark Mode
@@ -153,7 +173,7 @@ const SettingsTray = () => {
 									<input
 										type="checkbox"
 										name="compareMode"
-										checked={ settings.compareMode }
+										checked={ compareMode }
 										onChange={ changeCheckboxSetting }
 									/>{ ' ' }
 									Compare Mode
@@ -164,9 +184,7 @@ const SettingsTray = () => {
 									<input
 										type="checkbox"
 										name="highlightSearchResults"
-										checked={
-											settings.highlightSearchResults
-										}
+										checked={ highlightSearchResults }
 										onChange={ changeCheckboxSetting }
 									/>{ ' ' }
 									Highlight all words in a verse when hovering
@@ -176,7 +194,7 @@ const SettingsTray = () => {
 							<li className={ styles.settingsLi }>
 								<label>Interface language:</label>
 								<VersionSelect
-									value={ settings.interfaceLanguage }
+									value={ interfaceLanguage }
 									name="interfaceLanguage"
 									onChange={ changeSetting }
 								/>

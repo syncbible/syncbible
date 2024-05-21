@@ -9,42 +9,40 @@ import {
 	setCurrentListResult,
 	goToReferenceAction,
 	deactivateSearchSelect,
+	goToChapterAction,
 } from '../actions';
 import { getReferenceFromSearchResult } from '../lib/reference.js';
 
 // Component variables
 let lastTimeStamp = 0,
-	waiter;
+	waiter,
+	firstPartOfChapter,
+	chapterToGoTo;
 
 const KeyboardShortcuts = () => {
-	const currentListItem = useSelector( ( state ) =>
+	/* Taking this out for performance reasons.
+		const currentListItemFromState = useSelector( ( state ) =>
 		state.list.filter( ( { current } ) => typeof current !== 'undefined' )
-	).shift();
-	const reference = useSelector( ( state ) => state.reference );
+	);
+	const currentListItem = currentListItemFromState.shift();*/
 
 	const dispatch = useDispatch();
 
 	const goToChapter = ( event, combo ) => {
-		const currentTimeStamp = Math.floor( event.timeStamp ),
-			bookId = bible.getBookId( reference[ 0 ].book );
+		const currentTimeStamp = Math.floor( event.timeStamp );
 
-		let chapterToGoTo = combo;
-		if ( currentTimeStamp - lastTimeStamp < 500 ) {
-			chapterToGoTo = reference[ 0 ].chapter + combo;
+		chapterToGoTo = combo;
+		if ( currentTimeStamp - lastTimeStamp < 350 ) {
+			chapterToGoTo = firstPartOfChapter + chapterToGoTo;
 		}
 
-		if ( bible.Data.verses[ bookId - 1 ][ chapterToGoTo - 1 ] ) {
-			var newReference = reference[ 0 ];
-			newReference.chapter = chapterToGoTo;
-			newReference.verse = 1;
-
-			clearTimeout( waiter );
-			waiter = setTimeout( () => {
-				dispatch( goToReferenceAction( newReference ) );
-			}, 500 );
-		}
+		clearTimeout( waiter );
+		waiter = setTimeout( () => {
+			dispatch( goToChapterAction( chapterToGoTo ) );
+		}, 350 );
 
 		lastTimeStamp = currentTimeStamp;
+		firstPartOfChapter = chapterToGoTo;
 	};
 
 	const openTray = ( event, combo ) => {

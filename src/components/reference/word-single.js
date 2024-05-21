@@ -1,7 +1,7 @@
 // External
 import React from 'react';
 import classnames from 'classnames';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 // Internal
 import { activateSearchSelect, selectWord, updateData } from '../../actions';
@@ -30,7 +30,7 @@ const WordSingleComponent = ( props ) => {
 			),
 			strongsObjectWithFamilies: state.data.strongsObjectWithFamilies,
 		};
-	} );
+	}, shallowEqual );
 
 	const clearHighlightWord = () => {
 		window.updateAppComponent( 'highlightedWord', '' );
@@ -84,17 +84,17 @@ const WordSingleComponent = ( props ) => {
 	};
 
 	const getClassName = () => {
-		let family = null;
+		// Do this firstfor speed.
+		if ( lemma === 'added' ) {
+			return classnames( 'single', lemma );
+		}
 
+		let family = null;
 		if ( lemmaArray.length > 0 ) {
 			family = lemmaArray.map(
 				( oneLemma ) =>
 					getFamily( oneLemma, strongsObjectWithFamilies ) + '-family'
 			);
-		}
-
-		if ( lemma === 'added' ) {
-			return classnames( 'single', lemma );
 		}
 
 		return classnames( 'single', lemmaArray, family );

@@ -32,8 +32,8 @@
 	overflow-x: hidden;
 	position: fixed;
 	top: $dock-height;
-	left: calc( max( 50% - 320px / 2, $dock-height ) );
-	width: 320px;
+	left: calc( max( 50% - $sidebar-width / 2, $dock-height ) );
+	width: $sidebar-width;
 	z-index: 20;
 
 	@media ( min-width: 768px ) {

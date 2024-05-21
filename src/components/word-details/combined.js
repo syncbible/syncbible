@@ -1,5 +1,5 @@
 // External dependencies
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
@@ -7,20 +7,13 @@ import { setTrayVisibilityFilter } from '../../actions';
 import Collapsible from '../collapsible';
 import JoinFull from '../svg/join-full';
 import SortGroupResults from '../sort-group-results';
-import { getCombinedResults } from '../../lib/reference';
 
 const CombinedResults = ( { type } ) => {
 	const dispatch = useDispatch();
 	const [ open, setOpen ] = useState( false );
-	const list = useSelector( ( state ) => state.list );
-	const words = list.filter( ( { listType } ) => listType === type );
-	const results = words.map( ( { results } ) => {
-		return results;
+	const words = useSelector( ( state ) => {
+		return state.list.filter( ( { listType } ) => listType === type );
 	} );
-	const combinedResults = useMemo(
-		() => getCombinedResults( results ),
-		[ results ]
-	);
 
 	if ( words.length < 2 ) {
 		return null;
@@ -48,7 +41,7 @@ const CombinedResults = ( { type } ) => {
 			}
 		>
 			<SortGroupResults
-				results={ combinedResults }
+				type={ type }
 				initialGroup="verse"
 				initialSort="desc"
 				allowPreview={ true }

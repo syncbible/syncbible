@@ -1,5 +1,6 @@
 ## Todo
 
+-   paralell gospels?
 -   replace חׇpointing
 -   collapse all button
 -   hover verse and highlight all words

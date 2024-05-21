@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Internal dependencies
-import { setCurrentListResult, goToReferenceAction } from '../../actions';
+import { goToReferenceAction } from '../../actions';
 import ExpandedSearchResults from '../expanded-search-results';
 import styles from './styles.scss';
 import ReferenceText from '../reference-text';
@@ -19,9 +19,12 @@ const SearchLink = ( {
 	referenceToDisplay,
 } ) => {
 	// State constants
-	const settings = useSelector( ( state ) => state.settings );
-	const highlightSearchResults = settings && settings.highlightSearchResults;
-	const interfaceLanguage = settings && settings.interfaceLanguage;
+	const highlightSearchResults = useSelector(
+		( state ) => state.settingshighlightSearchResults
+	);
+	const interfaceLanguage = useSelector(
+		( state ) => state.interfaceLanguage
+	);
 
 	const reference = getReferenceFromSearchResult( referenceString );
 	if ( ! reference ) {
@@ -68,7 +71,7 @@ const SearchLink = ( {
 				className={ styles.searchLink }
 				onClick={ ( event ) => {
 					if ( wordId ) {
-						dispatch( setCurrentListResult( wordId, index ) );
+						//dispatch( setCurrentListResult( wordId, index ) );
 					}
 					event.stopPropagation();
 					event.preventDefault();

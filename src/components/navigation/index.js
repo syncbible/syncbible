@@ -1,5 +1,5 @@
 // External dependencies
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 // Internal dependencies
@@ -13,10 +13,13 @@ import styles from './styles.scss';
 
 const Navigation = ( { index, version } ) => {
 	const dispatch = useDispatch();
-	const handleChangeVersion = ( event ) => {
-		dispatch( changeVersion( event.target.name, event.target.value ) );
-		event.target.blur();
-	};
+	const handleChangeVersion = useCallback(
+		( event ) => {
+			dispatch( changeVersion( event.target.name, event.target.value ) );
+			event.target.blur();
+		},
+		[ changeVersion ]
+	);
 	const isRTL = bible.isRtlVersion( version );
 
 	return (

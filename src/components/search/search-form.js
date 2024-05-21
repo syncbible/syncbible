@@ -1,6 +1,6 @@
 // External dependencies
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { motion } from 'framer-motion';
 
 // Internal dependencies
@@ -32,9 +32,20 @@ const isSimpleLemmaSearch = ( { lemma, word, morph, clusivity, range } ) => {
 
 const SearchForm = ( { isActive } ) => {
 	const searchAdvanced = useSelector( ( state ) => state.searchAdvanced );
-	const settings = useSelector( ( state ) => state.settings );
-	const searchForm = useSelector( ( state ) => state.searchForm );
-	const data = useSelector( ( state ) => state.data );
+	// TODO - get the actual settings and form details, not an object.
+	const settings = useSelector( ( state ) => state.settings, shallowEqual );
+	const searchForm = useSelector(
+		( state ) => state.searchForm,
+		shallowEqual
+	);
+	const versionHasLoaded = useSelector( ( state ) => {
+		const version = state.searchForm.version;
+		if ( version && state.data[ version ] ) {
+			return Object.keys( state.data[ version ] ).length > 0;
+		}
+		return false;
+	} );
+
 	const dispatch = useDispatch();
 	javascripture.reactHelpers.dispatch = dispatch;
 
@@ -53,8 +64,10 @@ const SearchForm = ( { isActive } ) => {
 		dispatch( clearSearch() );
 	};
 	const isSubmitButtonDisabled = () => {
-		const versionData = data[ searchForm.version ];
-		return ! versionData || Object.keys( versionData ).length === 0;
+		return false;
+		return (
+			! versionHasLoaded || Object.keys( versionHasLoaded ).length === 0
+		);
 	};
 
 	const searchButtonText = () => {
@@ -84,10 +97,13 @@ const SearchForm = ( { isActive } ) => {
 	const change = ( event ) => {
 		dispatch( updateSearchForm( event.target.name, event.target.value ) );
 	};
-	const selectChange = ( event ) => {
-		change( event );
-		dispatch( fetchData( event.target.value ) );
-	};
+	const selectChange = useCallback(
+		( event ) => {
+			change( event );
+			dispatch( fetchData( event.target.value ) );
+		},
+		[ change, fetchData ]
+	);
 	const pickerButton = ( mode ) => {
 		return (
 			<button

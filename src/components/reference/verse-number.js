@@ -9,12 +9,12 @@ import styles from './styles.scss';
 import Bookmark from '../svg/bookmark';
 import { getCrossReferences } from '../../lib/cross-references';
 
-const VerseNumber = React.memo( ( { book, chapter, verse, isCurrentRef } ) => {
+const VerseNumber = ( { book, chapter, verse } ) => {
 	const dispatch = useDispatch();
 	const data = useSelector( ( state ) => state.data );
 
 	const addBookmarkAction = () => {
-		dispatch( setTrayVisibilityFilter( 'bookmarks' ) );
+		dispatch( setTrayVisibilityFilter( 'bookmark' ) );
 		dispatch(
 			addToList( {
 				listType: 'bookmark',
@@ -32,6 +32,7 @@ const VerseNumber = React.memo( ( { book, chapter, verse, isCurrentRef } ) => {
 		<span
 			className={ classnames( styles.verseNumber ) }
 			onClick={ addBookmarkAction }
+			title={ book + ' ' + chapter + ':' + verse }
 		>
 			<span>{ verse }</span>
 			<span className={ styles.verseNumberIcon }>
@@ -39,6 +40,6 @@ const VerseNumber = React.memo( ( { book, chapter, verse, isCurrentRef } ) => {
 			</span>
 		</span>
 	);
-} );
+};
 
-export default VerseNumber;
+export default React.memo( VerseNumber );

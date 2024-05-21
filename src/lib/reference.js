@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { uniq, forEach, groupBy, orderBy } from 'lodash';
+import verse from '../components/reference/verse';
 
 export const createReferenceLink = ( reference ) => {
 	let newReference =
@@ -306,6 +307,79 @@ export const areReferencesInSync = ( stateReference ) => {
 	return inSync;
 };
 
+export function getPreviousChapter( { book, chapter } ) {
+	if ( book === 'Harmony' ) {
+		if ( chapter === 1 ) {
+			return null;
+		}
+		return { book, chapter: chapter - 1 };
+	}
+
+	let bookId = bible.getBookId( book + ' ' + chapter );
+	if ( chapter == 1 && bookId > 1 ) {
+		bookId--;
+		chapter = bible.Data.verses[ bookId - 1 ].length;
+	} else if ( chapter === 1 && bookId === 1 ) {
+		return null;
+	} else {
+		chapter--;
+	}
+
+	const newBookName = bible.getBook( bookId );
+	return { book: newBookName, chapter };
+}
+export function getNextChapter( { book, chapter } ) {
+	if ( book === 'Harmony' ) {
+		if ( chapter === harmonised.length ) {
+			return null;
+		}
+		return { book, chapter: chapter + 1 };
+	}
+	let bookId = bible.getBookId( book + ' ' + chapter );
+	if ( chapter < bible.Data.verses[ bookId - 1 ].length ) {
+		chapter++;
+	} else if ( bookId < bible.Data.books.length ) {
+		bookId++;
+		chapter = 1;
+	} else {
+		return null;
+	}
+
+	const newBookName = bible.getBook( bookId );
+	return { book: newBookName, chapter };
+}
+
+export function getNumberOfVerses( { book, chapter } ) {
+	if ( book === 'Harmony' ) {
+		return harmonised[ chapter - 1 ].length;
+	}
+	const bookId = bible.getBookId( book + ' ' + chapter );
+	return bible.Data.verses[ bookId - 1 ][ chapter - 1 ];
+}
+
+export function getHarmonisedReference( {
+	book,
+	chapter,
+	verseNumber,
+	index,
+} ) {
+	const harmonisedReference =
+		harmonised[ chapter - 1 ][ verseNumber ][ index ];
+	const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
+	return {
+		book: books[ index ],
+		chapter: harmonisedReference[ 0 ] ?? null,
+		verseNumber: harmonisedReference[ 1 ]
+			? harmonisedReference[ 1 ] - 1
+			: null,
+		index,
+	};
+}
+
+export function getHarmonisedVerses( { chapter, verseNumber } ) {
+	return harmonised[ chapter - 1 ][ verseNumber ];
+}
+
 export const goToReferenceHelper = (
 	stateReference,
 	newReference,
@@ -346,17 +420,57 @@ export const getSyncReference = ( stateReference ) => {
 			version: reference.version,
 		};
 
+		if ( stateReference[ 0 ].book === 'Harmony' ) {
+			const harmonisedReference = getReferenceFromHarmony(
+				stateReference[ 0 ]
+			);
+			newSyncedReference = {
+				...newSyncedReference,
+				...harmonisedReference,
+				verse: harmonisedReference.verse - 1,
+				version: reference.version,
+			};
+		}
+
 		if ( stateReference[ 0 ].endVerse ) {
 			newSyncedReference.endVerse = stateReference[ 0 ].endVerse;
 		}
-
 		return newSyncedReference;
 	} );
+
 	return getHashFromStateReference( syncedReference );
 };
 
+function getReferenceFromHarmony( { chapter, verse, version } ) {
+	const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
+	const harmonisedVerses = getHarmonisedVerses( {
+		chapter: chapter,
+		verseNumber: verse,
+	} );
+	const harmonisedReference = harmonisedVerses
+		.filter(
+			( singleharmonisedReference ) =>
+				singleharmonisedReference.length > 0
+		)
+		.map( ( singleharmonisedReference, index ) => {
+			return {
+				book: books[ index ],
+				chapter: singleharmonisedReference[ 0 ],
+				verse: singleharmonisedReference[ 1 ],
+			};
+		} );
+
+	return {
+		...harmonisedReference[ 0 ],
+		version,
+	};
+}
+
 export const getUnSyncReference = ( stateReference ) => {
 	const unSyncedReference = stateReference.map( ( reference, index ) => {
+		if ( index === 0 && reference.book === 'Harmony' ) {
+			return getReferenceFromHarmony( reference );
+		}
 		if ( index > 0 ) {
 			return getRandomReference( reference.version );
 		}
@@ -445,11 +559,20 @@ export const getCombinedResults = ( list, group ) => {
 	return sortedResults;
 };*/
 
-export function getCombinedResults( listResults ) {
+export function getCombinedResults( listResults, group ) {
 	let combinedResults = [];
 	listResults.forEach( ( results ) => {
 		const resultsArray =
-			results && results.map( ( { reference } ) => reference );
+			results &&
+			results.map( ( { reference } ) => {
+				const referenceArray = reference.split( '.' );
+				if ( group === 'book' ) {
+					return referenceArray[ 0 ];
+				} else if ( group === 'chapter' ) {
+					return referenceArray[ 0 ] + '.' + referenceArray[ 1 ];
+				}
+				return reference;
+			} );
 		// Make these results unique.
 		const uniqueResults = [ ...new Set( resultsArray ) ];
 		combinedResults = combinedResults.concat( uniqueResults );
@@ -481,6 +604,7 @@ export const getGroupedResults = (
 		}
 		return reference;
 	} );
+
 	if ( selectedGroup === 'book' ) {
 		resultsToDisplay = groupBy( resultsArray, function ( item ) {
 			if ( Array.isArray( item ) ) {
@@ -534,3 +658,30 @@ export const getGroupedResults = (
 		return orderBy( resultsToDisplay, [ sortByReference ] );
 	}
 };
+
+export function findHarmonisedReference( { book, chapter, verse, version } ) {
+	const books = [ 'Matthew', 'Mark', 'Luke', 'John' ];
+	const bookIndex = books.indexOf( book );
+	if ( bookIndex === -1 ) {
+		return { book, chapter, verse, version };
+	}
+
+	let harmonisedVerse;
+	const harmonisedChapter = harmonised.findIndex( ( harmonisedChapter ) => {
+		harmonisedVerse = harmonisedChapter.findIndex( ( harmonisedArray ) => {
+			return (
+				harmonisedArray[ bookIndex ][ 0 ] === parseInt( chapter ) &&
+				harmonisedArray[ bookIndex ][ 1 ] === parseInt( verse )
+			);
+		} );
+
+		return harmonisedVerse > -1;
+	} );
+
+	return {
+		book: 'Harmony',
+		chapter: harmonisedChapter + 1,
+		verse: harmonisedVerse + 1,
+		version,
+	};
+}
