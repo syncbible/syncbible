@@ -279,6 +279,7 @@ const Rare = () => {
 						{ getBooks() }
 					</select>
 					<select
+						className={ styles.compareWithChapter }
 						name="compareWithChapter"
 						onChange={ compareChapterChange }
 						value={ reference ? reference.chapter : '' }
@@ -286,6 +287,7 @@ const Rare = () => {
 						{ getCompareChapters( reference ) }
 					</select>
 					<select
+						className={ styles.compareWithVerses }
 						name="compareWithVerses"
 						onChange={ compareVerseChange }
 						value={ reference ? reference.verse : '' }
