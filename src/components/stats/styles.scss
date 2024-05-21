@@ -8,9 +8,21 @@
 	gap: 3px;
 }
 
+
 .compareWithBook {
-	flex-grow: 1;
-	width: 100px;
+	flex: 1 1 auto;
+	min-width: 0px;
+	text-overflow: ellipsis;
+}
+
+.compareWithChapter {
+	flex: 1 1 auto;
+	min-width: 60px;
+}
+
+.compareWithVerses {
+	flex: 1 1 auto;
+	min-width: 60px;
 }
 
 .statsResults {
