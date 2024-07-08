@@ -43,14 +43,16 @@ const list = ( state = initialState, action ) => {
 			];
 
 		case 'ADD_SEARCH_RESULTS':
-			return state.map( ( item ) => {
-				if ( isEqual( action.terms, item.data ) ) {
-					item.loading = false;
-					item.loaded = true;
-					item.results = action.results;
-				}
-				return item;
-			} );
+			return [
+				...state.map( ( item ) => {
+					if ( isEqual( action.terms, item.data ) ) {
+						item.loading = false;
+						item.loaded = true;
+						item.results = action.results;
+					}
+					return { ...item };
+				} ),
+			];
 
 		case 'SET_CURRENT_LIST_RESULT':
 			//const indexToChange = state.findIndex( item => item.id === action.id );

@@ -257,7 +257,6 @@ export const addSearchResults = ( word ) => {
 		word.data.range = 'verse';
 		const state = getState();
 		const versionData = state.data[ word.data.version ];
-
 		dispatch( {
 			terms: word.data,
 			results: getResultsForWord( versionData, word.data.lemma ),
