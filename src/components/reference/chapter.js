@@ -215,7 +215,9 @@ const Chapter = ( { book, chapter, index } ) => {
 											newVerseNumber
 										}
 										isCurrentRef={
-											!! isCurrentRef( newVerseNumber )
+											!! isCurrentRef(
+												parsedReference.verseNumber
+											)
 										}
 									/>
 								);
