@@ -83,11 +83,7 @@ const SortGroupResults = ( {
 					sort,
 					interfaceLanguage
 				),
-			getGroupedResults,
-			_list,
-			group,
-			sort,
-			interfaceLanguage
+			[ getGroupedResults, _list, group, sort, interfaceLanguage ]
 		);
 		totalResultsCount = _list.results.length;
 		countedResults = useMemo(
