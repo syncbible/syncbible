@@ -6,9 +6,6 @@
 -   hover verse and highlight all words
 -   surface shared words between all found verses
 -   most similar verse
-
-Lev 24:16
-
 -   Ex 3:14 in ESV
 -   explain why combined doesn't show until you do a search
 -   combined when sorted - books out of order for the 1 result case
