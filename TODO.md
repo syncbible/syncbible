@@ -6,7 +6,6 @@
 -   hover verse and highlight all words
 -   surface shared words between all found verses
 -   most similar verse
--   Mark 12:19
 
 Lev 24:16
 
