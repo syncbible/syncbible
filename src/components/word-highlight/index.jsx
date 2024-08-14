@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // Internal
-import { getHighlight, getHighlightBorder } from '../strongs-color.js';
+import { getHighlight, getHighlightBorder } from '../strongs-color';
 import { isValidWord } from '../../lib/word.js';
 
 const WordHighlight = ( { word } ) => {

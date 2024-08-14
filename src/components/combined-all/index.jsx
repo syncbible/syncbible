@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 
 // Internal dependencies
 import styles from './styles.scss';
-import SortGroupResults from '../sort-group-results/index.js';
-import SyncBible from '../svg/syncbible.js';
+import SortGroupResults from '../sort-group-results/index';
+import SyncBible from '../svg/syncbible';
 
 const CombinedAll = () => {
 	const { compareMode } = useSelector( ( state ) => {

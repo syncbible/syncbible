@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Internal dependencies
-import CopySvg from '../svg/copy.js';
+import CopySvg from '../svg/copy';
 import styles from './styles.scss';
 
 import copyToClipboardHelper from '../../lib/copy-to-clipboard-helper';

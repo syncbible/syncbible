@@ -7,7 +7,7 @@ import { fetchData, settingsChange, toggleSidebar } from '../../actions';
 import styles from './styles.scss';
 import { mapVersionToData } from '../../lib/reference';
 import VersionSelect from '../version-select';
-import LeftPanelClose from '../svg/left-panel-close.js';
+import LeftPanelClose from '../svg/left-panel-close';
 
 const SidebarControls = ( { trays } ) => {
 	const dispatch = useDispatch();

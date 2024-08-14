@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import classnames from 'classnames';
 
 // Internal dependencies
-import SyncBible from '../svg/syncbible.js';
-import TrayFilter from '../../components/trays/filter.js';
+import SyncBible from '../svg/syncbible';
+import TrayFilter from '../../components/trays/filter';
 import { settingsChange, openSidebar } from '../../actions/index.js';
 import styles from './styles.scss';
 

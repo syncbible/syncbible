@@ -25,16 +25,16 @@ import Help from './help';
 import Search from '../search';
 
 // SVGs
-import BookSvg from '../svg/book.js';
-import BookmarksSvg from '../svg/bookmarks.js';
-import CompareSvg from '../svg/compare.js';
-import HelpSvg from '../svg/help.js';
-import EyeSvg from '../svg/eye.js';
-import SearchSvg from '../svg/search.js';
-import TableChartSvg from '../svg/table-chart.js';
-import CalendarSvg from '../svg/calendar.js';
-import JoinFull from '../svg/join-full.js';
-import CogSvg from '../svg/cog.js';
+import BookSvg from '../svg/book';
+import BookmarksSvg from '../svg/bookmarks';
+import CompareSvg from '../svg/compare';
+import HelpSvg from '../svg/help';
+import EyeSvg from '../svg/eye';
+import SearchSvg from '../svg/search';
+import TableChartSvg from '../svg/table-chart';
+import CalendarSvg from '../svg/calendar';
+import JoinFull from '../svg/join-full';
+import CogSvg from '../svg/cog';
 
 const trays = [
 	{

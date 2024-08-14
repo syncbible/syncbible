@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 // Internal
-import WordSingle from './word-single.js';
+import WordSingle from './word-single';
 import { getLiteralConsistentTranslation } from '../utils.js';
 
 function startsWithPunctuation( word ) {

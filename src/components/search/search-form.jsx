@@ -15,7 +15,7 @@ import {
 	fetchData,
 	selectWord,
 } from '../../actions';
-import PickerSvg from '../svg/picker.js';
+import PickerSvg from '../svg/picker';
 import VersionSelect from '../version-select';
 import styles from './styles.scss';
 

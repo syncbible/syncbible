@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Internal dependencies
-import RemoveSvg from '../svg/remove.js';
+import RemoveSvg from '../svg/remove';
 import CopyToClipboard from '../copy-to-clipboard';
 import styles from './styles.scss';
 

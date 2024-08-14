@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // Internal dependencies
 //import { fetchSearchResults, fetchData } from '../../actions/index.js';
-import Bookmark from '../svg/bookmark.js';
-import CombinedResults from '../word-details/combined.js';
+import Bookmark from '../svg/bookmark';
+import CombinedResults from '../word-details/combined';
 import Single from './single';
 import styles from './styles.scss';
 

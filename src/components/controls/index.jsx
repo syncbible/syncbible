@@ -10,8 +10,8 @@ import {
 	unSyncReferences,
 	harmoniseAction,
 } from '../../actions';
-import Add from '../svg/add.js';
-import Menu from '../svg/menu.js';
+import Add from '../svg/add';
+import Menu from '../svg/menu';
 import styles from './style.scss';
 
 const Controls = () => {

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // Internal dependencies
 import { removeTypeFromList } from '../../actions';
 
-import DeleteForever from '../svg/delete-forever.js';
+import DeleteForever from '../svg/delete-forever';
 import styles from './style.scss';
 
 const Clear = ( { selectedTrayId } ) => {
