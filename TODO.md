@@ -1,5 +1,12 @@
 ## Todo
 
+Migrate to vite
+
+-   replace classnames with CSX
+-   use .jsx for all files with jsx in them
+-   use redux-react-router instead of connected-react-router
+-   do we still need to load and save settings options?
+
 -   paralell gospels?
 -   replace חׇpointing
 -   collapse all button
