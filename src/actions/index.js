@@ -486,7 +486,7 @@ export const fetchData = ( key ) => {
 			xhr(
 				{
 					method: 'get',
-					uri: '/data/farsi-translations.json',
+					uri: 'data/farsi-translations.json',
 					headers: {
 						'Content-Type': 'application/json',
 					},
@@ -497,7 +497,7 @@ export const fetchData = ( key ) => {
 
 					caches.open( cache ).then( function ( cache ) {
 						return cache.addAll( [
-							'/data/farsi-translations.json',
+							'data/farsi-translations.json',
 						] );
 					} );
 				}
@@ -507,7 +507,7 @@ export const fetchData = ( key ) => {
 		return xhr(
 			{
 				method: 'get',
-				uri: '/bibles/' + key + '.json',
+				uri: 'bibles/' + key + '.json',
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -520,7 +520,7 @@ export const fetchData = ( key ) => {
 					dispatch( receiveData( key, parsedData ) );
 				}
 				caches.open( cache ).then( function ( cache ) {
-					return cache.addAll( [ '/bibles/' + key + '.json' ] );
+					return cache.addAll( [ 'bibles/' + key + '.json' ] );
 				} );
 			}
 		);
@@ -537,7 +537,7 @@ export const fetchSearchResults = () => {
 		return xhr(
 			{
 				method: 'get',
-				uri: '/data/searchResults.json',
+				uri: 'data/searchResults.json',
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -559,7 +559,7 @@ export const fetchCrossReferences = () => {
 		return xhr(
 			{
 				method: 'get',
-				uri: '/data/crossReferences.json',
+				uri: 'data/crossReferences.json',
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -584,7 +584,7 @@ export const fetchStrongsDictonary = () => {
 		return xhr(
 			{
 				method: 'get',
-				uri: '/data/strongs-dictionary.json',
+				uri: 'data/strongs-dictionary.json',
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -609,7 +609,7 @@ export const fetchStrongsDictonaryWithFamilies = () => {
 		return xhr(
 			{
 				method: 'get',
-				uri: '/data/strongsObjectWithFamilies.json',
+				uri: 'data/strongsObjectWithFamilies.json',
 				headers: {
 					'Content-Type': 'application/json',
 				},
