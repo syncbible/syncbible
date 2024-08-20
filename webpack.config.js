@@ -6,31 +6,29 @@ var webpack = require( 'webpack' ),
 	NODE_ENV = process.env.NODE_ENV || 'development',
 	path = require( 'path' );
 
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
+const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
 
 var config = {
 	mode: NODE_ENV,
 	entry: {
-		'bundle' : [
-			'./src'
-		]
+		bundle: [ './src' ],
 	},
 
 	output: {
 		path: path.join( __dirname, 'build' ),
 		publicPath: '/build/',
 		filename: '[name].js',
-		devtoolModuleFilenameTemplate: 'app:///[resource-path]'
+		devtoolModuleFilenameTemplate: 'app:///[resource-path]',
 	},
 
 	module: {
 		rules: [
 			{
-				test:   /\.jsx?$/,
+				test: /\.jsx?$/,
 				loader: 'babel-loader',
 				exclude: /node_modules/,
-				include: path.join( __dirname, '/src' )
+				include: path.join( __dirname, '/src' ),
 			},
 			{
 				test: /\.scss$/,
@@ -41,26 +39,26 @@ var config = {
 						options: {
 							modules: true,
 							modules: {
-								exportLocalsConvention: "camelCase",
+								exportLocalsConvention: 'camelCase',
 								localIdentName: '[path][local]',
 							},
 							importLoaders: 1,
-							sourceMap: true
-						}
+							sourceMap: true,
+						},
 					},
 					'postcss-loader',
 					{
 						loader: 'sass-loader?sourceMap',
 						options: {
 							sourceMap: true,
-						}
-					}
-				]
-			}
+						},
+					},
+				],
+			},
 		],
 	},
 	resolve: {
-		extensions: [ '.json', '.js', '.jsx' ]
+		extensions: [ '.json', '.js', '.jsx' ],
 	},
 	node: {
 		global: true,
@@ -71,10 +69,10 @@ var config = {
 		new webpack.DefinePlugin( {
 			'process.env': {
 				NODE_ENV: JSON.stringify( NODE_ENV ),
-				BROWSER: JSON.stringify( true )
-			}
+				BROWSER: JSON.stringify( true ),
+			},
 		} ),
-	]
+	],
 };
 
 if ( process.env.NODE_ENV !== 'production' ) {
@@ -89,7 +87,8 @@ if ( process.env.NODE_ENV !== 'production' ) {
 		hot: true,
 		port: 7777,
 		historyApiFallback: true,
-		disableHostCheck: true
+		disableHostCheck: true,
+		publicPath: '/build/',
 	};
 
 	/*config.module.rules.unshift( {

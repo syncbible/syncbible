@@ -2,17 +2,17 @@
 <html>
 	<head>
 		<!-- Favicon code -->
-		<link rel="icon" type="image/svg+xml" href="/syncbible.svg">
-		<link rel="manifest" href="/manifest.json">
+		<link rel="icon" type="image/svg+xml" href="syncbible.svg">
+		<link rel="manifest" href="manifest.json">
 		<meta name="msapplication-TileColor" content="#ffffff">
-		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+		<meta name="msapplication-TileImage" content="ms-icon-144x144.png">
 		<meta name="theme-color" content="#ffffff">
 		<!-- End favicon code -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="google" content="notranslate" />
 		<link rel="canonical" href="https://sync.bible" />
-		<link rel="manifest" href="/manifest.json">
+		<link rel="manifest" href="manifest.json">
 		<title>sync.bible</title>
 		<link rel="stylesheet" href="css/layout.css" />
 		<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -56,7 +56,7 @@
 
 	function clear() {
 		indexedDB.deleteDatabase('syncbible');
-		window.location.href="/";
+		window.location.href="/syncbible";
 	}
 </script>
 
@@ -96,7 +96,7 @@
 	let newWorker;
 	if( 'serviceWorker' in navigator) {
 		navigator.serviceWorker
-			.register('/sw.js', { updateViaCache: 'imports' } )
+			.register('sw.js', { updateViaCache: 'imports' } )
 			.then( function( reg ) {
 				reg.addEventListener('updatefound', () => {
 

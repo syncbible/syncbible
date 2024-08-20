@@ -1,4 +1,4 @@
-var cache = 'syncbible.23.0.1724192244';
+var cache = 'syncbible.23.0.1724194351';
 
 // External dependencies.
 import xhr from 'xhr';
@@ -44,7 +44,7 @@ export const goToReferenceAction = ( reference, targetColumn ) => {
 			targetColumn,
 			state.settings.inSync
 		);
-		dispatch( push( '/#' + newHash ) );
+		dispatch( push( '#' + newHash ) );
 	};
 };
 
@@ -68,7 +68,7 @@ export const syncReferences = () => {
 	return function ( dispatch, getState ) {
 		const state = getState();
 		const newHash = getSyncReference( state.reference );
-		dispatch( push( '/#' + newHash ) );
+		dispatch( push( '#' + newHash ) );
 		dispatch( settingsChange( 'inSync', true ) );
 	};
 };
@@ -77,7 +77,7 @@ export const unSyncReferences = () => {
 	return function ( dispatch, getState ) {
 		const state = getState();
 		const newHash = getUnSyncReference( state.reference );
-		dispatch( push( '/#' + newHash ) );
+		dispatch( push( '#' + newHash ) );
 		dispatch( settingsChange( 'inSync', false ) );
 	};
 };
@@ -86,7 +86,7 @@ export const addColumnAction = ( version = '' ) => {
 	return function ( dispatch, getState ) {
 		const state = getState();
 		const newHash = addColumnHelper( state.reference, version );
-		dispatch( push( '/#' + newHash ) );
+		dispatch( push( '#' + newHash ) );
 	};
 };
 
@@ -116,7 +116,7 @@ export const harmoniseAction = () => {
 
 		dispatch( settingsChange( 'inSync', 'harmonised' ) );
 		const newHash = getNewVersionHash( referenceArray );
-		dispatch( push( '/#' + newHash ) );
+		dispatch( push( '#' + newHash ) );
 	};
 };
 
@@ -124,7 +124,7 @@ export const deleteColumnAction = () => {
 	return function ( dispatch, getState ) {
 		const state = getState();
 		const newHash = deleteColumnHelper( state.reference );
-		dispatch( push( '/#' + newHash ) );
+		dispatch( push( '#' + newHash ) );
 	};
 };
 
@@ -376,7 +376,7 @@ export const changeVersion = ( index, version ) => {
 			parseInt( index ),
 			version
 		);
-		dispatch( push( '/#' + newHash ) );
+		dispatch( push( '#' + newHash ) );
 	};
 };
 
